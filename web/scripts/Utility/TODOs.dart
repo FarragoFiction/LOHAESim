@@ -20,6 +20,7 @@ abstract class TODOs {
             ..add(new Thingy("Clicking on canvas with fruit selected drops it, when it touches ground, it grows new tree."))
             ..add(new Thingy("Roots."))
             ..add(new Thingy("Essence."))
+            ..add(new Thingy("Nidhogg's Herald."))
             ..add(new Thingy("Nidhogg."))
             ..add(new Thingy("Page where you can convert tree bux to Caegers (but iff patient empress). Maybe in wigglersim itself."))
             ..add(new Thingy("Page where you can send special fruits (essence/grubs) into wigglersim."))
