@@ -6,11 +6,23 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #002d4a;
+  background-color: #000000;
+  color: #ffffff;
 }
+
+#worldCanvas{
+    left: 150px;
+    top: 250px;
+}
+
 
 .worldBase{
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    left: 400px;
+    padding: 50px;
 }
 
 .frameLayer{
@@ -22,4 +34,5 @@ html, body {
 #output {
   padding: 20px;
   text-align: center;
+  width: 1000px;
 }
