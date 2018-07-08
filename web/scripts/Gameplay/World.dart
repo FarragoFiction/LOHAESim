@@ -1,13 +1,14 @@
+import 'Tree.dart';
 import 'dart:async';
 import 'dart:html';
 import "package:DollLibCorrect/DollRenderer.dart";
 //yggdrasil
 class World {
     int width = 800;
-    int height = 1000;
+    int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
 
-    List<TreeDoll> trees = new List<TreeDoll>();
+    List<Tree> trees = new List<Tree>();
 
     Element container;
     CanvasElement buffer;
@@ -23,6 +24,15 @@ class World {
         container = new DivElement();
         container.classes.add("worldBase");
         parentContainer.append(container);
+        //TODO init sample tree
+        trees.add(new Tree(new TreeDoll(), 0, 300));
+        trees.add(new Tree(new TreeDoll(), 150, 300));
+        trees.add(new Tree(new TreeDoll(), 300, 300));
+        trees.add(new Tree(new TreeDoll(), 450, 300));
+        trees.add(new Tree(new TreeDoll(), 600, 300));
+        trees.add(new Tree(new TreeDoll(), 750, 300));
+
+
     }
 
 
@@ -50,6 +60,7 @@ class World {
         fruit.classes.add("frameLayer");
         eyes = await Loader.getResource("images/BGs/frameEyes.png");
         eyes.classes.add("frameLayer");
+        //container.append(eyes);
         buffer = new CanvasElement(width: width, height: height);
     }
 
@@ -58,7 +69,14 @@ class World {
         buffer.context2D.fillStyle = "#5d3726";
         buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
         buffer.context2D.drawImage(bg,0,0);
+
+        for(Tree tree in trees) {
+            CanvasElement treeCanvas = await tree.canvas;
+            buffer.context2D.drawImageScaled(treeCanvas, tree.x, tree.y, tree.doll.width/2, tree.doll.width/2);
+        }
+
         onScreen.context2D.drawImage(buffer, 0,0);
+
     }
 
 
