@@ -4,7 +4,7 @@ import 'dart:html';
 abstract class TODOs {
     static  void drawTodos(Element container) {
         List<Thingy> tmp = new List<Thingy>()
-            ..add(new Thingy("Get a sufficiently big canvas to draw trees onto."))
+            ..add(new Thingy("Get a sufficiently big canvas to draw trees onto. make it the World object."))
             ..add(new Thingy("Draw one random tree."))
             ..add(new Thingy("Make that random tree small, with no leaves."))
             ..add(new Thingy("Every five minutes the random tree doubles in size, till its full size or more (cap at full size)."))
