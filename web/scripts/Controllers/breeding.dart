@@ -10,3 +10,10 @@ void main() {
     //ygdrassil.testTrees();
     ygdrassil.render();
 }
+
+
+void hookUpTestControls() {
+
+}
+
+

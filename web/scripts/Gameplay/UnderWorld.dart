@@ -15,7 +15,7 @@ class UnderWorld {
     int height = 800;
 
     UnderWorld() {
-        player = new Player();
+        player = new Player(width, height);
     }
 
     Future<Null> initCanvasAndBuffer() async {

@@ -11,9 +11,17 @@ class Player {
     int topLeftY = 300;
     int width = 92;
     int height = 92;
+    int speed = 45;
+    //don't let the player go below zero or above this
+    int maxX;
+    int maxY;
+    int minX = 0;
+    int minY = 0;
+
 
     num get x => topLeftX-width/2;
     num get y => topLeftY-height/2;
+
 
 
     int flashlightWidth =100;
@@ -28,6 +36,28 @@ class Player {
 
     Future<Null> initCanvasAndBuffer() async {
         _image = await Loader.getResource("images/BGs/owo.png");
+    }
+
+    Player(int this.maxX, int this.maxY);
+
+    void up() {
+        topLeftY += -42;
+        if(topLeftY <minY) topLeftY = minY;
+    }
+
+    void down() {
+        topLeftY += 42;
+        if(topLeftY > maxY) topLeftY = maxY;
+    }
+
+    void left() {
+        topLeftX += 42;
+        if(topLeftX < minX) topLeftX = minX;
+    }
+
+    void right() {
+        topLeftX += 42;
+        if(topLeftX > maxX) topLeftX = maxX;
     }
 
 
