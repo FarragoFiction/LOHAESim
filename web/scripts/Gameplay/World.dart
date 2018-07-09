@@ -47,12 +47,10 @@ class World {
     }
 
     void testTrees() {
-        trees.add(new Tree(new TreeDoll(), 0, 300));
         trees.add(new Tree(new TreeDoll(), 150, 300));
         trees.add(new Tree(new TreeDoll(), 300, 300));
         trees.add(new Tree(new TreeDoll(), 450, 300));
         trees.add(new Tree(new TreeDoll(), 600, 300));
-        trees.add(new Tree(new TreeDoll(), 750, 300));
     }
 
 
@@ -60,6 +58,9 @@ class World {
     Future<Null> initCanvasAndBuffer() async {
         //graphic of branches holding it up, yggdrasil style
         onScreen = new CanvasElement(width: width, height:height);
+        onScreen.context2D.font = "72px Papyrus";
+        onScreen.context2D.fillStyle = "#ffffff";
+        onScreen.context2D.fillText("LOADING",width/4,height/10);
         onScreen.classes.add("frameLayer");
         onScreen.id  = "worldCanvas";
         container.append(onScreen);
