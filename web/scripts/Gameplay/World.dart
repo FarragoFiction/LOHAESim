@@ -1,4 +1,5 @@
 import 'Tree.dart';
+import 'UnderWorld.dart';
 import 'dart:async';
 import 'dart:html';
 import "package:DollLibCorrect/DollRenderer.dart";
@@ -19,11 +20,12 @@ class World {
 
     List<Tree> trees = new List<Tree>();
 
+    UnderWorld underWorld = new UnderWorld();
+
     Element container;
     CanvasElement buffer;
     CanvasElement onScreen;
     ImageElement bg;
-    ImageElement roots;
     ImageElement branches;
     ImageElement leaves;
     ImageElement flowers;
@@ -59,7 +61,6 @@ class World {
         onScreen.id  = "worldCanvas";
         container.append(onScreen);
         bg = await Loader.getResource(bgLocation);
-        roots = await Loader.getResource("images/BGs/rootsPlain.png");
         branches = await Loader.getResource("images/BGs/frame.png");
         branches.classes.add("frameLayer");
         branches.style.display = "none";
@@ -135,12 +136,14 @@ class World {
         buffer.context2D.fillStyle = "#5d3726";
         buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
         buffer.context2D.drawImage(bg,0,0);
-        buffer.context2D.drawImage(roots,-5,680);
 
         for(Tree tree in trees) {
             CanvasElement treeCanvas = await tree.canvas;
             buffer.context2D.drawImageScaled(treeCanvas, tree.x, tree.y, tree.doll.width/2, tree.doll.width/2);
         }
+
+        await underWorld.render(buffer);
+
 
         onScreen.context2D.drawImage(buffer, 0,0);
 
