@@ -24,6 +24,14 @@ void hookUpTestControls() {
         keycodes.remove(e.keyCode);
         movePlayer();
     });
+    InputElement rangeElement = new InputElement()..type = "range"..max = "${13*4}"..min="${-13*3}"..value = "${ygdrassil.health}";
+    rangeElement.style.display = "block";
+    output.append(rangeElement);
+
+    rangeElement.onChange.listen((Event e) {
+        ygdrassil.health = int.parse(rangeElement.value);
+        ygdrassil.showAndHideYgdrssylLayers();
+    });
 }
 
 
