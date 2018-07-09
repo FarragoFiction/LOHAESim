@@ -6,7 +6,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #000000;
+  background-color: #5d3726;
   color: #ffffff;
 }
 
@@ -30,6 +30,8 @@ html, body {
     top:0px;
     left:0px
 }
+
+
 
 #output {
   padding: 20px;

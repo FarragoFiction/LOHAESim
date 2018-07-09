@@ -18,6 +18,7 @@ abstract class TODOs {
             ..add(new Thingy("On creation, tree knows what flower it will have and what fruit (fruit can be random)"))
             ..add(new Thingy("Make dollLib tree breeding account for fruit/flowers/leaves. "))
             ..add(new Thingy("Clicking on canvas with fruit selected drops it, when it touches ground, it grows new tree."))
+            ..add(new Thingy("frame tree changes as game progresses"))
             ..add(new Thingy("Roots."))
             ..add(new Thingy("Essence."))
             ..add(new Thingy("Nidhogg's Herald."))

@@ -6,5 +6,7 @@ Element output = querySelector('#output');
 World ygdrassil = new World(output);
 void main() {
     TODOs.drawTodos(output);
+    ygdrassil.health = 26;
+    ygdrassil.testTrees();
     ygdrassil.render();
 }
