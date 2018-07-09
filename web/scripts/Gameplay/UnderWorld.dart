@@ -1,6 +1,7 @@
 import 'Player.dart';
 import 'dart:async';
 import 'dart:html';
+import "dart:math" as Math;
 
 import 'package:RenderingLib/RendereringLib.dart';
 
@@ -26,7 +27,8 @@ class UnderWorld {
     Future<Null> render(CanvasElement worldBuffer) async {
         if(buffer == null) await initCanvasAndBuffer();
         print("rendering underworld");
-        buffer.context2D.fillStyle = "#5d3726";
+        //slightly brighter dirt to look like light
+        buffer.context2D.fillStyle = "#71402a";
         //dirt.context2D.fillStyle = "#00ff00";
 
         buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
@@ -48,7 +50,10 @@ class UnderWorld {
         //dirt.context2D.fillStyle = "#00ff00";
 
         dirt.context2D.fillRect(0, 0, dirt.width, dirt.height);
-        dirt.context2D.clearRect(player.x, player.y,player.flashlightWidth, player.flashlightHeight);
+        dirt.context2D.beginPath();
+        dirt.context2D.arc(player.topLeftX,player.topLeftY,100,0,2*Math.PI);
+        dirt.context2D.clip();
+        Renderer.clearCanvas(dirt);
         buffer.context2D.drawImage(dirt,0,0);
     }
 
