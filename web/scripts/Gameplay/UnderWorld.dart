@@ -52,9 +52,11 @@ class UnderWorld {
         dirt.context2D.fillRect(0, 0, dirt.width, dirt.height);
         dirt.context2D.beginPath();
         dirt.context2D.arc(player.topLeftX,player.topLeftY,100,0,2*Math.PI);
+        dirt.context2D.save();
         dirt.context2D.clip();
         Renderer.clearCanvas(dirt);
         buffer.context2D.drawImage(dirt,0,0);
+        dirt.context2D.restore();
     }
 
 

@@ -51,7 +51,7 @@ class Player {
     }
 
     void left() {
-        topLeftX += 42;
+        topLeftX += -42;
         if(topLeftX < minX) topLeftX = minX;
     }
 
