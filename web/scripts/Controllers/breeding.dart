@@ -7,6 +7,6 @@ World ygdrassil = new World(output);
 void main() {
     TODOs.drawTodos(output);
     ygdrassil.health = 26;
-    ygdrassil.testTrees();
+    //ygdrassil.testTrees();
     ygdrassil.render();
 }

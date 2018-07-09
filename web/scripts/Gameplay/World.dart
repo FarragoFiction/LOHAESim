@@ -33,6 +33,9 @@ class World {
     ImageElement eyes;
     ImageElement tentacles;
 
+    //don't redraw overworld unless you really have to
+    bool overWorldDirty = true;
+
 
     World(Element parentContainer) {
         container = new DivElement();
@@ -133,13 +136,19 @@ class World {
 
     Future<Null> render() async {
         if(buffer == null) await initCanvasAndBuffer();
-        buffer.context2D.fillStyle = "#5d3726";
-        buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
-        buffer.context2D.drawImage(bg,0,0);
+        if(overWorldDirty) {
+            Renderer.clearCanvas(buffer);
+            buffer.context2D.fillStyle = "#5d3726";
+            buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
+            buffer.context2D.drawImage(bg, 0, 0);
 
-        for(Tree tree in trees) {
-            CanvasElement treeCanvas = await tree.canvas;
-            buffer.context2D.drawImageScaled(treeCanvas, tree.x, tree.y, tree.doll.width/2, tree.doll.width/2);
+            for (Tree tree in trees) {
+                CanvasElement treeCanvas = await tree.canvas;
+                buffer.context2D.drawImageScaled(
+                    treeCanvas, tree.x, tree.y, tree.doll.width / 2,
+                    tree.doll.width / 2);
+            }
+            overWorldDirty = false; //not dirty anymore, am drawing.
         }
 
         await underWorld.render(buffer);
