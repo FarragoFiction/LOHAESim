@@ -8,7 +8,7 @@ import 'package:RenderingLib/RendereringLib.dart';
 class Player {
     //relative to underworld, center of player (not top left)
     int x = 300;
-    int y = 0;
+    int y = 30;
     int flashlightWidth =100;
     int flashlightHeight = 100;
     String imgLoc = "images/BGs/owo.png";

@@ -26,7 +26,10 @@ class UnderWorld {
     Future<Null> render(CanvasElement worldBuffer) async {
         if(buffer == null) await initCanvasAndBuffer();
         print("rendering underworld");
-        Renderer.clearCanvas(buffer);
+        buffer.context2D.fillStyle = "#5d3726";
+        //dirt.context2D.fillStyle = "#00ff00";
+
+        buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
 
         buffer.context2D.drawImage(roots,0,0);
         ImageElement playerImage = await player.image;
