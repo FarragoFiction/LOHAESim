@@ -28,10 +28,17 @@ class UnderWorld {
         if(buffer == null) await initCanvasAndBuffer();
         print("rendering underworld");
         //slightly brighter dirt to look like light
-        buffer.context2D.fillStyle = "#71402a";
+        //buffer.context2D.fillStyle = "#71402a";
+        //#44281b
         //dirt.context2D.fillStyle = "#00ff00";
+        buffer.context2D.save();
+        CanvasGradient grd = buffer.context2D.createLinearGradient(buffer.height, buffer.height, buffer.height, 0);
+        grd.addColorStop(0, "#341c11");
+        grd.addColorStop(1,"#71402a");
 
+        buffer.context2D.fillStyle = grd;
         buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
+        buffer.context2D.restore();
 
         buffer.context2D.drawImage(roots,0,0);
         ImageElement playerImage = await player.image;
