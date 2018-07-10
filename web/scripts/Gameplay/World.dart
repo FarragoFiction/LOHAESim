@@ -36,6 +36,9 @@ class World {
     ImageElement tentacles;
 
     AudioElement backgroundMusic = querySelector("#bgAudio");
+    SourceElement mp3 = querySelector("#mp3");
+    SourceElement ogg = querySelector("#ogg");
+
 
     //don't redraw overworld unless you really have to
     bool overWorldDirty = true;
@@ -105,10 +108,18 @@ class World {
 
     void changeMusic(String newMusicLocation) {
         int time = backgroundMusic.currentTime;
-        print("current music is ${backgroundMusic.src}");
+        print("current music is ${backgroundMusic.src} time is $time");
         backgroundMusic.src = "${newMusicLocation}.ogg";
+
+        mp3.src = "$newMusicLocation.mp3";
+        mp3.type = "audio/mpeg";
+
+        ogg.src = "$newMusicLocation.mp3";
+        ogg.type = "audio/ogg";
+
         backgroundMusic.currentTime = time;
         backgroundMusic.play();
+
     }
 
     void showAndHideYgdrssylLayers() {

@@ -37,14 +37,31 @@ void hookUpTestControls() {
 
 void movePlayer() {
     Player player = ygdrassil.underWorld.player;
+    bool render = false;
     for(int keyCode in keycodes) {
         //wasd
-        if (keyCode == 65) player.left();
-        if (keyCode == 68) player.right();
-        if (keyCode == 87) player.up();
-        if (keyCode == 83) player.down();
+        if (keyCode == 65) {
+            player.left();
+            render = true;
+        }
+        if (keyCode == 68) {
+            player.right();
+            render = true;
+
+        }
+        if (keyCode == 87) {
+            player.up();
+            render = true;
+
+        }
+        if (keyCode == 83) {
+            player.down();
+            render = true;
+
+        }
     }
-    ygdrassil.render();
+    if(render) ygdrassil.render();
+
 }
 
 
