@@ -8,8 +8,8 @@ class World {
     int width = 800;
     int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
-    String ominousMusic = "Flow_on_Distorted_up";
-    String happyMusic = "Flow_on_2";
+    String ominousMusic = "Music/Flow_on_Distorted_up";
+    String happyMusic = "Music/Flow_on_2";
 
     static final int LEAFLEVEL = 13;
     static final int FLOWERLEVEL = 26;
