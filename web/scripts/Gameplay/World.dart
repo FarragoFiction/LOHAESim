@@ -8,6 +8,8 @@ class World {
     int width = 800;
     int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
+    String ominousMusic = "Flow_on_Distorted_up";
+    String happyMusic = "Flow_on_2";
 
     static final int LEAFLEVEL = 13;
     static final int FLOWERLEVEL = 26;
@@ -32,6 +34,8 @@ class World {
     ImageElement fruit;
     ImageElement eyes;
     ImageElement tentacles;
+
+    AudioElement backgroundMusic = querySelector("#bgAudio");
 
     //don't redraw overworld unless you really have to
     bool overWorldDirty = true;
@@ -99,15 +103,25 @@ class World {
         showAndHideYgdrssylLayers();
     }
 
+    void changeMusic(String newMusicLocation) {
+        int time = backgroundMusic.currentTime;
+        print("current music is ${backgroundMusic.src}");
+        backgroundMusic.src = "${newMusicLocation}.ogg";
+        backgroundMusic.currentTime = time;
+        backgroundMusic.play();
+    }
+
     void showAndHideYgdrssylLayers() {
         if(health >= TENTACLELEVEL) {
             branches.style.display = "block";
             tentacles.style.display = "none";
             document.body.style.backgroundColor = "#002d4a";
+            changeMusic(happyMusic);
         }else {
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.backgroundColor = "black";
+            changeMusic(ominousMusic);
         }
 
         if(health >=LEAFLEVEL) {
