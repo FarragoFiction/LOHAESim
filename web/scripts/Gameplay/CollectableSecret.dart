@@ -19,4 +19,6 @@ class CollectableSecret extends Secret {
         }
         return "";
     }
+
+
 }

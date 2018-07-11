@@ -58,6 +58,9 @@ class UnderWorld {
         buffer.context2D.restore();
 
         buffer.context2D.drawImage(roots,0,0);
+        for(Essence e in essences) {
+            e.render(buffer);
+        }
         ImageElement playerImage = await player.image;
         buffer.context2D.drawImage(playerImage, player.x, player.y);
         await handleDirt();
