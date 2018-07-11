@@ -1,4 +1,5 @@
 import 'Essence.dart';
+import 'Nidhogg.dart';
 import 'Player.dart';
 import 'dart:async';
 import 'dart:html';
@@ -14,6 +15,8 @@ class UnderWorld {
     Player player;
     int width = 800;
     int height = 800;
+    //TODO load this from json too
+    Nidhogg nidhogg = new Nidhogg();
     List<Essence> essences;
     List<Essence> essencesToRemove = new List<Essence>();
 
@@ -22,6 +25,12 @@ class UnderWorld {
         //TODO load essences and their location from json, if can't find, then spawn
         essences = Essence.spawn();
         scatterEssences();
+        scatterNidhogg();
+    }
+
+    void scatterNidhogg() {
+        nidhogg.topLeftX = 0+(nidhogg.width/2).round();
+        nidhogg.topLeftY = (height - nidhogg.width+nidhogg.width/2).round();;
     }
 
     //each essence is one level down from the last
@@ -68,6 +77,7 @@ class UnderWorld {
 
         buffer.context2D.drawImage(roots,0,0);
         cullSecrets();
+        nidhogg.render(buffer);
         for(Essence e in essences) {
             //also handles collecting
             print(e.gigglesnort(new Math.Point(player.x, player.y)));

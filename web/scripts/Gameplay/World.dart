@@ -24,6 +24,7 @@ class World {
 
     UnderWorld underWorld = new UnderWorld();
 
+    Element sky = querySelector("#sky");
     Element container;
     CanvasElement buffer;
     CanvasElement onScreen;
@@ -126,12 +127,12 @@ class World {
         if(health >= TENTACLELEVEL) {
             branches.style.display = "block";
             tentacles.style.display = "none";
-            document.body.style.backgroundColor = "#002d4a";
+            sky.style.backgroundColor = "#002d4a";
             changeMusic(happyMusic);
         }else {
             branches.style.display = "none";
             tentacles.style.display = "block";
-            document.body.style.backgroundColor = "black";
+            sky.style.backgroundColor = "black";
             changeMusic(ominousMusic);
         }
 

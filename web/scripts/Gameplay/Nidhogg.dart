@@ -1,6 +1,10 @@
 import 'CollectableSecret.dart';
 
-class NidHogg extends CollectableSecret {
-  NidHogg(String specificPhrase, String imgLoc) : super(specificPhrase, imgLoc);
+class Nidhogg extends CollectableSecret {
+  @override
+  int width = 440;
+  @override
+  int height = 580;
+  Nidhogg() : super("It gnaws on the foundations of reality.", "images/BGs/nidhoggTrue.png");
 
 }

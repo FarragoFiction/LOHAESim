@@ -1,6 +1,7 @@
 import 'CollectableSecret.dart';
+import 'Inventoryable.dart';
 
-abstract class Essence extends CollectableSecret {
+abstract class Essence extends CollectableSecret with Inventoryable {
   @override
   int width = 30;
   @override
