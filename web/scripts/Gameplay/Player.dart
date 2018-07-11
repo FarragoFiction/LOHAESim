@@ -12,8 +12,7 @@ class Player extends Secret {
     int minX = 0;
     int minY = 0;
 
-    int flashlightWidth =100;
-    int flashlightHeight = 100;
+    int flashlightRadius =100;
 
 
     Player(int this.maxX, int this.maxY);

@@ -15,6 +15,7 @@ class UnderWorld {
     int width = 800;
     int height = 800;
     List<Essence> essences;
+    List<Essence> essencesToRemove = new List<Essence>();
 
     UnderWorld() {
         player = new Player(width, height);
@@ -32,6 +33,8 @@ class UnderWorld {
         for(Essence e in essences) {
             y += e.height;
             x = rand.nextIntRange(e.width, width-e.width);
+            e.topLeftX = x;
+            e.topLeftY = y;
         }
     }
 
@@ -41,9 +44,15 @@ class UnderWorld {
         roots = await Loader.getResource("images/BGs/rootsPlain.png");
     }
 
+    void cullSecrets() {
+        for(Essence e in essencesToRemove) {
+            essences.remove(e);
+        }
+    }
+
     Future<Null> render(CanvasElement worldBuffer) async {
         if(buffer == null) await initCanvasAndBuffer();
-        print("rendering underworld");
+        //print("rendering underworld");
         //slightly brighter dirt to look like light
         //buffer.context2D.fillStyle = "#71402a";
         //#44281b
@@ -58,8 +67,17 @@ class UnderWorld {
         buffer.context2D.restore();
 
         buffer.context2D.drawImage(roots,0,0);
+        cullSecrets();
         for(Essence e in essences) {
-            e.render(buffer);
+            //also handles collecting
+            print(e.gigglesnort(new Math.Point(player.x, player.y)));
+            if(!e.collected) {
+                e.render(buffer);
+            }else {
+                    essencesToRemove.add(e);
+            }
+
+
         }
         ImageElement playerImage = await player.image;
         buffer.context2D.drawImage(playerImage, player.x, player.y);
@@ -72,13 +90,13 @@ class UnderWorld {
     }
 
     Future<Null> handleDirt() async {
-        print("filling in dirt");
+       // print("filling in dirt");
         dirt.context2D.fillStyle = "#5d3726";
         //dirt.context2D.fillStyle = "#00ff00";
 
         dirt.context2D.fillRect(0, 0, dirt.width, dirt.height);
         dirt.context2D.beginPath();
-        dirt.context2D.arc(player.topLeftX,player.topLeftY,100,0,2*Math.PI);
+        dirt.context2D.arc(player.topLeftX,player.topLeftY,player.flashlightRadius,0,2*Math.PI);
         dirt.context2D.save();
         dirt.context2D.clip();
         Renderer.clearCanvas(dirt);

@@ -27,6 +27,6 @@ class Secret {
 
     Future<Null> render(CanvasElement buffer) async {
         ImageElement myImage = await image;
-        buffer.context2D.drawImage(myImage, x, y);
+        buffer.context2D.drawImageScaled(myImage, x, y, width, height);
     }
 }

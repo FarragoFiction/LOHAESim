@@ -2,9 +2,9 @@ import 'CollectableSecret.dart';
 
 abstract class Essence extends CollectableSecret {
   @override
-  int width = 64;
+  int width = 30;
   @override
-  int height = 62;
+  int height = 30;
   Essence(String specificPhrase, String imgLoc) : super(specificPhrase, imgLoc);
 
   static List<Essence> spawn() {
@@ -20,7 +20,10 @@ abstract class Essence extends CollectableSecret {
         ..add(new IndigoEssence())
         ..add(new PurpleEssence())
         ..add(new VioletEssence())
-        ..add(new FuchsiaEssence());
+        ..add(new FuchsiaEssence())
+        ..add(new MutantEssence());
+
+    return allEssence;
   }
 
 
