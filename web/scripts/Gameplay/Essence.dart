@@ -1,6 +1,10 @@
 import 'CollectableSecret.dart';
 
 abstract class Essence extends CollectableSecret {
+  @override
+  int width = 64;
+  @override
+  int height = 62;
   Essence(String specificPhrase, String imgLoc) : super(specificPhrase, imgLoc);
 
   static List<Essence> spawn() {
@@ -22,7 +26,6 @@ abstract class Essence extends CollectableSecret {
 
 }
 
-//TODO: have field for 'last collected' don't respawn for a while after being collected
 
 class BurgundyEssence extends Essence {
   BurgundyEssence() : super("It grows impatient.", "images/BGs/Essences/burgundy.png");

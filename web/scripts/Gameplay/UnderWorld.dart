@@ -18,7 +18,21 @@ class UnderWorld {
 
     UnderWorld() {
         player = new Player(width, height);
+        //TODO load essences and their location from json, if can't find, then spawn
         essences = Essence.spawn();
+        scatterEssences();
+    }
+
+    //each essence is one level down from the last
+    void scatterEssences() {
+        //random, but always in the same places
+        Random rand = new Random(13);
+        int x = 0;
+        int y = 0;
+        for(Essence e in essences) {
+            y += e.height;
+            x = rand.nextIntRange(e.width, width-e.width);
+        }
     }
 
     Future<Null> initCanvasAndBuffer() async {

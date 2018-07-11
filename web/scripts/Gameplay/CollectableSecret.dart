@@ -6,6 +6,7 @@ class CollectableSecret extends Secret {
     int giggleSnortRadius = 100;
     int collectionRadius = 50;
 
+
     CollectableSecret(String this.specificPhrase, String imgLoc) {
         this.imgLoc = imgLoc;
     }
