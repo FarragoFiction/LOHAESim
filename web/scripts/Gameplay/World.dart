@@ -127,12 +127,12 @@ class World {
         if(health >= TENTACLELEVEL) {
             branches.style.display = "block";
             tentacles.style.display = "none";
-            sky.style.backgroundColor = "#002d4a";
+            document.body.style.background = "linear-gradient(to bottom, #002d4a 0%,#002d4a 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
             changeMusic(happyMusic);
         }else {
             branches.style.display = "none";
             tentacles.style.display = "block";
-            sky.style.backgroundColor = "black";
+            document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
             changeMusic(ominousMusic);
         }
 
