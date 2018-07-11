@@ -31,7 +31,7 @@ class UnderWorld {
         int x = 0;
         int y = 0;
         for(Essence e in essences) {
-            y += e.height;
+            y += (height/essences.length).round();
             x = rand.nextIntRange(e.width, width-e.width);
             e.topLeftX = x;
             e.topLeftY = y;

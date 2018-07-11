@@ -12,7 +12,8 @@ class Player extends Secret {
     int minX = 0;
     int minY = 0;
 
-    int flashlightRadius =100;
+    //TODO relative to size of moneybags
+    int flashlightRadius =75;
 
 
     Player(int this.maxX, int this.maxY);

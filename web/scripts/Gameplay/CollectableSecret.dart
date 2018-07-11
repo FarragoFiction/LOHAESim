@@ -4,7 +4,7 @@ import "dart:math" as Math;
 class CollectableSecret extends Secret {
     String specificPhrase = "???";
     int giggleSnortRadius = 100;
-    int collectionRadius = 30;
+    int collectionRadius = 50;
     bool collected = false;
 
 
@@ -17,11 +17,12 @@ class CollectableSecret extends Secret {
         double distance = point.distanceTo(myPoint);
         if(distance < collectionRadius) {
             collected  = true;
+            print("collected $this");
             //TODO add to inventory
         }
 
         if(distance < giggleSnortRadius) {
-            return "$specificPhrase. Or is it $distance?";
+            return "$specificPhrase. Or is it ${distance.round()}?";
         }
 
         return "";
