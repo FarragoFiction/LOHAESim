@@ -1,3 +1,4 @@
+import 'Essence.dart';
 import 'Player.dart';
 import 'dart:async';
 import 'dart:html';
@@ -13,9 +14,11 @@ class UnderWorld {
     Player player;
     int width = 800;
     int height = 800;
+    List<Essence> essences;
 
     UnderWorld() {
         player = new Player(width, height);
+        essences = Essence.spawn();
     }
 
     Future<Null> initCanvasAndBuffer() async {

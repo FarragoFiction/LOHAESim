@@ -4,7 +4,19 @@ abstract class Essence extends CollectableSecret {
   Essence(String specificPhrase, String imgLoc) : super(specificPhrase, imgLoc);
 
   static List<Essence> spawn() {
-
+    List<Essence> allEssence = new List<Essence>()
+        ..add(new BurgundyEssence())
+        ..add(new BronzeEssence())
+        ..add(new GoldEssence())
+        ..add(new LimeEssence())
+        ..add(new OliveEssence())
+        ..add(new JadeEssence())
+        ..add(new TealEssence())
+        ..add(new CeruleanEssence())
+        ..add(new IndigoEssence())
+        ..add(new PurpleEssence())
+        ..add(new VioletEssence())
+        ..add(new FuchsiaEssence());
   }
 
 
