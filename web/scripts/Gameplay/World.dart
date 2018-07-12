@@ -129,11 +129,13 @@ class World {
             tentacles.style.display = "none";
             document.body.style.background = "linear-gradient(to bottom, #002d4a 0%,#002d4a 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
             changeMusic(happyMusic);
+            document.title = "Land of Horticulture and Essence";
         }else {
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
             changeMusic(ominousMusic);
+            document.title = "Land of Horrorticulture and Essence";
         }
 
         if(health >=LEAFLEVEL) {

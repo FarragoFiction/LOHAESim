@@ -32,6 +32,8 @@ class Store {
         table.classes.add("innerStoreRowContainer");
         td1.append(table);
         for(Inventoryable inventoryItem in inventory) {
+            //so they know how to popup
+            inventoryItem.store = this;
             inventoryItem.renderInventoryRow(table);
         }
 
