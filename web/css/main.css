@@ -18,11 +18,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 .outerStoreTable{
     margin-left: auto;
     margin-right: auto;
-    height: 500px;
 }
 
 .innerStoreTable{
-    height: 500px;
     border-collapse: separate;
 }
 
