@@ -8,18 +8,18 @@ abstract class Inventoryable {
 
 
 
-    void renderInventoryRow(TableElement parent) {
-        TableRowElement me = new TableRowElement();
+    void renderInventoryRow(DivElement parent) {
+        DivElement me = new DivElement();
         me.classes.add("innerStoreTableRow");
         parent.append(me);
 
-        TableCellElement imageCell = new TableCellElement();
-        me.append(imageCell);
-        itemCanvas.classes.add("inventoryItem");
-        imageCell.append(itemCanvas);
+        me.append(itemCanvas);
+        itemCanvas.classes.add("imageCell");
 
-        TableCellElement costCell = new TableCellElement()..text = "$cost";
+        DivElement costCell = new DivElement()..text = "\$$cost";
+        costCell.classes.add("costCell");
         me.append(costCell);
+
 
     }
 }

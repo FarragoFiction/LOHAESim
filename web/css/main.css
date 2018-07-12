@@ -1,11 +1,14 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+@font-face {
+    font-family: strife;
+    src: url("../Fonts/Strife.ttf");
+}
 
 html,body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'strife', sans-serif;
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#002d4a+0,002d4a+50,5d3726+51,5d3726+100 */
 background: #002d4a; /* Old browsers */
 background: -moz-linear-gradient(top, #002d4a 0%, #002d4a 848px, #5d3726 848px, #5d3726 100%); /* FF3.6-15 */
@@ -20,9 +23,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     margin-right: auto;
 }
 
-.innerStoreTable{
-    border-collapse: separate;
-}
 
 .inventoryItem{
     background-color: #fef4ed;
@@ -31,12 +31,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 }
 
 .innerStoreTableRow{
-    width: 150px;
+    width: 200px;
+    height: 55px;
+    padding: 3px;
     color: #242d26;
-    background-color: #fef4ed;
-    border: 15px solid #242d26;
-    border-radius: 15px;
-    margin: 5px;
+    background-color: #ffffff;
+    border: 5px solid #242d26;
+    border-radius: 10px;
+}
+
+
+.imageCell{
+    display: inline-block;
+    background-color: #ffff00;
+    border-radius: 5px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.costCell{
+    display: inline-block;
+    font-size: 48px;
+    vertical-align: top;
+    line-height: 65px;
+    height: 50px;
+    padding-left: 10px;
 }
 
 

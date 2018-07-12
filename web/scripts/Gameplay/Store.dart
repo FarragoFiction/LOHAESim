@@ -23,8 +23,8 @@ class Store {
         TableCellElement td1 = new TableCellElement();
         row.append(td1);
 
-        TableElement table = new TableElement();
-        table.classes.add("innerStoreTable");
+        DivElement table = new DivElement();
+        table.classes.add("innerStoreRowContainer");
         td1.append(table);
         for(Inventoryable inventoryItem in inventory) {
             inventoryItem.renderInventoryRow(table);
