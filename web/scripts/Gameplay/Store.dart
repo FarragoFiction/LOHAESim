@@ -1,6 +1,7 @@
 import 'Inventoryable.dart';
 import 'dart:html';
 
+//TODO have this extend an inventory thingy
 class Store {
     DivElement container;
     StorePopup popup;
@@ -11,6 +12,10 @@ class Store {
         container = new DivElement();
         container.classes.add("store");
         parent.append(container);
+    }
+
+    void handleItemClick(Inventoryable item) {
+        popup.popup(item);
     }
 
     void render() {
@@ -50,13 +55,13 @@ class StorePopup
     StorePopup(Element parent) {
         container = new DivElement();
         container.classes.add("popup");
-        container.style.display = "block";
+        container.style.display = "none";
 
-        header = new DivElement();
+        header = new DivElement()..text = "Placeholder Header";
         header.classes.add("popupHeader");
         container.append(header);
 
-        textBody= new DivElement()..text = "Placeholder Header";
+        textBody= new DivElement();
         container.append(textBody);
         textBody.classes.add("popupBody");
         textBody.setInnerHtml("Lorem Ipsum Dolor definitely not a typo okay?<br><br>More Lorem shit I promise okay???");
@@ -64,6 +69,8 @@ class StorePopup
     }
 
     void popup(Inventoryable chosenItem) {
-
+        container.style.display = "block";
+        header.text = "${chosenItem.name}";
+        textBody.setInnerHtml("${chosenItem.description}");
     }
 }
