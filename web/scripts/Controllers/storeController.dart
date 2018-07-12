@@ -13,9 +13,6 @@ void main() {
     //example store, TODO have actual inventory system loaded from cache
     Store store = new Store(output, Essence.spawn());
     store.render();
-    TODOs.drawTodos(output);
-
-
 }
 
 

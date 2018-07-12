@@ -3,6 +3,7 @@ import 'dart:html';
 
 class Store {
     DivElement container;
+    DivElement popup;
 
     List<Inventoryable> inventory;
 
@@ -11,7 +12,6 @@ class Store {
         container.classes.add("store");
         parent.append(container);
     }
-
 
     void render() {
         TableElement outerTable = new TableElement();
@@ -34,6 +34,11 @@ class Store {
         TableCellElement td2 = new TableCellElement();
         td2.append(manicInsomniac);
         row.append(td2);
+
+        popup = new DivElement();
+        popup.classes.add("popup");
+        popup.style.display = "block";
+        container.append(popup);
     }
 
 

@@ -61,6 +61,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 
 .store{
     z-index: 10;
+    position: relative; //popup uses this
 }
 
 #worldCanvas{
@@ -71,6 +72,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 .innerStoreRowContainer{
     height: 500px;
     overflow-y: scroll;
+}
+
+.popup{
+    height: 317px;
+    width: 716px;
+    position: absolute;
+    left: 370px;
+    top: 170px;
+    background-image: url("../images/BGs/fullPopup.png")
 }
 
 .worldBase{
