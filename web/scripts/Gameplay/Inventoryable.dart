@@ -4,7 +4,7 @@ abstract class Inventoryable {
     String description = "An item???";
     int cost = 113;
     //up to whoever uses me to make this a thing
-    CanvasElement canvasElement = new CanvasElement(width: 50, height: 50);
+    CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);
 
 
 
@@ -15,7 +15,7 @@ abstract class Inventoryable {
 
         TableCellElement imageCell = new TableCellElement();
         me.append(imageCell);
-        imageCell.append(canvasElement);
+        imageCell.append(itemCanvas);
 
         TableCellElement costCell = new TableCellElement()..text = "$cost";
         me.append(costCell);

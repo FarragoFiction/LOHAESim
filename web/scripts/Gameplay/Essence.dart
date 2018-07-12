@@ -1,5 +1,9 @@
 import 'CollectableSecret.dart';
 import 'Inventoryable.dart';
+import 'dart:async';
+
+import 'dart:html';
+import 'package:RenderingLib/RendereringLib.dart';
 
 abstract class Essence extends CollectableSecret with Inventoryable {
   @override
@@ -25,6 +29,13 @@ abstract class Essence extends CollectableSecret with Inventoryable {
         ..add(new MutantEssence());
 
     return allEssence;
+  }
+
+  Future<Null> setCanvasForStore() async{
+      CanvasElement me = new CanvasElement(width:width, height: height);
+      ImageElement myImage = await image;
+      me.context2D.drawImageScaled(myImage, x, y, width, height);
+      Renderer.drawToFitCentered(me, itemCanvas);
   }
 
 
