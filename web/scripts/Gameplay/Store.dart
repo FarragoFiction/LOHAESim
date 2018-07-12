@@ -10,6 +10,12 @@ class Store {
 
     Store(Element parent, List<Inventoryable> this.inventory) {
         container = new DivElement();
+        container.onClick.listen((Event e) {
+            if(popup.visible()) {
+                window.alert("popup is visible");
+                popup.dismiss();
+            }
+        });
         container.classes.add("store");
         parent.append(container);
     }
@@ -70,9 +76,17 @@ class StorePopup
         parent.append(container);
     }
 
+    bool visible() {
+        return container.style.display == "block";
+    }
+
     void popup(Inventoryable chosenItem) {
         container.style.display = "block";
         header.text = "${chosenItem.name}";
         textBody.setInnerHtml("${chosenItem.description}");
+    }
+
+    void dismiss() {
+        container.style.display = "none";
     }
 }
