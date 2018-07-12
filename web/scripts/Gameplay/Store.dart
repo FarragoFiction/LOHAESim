@@ -10,12 +10,6 @@ class Store {
 
     Store(Element parent, List<Inventoryable> this.inventory) {
         container = new DivElement();
-        container.onClick.listen((Event e) {
-            if(popup.visible()) {
-                window.alert("popup is visible");
-                popup.dismiss();
-            }
-        });
         container.classes.add("store");
         parent.append(container);
     }
@@ -44,6 +38,11 @@ class Store {
         }
 
         ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStore.png");
+        manicInsomniac.onClick.listen((Event e) {
+            if(popup.visible()) {
+                popup.dismiss();
+            }
+        });
         TableCellElement td2 = new TableCellElement();
         td2.append(manicInsomniac);
         row.append(td2);
@@ -62,6 +61,11 @@ class StorePopup
     DivElement textBody;
     StorePopup(Element parent) {
         container = new DivElement();
+        container.onClick.listen((Event e) {
+            if(visible()) {
+                dismiss();
+            }
+        });
         container.classes.add("popup");
         container.style.display = "none";
 
