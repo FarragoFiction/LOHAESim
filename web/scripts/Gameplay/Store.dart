@@ -1,4 +1,6 @@
+import 'Essence.dart';
 import 'Inventoryable.dart';
+import 'dart:async';
 import 'dart:html';
 
 //TODO have this extend an inventory thingy
@@ -18,7 +20,7 @@ class Store {
         popup.popup(item);
     }
 
-    void render() {
+    Future<Null> render() async{
         TableElement outerTable = new TableElement();
         container.append(outerTable);
         outerTable.classes.add("outerStoreTable");
@@ -33,6 +35,9 @@ class Store {
         td1.append(table);
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
+            if(inventoryItem is Essence) {
+                await inventoryItem.setCanvasForStore();
+            }
             inventoryItem.store = this;
             inventoryItem.renderInventoryRow(table);
         }
