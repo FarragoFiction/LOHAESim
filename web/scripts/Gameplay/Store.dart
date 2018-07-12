@@ -14,11 +14,26 @@ class Store {
 
 
     void render() {
+        TableElement outerTable = new TableElement();
+        container.append(outerTable);
+        outerTable.classes.add("outerStoreTable");
+
+        TableRowElement row = new TableRowElement();
+        outerTable.append(row);
+        TableCellElement td1 = new TableCellElement();
+        row.append(td1);
+
         TableElement table = new TableElement();
-        container.append(table);
+        table.classes.add("innerStoreTable");
+        td1.append(table);
         for(Inventoryable inventoryItem in inventory) {
             inventoryItem.renderInventoryRow(table);
         }
+
+        ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStore.png");
+        TableCellElement td2 = new TableCellElement();
+        td2.append(manicInsomniac);
+        row.append(td2);
     }
 
 
