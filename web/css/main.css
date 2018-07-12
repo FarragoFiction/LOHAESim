@@ -68,6 +68,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     top: 250px;
 }
 
+.innerStoreRowContainer{
+    height: 500px;
+    overflow-y: scroll;
+}
 
 .worldBase{
     position: relative;
