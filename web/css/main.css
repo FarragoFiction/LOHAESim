@@ -80,7 +80,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     position: absolute;
     left: 370px;
     top: 170px;
+    color: #242d26;
     background-image: url("../images/BGs/fullPopup.png")
+}
+
+.popupHeader{
+    position: absolute;
+    top: 50px;
+}
+
+.popupBody{
+    position: absolute;
+    top: 100px;
 }
 
 .worldBase{

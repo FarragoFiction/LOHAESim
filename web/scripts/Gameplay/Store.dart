@@ -3,7 +3,7 @@ import 'dart:html';
 
 class Store {
     DivElement container;
-    DivElement popup;
+    StorePopup popup;
 
     List<Inventoryable> inventory;
 
@@ -35,11 +35,35 @@ class Store {
         td2.append(manicInsomniac);
         row.append(td2);
 
-        popup = new DivElement();
-        popup.classes.add("popup");
-        popup.style.display = "block";
-        container.append(popup);
+        popup = new StorePopup(container);
+
     }
 
 
+}
+
+class StorePopup
+{
+    DivElement container;
+    DivElement header;
+    DivElement textBody;
+    StorePopup(Element parent) {
+        container = new DivElement();
+        container.classes.add("popup");
+        container.style.display = "block";
+
+        header = new DivElement();
+        header.classes.add("popupHeader");
+        container.append(header);
+
+        textBody= new DivElement()..text = "Placeholder Header";
+        container.append(textBody);
+        textBody.classes.add("popupBody");
+        textBody.setInnerHtml("Lorem Ipsum Dolor definitely not a typo okay?<br><br>More Lorem shit I promise okay???");
+        parent.append(container);
+    }
+
+    void popup(Inventoryable chosenItem) {
+
+    }
 }

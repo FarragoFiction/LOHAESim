@@ -10,7 +10,11 @@ abstract class Essence extends CollectableSecret with Inventoryable {
   int width = 30;
   @override
   int height = 30;
-  Essence(String specificPhrase, String imgLoc) : super(specificPhrase, imgLoc);
+  Essence(String myName, String specificPhrase, String imgLoc) : super(specificPhrase, imgLoc) {
+      //for store
+    name = myName;
+    description = specificPhrase;
+  }
 
   static List<Essence> spawn() {
     List<Essence> allEssence = new List<Essence>()
@@ -43,54 +47,54 @@ abstract class Essence extends CollectableSecret with Inventoryable {
 
 
 class BurgundyEssence extends Essence {
-  BurgundyEssence() : super("It grows impatient.", "images/BGs/Essences/burgundy.png");
+  BurgundyEssence() : super("Burgundy Essence","It grows impatient.", "images/BGs/Essences/burgundy.png");
 }
 
 class BronzeEssence extends Essence {
-  BronzeEssence() : super("It grows aloof.", "images/BGs/Essences/bronze.png");
+  BronzeEssence() : super("Bronze Essence","It grows aloof.", "images/BGs/Essences/bronze.png");
 }
 
 class GoldEssence extends Essence {
-  GoldEssence() : super("It grows calm.", "images/BGs/Essences/gold.png");
+  GoldEssence() : super("Gold Essence","It grows calm.", "images/BGs/Essences/gold.png");
 }
 
 class LimeEssence extends Essence {
-  LimeEssence() : super("It grows friendly.", "images/BGs/Essences/lime.png");
+  LimeEssence() : super("Lime Essence","It grows friendly.", "images/BGs/Essences/lime.png");
 }
 
 class OliveEssence extends Essence {
-  OliveEssence() : super("It grows inwards.", "images/BGs/Essences/olive.png");
+  OliveEssence() : super("Olive Essence","It grows inwards.", "images/BGs/Essences/olive.png");
 }
 
 class JadeEssence extends Essence {
-  JadeEssence() : super("It grows patient.", "images/BGs/Essences/jade.png");
+  JadeEssence() : super("Jade Essence","It grows patient.", "images/BGs/Essences/jade.png");
 }
 
 class TealEssence extends Essence {
-  TealEssence() : super("It grows outwards.", "images/BGs/Essences/teal.png");
+  TealEssence() : super("Teal Essence","It grows outwards.", "images/BGs/Essences/teal.png");
 }
 
 class CeruleanEssence extends Essence {
-  CeruleanEssence() : super("It grows curious.", "images/BGs/Essences/cerulean.png");
+  CeruleanEssence() : super("Cerulean Essence","It grows curious.", "images/BGs/Essences/cerulean.png");
 }
 
 class IndigoEssence extends Essence {
-  IndigoEssence() : super("It grows accepting.", "images/BGs/Essences/indigo.png");
+  IndigoEssence() : super("Indigo Essence","It grows accepting.", "images/BGs/Essences/indigo.png");
 }
 
 class PurpleEssence extends Essence {
-  PurpleEssence() : super("It grows rowdy.", "images/BGs/Essences/purple.png");
+  PurpleEssence() : super("Purple Essence","It grows rowdy.", "images/BGs/Essences/purple.png");
 }
 
 class VioletEssence extends Essence {
-  VioletEssence() : super("It grows hopeful.", "images/BGs/Essences/violet.png");
+  VioletEssence() : super("Violet Essence","It grows hopeful.", "images/BGs/Essences/violet.png");
 }
 
 class FuchsiaEssence extends Essence {
-  FuchsiaEssence() : super("It grows energetic.", "images/BGs/Essences/fuchsia.png");
+  FuchsiaEssence() : super("Fuchsia Essence","It grows energetic.", "images/BGs/Essences/fuchsia.png");
 }
 
 //spawns Nidhogg.
 class MutantEssence extends Essence {
-  MutantEssence() : super("It grows ???.", "images/BGs/Essences/mutant.png");
+  MutantEssence() : super("Mutant Essence","It grows ???.", "images/BGs/Essences/mutant.png");
 }
