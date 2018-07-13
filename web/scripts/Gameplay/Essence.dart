@@ -38,8 +38,10 @@ abstract class Essence extends CollectableSecret with Inventoryable {
   Future<Null> setCanvasForStore() async{
       CanvasElement me = new CanvasElement(width:width, height: height);
       ImageElement myImage = await image;
-      me.context2D.drawImageScaled(myImage, x, y, width, height);
-      Renderer.drawToFitCentered(me, itemCanvas);
+      me.context2D.drawImageScaled(myImage, 0, 0, width, height);
+      Renderer.drawToFitCentered(itemCanvas, me);
+      //itemCanvas.context2D.drawImageScaled(me, 0,0,itemCanvas.width, itemCanvas.height);
+      print("i drew myself ($name) to the item canvas for the store");
   }
 
 

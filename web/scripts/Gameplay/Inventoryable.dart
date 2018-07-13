@@ -14,6 +14,7 @@ abstract class Inventoryable {
         me.classes.add("innerStoreTableRow");
         parent.append(me);
 
+        print("going to append item canvas for $name");
         me.append(itemCanvas);
         itemCanvas.classes.add("imageCell");
 
