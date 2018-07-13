@@ -43,7 +43,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 
 .imageCell{
     display: inline-block;
-    background-color: #ffff00;
+    background-color: #eeeeee;
     border-radius: 5px;
     padding: 0px;
     margin: 0px;
