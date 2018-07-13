@@ -1,4 +1,5 @@
 import 'Secret.dart';
+import 'World.dart';
 import "dart:math" as Math;
 //TODO if you pick up a collectable it's removed, only to respawn much later.
 class CollectableSecret extends Secret {
@@ -8,7 +9,7 @@ class CollectableSecret extends Secret {
     bool collected = false;
 
 
-    CollectableSecret(String this.specificPhrase, String imgLoc) {
+    CollectableSecret(World world, String this.specificPhrase, String imgLoc):super(world) {
         this.imgLoc = imgLoc;
     }
 

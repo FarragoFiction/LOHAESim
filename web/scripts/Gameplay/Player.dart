@@ -1,6 +1,7 @@
 //wait what why is their a player???
 
 import 'Secret.dart';
+import 'World.dart';
 
 class Player extends Secret {
     //relative to underworld, center of player (not top left)
@@ -16,7 +17,7 @@ class Player extends Secret {
     int flashlightRadius =75;
 
 
-    Player(int this.maxX, int this.maxY);
+    Player(World world, int this.maxX, int this.maxY):super(world);
 
     void up() {
         topLeftY += -42;

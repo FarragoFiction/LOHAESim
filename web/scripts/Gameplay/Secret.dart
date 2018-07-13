@@ -1,3 +1,4 @@
+import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 
@@ -8,6 +9,8 @@ class Secret {
     int topLeftY = 300;
     int width = 92;
     int height = 92;
+    //need to know what to do when found
+    World world;
 
 
     num get x => topLeftX-width/2;
@@ -20,6 +23,8 @@ class Secret {
         if(_image == null) await initCanvasAndBuffer();
         return _image;
     }
+
+    Secret(World this.world);
 
     Future<Null> initCanvasAndBuffer() async {
         _image = await Loader.getResource(imgLoc);

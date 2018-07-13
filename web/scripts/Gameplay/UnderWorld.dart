@@ -1,6 +1,7 @@
 import 'Essence.dart';
 import 'Nidhogg.dart';
 import 'Player.dart';
+import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 import "dart:math" as Math;
@@ -16,12 +17,14 @@ class UnderWorld {
     int width = 800;
     int height = 800;
     //TODO load this from json too
-    Nidhogg nidhogg = new Nidhogg();
+    World world;
+    Nidhogg nidhogg;
     List<Essence> essences;
     List<Essence> essencesToRemove = new List<Essence>();
 
-    UnderWorld() {
-        player = new Player(width, height);
+    UnderWorld(World this.world) {
+        nidhogg = new Nidhogg(world);
+        player = new Player(world, width, height);
         //TODO load essences and their location from json, if can't find, then spawn
         essences = Essence.spawn();
         scatterEssences();
@@ -91,6 +94,9 @@ class UnderWorld {
         }
         ImageElement playerImage = await player.image;
         buffer.context2D.drawImage(playerImage, player.x, player.y);
+        //closer you get to the bottom the less health you get. can only go negative if you interact with nidhogg, though.
+        world.health = (World.MAXHEALTH * (height-player.y)/height).round();
+        world.showAndHideYgdrssylLayers();
         await handleDirt();
 
         //worldBuffer might not have cleared self if it wasn't dirty

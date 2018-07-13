@@ -14,6 +14,7 @@ class World {
     static final int LEAFLEVEL = 13;
     static final int FLOWERLEVEL = 26;
     static final int FRUITLEVEL = 13*3;
+    static final int MAXHEALTH = 13*4;
     static final int TENTACLELEVEL = -13;
     static final int EYELEVEL = -26;
 
@@ -22,7 +23,7 @@ class World {
 
     List<Tree> trees = new List<Tree>();
 
-    UnderWorld underWorld = new UnderWorld();
+    UnderWorld underWorld;
 
     Element sky = querySelector("#sky");
     Element container;
@@ -46,6 +47,7 @@ class World {
 
 
     World(Element parentContainer) {
+        underWorld = new UnderWorld(this);
         container = new DivElement();
         container.classes.add("worldBase");
         parentContainer.append(container);
