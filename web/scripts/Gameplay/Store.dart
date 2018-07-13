@@ -91,7 +91,7 @@ class StorePopup
 
     void popup(Inventoryable chosenItem) {
         container.style.display = "block";
-        header.text = "${chosenItem.name}";
+        header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
         textBody.setInnerHtml("${chosenItem.description}");
     }
 

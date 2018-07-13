@@ -86,14 +86,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 
 .popupHeader{
     position: absolute;
-    top: 50px;
-    left: 100px;
+    top: 88px;
+    left: 113px;
 }
 
 .popupBody{
     position: absolute;
-    top: 100px;
-    left: 100px;
+    top: 133px;
+    left: 113px;
 }
 
 .worldBase{
