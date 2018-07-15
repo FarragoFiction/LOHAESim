@@ -17,12 +17,14 @@ physicalDescription
 
 flavorDescription
     The #fruitPart# is #amount# #flavor#.
+    Has a #flavor# #fruitpart#.
     #fameDescription# for having a #fruitPart# that is #flavor#.
     #newTasters# are surprised that the #fruitPart# is #amount# #flavor#.:0.3
     WARNING DO NOT EAT.: 0.3
 
 textureDescription
     The #fruitPart# is #amount# #texture#.
+    Has a #texture# #fruitpart#.
     #fameDescription# for having a #fruitPart# that is #texture#.
     #newTasters# are surprised that the #fruitPart# is #amount# #texture#.:0.3
     WARNING DO NOT TOUCH.: 0.3
@@ -36,6 +38,9 @@ fameDescription
     Locally famous
     Globally famous
     Grandmas know it
+    Moms know it
+    Dads know it
+    Grandpas know it
     Wisemen know it
     Bakers know it
     Children know it
