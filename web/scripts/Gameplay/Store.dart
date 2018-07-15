@@ -48,7 +48,7 @@ class Store {
         ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStorePiano.png");
         manicInsomniac.onClick.listen((Event e) {
             if(popup.visible()) {
-                popup.dismiss();
+                popup.cycle();
             }
         });
         TableCellElement td2 = new TableCellElement();
@@ -67,11 +67,12 @@ class StorePopup
     DivElement container;
     DivElement header;
     DivElement textBody;
+    DivElement parentScroll;
     StorePopup(Element parent) {
         container = new DivElement();
         container.onClick.listen((Event e) {
             if(visible()) {
-                dismiss();
+                cycle();
             }
         });
         container.classes.add("popup");
@@ -92,13 +93,39 @@ class StorePopup
         return container.style.display == "block";
     }
 
-    void popup(Inventoryable chosenItem) {
+    Future<Null> popup(Inventoryable chosenItem) async {
         container.style.display = "block";
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
         textBody.setInnerHtml("${chosenItem.description}");
+        if(chosenItem is Fruit) {
+            parentScroll = await chosenItem.generateHorizontalScrollOfParents();
+        }
     }
 
     void dismiss() {
         container.style.display = "none";
+    }
+
+    int getCycleStep() {
+        if(textBody.style.display != "none") {
+            return 0;
+        }else if(parentScroll != null && parentScroll.style.display != "none") {
+            return 1;
+        }{
+            return -1;
+        }
+    }
+
+    void cycle() {
+        int step = getCycleStep();
+        if(step == 0) {
+            textBody.style.display = "block";
+            parentScroll.style.display = "none";
+        }else if(step == 1){
+            textBody.style.display = "none";
+            parentScroll.style.display = "block";
+        }else {
+            dismiss();
+        }
     }
 }
