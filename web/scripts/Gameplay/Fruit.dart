@@ -26,6 +26,20 @@ class Fruit extends Object with Inventoryable {
         name = doll.dollName;
     }
 
+    Future<DivElement> generateHorizontalScrollOfParents() async {
+        //have parents show up in horizontal scrolling thing, return it so you can do whatever with it
+        DivElement parentDivContainer = new DivElement();
+        parentDivContainer.classes.add("parentHorizontalScroll");
+        for(Doll parent in parents) {
+            CanvasElement parentDiv = new CanvasElement(width: 113, height: 113);
+            parentDiv.classes.add("parentBox");
+            CanvasElement parentCanvas = await parent.getNewCanvas();
+            Renderer.drawToFitCentered(parentDiv, parentCanvas);
+            parentDivContainer.append(parentDiv);
+        }
+        return parentDivContainer;
+    }
+
     Future<Null> setCanvasForStore() async{
         CanvasElement tmpCanvas = await canvas;
         Renderer.drawToFitCentered(itemCanvas, tmpCanvas);
