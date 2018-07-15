@@ -7,6 +7,7 @@ import 'package:TextEngine/TextEngine.dart';
 class Fruit extends Object with Inventoryable {
     //not necessarily a fruit doll
     Doll doll;
+    List<Doll> parents = new List<Doll>();
 
     CanvasElement _canvas;
     //if dirty redraw tree.

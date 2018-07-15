@@ -6,6 +6,7 @@ import '../Gameplay/World.dart';
 import 'dart:html';
 import "../Utility/TODOs.dart";
 
+import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/src/Misc/random.dart';
 
@@ -28,7 +29,13 @@ List<Fruit> spawnRandomFruit() {
     List<Fruit> ret = new List<Fruit>();
     for(int i = 0; i<13; i++) {
         FruitDoll doll = new FruitDoll(rand);
+        TreeDoll parent = new TreeDoll();
+        parent.copyPalette(doll.palette);
+        //not for normies
+        List<int> banList = <int>[14,15,24];
+        if(banList.contains(doll.body.imgNumber)) doll.body.imgNumber = 11;
         Fruit fruit = new Fruit(doll);
+        fruit.parents.add(parent);
         ret.add(fruit);
     }
     return ret;
