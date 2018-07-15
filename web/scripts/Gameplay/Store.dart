@@ -42,7 +42,7 @@ class Store {
             inventoryItem.renderInventoryRow(table);
         }
 
-        ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStore.png");
+        ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStorePiano.png");
         manicInsomniac.onClick.listen((Event e) {
             if(popup.visible()) {
                 popup.dismiss();

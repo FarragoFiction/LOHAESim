@@ -57,10 +57,10 @@ class World {
     }
 
     void testTrees() {
-        trees.add(new Tree(new TreeDoll()..barren =true, 150, 300));
-        trees.add(new Tree(new TreeDoll()..barren =true, 300, 300));
-        trees.add(new Tree(new TreeDoll()..barren =true, 450, 300));
-        trees.add(new Tree(new TreeDoll()..barren =true, 600, 300));
+        trees.add(new Tree(new TreeDoll(), 150, 300));
+        trees.add(new Tree(new TreeDoll(), 300, 300));
+        trees.add(new Tree(new TreeDoll(), 450, 300));
+        trees.add(new Tree(new TreeDoll(), 600, 300));
     }
 
 
