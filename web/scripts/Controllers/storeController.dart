@@ -30,6 +30,8 @@ List<Fruit> spawnRandomFruit() {
     for(int i = 0; i<13; i++) {
         FruitDoll doll = new FruitDoll(rand);
         TreeDoll parent = new TreeDoll();
+        parent.rand.setSeed(doll.seed);
+        parent.randomizeNotColors(); //makes sure it's always the same parents
         parent.copyPalette(doll.palette);
         //not for normies
         List<int> banList = <int>[14,15,24];
@@ -44,7 +46,7 @@ List<Fruit> spawnRandomFruit() {
             TreeDoll parent = new TreeDoll();
             fruit.parents.add(parent);
         }
-        
+
         ret.add(fruit);
     }
     return ret;

@@ -124,7 +124,9 @@ class StorePopup
         }else if(step == 1){
             textBody.style.display = "none";
             parentScroll.style.display = "block";
+            header.text = "${header.text}: Parents";
         }else {
+            parentScroll.remove();
             dismiss();
         }
         step ++;

@@ -112,7 +112,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 
 .parentHorizontalScroll{
     overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
     width: 500px;
+    height: 113px;
 }
 
 .worldBase{
