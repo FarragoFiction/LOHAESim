@@ -4,7 +4,113 @@ TextEngine Word List
 @verbs
 
 FruitDescriptions
-    It's a fruit.
-    It's probably a fruit.
-    I bet it's a fruit.
-    It's not a fruit, psyche.
+    #useDescription# #flavorDescription#
+    #flavorDescription#  #flavorDescription#
+    #flavorDescription#
+    #useDescription#
+    #flavorDescription# #useDescription#
+
+
+flavorDescription
+    The #fruitPart# is #amount# #flavor#.
+    #fameDescription# for having a #fruitPart# that is #flavor#.
+    #newTasters# are surprised that the #fruitPart# is #amount# #flavor#.:0.3
+
+fameDescription
+    Famous
+    Known worldwide
+    Legendary
+    Locally famous
+    Globally famous
+    Grandmas know it
+    Wisemen know it
+    Bakers know it
+    Children know it
+
+newTasters
+    New Tasters
+    Tourists
+    Children
+    Pets
+    Travelers
+    Tasters
+
+
+useDescription
+    Locals use it for making #uses#.
+    It really improves #uses#.
+    It's famous for being a key ingredient in #uses#.
+    Ancient cookbooks described it as being useful in #uses#.
+    You would never want to use it for making #uses#.
+
+uses
+    pies
+    jams
+    snacks
+    salads
+    butters
+    jellies
+    eating
+    petfood
+    wine
+    brandy
+    beer
+    liqueur
+    #statTypes# potions
+    #medicineTypes# medicines
+
+statTypes
+    strength
+    speed
+    power
+    fire
+    ice
+    poison
+    antidote
+    elixer
+    dexterity
+    invisibility
+    resistance
+    defense
+    regeneration
+    health
+    man
+
+medicineTypes
+    cold
+    flu
+    cough
+    rash
+    burn
+    nausea
+    itch
+
+
+
+fruitPart
+    rind
+    core
+    body
+    seed
+    juice
+    pulp
+
+amount
+    a little
+    sort of
+    extremely
+    surprisingly
+    a tiny bit
+
+
+flavor
+    sweet:3.0
+    sour: 2.0
+    bitter: 0.5
+    tangy
+    flavorful
+    delicious
+    gross
+    delicate
+    strong
+    tasty

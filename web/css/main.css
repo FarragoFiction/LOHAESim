@@ -94,6 +94,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     position: absolute;
     top: 133px;
     left: 113px;
+    width: 500px;
+    text-align: left;
 }
 
 .worldBase{

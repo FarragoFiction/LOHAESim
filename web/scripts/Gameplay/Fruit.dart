@@ -35,11 +35,12 @@ class Fruit extends Object with Inventoryable {
     Future<Null> setDescription() async {
         if(textEngine == null) {
             textEngine = new TextEngine();
-            await textEngine.loadList("trollcall");
+            await textEngine.loadList("fruitDescriptions");
             textEngine.setSeed(doll.seed);
         }
 
        description = "${textEngine.phrase("FruitDescriptions")}";
+        cost = doll.rand.nextIntRange(13, 113);
     }
 
     String randomDescription() {
