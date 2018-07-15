@@ -1,4 +1,5 @@
 import 'Essence.dart';
+import 'Fruit.dart';
 import 'Inventoryable.dart';
 import 'dart:async';
 import 'dart:html';
@@ -36,6 +37,8 @@ class Store {
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
             if(inventoryItem is Essence) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is Fruit) {
                 await inventoryItem.setCanvasForStore();
             }
             inventoryItem.store = this;
