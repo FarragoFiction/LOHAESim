@@ -2,6 +2,7 @@ import 'Inventoryable.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:DollLibCorrect/DollRenderer.dart';
+import 'package:TextEngine/TextEngine.dart';
 
 class Fruit extends Object with Inventoryable {
     //not necessarily a fruit doll
@@ -10,6 +11,7 @@ class Fruit extends Object with Inventoryable {
     CanvasElement _canvas;
     //if dirty redraw tree.
     bool dirty = true;
+    TextEngine textEngine;
 
     Future<CanvasElement> get canvas async {
         if(_canvas == null || dirty) {
@@ -27,6 +29,17 @@ class Fruit extends Object with Inventoryable {
     Future<Null> setCanvasForStore() async{
         CanvasElement tmpCanvas = await canvas;
         Renderer.drawToFitCentered(itemCanvas, tmpCanvas);
+        await setDescription();
+    }
+
+    Future<Null> setDescription() async {
+        if(textEngine == null) {
+            textEngine = new TextEngine();
+            await textEngine.loadList("trollcall");
+            textEngine.setSeed(doll.seed);
+        }
+
+       description = "${textEngine.phrase("FruitDescriptions")}";
     }
 
     String randomDescription() {

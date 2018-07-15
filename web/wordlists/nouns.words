@@ -1,0 +1,236 @@
+TextEngine Word List
+
+?plural:?MAIN?s
+?collective:pile
+
+noun_all
+    @noun
+    @noun_abstract
+
+// ####################################################
+// CONCRETE
+
+noun
+    @noun_animal
+    @noun_food
+    @noun_object
+    @noun_building
+    @noun_quadmate
+    @noun_misc
+
+
+noun_object
+    ball
+    piano
+    cube
+    pylons
+        plural: pylons
+    pyramid
+    alchemiter
+    puzzle
+    riddle
+    sphere
+    orb
+    plank
+    tree
+    table
+    shipping grid
+    lighter
+    wall
+    door
+    pant
+        plural: pant
+    card
+    item
+    deed
+    artifact
+    weapon
+    armor
+    shield
+    ring
+    sword
+    legendary artifact
+    legendary weapon
+    ring of orbs no-fold
+    mechanical bull
+    coin
+    talisman
+
+noun_timeframe
+    week
+    day
+    month
+    year
+
+noun_building
+    ?collective: district
+
+    house
+    greenhouse
+    warehouse
+    office
+    factory
+        plural: factories
+    shop
+    graveyard
+
+noun_animal
+    ?collective: group
+
+    cat
+        collective: clowder
+    dog
+        collective: pack
+    bird
+    fish
+        plural: fish
+    robot
+        collective: superiority
+    gnome
+    penguin
+    hamster
+    guinea pig
+    pig
+    cow
+        collective: herd
+    sheep
+        plural: sheep
+    goat
+    pigeon
+        collective: fock
+    lobster
+    camel
+    giraffe
+    elephant
+    oyster
+    louse
+        plural: lice
+    mouse
+        plural: mice
+    moose
+        plural: moose
+    cherub
+    troll
+    human
+    monkey
+    gorilla
+    rat
+    chinchilla
+
+noun_food
+    @noun_vegetable
+    @noun_fruit
+
+
+noun_quadmate
+    moirail
+    kismesis
+        plural: kismesises
+    matesprit
+    auspistice
+
+noun_vegetable
+    ?collective: bunch
+
+    potato
+        plural: potatoes
+    carrot
+    tomato
+        plural: tomatoes
+    lettuce
+        plural: lettuce
+    broccoli
+        plural: broccoli
+    sprout
+    yam
+    cucumber
+    parsnip
+    radish
+        plural:radishes
+    squash
+    pumpkin
+    gourd
+    pepper
+    goddamn mushroom
+
+
+noun_fruit
+    ?collective: bunch
+
+    apple
+    pear
+    banana
+    lemon
+    lime
+    grape
+    pineapple
+    mango
+        plural: mangoes
+    durian
+    kiwi fruit
+        plural: kiwi fruit
+    strawberry
+        plural: strawberries
+
+
+noun_misc
+    Bro
+    Mom
+    royalty
+    Queen
+    guardian
+    parent
+    Dad
+    opponent
+    irrelevancy corner
+    monster
+    feat
+    mana
+    creature
+    god
+    meme
+    red mile
+    deck
+    arm
+    mystery
+    token
+    shrubbery
+    Blue Lady
+    gem
+    egg
+    turn
+    head
+
+// ####################################################
+// ABSTRACT
+
+noun_abstract
+    ?collective: plurality
+
+    @noun_emotion
+
+
+noun_emotion
+    love
+        experience: loving
+    fear
+        experience: scared
+    hate
+        experience: hateful
+    anger
+        experience: angry
+    sadness
+        plural: sadnesses
+        experience: sad
+    envy
+        plural: envies
+        experience: jealous
+    whimsy
+        plural: whimsies
+        experience: whimsical
+    disgust
+        experience: disgusted
+    joy
+        experience: happy
+    smug
+        experience: gigglesnorty
