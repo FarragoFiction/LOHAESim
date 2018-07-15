@@ -36,6 +36,15 @@ List<Fruit> spawnRandomFruit() {
         if(banList.contains(doll.body.imgNumber)) doll.body.imgNumber = 11;
         Fruit fruit = new Fruit(doll);
         fruit.parents.add(parent);
+        //make sure the clone parent has you as it's fruit
+        parent.fruitTemplate = doll;
+
+        //TODO remove this thing i have in there for testing purposes
+        for(int i = 0; i<13; i++) {
+            TreeDoll parent = new TreeDoll();
+            fruit.parents.add(parent);
+        }
+        
         ret.add(fruit);
     }
     return ret;

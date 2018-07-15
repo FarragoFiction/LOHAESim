@@ -106,6 +106,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     text-align: left;
 }
 
+.parentBox{
+    display: inline;
+}
+
+.parentHorizontalScroll{
+    overflow-x: scroll;
+    width: 500px;
+}
+
 .worldBase{
     position: relative;
     margin-left: auto;
