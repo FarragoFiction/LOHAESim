@@ -96,19 +96,25 @@ class StorePopup
 
     Future<Null> popup(Inventoryable chosenItem) async {
         step = 0;
+
         container.style.display = "block";
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
         textBody.setInnerHtml("${chosenItem.description}");
         if(chosenItem is Fruit) {
+            if(parentScroll != null) parentScroll.remove();
             parentScroll = await chosenItem.generateHorizontalScrollOfParents();
+            parentScroll.style.display = "none";
+            parentScroll.classes.add("popupParents");
+
+            container.append(parentScroll);
         }
+        cycle();
     }
 
     void dismiss() {
         container.style.display = "none";
         step = 0;
     }
-
 
     void cycle() {
         print("cycling, step is $step");

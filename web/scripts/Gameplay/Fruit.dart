@@ -31,7 +31,8 @@ class Fruit extends Object with Inventoryable {
         DivElement parentDivContainer = new DivElement();
         parentDivContainer.classes.add("parentHorizontalScroll");
         for(Doll parent in parents) {
-            CanvasElement parentDiv = new CanvasElement(width: 113, height: 113);
+            CanvasElement parentDiv = new CanvasElement(width: 100, height: 100);
+            if(parent is TreeDoll) parent.fruitTime = true;
             parentDiv.classes.add("parentBox");
             CanvasElement parentCanvas = await parent.getNewCanvas();
             Renderer.drawToFitCentered(parentDiv, parentCanvas);

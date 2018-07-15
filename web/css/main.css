@@ -98,6 +98,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     text-align: left;
 }
 
+.popupParents{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 500px;
+    text-align: left;
+}
+
 .worldBase{
     position: relative;
     margin-left: auto;
