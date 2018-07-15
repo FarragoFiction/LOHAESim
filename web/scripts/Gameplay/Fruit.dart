@@ -23,7 +23,6 @@ class Fruit extends Object with Inventoryable {
 
     Fruit(Doll this.doll) {
         name = doll.dollName;
-        description = randomDescription();
     }
 
     Future<Null> setCanvasForStore() async{
@@ -43,8 +42,6 @@ class Fruit extends Object with Inventoryable {
         cost = doll.rand.nextIntRange(13, 113);
     }
 
-    String randomDescription() {
-        Random rand = doll.rand;
-        return "TODO: JR needs to use PL's thingy for this okay?";
-    }
+
+
 }
