@@ -4,17 +4,30 @@ TextEngine Word List
 @verbs
 
 FruitDescriptions
-    #useDescription# #flavorDescription#
-    #flavorDescription#  #flavorDescription#
-    #flavorDescription#
+    #useDescription# #physicalDescription#
+    #flavorDescription#  #textureDescription#
+    #textureDescription#  #flavorDescription#
+    #physicalDescription#
     #useDescription#
-    #flavorDescription# #useDescription#
+    #physicalDescription# #useDescription#
 
+physicalDescription
+    #flavorDescription#
+    #textureDescription#
 
 flavorDescription
     The #fruitPart# is #amount# #flavor#.
     #fameDescription# for having a #fruitPart# that is #flavor#.
     #newTasters# are surprised that the #fruitPart# is #amount# #flavor#.:0.3
+    WARNING DO NOT EAT.: 0.3
+
+textureDescription
+    The #fruitPart# is #amount# #texture#.
+    #fameDescription# for having a #fruitPart# that is #texture#.
+    #newTasters# are surprised that the #fruitPart# is #amount# #texture#.:0.3
+    WARNING DO NOT TOUCH.: 0.3
+
+
 
 fameDescription
     Famous
@@ -50,7 +63,6 @@ uses
     salads
     butters
     jellies
-    eating
     petfood
     wine
     brandy
@@ -114,3 +126,21 @@ flavor
     delicate
     strong
     tasty
+
+texture
+    juicy
+    hard
+    firm
+    soft
+    squishy
+    pliable
+    succulent
+    crisp
+    moist
+    rough
+    fuzzy
+    grainy
+    course
+    smooth
+    pulpy
+
