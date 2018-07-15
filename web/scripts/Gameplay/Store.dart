@@ -68,6 +68,7 @@ class StorePopup
     DivElement header;
     DivElement textBody;
     DivElement parentScroll;
+    int step = 0;
     StorePopup(Element parent) {
         container = new DivElement();
         container.onClick.listen((Event e) {
@@ -94,6 +95,7 @@ class StorePopup
     }
 
     Future<Null> popup(Inventoryable chosenItem) async {
+        step = 0;
         container.style.display = "block";
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
         textBody.setInnerHtml("${chosenItem.description}");
@@ -104,20 +106,12 @@ class StorePopup
 
     void dismiss() {
         container.style.display = "none";
+        step = 0;
     }
 
-    int getCycleStep() {
-        if(textBody.style.display != "none") {
-            return 0;
-        }else if(parentScroll != null && parentScroll.style.display != "none") {
-            return 1;
-        }{
-            return -1;
-        }
-    }
 
     void cycle() {
-        int step = getCycleStep();
+        print("cycling, step is $step");
         if(step == 0) {
             textBody.style.display = "block";
             parentScroll.style.display = "none";
@@ -127,5 +121,6 @@ class StorePopup
         }else {
             dismiss();
         }
+        step ++;
     }
 }
