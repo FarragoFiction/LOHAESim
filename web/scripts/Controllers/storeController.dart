@@ -57,19 +57,7 @@ List<Fruit> spawnRandomFruit() {
 
 
 int nowToSeed() {
-    DateTime now = lastRefreshTime();
-    String y = "${now.year.toString().padLeft(2,'0')}";
-    String m = "${now.month.toString().padLeft(2,'0')}";
-    String d = "${now.day.toString().padLeft(2,'0')}";
-    String h = "${(now.hour).toString().padLeft(2,'0')}";
-
-    return int.parse("$y$m$d$h");
-}
-
-DateTime lastRefreshTime() {
-    DateTime now = new DateTime.now();
-    //thanks for math pl
-    return new DateTime(now.year, now.month, now.day, now.hour, (now.minute ~/ refreshMinute) * refreshMinute);
+    return new DateTime.now().millisecondsSinceEpoch ~/ 3600000;
 }
 
 
