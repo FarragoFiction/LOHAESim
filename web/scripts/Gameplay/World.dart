@@ -1,3 +1,4 @@
+import 'Fruit.dart';
 import 'Inventoryable.dart';
 import 'Tree.dart';
 import 'UnderWorld.dart';
@@ -83,7 +84,9 @@ class World {
         //graphic of branches holding it up, yggdrasil style
         onScreen = new CanvasElement(width: width, height:height);
 
-
+        onScreen.onMouseDown.listen((MouseEvent event) {
+            processClickAtCursor();
+        });
 
         onScreen.onMouseMove.listen((MouseEvent event)
         {
@@ -217,6 +220,29 @@ class World {
         }
         return false;
     }
+
+    void processClickAtCursor() {
+        if(activeItem is Fruit) {
+            plantATreeAtPoint(activeItem, cursor.position);
+        }else {
+            print("I don't know what to do with this!");
+        }
+    }
+
+    void plantATreeAtPoint(Fruit fruit, Point point) {
+        //just a logical result of the trees this fruit came from
+        Doll treeDoll = Doll.breedDolls(fruit.parents);
+        //ground level
+        int y = 300;
+        if(treeDoll is TreeDoll) {
+            Tree tree = new Tree(treeDoll, point.x, y);
+            trees.add(tree);
+            overWorldDirty = true;
+            underWorld.player.inventory.removeItem(fruit);
+            render();
+        }
+    }
+
 
     Future<Null> render() async {
         if(buffer == null) await initCanvasAndBuffer();

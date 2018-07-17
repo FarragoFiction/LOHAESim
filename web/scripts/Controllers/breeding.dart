@@ -10,7 +10,6 @@ List<int> keycodes = new List<int>();
 Future<Null> main() async {
     ygdrassil.health = 26;
     await ygdrassil.setupElements(output);
-    ygdrassil.testTrees();
     testActiveItem();
     ygdrassil.render();
     hookUpTestControls();

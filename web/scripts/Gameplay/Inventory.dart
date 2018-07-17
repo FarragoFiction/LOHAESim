@@ -21,6 +21,12 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     }
 
+    void removeItem(Inventoryable item) {
+        if(activeItem == item) activeItem = null;
+        inventory.remove(item);
+        item.removeFromInventoryScreen();
+    }
+
     void makeRightElement() {
         if(rightElement == null) {
             rightElement = new DivElement();

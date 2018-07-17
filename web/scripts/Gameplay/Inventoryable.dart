@@ -4,40 +4,45 @@ import 'dart:html';
 abstract class Inventoryable {
     String name = "???";
     String description = "An item???";
+    Element myInventoryDiv;
     int cost = 113;
     Store store; //will be set when there's a store
     //up to whoever uses me to make this a thing
     CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);
 
     void renderStoreInventoryRow(DivElement parent) {
-        DivElement me = new DivElement();
-        me.classes.add("innerStoreTableRow");
-        parent.append(me);
+        myInventoryDiv = new DivElement();
+        myInventoryDiv.classes.add("innerStoreTableRow");
+        parent.append(myInventoryDiv);
 
         //print("going to append item canvas for $name");
-        me.append(itemCanvas);
+        myInventoryDiv.append(itemCanvas);
         itemCanvas.classes.add("imageCell");
 
         DivElement costCell = new DivElement()..text = "\$$cost";
         costCell.classes.add("costCell");
-        me.append(costCell);
+        myInventoryDiv.append(costCell);
 
-        me.onClick.listen((Event e) {
+        myInventoryDiv.onClick.listen((Event e) {
             store.handleItemClick(this,preview:  itemCanvas);
         });
     }
 
+    void removeFromInventoryScreen() {
+        myInventoryDiv.remove();
+    }
+
     void renderMyInventoryRow(DivElement parent) {
-        DivElement me = new DivElement();
-        me.classes.add("innerInventoryTableRow");
-        parent.append(me);
+        myInventoryDiv = new DivElement();
+        myInventoryDiv.classes.add("innerInventoryTableRow");
+        parent.append(myInventoryDiv);
 
         //print("going to append item canvas for $name");
-        me.append(itemCanvas);
+        myInventoryDiv.append(itemCanvas);
         itemCanvas.classes.add("imageCell");
 
 
-        me.onClick.listen((MouseEvent e) {
+        myInventoryDiv.onClick.listen((MouseEvent e) {
             store.handleItemClick(this, preview:  itemCanvas);
         });
     }
