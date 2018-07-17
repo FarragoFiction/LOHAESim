@@ -36,8 +36,8 @@ class Inventory {
         inventory.remove(item);
     }
 
-    void handleItemClick(Inventoryable item) {
-        popup.popup(item);
+    void handleItemClick(Inventoryable item, {Point point, Element preview}) {
+        popup.popup(item, point:point, preview:preview);
     }
 
     Future<Null> render() async{
@@ -86,6 +86,8 @@ class InventoryPopup {
     DivElement container;
     DivElement header;
     DivElement textBody;
+    DivElement parentScroll;
+
     int step = 0;
     InventoryPopup(Element parent) {
         container = new DivElement();
@@ -94,7 +96,7 @@ class InventoryPopup {
                 cycle();
             }
         });
-        container.classes.add("popup");
+        container.classes.add("inventoryPopup");
         container.style.display = "none";
 
         header = new DivElement()..text = "Placeholder Header";
@@ -112,12 +114,26 @@ class InventoryPopup {
         return container.style.display == "block";
     }
 
-    Future<Null> popup(Inventoryable chosenItem) async {
+    Future<Null> popup(Inventoryable chosenItem, {Point point, Element preview}) async {
         step = 0;
 
         container.style.display = "block";
+        print("point is $point");
+        if(point != null) {
+            //height of popup is 317
+            container.style.top = "${point.y - 1*317/4}px";
+            print("container style is ${container.style.top}");
+        }
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
         textBody.setInnerHtml("${chosenItem.description}");
+        if(chosenItem is Fruit) {
+            if(parentScroll != null) parentScroll.remove();
+            parentScroll = await chosenItem.generateHorizontalScrollOfParents();
+            parentScroll.style.display = "none";
+            parentScroll.classes.add("popupParents");
+
+            container.append(parentScroll);
+        }
         cycle();
     }
 
@@ -130,7 +146,13 @@ class InventoryPopup {
         print("cycling, step is $step");
         if(step == 0) {
             textBody.style.display = "block";
-        }else{
+            parentScroll.style.display = "none";
+        }else if(step == 1){
+            textBody.style.display = "none";
+            parentScroll.style.display = "block";
+            header.text = "${header.text}: Parents";
+        }else {
+            parentScroll.remove();
             dismiss();
         }
         step ++;

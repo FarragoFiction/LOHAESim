@@ -37,8 +37,9 @@ abstract class Inventoryable {
         itemCanvas.classes.add("imageCell");
 
 
-        me.onClick.listen((Event e) {
-            store.handleItemClick(this);
+        me.onClick.listen((MouseEvent e) {
+            Point p = new Point(e.client.x, e.client.y);
+            store.handleItemClick(this, point:p, preview:  itemCanvas);
         });
     }
 }

@@ -61,12 +61,11 @@ class Store extends Inventory {
 
 class StorePopup extends InventoryPopup
 {
-    DivElement parentScroll;
 
     StorePopup(Element parent) : super(parent);
 
     @override
-    Future<Null> popup(Inventoryable chosenItem) async {
+    Future<Null> popup(Inventoryable chosenItem, {Point point, Element preview}) async {
         step = 0;
 
         container.style.display = "block";
