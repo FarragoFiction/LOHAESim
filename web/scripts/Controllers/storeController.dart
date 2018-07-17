@@ -19,7 +19,8 @@ int refreshMinute = 60;
 void main() {
     ygdrassil.health = 26;
     //example store, TODO have actual inventory system loaded from cache
-    Store store = new Store(output, spawnRandomFruit());
+    Store store = new Store(spawnRandomFruit());
+    store.createContainer(output);
     store.render();
 }
 

@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:html';
 
 class Store extends Inventory {
-  Store(Element parent, List<Inventoryable> inventory) : super(parent, inventory);
+  Store(List<Inventoryable> inventory) : super(inventory);
 
 
     @override

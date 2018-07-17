@@ -9,6 +9,7 @@ List<int> keycodes = new List<int>();
 void main() {
     ygdrassil.health = 26;
     ygdrassil.testTrees();
+    ygdrassil.underWorld.player.drawInventory(output);
     ygdrassil.render();
     hookUpTestControls();
     TODOs.drawTodos(output);

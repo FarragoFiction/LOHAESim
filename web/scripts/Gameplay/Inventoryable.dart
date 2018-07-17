@@ -35,7 +35,7 @@ abstract class Inventoryable {
         //print("going to append item canvas for $name");
         me.append(itemCanvas);
         itemCanvas.classes.add("imageCell");
-        
+
 
         me.onClick.listen((Event e) {
             store.handleItemClick(this);

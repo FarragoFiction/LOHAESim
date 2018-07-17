@@ -10,10 +10,22 @@ class Inventory {
 
     List<Inventoryable> inventory;
 
-    Inventory(Element parent, List<Inventoryable> this.inventory) {
+    Inventory(List<Inventoryable> this.inventory) {
+
+    }
+
+    void createContainer(Element parent) {
         container = new DivElement();
         container.classes.add("store");
         parent.append(container);
+    }
+
+    void add(Inventoryable item) {
+        inventory.add(item);
+    }
+
+    void remove(Inventoryable item) {
+        inventory.remove(item);
     }
 
     void handleItemClick(Inventoryable item) {
