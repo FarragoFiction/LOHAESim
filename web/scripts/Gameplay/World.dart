@@ -23,6 +23,10 @@ class World {
     int health = 0;
 
     CustomCursor  cursor;
+    DateTime lastRender;
+    //essentially the frame rate
+    static int fps = 30;
+    int minTimeBetweenRenders = (1000/fps).round();
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
     List<Tree> trees = new List<Tree>();
@@ -78,10 +82,13 @@ class World {
         onScreen = new CanvasElement(width: width, height:height);
         onScreen.onMouseMove.listen((MouseEvent event)
         {
+            print("detected a mouse move okay?");
             if(activeItem != null) {
+                print("there is an active item so that should be my cursor");
                 CanvasElement itemCanvas = activeItem.itemCanvas;
                 Point point = new Point(event.client.x, event.client.y);
                 cursor = new CustomCursor(itemCanvas, point);
+                overWorldDirty = true;
                 render();
             }else {
                 cursor = null;
@@ -184,9 +191,18 @@ class World {
         }
     }
 
+    bool canRender() {
+        DateTime now = new DateTime.now();
+        Duration diff = now.difference(lastRender);
+        if(diff.inMilliseconds > minTimeBetweenRenders) return true;
+        return false;
+    }
+
     Future<Null> render() async {
         if(buffer == null) await initCanvasAndBuffer();
+        if(!canRender()) return;
         if(overWorldDirty) {
+            print("rendering");
             Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
             buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
@@ -209,6 +225,7 @@ class World {
 
 
         onScreen.context2D.drawImage(buffer, 0,0);
+        lastRender = new DateTime.now();
 
     }
 
