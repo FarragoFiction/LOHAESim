@@ -238,6 +238,7 @@ class World {
             Tree tree = new Tree(treeDoll, point.x, y);
             trees.add(tree);
             overWorldDirty = true;
+            cursor = null;
             underWorld.player.inventory.removeItem(fruit);
             render();
         }
