@@ -1,3 +1,4 @@
+import 'Inventoryable.dart';
 import 'Tree.dart';
 import 'UnderWorld.dart';
 import 'dart:async';
@@ -20,6 +21,9 @@ class World {
 
     //HEALTH OF THE WORLD DETERMINES THE STATE OF THE TREE
     int health = 0;
+
+    CustomCursor  cursor;
+    Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
     List<Tree> trees = new List<Tree>();
 
@@ -72,6 +76,17 @@ class World {
     Future<Null> initCanvasAndBuffer() async {
         //graphic of branches holding it up, yggdrasil style
         onScreen = new CanvasElement(width: width, height:height);
+        onScreen.onMouseMove.listen((MouseEvent event)
+        {
+            if(activeItem != null) {
+                CanvasElement itemCanvas = activeItem.itemCanvas;
+                Point point = new Point(event.client.x, event.client.y);
+                cursor = new CustomCursor(itemCanvas, point);
+                render();
+            }else {
+                cursor = null;
+            }
+        });
         onScreen.context2D.font = "72px Papyrus";
         onScreen.context2D.fillStyle = "#ffffff";
         onScreen.context2D.fillText("LOADING",width/4,height/10);
@@ -188,10 +203,25 @@ class World {
 
         await underWorld.render(buffer);
 
+        if(cursor != null) {
+            cursor.render(buffer);
+        }
+
 
         onScreen.context2D.drawImage(buffer, 0,0);
 
     }
 
 
+}
+
+class CustomCursor {
+    Point position;
+    CanvasElement image;
+
+    CustomCursor(CanvasElement this.image, Point this.position);
+
+    Future<Null> render(CanvasElement canvas) async {
+        canvas.context2D.drawImage(image, position.x, position.y);
+    }
 }

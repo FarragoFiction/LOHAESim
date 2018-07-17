@@ -90,7 +90,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     overflow-y: scroll;
 }
 
-.popup{
+.storePopup{
     height: 317px;
     width: 716px;
     position: absolute;

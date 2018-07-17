@@ -11,9 +11,14 @@ Future<Null> main() async {
     ygdrassil.health = 26;
     await ygdrassil.setupElements(output);
     ygdrassil.testTrees();
+    testActiveItem();
     ygdrassil.render();
     hookUpTestControls();
     //TODOs.drawTodos(output);
+}
+
+void testActiveItem() {
+    ygdrassil.underWorld.player.inventory.activeItem = ygdrassil.underWorld.player.inventory.first;
 }
 
 void hookUpTestControls() {

@@ -23,7 +23,7 @@ abstract class Inventoryable {
         me.append(costCell);
 
         me.onClick.listen((Event e) {
-            store.handleItemClick(this);
+            store.handleItemClick(this,preview:  itemCanvas);
         });
     }
 
@@ -38,8 +38,7 @@ abstract class Inventoryable {
 
 
         me.onClick.listen((MouseEvent e) {
-            Point p = new Point(e.client.x, e.client.y);
-            store.handleItemClick(this, point:p, preview:  itemCanvas);
+            store.handleItemClick(this, preview:  itemCanvas);
         });
     }
 }

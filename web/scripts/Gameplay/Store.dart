@@ -5,6 +5,8 @@ import 'Inventoryable.dart';
 import 'dart:async';
 import 'dart:html';
 
+import 'package:RenderingLib/RendereringLib.dart';
+
 class Store extends Inventory {
   Store(List<Inventoryable> inventory) : super(inventory);
 
@@ -62,7 +64,26 @@ class Store extends Inventory {
 class StorePopup extends InventoryPopup
 {
 
-    StorePopup(Element parent) : super(parent);
+    StorePopup(Element parent) : super(parent) {
+        container = new DivElement();
+        container.onClick.listen((Event e) {
+            if(visible()) {
+                cycle();
+            }
+        });
+        container.classes.add("storePopup");
+        container.style.display = "none";
+
+        header = new DivElement()..text = "Placeholder Header";
+        header.classes.add("popupHeader");
+        container.append(header);
+
+        textBody= new DivElement();
+        container.append(textBody);
+        textBody.classes.add("popupBody");
+        textBody.setInnerHtml("Lorem Ipsum Dolor definitely not a typo okay?<br><br>More Lorem shit I promise okay???");
+        parent.append(container);
+    }
 
     @override
     Future<Null> popup(Inventoryable chosenItem, {Point point, Element preview}) async {
@@ -70,6 +91,12 @@ class StorePopup extends InventoryPopup
 
         container.style.display = "block";
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
+        if(preview != null) {
+            CanvasElement previewBox = new CanvasElement(width: 15, height: 15);
+            previewBox.style.display = "inline";
+            await Renderer.drawToFitCentered(previewBox, preview);
+            header.append(previewBox);
+        }
         textBody.setInnerHtml("${chosenItem.description}");
         if(chosenItem is Fruit) {
             if(parentScroll != null) parentScroll.remove();

@@ -3,11 +3,17 @@ import 'Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable.dart';
 import 'dart:async';
+import 'dart:collection';
 import 'dart:html';
-class Inventory {
+
+import 'package:RenderingLib/RendereringLib.dart';
+class Inventory extends Object with IterableMixin<Inventoryable>{
     DivElement container;
     InventoryPopup popup;
     Element rightElement;
+    //if it's active this is the thing we'll buy if it's a store
+    //otherwise it's rendered as your mouse pointer in the canvas.
+    Inventoryable activeItem;
 
     List<Inventoryable> inventory;
 
@@ -36,8 +42,9 @@ class Inventory {
         inventory.remove(item);
     }
 
-    void handleItemClick(Inventoryable item, {Point point, Element preview}) {
-        popup.popup(item, point:point, preview:preview);
+    void handleItemClick(Inventoryable item, {Element preview}) {
+        activeItem = item;
+        popup.popup(item,  preview:preview);
     }
 
     Future<Null> render() async{
@@ -80,6 +87,8 @@ class Inventory {
     }
 
 
+  @override
+  Iterator<Inventoryable> get iterator => inventory.iterator;
 }
 
 class InventoryPopup {
@@ -114,17 +123,19 @@ class InventoryPopup {
         return container.style.display == "block";
     }
 
-    Future<Null> popup(Inventoryable chosenItem, {Point point, Element preview}) async {
+    Future<Null> popup(Inventoryable chosenItem, {CanvasElement preview}) async {
         step = 0;
 
         container.style.display = "block";
-        print("point is $point");
-        if(point != null) {
-            //height of popup is 317
-            container.style.top = "${point.y - 1*317/4}px";
-            print("container style is ${container.style.top}");
-        }
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
+        if(preview != null) {
+            CanvasElement previewBox = new CanvasElement(width: 15, height: 15);
+            previewBox.style.display = "inline";
+            await Renderer.drawToFitCentered(previewBox, preview);
+            header.append(previewBox);
+        }
+
+
         textBody.setInnerHtml("${chosenItem.description}");
         if(chosenItem is Fruit) {
             if(parentScroll != null) parentScroll.remove();
