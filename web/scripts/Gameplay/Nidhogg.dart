@@ -6,6 +6,6 @@ class Nidhogg extends CollectableSecret {
   int width = 440;
   @override
   int height = 580;
-  Nidhogg(World world) : super(world, "It gnaws on the foundations of reality.", "images/BGs/nidhoggTrue.png");
+  Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
 }
