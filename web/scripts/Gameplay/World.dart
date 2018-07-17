@@ -52,12 +52,12 @@ class World {
         //testTrees();
     }
 
+    //it's a sub part of inventory now, don't do it's own thing
     Future<Null> setupElements(Element parentContainer) async {
         //want inventory on left, world on right
         await underWorld.player.drawInventory(parentContainer);
         container = underWorld.player.inventory.rightElement;
-        container.classes.add("worldBase");
-        parentContainer.append(container);
+        //parentContainer.append(container);
     }
 
     void testTrees() {

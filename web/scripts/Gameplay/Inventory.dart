@@ -16,7 +16,10 @@ class Inventory {
     }
 
     void makeRightElement() {
-        rightElement = new DivElement();
+        if(rightElement == null) {
+            rightElement = new DivElement();
+            rightElement.classes.add("worldContainer");
+        }
     }
 
     void createContainer(Element parent) {
@@ -40,7 +43,7 @@ class Inventory {
     Future<Null> render() async{
         TableElement outerTable = new TableElement();
         container.append(outerTable);
-        outerTable.classes.add("outerStoreTable");
+        //outerTable.classes.add("outerStoreTable");
 
         TableRowElement row = new TableRowElement();
         outerTable.append(row);

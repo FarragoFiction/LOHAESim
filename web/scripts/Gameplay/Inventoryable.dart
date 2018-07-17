@@ -29,7 +29,7 @@ abstract class Inventoryable {
 
     void renderMyInventoryRow(DivElement parent) {
         DivElement me = new DivElement();
-        me.classes.add("innerStoreTableRow");
+        me.classes.add("innerInventoryTableRow");
         parent.append(me);
 
         //print("going to append item canvas for $name");

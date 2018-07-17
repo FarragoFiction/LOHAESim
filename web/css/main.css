@@ -40,6 +40,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     border-radius: 10px;
 }
 
+.innerInventoryTableRow{
+    width: 50px;
+    height: 55px;
+    padding: 3px;
+    color: #242d26;
+    background-color: #ffffff;
+    border: 5px solid #242d26;
+    border-radius: 10px;
+}
+
 
 .imageCell{
     display: inline-block;
@@ -110,6 +120,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     display: inline;
 }
 
+.worldContainer{
+    position: relative;
+}
+
 .parentHorizontalScroll{
     overflow-x: scroll;
     overflow-y: hidden;
@@ -118,14 +132,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     height: 113px;
 }
 
-.worldBase{
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
-    left: 200px;
-    padding: 50px;
-}
 
 .frameLayer{
     position:absolute;
