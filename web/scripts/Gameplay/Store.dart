@@ -1,26 +1,15 @@
 import 'Essence.dart';
 import 'Fruit.dart';
+import 'Inventory.dart';
 import 'Inventoryable.dart';
 import 'dart:async';
 import 'dart:html';
 
-//TODO have this extend an inventory thingy
-class Store {
-    DivElement container;
-    StorePopup popup;
+class Store extends Inventory {
+  Store(Element parent, List<Inventoryable> inventory) : super(parent, inventory);
 
-    List<Inventoryable> inventory;
 
-    Store(Element parent, List<Inventoryable> this.inventory) {
-        container = new DivElement();
-        container.classes.add("store");
-        parent.append(container);
-    }
-
-    void handleItemClick(Inventoryable item) {
-        popup.popup(item);
-    }
-
+    @override
     Future<Null> render() async{
         TableElement outerTable = new TableElement();
         container.append(outerTable);
@@ -42,7 +31,7 @@ class Store {
                 await inventoryItem.setCanvasForStore();
             }
             inventoryItem.store = this;
-            inventoryItem.renderInventoryRow(table);
+            inventoryItem.renderStoreInventoryRow(table);
         }
 
         ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStorePiano.png");
@@ -60,40 +49,17 @@ class Store {
     }
 
 
+
 }
 
-class StorePopup
+
+class StorePopup extends InventoryPopup
 {
-    DivElement container;
-    DivElement header;
-    DivElement textBody;
     DivElement parentScroll;
-    int step = 0;
-    StorePopup(Element parent) {
-        container = new DivElement();
-        container.onClick.listen((Event e) {
-            if(visible()) {
-                cycle();
-            }
-        });
-        container.classes.add("popup");
-        container.style.display = "none";
 
-        header = new DivElement()..text = "Placeholder Header";
-        header.classes.add("popupHeader");
-        container.append(header);
+    StorePopup(Element parent) : super(parent);
 
-        textBody= new DivElement();
-        container.append(textBody);
-        textBody.classes.add("popupBody");
-        textBody.setInnerHtml("Lorem Ipsum Dolor definitely not a typo okay?<br><br>More Lorem shit I promise okay???");
-        parent.append(container);
-    }
-
-    bool visible() {
-        return container.style.display == "block";
-    }
-
+    @override
     Future<Null> popup(Inventoryable chosenItem) async {
         step = 0;
 
@@ -111,11 +77,7 @@ class StorePopup
         cycle();
     }
 
-    void dismiss() {
-        container.style.display = "none";
-        step = 0;
-    }
-
+    @override
     void cycle() {
         print("cycling, step is $step");
         if(step == 0) {
@@ -131,4 +93,5 @@ class StorePopup
         }
         step ++;
     }
+
 }
