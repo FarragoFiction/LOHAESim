@@ -7,11 +7,16 @@ import 'dart:html';
 class Inventory {
     DivElement container;
     InventoryPopup popup;
+    Element rightElement;
 
     List<Inventoryable> inventory;
 
     Inventory(List<Inventoryable> this.inventory) {
 
+    }
+
+    void makeRightElement() {
+        rightElement = new DivElement();
     }
 
     void createContainer(Element parent) {
@@ -55,6 +60,16 @@ class Inventory {
             inventoryItem.store = this;
             inventoryItem.renderMyInventoryRow(table);
         }
+
+        if(rightElement == null) makeRightElement();
+        rightElement.onClick.listen((Event e) {
+            if(popup.visible()) {
+                popup.cycle();
+            }
+        });
+        TableCellElement td2 = new TableCellElement();
+        td2.append(rightElement);
+        row.append(td2);
 
         popup = new InventoryPopup(container);
 

@@ -8,6 +8,12 @@ import 'dart:html';
 class Store extends Inventory {
   Store(List<Inventoryable> inventory) : super(inventory);
 
+  @override
+  Element makeRightElement() {
+      rightElement = new ImageElement(src: "images/BGs/miStorePiano.png");
+
+  }
+
 
     @override
     Future<Null> render() async{
@@ -34,14 +40,14 @@ class Store extends Inventory {
             inventoryItem.renderStoreInventoryRow(table);
         }
 
-        ImageElement manicInsomniac = new ImageElement(src: "images/BGs/miStorePiano.png");
-        manicInsomniac.onClick.listen((Event e) {
+        if(rightElement == null) makeRightElement();
+        rightElement.onClick.listen((Event e) {
             if(popup.visible()) {
                 popup.cycle();
             }
         });
         TableCellElement td2 = new TableCellElement();
-        td2.append(manicInsomniac);
+        td2.append(rightElement);
         row.append(td2);
 
         popup = new StorePopup(container);

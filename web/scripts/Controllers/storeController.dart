@@ -11,7 +11,7 @@ import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/src/Misc/random.dart';
 
 Element output = querySelector('#output');
-World ygdrassil = new World(output);
+World ygdrassil = new World();
 Store store;
 //how often do you get new things? every five minutes
 int refreshMinute = 60;

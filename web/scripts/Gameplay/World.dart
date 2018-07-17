@@ -46,14 +46,18 @@ class World {
     bool overWorldDirty = true;
 
 
-    World(Element parentContainer) {
+    World() {
         underWorld = new UnderWorld(this);
-        container = new DivElement();
+
+        //testTrees();
+    }
+
+    Future<Null> setupElements(Element parentContainer) async {
+        //want inventory on left, world on right
+        await underWorld.player.drawInventory(parentContainer);
+        container = underWorld.player.inventory.rightElement;
         container.classes.add("worldBase");
         parentContainer.append(container);
-        //testTrees();
-
-
     }
 
     void testTrees() {
@@ -111,7 +115,7 @@ class World {
 
     void changeMusic(String newMusicLocation) {
         int time = backgroundMusic.currentTime;
-        print("current music is ${backgroundMusic.src} time is $time");
+        //print("current music is ${backgroundMusic.src} time is $time");
         backgroundMusic.src = "${newMusicLocation}.ogg";
 
         mp3.src = "$newMusicLocation.mp3";

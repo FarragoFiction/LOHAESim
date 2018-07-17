@@ -5,12 +5,14 @@ import 'Inventory.dart';
 import 'Inventoryable.dart';
 import 'Secret.dart';
 import 'World.dart';
+import 'dart:async';
 import 'dart:html';
 
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 class Player extends Secret {
     //relative to underworld, center of player (not top left)
+
 
     int speed = 45;
     //don't let the player go below zero or above this
@@ -24,7 +26,11 @@ class Player extends Secret {
     int flashlightRadius =75;
 
 
-    Player(World world, int this.maxX, int this.maxY):super(world);
+    Player(World world, int this.maxX, int this.maxY):super(world) {
+        for(int i = 0; i<13; i++) {
+            initialInventory();
+        }
+    }
 
     void up() {
         topLeftY += -42;
@@ -71,9 +77,9 @@ class Player extends Secret {
         inventory.add(fruit);
     }
 
-    void drawInventory(Element container) {
+    Future<Null> drawInventory(Element container) async{
         inventory.createContainer(container);
-        inventory.render();
+        await inventory.render();
     }
 
 

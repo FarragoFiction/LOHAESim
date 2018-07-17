@@ -1,19 +1,19 @@
 import '../Gameplay/Player.dart';
 import '../Gameplay/World.dart';
+import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
 
 Element output = querySelector('#output');
-World ygdrassil = new World(output);
+World ygdrassil = new World();
 List<int> keycodes = new List<int>();
-void main() {
+Future<Null> main() async {
     ygdrassil.health = 26;
+    await ygdrassil.setupElements(output);
     ygdrassil.testTrees();
-    ygdrassil.underWorld.player.drawInventory(output);
     ygdrassil.render();
     hookUpTestControls();
-    TODOs.drawTodos(output);
-
+    //TODOs.drawTodos(output);
 }
 
 void hookUpTestControls() {
