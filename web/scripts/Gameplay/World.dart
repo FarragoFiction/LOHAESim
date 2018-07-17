@@ -23,6 +23,8 @@ class World {
     int health = 0;
 
     CustomCursor  cursor;
+    //don't step on your own toes. need for cursor shit
+    bool currentlyRendering = false;
     DateTime lastRender;
     //essentially the frame rate
     static int fps = 30;
@@ -83,13 +85,14 @@ class World {
 
 
 
-        onScreen.onMouseOver.listen((MouseEvent event)
+        onScreen.onMouseMove.listen((MouseEvent event)
         {
             print("detected a mouse move okay?");
             if(activeItem != null) {
                 print("there is an active item so that should be my cursor");
                 CanvasElement itemCanvas = activeItem.itemCanvas;
-                Point point = new Point(event.client.x, event.client.y);
+                Rectangle rect = onScreen.getBoundingClientRect();
+                Point point = new Point(event.client.x-rect.left, event.client.y-rect.top);
                 cursor = new CustomCursor(itemCanvas, point);
                 overWorldDirty = true;
                 render();
@@ -142,7 +145,15 @@ class World {
     void changeMusic(String newMusicLocation) {
         int time = backgroundMusic.currentTime;
         //print("current music is ${backgroundMusic.src} time is $time");
-        backgroundMusic.src = "${newMusicLocation}.ogg";
+        //backgroundMusic.src = "${newMusicLocation}.ogg";
+        String old = mp3.src;
+        //for some reason it is an absolute path even if i set it to relative
+        old = old.split("/").last;
+        String newString = "${newMusicLocation.split("/").last}.mp3";
+        if(old == newString) {
+            return; //nothing changed
+        }
+       // print("old music is ${old} and new music is $newString and I think they are different");
 
         mp3.src = "$newMusicLocation.mp3";
         mp3.type = "audio/mpeg";
@@ -199,14 +210,19 @@ class World {
         if(lastRender == null) return true;
         DateTime now = new DateTime.now();
         Duration diff = now.difference(lastRender);
-        if(diff.inMilliseconds > minTimeBetweenRenders) return true;
+        print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
+        if(diff.inMilliseconds > minTimeBetweenRenders) {
+            print("yes");
+            return true;
+        }
         return false;
     }
 
     Future<Null> render() async {
         if(buffer == null) await initCanvasAndBuffer();
-        if(!canRender()) return;
+        if(currentlyRendering || !canRender()) return;
         if(overWorldDirty) {
+            currentlyRendering = true;
             print("rendering");
             Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
@@ -225,13 +241,13 @@ class World {
         await underWorld.render(buffer);
 
         if(cursor != null) {
-            cursor.render(buffer);
+            await cursor.render(buffer);
         }
 
 
         onScreen.context2D.drawImage(buffer, 0,0);
         lastRender = new DateTime.now();
-
+        currentlyRendering = false;
     }
 
 
@@ -244,6 +260,7 @@ class CustomCursor {
     CustomCursor(CanvasElement this.image, Point this.position);
 
     Future<Null> render(CanvasElement canvas) async {
+        print("rendering a cursor to ${position.x}, ${position.y}");
         canvas.context2D.drawImage(image, position.x, position.y);
     }
 }

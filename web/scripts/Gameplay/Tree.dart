@@ -14,6 +14,7 @@ class Tree {
         if(_canvas == null || dirty) {
             _canvas = new CanvasElement(width: doll.width, height: doll.height);
             await DollRenderer.drawDoll(_canvas, doll);
+            dirty = false;
         }
         return _canvas;
     }
