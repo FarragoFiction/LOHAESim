@@ -84,6 +84,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     overflow-y: scroll;
 }
 
+.innerInventoryRowContainer{
+    margin-top: 250px;
+    height: 640px;
+    overflow-y: scroll;
+}
+
 .popup{
     height: 317px;
     width: 716px;

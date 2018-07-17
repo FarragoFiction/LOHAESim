@@ -51,7 +51,7 @@ class Inventory {
         row.append(td1);
 
         DivElement table = new DivElement();
-        table.classes.add("innerStoreRowContainer");
+        table.classes.add("innerInventoryRowContainer");
         td1.append(table);
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
@@ -72,6 +72,7 @@ class Inventory {
         });
         TableCellElement td2 = new TableCellElement();
         td2.append(rightElement);
+        td2.style.verticalAlign = "top";
         row.append(td2);
 
         popup = new InventoryPopup(container);
