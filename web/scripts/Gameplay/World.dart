@@ -80,7 +80,10 @@ class World {
     Future<Null> initCanvasAndBuffer() async {
         //graphic of branches holding it up, yggdrasil style
         onScreen = new CanvasElement(width: width, height:height);
-        onScreen.onMouseMove.listen((MouseEvent event)
+
+
+
+        onScreen.onMouseOver.listen((MouseEvent event)
         {
             print("detected a mouse move okay?");
             if(activeItem != null) {
@@ -98,6 +101,7 @@ class World {
         onScreen.context2D.fillStyle = "#ffffff";
         onScreen.context2D.fillText("LOADING",width/4,height/10);
         onScreen.classes.add("frameLayer");
+        onScreen.style.pointerEvents = "auto";
         onScreen.id  = "worldCanvas";
         container.append(onScreen);
         bg = await Loader.getResource(bgLocation);
@@ -192,6 +196,7 @@ class World {
     }
 
     bool canRender() {
+        if(lastRender == null) return true;
         DateTime now = new DateTime.now();
         Duration diff = now.difference(lastRender);
         if(diff.inMilliseconds > minTimeBetweenRenders) return true;
