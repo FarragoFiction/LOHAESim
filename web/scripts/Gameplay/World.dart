@@ -1,5 +1,5 @@
-import 'Fruit.dart';
-import 'Inventoryable.dart';
+import 'Inventoryable/Fruit.dart';
+import 'Inventoryable/Inventoryable.dart';
 import 'Tree.dart';
 import 'UnderWorld.dart';
 import 'dart:async';
@@ -226,6 +226,7 @@ class World {
             plantATreeAtPoint(activeItem, cursor.position);
         }else {
             print("I don't know what to do with this!");
+            //TODO handle ax
         }
     }
 

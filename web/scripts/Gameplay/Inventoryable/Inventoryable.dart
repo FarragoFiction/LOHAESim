@@ -1,4 +1,4 @@
-import 'Store.dart';
+import '../Inventory.dart';
 import 'dart:html';
 
 abstract class Inventoryable {
@@ -6,7 +6,7 @@ abstract class Inventoryable {
     String description = "An item???";
     Element myInventoryDiv;
     int cost = 113;
-    Store store; //will be set when there's a store
+    Inventory inventory; //will be set when there's a store
     //up to whoever uses me to make this a thing
     CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);
 
@@ -24,7 +24,7 @@ abstract class Inventoryable {
         myInventoryDiv.append(costCell);
 
         myInventoryDiv.onClick.listen((Event e) {
-            store.handleItemClick(this,preview:  itemCanvas);
+            inventory.handleItemClick(this,preview:  itemCanvas);
         });
     }
 
@@ -43,7 +43,7 @@ abstract class Inventoryable {
 
 
         myInventoryDiv.onClick.listen((MouseEvent e) {
-            store.handleItemClick(this, preview:  itemCanvas);
+            inventory.handleItemClick(this, preview:  itemCanvas);
         });
     }
 }

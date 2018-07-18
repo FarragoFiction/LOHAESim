@@ -1,4 +1,4 @@
-import 'Inventoryable.dart';
+import '../Inventoryable/Inventoryable.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:DollLibCorrect/DollRenderer.dart';

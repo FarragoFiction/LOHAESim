@@ -1,4 +1,4 @@
-import 'Essence.dart';
+import 'Inventoryable/Essence.dart';
 import 'Nidhogg.dart';
 import 'Player.dart';
 import 'World.dart';

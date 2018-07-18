@@ -1,6 +1,6 @@
-import 'CollectableSecret.dart';
-import 'Inventoryable.dart';
-import 'World.dart';
+import '../CollectableSecret.dart';
+import '../Inventoryable/Inventoryable.dart';
+import '../World.dart';
 import 'dart:async';
 
 import 'dart:html';

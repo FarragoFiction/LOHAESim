@@ -1,8 +1,9 @@
 //wait what why is their a player???
 
-import 'Fruit.dart';
+import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
-import 'Inventoryable.dart';
+import 'Inventoryable/Inventoryable.dart';
 import 'Secret.dart';
 import 'World.dart';
 import 'dart:async';
@@ -27,6 +28,8 @@ class Player extends Secret {
 
 
     Player(World world, int this.maxX, int this.maxY):super(world) {
+        //TODO have it be a thing you buy from the store
+        inventory.add(new Ax(world));
         for(int i = 0; i<13; i++) {
             initialInventory();
         }
@@ -65,14 +68,6 @@ class Player extends Secret {
         fruit.parents.add(parent);
         //make sure the clone parent has you as it's fruit
         parent.fruitTemplate = doll;
-
-        /*
-        //TODO remove this thing i have in there for testing purposes
-        for(int i = 0; i<13; i++) {
-            TreeDoll parent = new TreeDoll();
-            fruit.parents.add(parent);
-        }
-        */
 
         inventory.add(fruit);
     }

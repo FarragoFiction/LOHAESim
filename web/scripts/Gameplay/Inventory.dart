@@ -1,7 +1,8 @@
-import 'Essence.dart';
-import 'Fruit.dart';
+import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Essence.dart';
+import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
-import 'Inventoryable.dart';
+import 'Inventoryable/Inventoryable.dart';
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
@@ -72,8 +73,10 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Fruit) {
                 await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is Ax) {
+                await inventoryItem.setCanvasForStore();
             }
-            inventoryItem.store = this;
+            inventoryItem.inventory = this;
             inventoryItem.renderMyInventoryRow(table);
         }
 

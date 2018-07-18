@@ -1,5 +1,5 @@
-import '../Gameplay/Essence.dart';
-import '../Gameplay/Fruit.dart';
+import '../Gameplay/Inventoryable/Essence.dart';
+import '../Gameplay/Inventoryable/Fruit.dart';
 import '../Gameplay/Player.dart';
 import '../Gameplay/Store.dart';
 import '../Gameplay/World.dart';
