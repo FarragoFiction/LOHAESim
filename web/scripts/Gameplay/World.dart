@@ -22,6 +22,9 @@ class World {
     static final int TENTACLELEVEL = -13;
     static final int EYELEVEL = -26;
 
+
+    bool bossFight = false;
+
     //HEALTH OF THE WORLD DETERMINES THE STATE OF THE TREE
     int health = 0;
 
@@ -181,19 +184,25 @@ class World {
 
     }
 
+    void activateBossFight() {
+        print("oh god why did you do this??? NIDHOGG IS AWAKE!");
+        bossFight = true;
+        //show 'then perish'
+    }
+
     void showAndHideYgdrssylLayers() {
-        if(health >= TENTACLELEVEL) {
-            branches.style.display = "block";
-            tentacles.style.display = "none";
-            document.body.style.background = "linear-gradient(to bottom, #002d4a 0%,#002d4a 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
-            changeMusic(currentMusic.happy, true);
-            document.title = "Land of Horticulture and Essence";
-        }else {
+        if(health <= TENTACLELEVEL || bossFight) {
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
             changeMusic(currentMusic.creepy, true);
             document.title = "Land of Horrorticulture and Essence";
+        }else {
+            branches.style.display = "block";
+            tentacles.style.display = "none";
+            document.body.style.background = "linear-gradient(to bottom, #002d4a 0%,#002d4a 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
+            changeMusic(currentMusic.happy, true);
+            document.title = "Land of Horticulture and Essence";
         }
 
         if(health >=LEAFLEVEL) {

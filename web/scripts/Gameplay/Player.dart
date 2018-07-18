@@ -15,7 +15,7 @@ import 'package:DollLibCorrect/DollRenderer.dart';
 class Player extends Secret {
     //relative to underworld, center of player (not top left)
 
-
+    bool hasActiveFlashlight = false;
     int speed = 45;
     //don't let the player go below zero or above this
     int maxX;

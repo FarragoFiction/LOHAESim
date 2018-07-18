@@ -26,7 +26,7 @@ class UnderWorld {
         nidhogg = new Nidhogg(world);
         player = new Player(world, width, height);
         //TODO load essences and their location from json, if can't find, then spawn
-        essences = Essence.spawn();
+        essences = Essence.spawn(world);
         scatterEssences();
         scatterNidhogg();
     }
@@ -89,13 +89,19 @@ class UnderWorld {
             }else {
                     essencesToRemove.add(e);
             }
-
-
         }
+        print(nidhogg.gigglesnort(new Math.Point(player.x, player.y)));
+
+
         ImageElement playerImage = await player.image;
         buffer.context2D.drawImage(playerImage, player.x, player.y);
         //tree grows more healthy closer you get to nidhogg until suddenly everything is terrible forever
-        world.health = World.MAXHEALTH  - (World.MAXHEALTH * (height-player.y)/height).round();
+        if(!world.bossFight) {
+            world.health = World.MAXHEALTH -
+                (World.MAXHEALTH * (height - player.y) / height).round();
+        }else {
+            world.health  = World.MAXHEALTH * -1;
+        }
         world.showAndHideYgdrssylLayers();
         await handleDirt();
 
@@ -111,11 +117,23 @@ class UnderWorld {
         //dirt.context2D.fillStyle = "#00ff00";
 
         dirt.context2D.fillRect(0, 0, dirt.width, dirt.height);
-        dirt.context2D.beginPath();
-        dirt.context2D.arc(player.topLeftX,player.topLeftY,player.flashlightRadius,0,2*Math.PI);
-        dirt.context2D.save();
-        dirt.context2D.clip();
-        Renderer.clearCanvas(dirt);
+        if(player.hasActiveFlashlight) {
+            dirt.context2D.beginPath();
+            int flashlighRadius = dirt.width *
+                2; //if you're in a boss fight, show everything
+            if (!world.bossFight) {
+                flashlighRadius = player.flashlightRadius;
+            } else {
+                print(
+                    "Oh god oh shit why is NIDHOGG awake? FIGHT IT! Use fraymotifs!");
+            }
+            dirt.context2D.arc(
+                player.topLeftX, player.topLeftY, flashlighRadius, 0,
+                2 * Math.PI);
+            dirt.context2D.save();
+            dirt.context2D.clip();
+            Renderer.clearCanvas(dirt);
+        }
         buffer.context2D.drawImage(dirt,0,0);
         dirt.context2D.restore();
     }

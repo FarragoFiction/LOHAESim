@@ -1,3 +1,4 @@
+import 'Inventoryable/Inventoryable.dart';
 import 'Secret.dart';
 import 'World.dart';
 import "dart:math" as Math;
@@ -17,9 +18,18 @@ class CollectableSecret extends Secret {
         Math.Point myPoint = new Math.Point(x,y);
         double distance = point.distanceTo(myPoint);
         if(distance < collectionRadius) {
-            collected  = true;
-            print("collected $this");
-            //TODO add to inventory
+            if(world.bossFight) {
+                print("You absolute madman, you can't collect anything while NIDHOGG is awake!!! FIGHT!!!");
+            }else {
+                collected = true;
+                if (this is Inventoryable) {
+                    Inventoryable meAsItem = this as Inventoryable;
+                    world.underWorld.player.inventory.add(meAsItem);
+                    print("collected ${meAsItem.name} and added to inventory.");
+                } else{
+                    print("collected $this");
+                }
+            }
         }
 
         if(distance < giggleSnortRadius) {
