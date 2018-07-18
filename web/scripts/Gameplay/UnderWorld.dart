@@ -83,14 +83,14 @@ class UnderWorld {
         nidhogg.render(buffer);
         for(Essence e in essences) {
             //also handles collecting
-            print(e.gigglesnort(new Math.Point(player.x, player.y)));
+            e.gigglesnort(new Math.Point(player.x, player.y));
             if(!e.collected) {
                 e.render(buffer);
             }else {
                     essencesToRemove.add(e);
             }
         }
-        print(nidhogg.gigglesnort(new Math.Point(player.x, player.y)));
+        nidhogg.gigglesnort(new Math.Point(player.x, player.y));
 
 
         ImageElement playerImage = await player.image;
@@ -124,8 +124,8 @@ class UnderWorld {
             if (!world.bossFight) {
                 flashlighRadius = player.flashlightRadius;
             } else {
-                print(
-                    "Oh god oh shit why is NIDHOGG awake? FIGHT IT! Use fraymotifs!");
+                jrPrint(
+                    "oh hey don't let me interupt you there, just thought you might wanna know there's like...three paths to defeating Nidhogg. I wonder what they could be???");
             }
             dirt.context2D.arc(
                 player.topLeftX, player.topLeftY, flashlighRadius, 0,

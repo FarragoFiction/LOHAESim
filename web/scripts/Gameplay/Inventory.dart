@@ -191,7 +191,7 @@ class InventoryPopup {
     }
 
     void cycle() {
-        print("cycling, step is $step");
+        //print("cycling, step is $step");
         if(step == 0) {
             textBody.style.display = "block";
             if(parentScroll != null) parentScroll.style.display = "none";

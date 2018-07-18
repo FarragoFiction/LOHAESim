@@ -4,6 +4,7 @@ import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'OnScreenText.dart';
+import 'Player.dart';
 import 'Tree.dart';
 import 'UnderWorld.dart';
 import 'dart:async';
@@ -73,7 +74,8 @@ class World {
     World() {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-        testTrees();
+        consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
+        owoPrint("New Friend! Let's explore these roots together!");
     }
 
     //it's a sub part of inventory now, don't do it's own thing
@@ -182,13 +184,15 @@ class World {
         if(backgroundMusic.canPlayType("audio/ogg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.ogg";
 
         if(sync)backgroundMusic.currentTime = time;
+        consortPrint("you know they say the Prince could Play the Vines. I wonder if it would sound like this??");
+
         //print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
 
     }
 
     void activateBossFight() {
-        print("oh god why did you do this??? NIDHOGG IS AWAKE!");
+        consortPrint("oh god why did you do this??? NIDHOGG IS AWAKE!");
         bossFight = true;
         //show 'then perish'
         ImageElement thenPerish = new ImageElement(src: "images/BGs/thenperish.png");
@@ -201,6 +205,7 @@ class World {
 
     void showAndHideYgdrssylLayers() {
         if(health <= TENTACLELEVEL || bossFight) {
+            consortPrint("Oh god oh god oh god what do we do!!??");
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
@@ -262,23 +267,24 @@ class World {
         }else if(activeItem is Flashlight) {
             activateFlashlight();
         }else {
-            print("I don't know what to do with this!");
+            consortPrint("i don't know what to do with this!! thwap!! thwap!!");
         }
     }
 
     void activateFlashlight() {
+        owoPrint("Oh! I can see! What's this?");
         underWorld.player.hasActiveFlashlight = true;
         render();
     }
 
     void removeTreePopup() {
+        consortPrint("thwap!! thwap!! Gnaw that tree!");
         DivElement axContainer = new DivElement();
         axContainer.classes.add("parentHorizontalScroll");
         axContainer.classes.add("popupParents");
         axContainer.id = "axContainer";
         List<CanvasElement> pendingCanvases = new List<CanvasElement>();
         for(Tree tree in trees) {
-            print("adding a canvas for tree $tree for ax popup");
             CanvasElement parentDiv = new CanvasElement(width: 80, height: 80);
             parentDiv.classes.add("parentBox");
             pendingCanvases.add(parentDiv);
@@ -325,6 +331,7 @@ class World {
     }
 
     void plantATreeAtPoint(Fruit fruit, Point point) {
+        consortPrint("thwap!! are you sure it's a good idea to print all these trees?? nidhogg might wake up... he's SCARY!!");
         //just a logical result of the trees this fruit came from
         Doll treeDoll = Doll.breedDolls(fruit.parents);
         //ground level

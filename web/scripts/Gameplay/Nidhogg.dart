@@ -1,5 +1,6 @@
 import 'CollectableSecret.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'Player.dart';
 import 'World.dart';
 import "dart:math" as Math;
 
@@ -16,28 +17,31 @@ class Nidhogg extends CollectableSecret {
 
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
-  String gigglesnort(Math.Point point) {
+  void gigglesnort(Math.Point point) {
       int eyeX = 217;
       int eyeY = 364;
     Math.Point myPoint = new Math.Point(x+eyeX,y+eyeY);
     double distance = point.distanceTo(myPoint);
     if(distance < collectionRadius) {
       if(world.bossFight) {
-        print("You absolute madman, get away from Nidhogg you can't fight him directly!!! And especially not with some weird ghost bear avatar!");
+          owoPrint("New friend!!! Get away from Nidhogg you can't fight him directly!!! And especially not with some weird ghost bear avatar!",48);
       }else {
           if(world.underWorld.player.hasActiveFlashlight) {
               world.activateBossFight();
           }else {
-            print("Um. Are...are you sure you want to be here? Something seems to be....moving. In the dark. If only there were some way to turn on a light...");
+              owoPrint("Um. Are...are you sure you want to be here, new friend? Something seems to be....moving. In the dark. If only there were some way to turn on a light...",12);
           }
       }
     }
 
     if(distance < giggleSnortRadius) {
-      return "$specificPhrase. Or is it ${distance.round()}?";
+        if(world.bossFight) {
+            owoPrint("$specificPhrase. Or is it ${distance.round()}?");
+        }else {
+            owoPrint("It GROWS!");
+        }
     }
 
-    return "";
   }
 
 }
