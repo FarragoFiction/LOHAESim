@@ -1,20 +1,33 @@
+import 'World.dart';
 import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class OnScreenText {
     String text;
-    String font = "Strife";
     int fontSize = 72;
     Colour color1;
     Colour color2;
     int x;
     int y;
     int millisOnScreen;
-    int fadeTimeInMillis;
+    DateTime firstRender;
+    bool finished = false;
 
-    OnScreenText(String this.text, int this.x, int this.y, Colour this.color1, Colour this.color2, {int this.millisOnScreen: 1000, int this.fadeTimeInMillis:1000});
+    OnScreenText(String this.text, int this.x, int this.y, Colour this.color1, Colour this.color2, {int this.millisOnScreen: 1000});
+
+    bool checkFinished() {
+        if(firstRender == null) firstRender = new DateTime.now();
+        DateTime now = new DateTime.now();
+        Duration diff = now.difference(firstRender);
+        if(diff.inMilliseconds >= millisOnScreen){
+            finished = true;
+            return true;
+        }
+        return false;
+    }
 
     void render(CanvasElement buffer) {
+        if(checkFinished()) return;
         buffer.context2D.font = "bold ${fontSize}px Courier New";
         buffer.context2D.fillStyle = color1.toStyleString();
         String canvasText = text.replaceAll("<br>", "\n");

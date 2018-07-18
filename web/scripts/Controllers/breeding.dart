@@ -1,3 +1,4 @@
+import '../Gameplay/OnScreenText.dart';
 import '../Gameplay/Player.dart';
 import '../Gameplay/World.dart';
 import 'dart:async';
@@ -9,6 +10,7 @@ World ygdrassil = new World();
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
     ygdrassil.health = 26;
+    ygdrassil.texts.add(new NidhoggText("Hello World"));
     await ygdrassil.setupElements(output);
     testActiveItem();
     ygdrassil.render();

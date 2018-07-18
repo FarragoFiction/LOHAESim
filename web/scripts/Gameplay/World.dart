@@ -3,6 +3,7 @@ import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
+import 'OnScreenText.dart';
 import 'Tree.dart';
 import 'UnderWorld.dart';
 import 'dart:async';
@@ -41,6 +42,7 @@ class World {
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
     List<Tree> trees = new List<Tree>();
+    List<OnScreenText> texts = new List<OnScreenText>();
 
     UnderWorld underWorld;
 
@@ -350,6 +352,27 @@ class World {
         }
     }
 
+    void doText() {
+        List<OnScreenText> toRemove = new List<OnScreenText>();
+        for(OnScreenText text in texts) {
+            text.render(buffer);
+            if(text.finished) toRemove.add(text);
+        }
+
+        for(OnScreenText text in toRemove) {
+            texts.remove(text);
+        }
+    }
+
+    Future<Null> doTrees() async {
+        for (Tree tree in trees) {
+            CanvasElement treeCanvas = await tree.canvas;
+            buffer.context2D.drawImageScaled(
+            treeCanvas, tree.x, tree.y, tree.doll.width / 2,
+            tree.doll.width / 2);
+        }
+    }
+
 
     Future<Null> render([bool force]) async {
         removeTrees(); //even if you don't render, do this shit.
@@ -363,12 +386,7 @@ class World {
             buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
             buffer.context2D.drawImage(bg, 0, 0);
 
-            for (Tree tree in trees) {
-                CanvasElement treeCanvas = await tree.canvas;
-                buffer.context2D.drawImageScaled(
-                    treeCanvas, tree.x, tree.y, tree.doll.width / 2,
-                    tree.doll.width / 2);
-            }
+            await doTrees();
             overWorldDirty = false; //not dirty anymore, am drawing.
         }
 
@@ -378,7 +396,7 @@ class World {
             await cursor.render(buffer);
         }
 
-
+        doText();
         onScreen.context2D.drawImage(buffer, 0,0);
         lastRender = new DateTime.now();
         currentlyRendering = false;
