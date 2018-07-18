@@ -1,5 +1,6 @@
 import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'Inventoryable/Record.dart';
 import 'Tree.dart';
 import 'UnderWorld.dart';
 import 'dart:async';
@@ -22,6 +23,8 @@ class World {
 
     //HEALTH OF THE WORLD DETERMINES THE STATE OF THE TREE
     int health = 0;
+
+    Record currentMusic;
 
     CustomCursor  cursor;
     //don't step on your own toes. need for cursor shit
@@ -59,7 +62,7 @@ class World {
 
     World() {
         underWorld = new UnderWorld(this);
-
+        currentMusic = new FlowOn(this);
         //testTrees();
     }
 
@@ -145,6 +148,7 @@ class World {
     }
 
     void changeMusic(String newMusicLocation) {
+        print("changing music");
         int time = backgroundMusic.currentTime;
         //print("current music is ${backgroundMusic.src} time is $time");
         //backgroundMusic.src = "${newMusicLocation}.ogg";
@@ -173,13 +177,13 @@ class World {
             branches.style.display = "block";
             tentacles.style.display = "none";
             document.body.style.background = "linear-gradient(to bottom, #002d4a 0%,#002d4a 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
-            changeMusic(happyMusic);
+            changeMusic(currentMusic.happy);
             document.title = "Land of Horticulture and Essence";
         }else {
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
-            changeMusic(ominousMusic);
+            changeMusic(currentMusic.creepy);
             document.title = "Land of Horrorticulture and Essence";
         }
 
@@ -212,9 +216,9 @@ class World {
         if(lastRender == null) return true;
         DateTime now = new DateTime.now();
         Duration diff = now.difference(lastRender);
-        print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
+       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
         if(diff.inMilliseconds > minTimeBetweenRenders) {
-            print("yes");
+            //print("yes");
             return true;
         }
         return false;
@@ -223,6 +227,9 @@ class World {
     void processClickAtCursor() {
         if(activeItem is Fruit) {
             plantATreeAtPoint(activeItem, cursor.position);
+        }else if(activeItem is Record) {
+            currentMusic = activeItem;
+            changeMusic((activeItem as Record).songName);
         }else {
             print("I don't know what to do with this!");
             //TODO handle ax

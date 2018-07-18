@@ -117,13 +117,13 @@ class StorePopup extends InventoryPopup
         print("cycling, step is $step");
         if(step == 0) {
             textBody.style.display = "block";
-            parentScroll.style.display = "none";
-        }else if(step == 1){
+            if(parentScroll != null) parentScroll.style.display = "none";
+        }else if(step == 1 && parentScroll != null){
             textBody.style.display = "none";
             parentScroll.style.display = "block";
             header.text = "${header.text}: Parents";
         }else {
-            parentScroll.remove();
+            if(parentScroll != null)parentScroll.remove();
             dismiss();
         }
         step ++;

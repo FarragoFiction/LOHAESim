@@ -10,6 +10,9 @@ class Record extends CollectableSecret with Inventoryable{
 
     String songName;
 
+    String get happy => songName;
+    String get creepy => "${songName}_Distorted";
+
     Record(String this.songName, World world, String myName, String specificPhrase, String imgLoc) : super(world, specificPhrase, imgLoc) {
         name = myName;
         cost = 4037;
