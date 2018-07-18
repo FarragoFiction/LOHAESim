@@ -146,6 +146,7 @@ class InventoryPopup {
 
     Future<Null> popup(Inventoryable chosenItem, {CanvasElement preview}) async {
         step = 0;
+        if(tmpElement != null) tmpElement.remove();
 
         container.style.display = "block";
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";

@@ -60,6 +60,9 @@ class World {
     //don't redraw overworld unless you really have to
     bool overWorldDirty = true;
 
+    //so i don't remove it mid render or some stupid shit
+    List<Tree> treesToRemove = new List<Tree>();
+
 
     World() {
         underWorld = new UnderWorld(this);
@@ -268,8 +271,32 @@ class World {
             CanvasElement parentCanvas = await tree.canvas;
             Renderer.drawToFitCentered(parentDiv, parentCanvas);
             parentDivContainer.append(parentDiv);
+            parentDiv.onMouseEnter.listen((Event e)
+            {
+                parentDiv.style.backgroundColor = "purple";
+            });
+
+            parentDiv.onMouseLeave.listen((Event e)
+            {
+                parentDiv.style.backgroundColor = "transparent";
+            });
+
+            parentDiv.onMouseUp.listen((Event e)
+            {
+                parentDiv.remove();
+                treesToRemove.add(tree);
+                render(true);
+            });
         }
 
+    }
+
+    void removeTrees() {
+        for(Tree tree in treesToRemove) {
+            trees.remove(tree);
+            overWorldDirty = true; //since i removed a tree, need to update graphics
+        }
+        treesToRemove.clear();
     }
 
     void plantATreeAtPoint(Fruit fruit, Point point) {
@@ -302,6 +329,7 @@ class World {
 
 
     Future<Null> render([bool force]) async {
+        removeTrees(); //even if you don't render, do this shit.
         if(buffer == null) await initCanvasAndBuffer();
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
