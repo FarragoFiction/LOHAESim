@@ -4,6 +4,7 @@ import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'Inventoryable/Record.dart';
 import 'Secret.dart';
 import 'World.dart';
 import 'dart:async';
@@ -28,9 +29,10 @@ class Player extends Secret {
 
 
     Player(World world, int this.maxX, int this.maxY):super(world) {
-        //TODO have it be a thing you buy from the store
+        //TODO have all this be a thing you buy from the store
         inventory.add(new Ax(world));
-        for(int i = 0; i<13; i++) {
+        inventory.addAll(Record.spawn(world));
+        for(int i = 0; i<3; i++) {
             initialInventory();
         }
     }

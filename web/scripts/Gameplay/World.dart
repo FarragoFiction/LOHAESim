@@ -90,9 +90,8 @@ class World {
 
         onScreen.onMouseMove.listen((MouseEvent event)
         {
-            print("detected a mouse move okay?");
             if(activeItem != null) {
-                print("there is an active item so that should be my cursor");
+                //print("there is an active item so that should be my cursor");
                 CanvasElement itemCanvas = activeItem.itemCanvas;
                 Rectangle rect = onScreen.getBoundingClientRect();
                 Point point = new Point(event.client.x-rect.left, event.client.y-rect.top);

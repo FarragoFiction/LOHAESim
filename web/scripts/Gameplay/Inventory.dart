@@ -3,6 +3,7 @@ import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'Inventoryable/Record.dart';
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
@@ -45,6 +46,10 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         inventory.add(item);
     }
 
+    void addAll(List<Inventoryable> items) {
+        inventory.addAll(items);
+    }
+
     void remove(Inventoryable item) {
         inventory.remove(item);
     }
@@ -74,6 +79,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             }else if(inventoryItem is Fruit) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Ax) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is Record) {
                 await inventoryItem.setCanvasForStore();
             }
             inventoryItem.inventory = this;
