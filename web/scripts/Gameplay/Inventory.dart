@@ -4,6 +4,7 @@ import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
+import 'World.dart';
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
@@ -18,8 +19,9 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     Inventoryable activeItem;
 
     List<Inventoryable> inventory;
+    World world;
 
-    Inventory(List<Inventoryable> this.inventory) {
+    Inventory(World this.world, List<Inventoryable> this.inventory) {
 
     }
 
@@ -57,6 +59,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     void handleItemClick(Inventoryable item, {Element preview}) {
         activeItem = item;
         popup.popup(item,  preview:preview);
+        world.cursor = new CustomCursor(activeItem.itemCanvas, new Point(100,100));
+        world.render(true);
     }
 
     Future<Null> render() async{

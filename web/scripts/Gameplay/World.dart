@@ -252,15 +252,28 @@ class World {
             overWorldDirty = true;
             cursor = null;
             underWorld.player.inventory.removeItem(fruit);
+            moveOwO(treeDoll);
             render();
         }
     }
 
+    void moveOwO(TreeDoll tree) {
+        if(tree.form is BushForm) {
+            underWorld.player.down();
+        }else if (tree.form is LeftForm) {
+            underWorld.player.left();
+        }else if (tree.form is RightFrom) {
+            underWorld.player.right();
+        }else if (tree.form is TreeForm) {
+            underWorld.player.up();
+        }
+    }
 
-    Future<Null> render() async {
+
+    Future<Null> render([bool force]) async {
         if(buffer == null) await initCanvasAndBuffer();
-        if(currentlyRendering || !canRender()) return;
-        if(overWorldDirty) {
+        if(!force && (currentlyRendering || !canRender())) return;
+        if(overWorldDirty || force) {
             currentlyRendering = true;
             print("rendering");
             Renderer.clearCanvas(buffer);

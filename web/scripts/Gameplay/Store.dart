@@ -3,13 +3,14 @@ import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 
 import 'package:RenderingLib/RendereringLib.dart';
 
 class Store extends Inventory {
-  Store(List<Inventoryable> inventory) : super(inventory);
+  Store(World world, List<Inventoryable> inventory) : super(world, inventory);
 
   @override
   Element makeRightElement() {

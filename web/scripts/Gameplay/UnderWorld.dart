@@ -94,8 +94,8 @@ class UnderWorld {
         }
         ImageElement playerImage = await player.image;
         buffer.context2D.drawImage(playerImage, player.x, player.y);
-        //closer you get to the bottom the less health you get. can only go negative if you interact with nidhogg, though.
-        world.health = (World.MAXHEALTH * (height-player.y)/height).round();
+        //tree grows more healthy closer you get to nidhogg until suddenly everything is terrible forever
+        world.health = World.MAXHEALTH  - (World.MAXHEALTH * (height-player.y)/height).round();
         world.showAndHideYgdrssylLayers();
         await handleDirt();
 
