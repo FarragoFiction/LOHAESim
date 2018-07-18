@@ -1,8 +1,10 @@
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Essence.dart';
+import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'Inventoryable/Record.dart';
 import 'World.dart';
 import 'dart:async';
 import 'dart:html';
@@ -40,6 +42,10 @@ class Store extends Inventory {
             }else if(inventoryItem is Fruit) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Ax) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is Flashlight) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is Record) {
                 await inventoryItem.setCanvasForStore();
             }
             inventoryItem.inventory = this;

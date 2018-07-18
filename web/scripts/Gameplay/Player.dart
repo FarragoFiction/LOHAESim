@@ -1,6 +1,7 @@
 //wait what why is their a player???
 
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
@@ -32,6 +33,7 @@ class Player extends Secret {
         //TODO have all this be a thing you buy from the store
         inventory= new Inventory(world, new List<Inventoryable>());
         inventory.add(new Ax(world));
+        inventory.add(new Flashlight(world));
         inventory.addAll(Record.spawn(world));
         for(int i = 0; i<3; i++) {
             initialInventory();

@@ -1,5 +1,6 @@
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Essence.dart';
+import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
@@ -78,11 +79,15 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         td1.append(table);
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
+            //tbh i want each kind of inventorable to do something different here, but don't know how to make that a thing
+            //and also not have to cast them. deal with it for now
             if(inventoryItem is Essence) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Fruit) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Ax) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is Flashlight) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Record) {
                 await inventoryItem.setCanvasForStore();

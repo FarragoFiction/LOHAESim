@@ -1,4 +1,5 @@
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
@@ -250,9 +251,16 @@ class World {
             changeMusic((activeItem as Record).songName, false);
         }else if(activeItem is Ax) {
             removeTreePopup();
+        }else if(activeItem is Flashlight) {
+            activateFlashlight();
         }else {
             print("I don't know what to do with this!");
         }
+    }
+
+    void activateFlashlight() {
+        underWorld.player.hasActiveFlashlight = true;
+        render();
     }
 
     void removeTreePopup() {
