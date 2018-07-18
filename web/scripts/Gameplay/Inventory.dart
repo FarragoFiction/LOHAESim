@@ -174,9 +174,10 @@ class InventoryPopup {
         step = 0;
     }
 
-    void displayElement(Element ele) {
+    void displayElement(Element ele, String newHeader) {
         tmpElement = ele;
         container.style.display = "block";
+        header.text = newHeader;
         step = -13; //vanish on click
         textBody.style.display = "none";
         if(parentScroll != null) parentScroll.style.display = "none";

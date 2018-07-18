@@ -126,7 +126,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 
 .popupParents{
     position: absolute;
-    top: 100px;
+    top: 110px;
     left: 100px;
     width: 500px;
     text-align: left;

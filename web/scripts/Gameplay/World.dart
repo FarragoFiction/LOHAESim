@@ -64,7 +64,7 @@ class World {
     World() {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-        //testTrees();
+        testTrees();
     }
 
     //it's a sub part of inventory now, don't do it's own thing
@@ -149,7 +149,7 @@ class World {
     }
 
     void changeMusic(String newMusicLocation, bool sync) {
-        print("changing music to $newMusicLocation");
+        //print("changing music to $newMusicLocation");
         int time = backgroundMusic.currentTime;
         //print("current music is ${backgroundMusic.src} time is $time");
         //backgroundMusic.src = "${newMusicLocation}.ogg";
@@ -167,13 +167,13 @@ class World {
 
         ogg.src = "$newMusicLocation.ogg";
         ogg.type = "audio/ogg";
-        print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
+        //print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
 
         if(backgroundMusic.canPlayType("audio/mpeg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.mp3";
         if(backgroundMusic.canPlayType("audio/ogg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.ogg";
 
         if(sync)backgroundMusic.currentTime = time;
-        print("actually playing new music $newMusicLocation");
+        //print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
 
     }
@@ -246,20 +246,25 @@ class World {
     void removeTreePopup() {
         DivElement axContainer = new DivElement();
         axContainer.classes.add("parentHorizontalScroll");
+        axContainer.classes.add("popupParents");
+        axContainer.id = "axContainer";
         List<CanvasElement> pendingCanvases = new List<CanvasElement>();
         for(Tree tree in trees) {
+            print("adding a canvas for tree $tree for ax popup");
             CanvasElement parentDiv = new CanvasElement(width: 80, height: 80);
             parentDiv.classes.add("parentBox");
             pendingCanvases.add(parentDiv);
         }
 
-        underWorld.player.inventory.popup.displayElement(axContainer);
+        underWorld.player.inventory.popup.displayElement(axContainer, "Chop Down a Tree???");
+        finishDrawingTrees(pendingCanvases, axContainer);
 
     }
 
     Future<Null> finishDrawingTrees(List<CanvasElement> pendingCanvases, Element parentDivContainer) async {
         for(Tree tree in trees) {
             CanvasElement parentDiv = pendingCanvases[trees.indexOf(tree)];
+            parentDiv.style.border = "1px solid black";
             CanvasElement parentCanvas = await tree.canvas;
             Renderer.drawToFitCentered(parentDiv, parentCanvas);
             parentDivContainer.append(parentDiv);
@@ -301,7 +306,7 @@ class World {
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
             currentlyRendering = true;
-            print("rendering");
+            //print("rendering");
             Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
             buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
@@ -338,7 +343,7 @@ class CustomCursor {
     CustomCursor(CanvasElement this.image, Point this.position);
 
     Future<Null> render(CanvasElement canvas) async {
-        print("rendering a cursor to ${position.x}, ${position.y}");
+        //print("rendering a cursor to ${position.x}, ${position.y}");
         canvas.context2D.drawImage(image, position.x, position.y);
     }
 }
