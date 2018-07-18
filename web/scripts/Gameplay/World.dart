@@ -189,6 +189,12 @@ class World {
         print("oh god why did you do this??? NIDHOGG IS AWAKE!");
         bossFight = true;
         //show 'then perish'
+        ImageElement thenPerish = new ImageElement(src: "images/BGs/thenperish.png");
+        thenPerish.classes.add("thenPerish");
+        container.append(thenPerish);
+        thenPerish.onClick.listen((Event e) {
+            thenPerish.remove();
+        });
     }
 
     void showAndHideYgdrssylLayers() {

@@ -124,6 +124,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     text-align: left;
 }
 
+.thenPerish{
+   position: fixed;
+   top: 25%;
+   left: 25%;
+   opacity: 0.03;
+
+}
+
 .popupParents{
     position: absolute;
     top: 110px;
