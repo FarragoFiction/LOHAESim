@@ -166,6 +166,10 @@ class World {
 
         ogg.src = "$newMusicLocation.ogg";
         ogg.type = "audio/ogg";
+        print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
+
+        if(backgroundMusic.canPlayType("audio/mpeg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.mp3";
+        if(backgroundMusic.canPlayType("audio/ogg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.ogg";
 
         if(sync)backgroundMusic.currentTime = time;
         print("actually playing new music $newMusicLocation");

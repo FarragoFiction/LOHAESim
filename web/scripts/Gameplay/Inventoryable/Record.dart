@@ -41,21 +41,21 @@ class Record extends CollectableSecret with Inventoryable{
 }
 
 class FlowOn extends Record {
-  FlowOn(World world) : super("Flow_On2", world, "Flow On", "Perfect to grow trees to.", "images/BGs/Records/recordB.png");
+  FlowOn(World world) : super("Flow_on_2", world, "Flow On", "Perfect to grow trees to.", "images/BGs/Records/recordB.png");
 }
 
 class Ares extends Record {
-    Ares(World world) : super("Ares_Scordatura", world, "Ares Scordatura", "Powerful.", "images/BGs/Records/recordF.png");
+    Ares(World world) : super("Ares_Scordatura", world, "Ares Scordatura", "For a slightly an ever so slightly more energetic gardening experience. Powerful.", "images/BGs/Records/recordF.png");
 }
 
 class Noir extends Record {
-    Noir(World world) : super("Noirsong", world, "Noir Song", "Black and White.", "images/BGs/Records/recordD.png");
+    Noir(World world) : super("Noirsong", world, "Noir Song", "A cool buildup of a song for the discerning gardener. ", "images/BGs/Records/recordD.png");
 }
 
 class Saphire extends Record {
-    Saphire(World world) : super("Saphire_Spires", world, "Saphire Spires", "Perfect to shop to.", "images/BGs/Records/recordE.png");
+    Saphire(World world) : super("Saphire_Spires", world, "Saphire Spires", "Recovered from deep within the bowels of the earth in a cave where they have forgotten what light is. Perfect to shop to.", "images/BGs/Records/recordE.png");
 }
 
 class Splinters extends Record {
-    Splinters(World world) : super("Splinters_of_Royalty", world, "Splinters of Royalty", "Invokes images of moons, somehow.", "images/BGs/Records/recordA.png");
+    Splinters(World world) : super("Splinters_of_Royalty", world, "Splinters of Royalty", "A primal song, something that came before. Full warning: Contains techno.", "images/BGs/Records/recordA.png");
 }
