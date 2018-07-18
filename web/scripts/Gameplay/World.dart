@@ -1,3 +1,4 @@
+import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
@@ -235,10 +236,35 @@ class World {
         }else if(activeItem is Record) {
             currentMusic = activeItem;
             changeMusic((activeItem as Record).songName, false);
+        }else if(activeItem is Ax) {
+            removeTreePopup();
         }else {
             print("I don't know what to do with this!");
-            //TODO handle ax
         }
+    }
+
+    void removeTreePopup() {
+        DivElement axContainer = new DivElement();
+        axContainer.classes.add("parentHorizontalScroll");
+        List<CanvasElement> pendingCanvases = new List<CanvasElement>();
+        for(Tree tree in trees) {
+            CanvasElement parentDiv = new CanvasElement(width: 80, height: 80);
+            parentDiv.classes.add("parentBox");
+            pendingCanvases.add(parentDiv);
+        }
+
+        underWorld.player.inventory.popup.displayElement(axContainer);
+
+    }
+
+    Future<Null> finishDrawingTrees(List<CanvasElement> pendingCanvases, Element parentDivContainer) async {
+        for(Tree tree in trees) {
+            CanvasElement parentDiv = pendingCanvases[trees.indexOf(tree)];
+            CanvasElement parentCanvas = await tree.canvas;
+            Renderer.drawToFitCentered(parentDiv, parentCanvas);
+            parentDivContainer.append(parentDiv);
+        }
+
     }
 
     void plantATreeAtPoint(Fruit fruit, Point point) {

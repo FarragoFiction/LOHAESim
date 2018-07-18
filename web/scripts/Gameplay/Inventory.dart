@@ -112,6 +112,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 }
 
 class InventoryPopup {
+    Element tmpElement; //remove this if it exists when you cycle.
     DivElement container;
     DivElement header;
     DivElement textBody;
@@ -173,6 +174,15 @@ class InventoryPopup {
         step = 0;
     }
 
+    void displayElement(Element ele) {
+        tmpElement = ele;
+        container.style.display = "block";
+        step = -13; //vanish on click
+        textBody.style.display = "none";
+        if(parentScroll != null) parentScroll.style.display = "none";
+        container.append(ele);
+    }
+
     void cycle() {
         print("cycling, step is $step");
         if(step == 0) {
@@ -180,10 +190,11 @@ class InventoryPopup {
             if(parentScroll != null) parentScroll.style.display = "none";
         }else if(step == 1 && parentScroll != null){
             textBody.style.display = "none";
-            parentScroll.style.display = "block";
+            if(parentScroll != null) parentScroll.style.display = "block";
             header.text = "${header.text}: Parents";
         }else {
             if(parentScroll != null)parentScroll.remove();
+            if(tmpElement != null) tmpElement.remove();
             dismiss();
         }
         step ++;
