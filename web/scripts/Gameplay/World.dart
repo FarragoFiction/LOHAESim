@@ -147,8 +147,8 @@ class World {
         showAndHideYgdrssylLayers();
     }
 
-    void changeMusic(String newMusicLocation) {
-        print("changing music");
+    void changeMusic(String newMusicLocation, bool sync) {
+        print("changing music to $newMusicLocation");
         int time = backgroundMusic.currentTime;
         //print("current music is ${backgroundMusic.src} time is $time");
         //backgroundMusic.src = "${newMusicLocation}.ogg";
@@ -164,10 +164,11 @@ class World {
         mp3.src = "$newMusicLocation.mp3";
         mp3.type = "audio/mpeg";
 
-        ogg.src = "$newMusicLocation.mp3";
+        ogg.src = "$newMusicLocation.ogg";
         ogg.type = "audio/ogg";
 
-        backgroundMusic.currentTime = time;
+        if(sync)backgroundMusic.currentTime = time;
+        print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
 
     }
@@ -177,13 +178,13 @@ class World {
             branches.style.display = "block";
             tentacles.style.display = "none";
             document.body.style.background = "linear-gradient(to bottom, #002d4a 0%,#002d4a 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
-            changeMusic(currentMusic.happy);
+            changeMusic(currentMusic.happy, true);
             document.title = "Land of Horticulture and Essence";
         }else {
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
-            changeMusic(currentMusic.creepy);
+            changeMusic(currentMusic.creepy, true);
             document.title = "Land of Horrorticulture and Essence";
         }
 
@@ -229,7 +230,7 @@ class World {
             plantATreeAtPoint(activeItem, cursor.position);
         }else if(activeItem is Record) {
             currentMusic = activeItem;
-            changeMusic((activeItem as Record).songName);
+            changeMusic((activeItem as Record).songName, false);
         }else {
             print("I don't know what to do with this!");
             //TODO handle ax
