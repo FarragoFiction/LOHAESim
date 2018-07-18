@@ -11,6 +11,11 @@ List<int> keycodes = new List<int>();
 Future<Null> main() async {
     ygdrassil.health = 26;
     ygdrassil.texts.add(new NidhoggText("Hello World"));
+    ygdrassil.texts.add(new HPNotification("-113"));
+    ygdrassil.texts.add(new HPNotification("-113"));
+    ygdrassil.texts.add(new HPNotification("-113"));
+
+
     await ygdrassil.setupElements(output);
     testActiveItem();
     ygdrassil.render();
