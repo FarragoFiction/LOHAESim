@@ -15,6 +15,7 @@ class World {
     int width = 800;
     int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
+    String bgLocationCorrupt = "images/BGs/AlternianCliffCorrupt.png";
     String ominousMusic = "Music/Flow_on_Distorted_up";
     String happyMusic = "Music/Flow_on_2";
 
@@ -24,6 +25,7 @@ class World {
     static final int MAXHEALTH = 13*4;
     static final int TENTACLELEVEL = -13;
     static final int EYELEVEL = -26;
+    bool bossFightJustStarted = false;
 
 
     bool bossFight = false;
@@ -52,6 +54,7 @@ class World {
     CanvasElement buffer;
     CanvasElement onScreen;
     ImageElement bg;
+    ImageElement bgCorrupt;
     ImageElement branches;
     ImageElement leaves;
     ImageElement flowers;
@@ -125,6 +128,7 @@ class World {
         onScreen.id  = "worldCanvas";
         container.append(onScreen);
         bg = await Loader.getResource(bgLocation);
+        bgCorrupt = await Loader.getResource(bgLocationCorrupt);
         branches = await Loader.getResource("images/BGs/frame.png");
         branches.classes.add("frameLayer");
         branches.style.display = "none";
@@ -191,7 +195,9 @@ class World {
 
     }
 
+    //wait what do you mean there are boss fights in this zen tree game???
     void activateBossFight() {
+        bossFightJustStarted = true;
         consortPrint("oh god why did you do this??? NIDHOGG IS AWAKE!");
         bossFight = true;
         //show 'then perish'
@@ -201,11 +207,17 @@ class World {
         thenPerish.onClick.listen((Event e) {
             thenPerish.remove();
         });
+
+        for(Tree tree in trees) {
+            tree.corrupt();
+        }
+        overWorldDirty = true;
+        render();
     }
 
     void showAndHideYgdrssylLayers() {
         if(health <= TENTACLELEVEL || bossFight) {
-            consortPrint("Oh god oh god oh god what do we do!!??");
+            if(bossFightJustStarted)consortPrint("Oh god oh god oh god what do we do!!??");
             branches.style.display = "none";
             tentacles.style.display = "block";
             document.body.style.background = "linear-gradient(to bottom, #black 0%,black 848px,#5d3726 848px,#5d3726 848px,#5d3726 100%); /* W3C */";
@@ -343,6 +355,7 @@ class World {
             cursor = null;
             underWorld.player.inventory.removeItem(fruit);
             moveOwO(treeDoll);
+            if(bossFight) tree.corrupt();
             render();
         }
     }
@@ -373,10 +386,7 @@ class World {
 
     Future<Null> doTrees() async {
         for (Tree tree in trees) {
-            CanvasElement treeCanvas = await tree.canvas;
-            buffer.context2D.drawImageScaled(
-            treeCanvas, tree.x, tree.y, tree.doll.width / 2,
-            tree.doll.width / 2);
+            tree.render(buffer);
         }
     }
 
@@ -391,7 +401,11 @@ class World {
             Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
             buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
-            buffer.context2D.drawImage(bg, 0, 0);
+            if(!bossFight) {
+                buffer.context2D.drawImage(bg, 0, 0);
+            }else {
+                buffer.context2D.drawImage(bgCorrupt, 0, 0);
+            }
 
             await doTrees();
             overWorldDirty = false; //not dirty anymore, am drawing.

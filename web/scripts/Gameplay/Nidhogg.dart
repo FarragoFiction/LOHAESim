@@ -24,7 +24,7 @@ class Nidhogg extends CollectableSecret {
     double distance = point.distanceTo(myPoint);
     if(distance < collectionRadius) {
       if(world.bossFight) {
-          owoPrint("New friend!!! Get away from Nidhogg you can't fight him directly!!! And especially not with some weird ghost bear avatar!",48);
+          if(world.bossFightJustStarted)owoPrint("New friend!!! Get away from Nidhogg you can't fight him directly!!! And especially not with some weird ghost bear avatar!",48);
       }else {
           if(world.underWorld.player.hasActiveFlashlight) {
               world.activateBossFight();

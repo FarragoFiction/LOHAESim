@@ -14,7 +14,7 @@ Future<Null> main() async {
     ygdrassil.texts.add(new HPNotification("-113"));
     ygdrassil.texts.add(new HPNotification("-113"));
     ygdrassil.texts.add(new HPNotification("-113"));
-
+    ygdrassil.testTrees();
 
     await ygdrassil.setupElements(output);
     testActiveItem();

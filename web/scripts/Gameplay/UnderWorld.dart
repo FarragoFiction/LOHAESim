@@ -124,8 +124,9 @@ class UnderWorld {
             if (!world.bossFight) {
                 flashlighRadius = player.flashlightRadius;
             } else {
-                jrPrint(
-                    "oh hey don't let me interupt you there, just thought you might wanna know there's like...three paths to defeating Nidhogg. I wonder what they could be???");
+                if(world.bossFightJustStarted)jrPrint("oh hey don't let me interupt you there, just thought you might wanna know there's like...three paths to defeating Nidhogg. I wonder what they could be???");
+                world.bossFightJustStarted = false;
+
             }
             dirt.context2D.arc(
                 player.topLeftX, player.topLeftY, flashlighRadius, 0,
