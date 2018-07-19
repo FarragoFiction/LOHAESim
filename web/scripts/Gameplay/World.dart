@@ -215,6 +215,14 @@ class World {
         render();
     }
 
+    void nidhoggSleeps() {
+        bossFight = false;
+        underWorld.player.topLeftX = 0;
+        underWorld.player.topLeftY = 0;
+        overWorldDirty = true;
+        render();
+    }
+
     void showAndHideYgdrssylLayers() {
         if(health <= TENTACLELEVEL || bossFight) {
             if(bossFightJustStarted)consortPrint("Oh god oh god oh god what do we do!!??");
@@ -340,6 +348,9 @@ class World {
             overWorldDirty = true; //since i removed a tree, need to update graphics
         }
         treesToRemove.clear();
+        if(bossFight && trees.isEmpty) {
+            nidhoggSleeps();
+        }
     }
 
     void plantATreeAtPoint(Fruit fruit, Point point) {
