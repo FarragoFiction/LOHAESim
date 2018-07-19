@@ -54,7 +54,7 @@ class UnderWorld {
         buffer = new CanvasElement(width: width, height: height);
         dirt = new CanvasElement(width: width, height: height);
         roots = await Loader.getResource("images/BGs/rootsPlain.png");
-        print("I inited the buffer, roots are $roots");
+        //print("I inited the buffer, roots are $roots");
     }
 
     void cullSecrets() {
@@ -78,7 +78,7 @@ class UnderWorld {
         buffer.context2D.fillStyle = grd;
         buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
         buffer.context2D.restore();
-        print("before drawing roots, roots are $roots");
+        //print("before drawing roots, roots are $roots");
 
         buffer.context2D.drawImage(roots,0,0);
         cullSecrets();

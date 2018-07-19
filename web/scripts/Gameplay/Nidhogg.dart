@@ -83,9 +83,7 @@ class Nidhogg extends CollectableSecret {
       lastTookDamage = new DateTime.now();
       world.texts.add(new HPNotification("$damage"));
       if(dead) {
-        owoPrint("New Friend!!! You did it!!! Nidhogg is defeated!!! You were so smart to try the Fraymotif!!!");
-        consortPrint("thwap!! now we can grow our trees in piece, thwap!!");
-        world.bossFight = false;
+        world.nidhoggDies();
       }
   }
 

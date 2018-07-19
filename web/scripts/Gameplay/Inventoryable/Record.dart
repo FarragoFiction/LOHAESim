@@ -9,7 +9,7 @@ import 'package:RenderingLib/RendereringLib.dart';
 class Record extends CollectableSecret with Inventoryable{
 
     String songName;
-    bool isFraymotif = false;
+    bool isFraymotif = true;
 
     String get happy => songName;
     String get creepy {

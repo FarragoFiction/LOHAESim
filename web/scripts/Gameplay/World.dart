@@ -186,15 +186,19 @@ class World {
 
         ogg.src = "$newMusicLocation.ogg";
         ogg.type = "audio/ogg";
-        print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
+        //print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
 
         if(backgroundMusic.canPlayType("audio/mpeg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.mp3";
         if(backgroundMusic.canPlayType("audio/ogg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.ogg";
 
         if(sync)backgroundMusic.currentTime = time;
+
+        if(fraymotifActive && bossFight) {
+            backgroundMusic.currentTime = 20;
+        }
         consortPrint("you know they say the Prince could Play the Vines. I wonder if it would sound like this??");
 
-        print("actually playing new music $newMusicLocation");
+        //print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
 
     }
@@ -227,6 +231,18 @@ class World {
         underWorld.player.topLeftX = underWorld.width;
         underWorld.player.topLeftY = 0;
         overWorldDirty = true;
+        render();
+    }
+
+
+    void nidhoggDies() {
+        owoPrint("New Friend!!! You did it!!! Nidhogg is defeated!!! You were so smart to try the Fraymotif!!!");
+        consortPrint("thwap!! now we can grow our trees in piece, thwap!!");
+        bossFight = false;
+        overWorldDirty = true;
+        for(Tree tree in trees) {
+            tree.uncorrupt();
+        }
         render();
     }
 
@@ -411,7 +427,7 @@ class World {
     Future<Null> renderLoop()async {
         await render(true);
         //if it needs to interupt it will, but no faster than min Time
-        new Timer(new Duration(milliseconds: minTimeBetweenRenders*2), () => renderLoop());
+        new Timer(new Duration(milliseconds: minTimeBetweenRenders*5), () => renderLoop());
 
     }
 
