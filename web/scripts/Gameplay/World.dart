@@ -331,7 +331,7 @@ class World {
     }
 
     void plantATreeAtPoint(Fruit fruit, Point point) {
-        consortPrint("thwap!! are you sure it's a good idea to print all these trees?? nidhogg might wake up... he's SCARY!!");
+        consortPrint("thwap!! are you sure it's a good idea to plant all these trees?? The Denizen might wake up... he's SCARY!!");
         //just a logical result of the trees this fruit came from
         Doll treeDoll = Doll.breedDolls(fruit.parents);
         //ground level
