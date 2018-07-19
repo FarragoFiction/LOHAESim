@@ -18,7 +18,7 @@ Future<Null> main() async {
 
     await ygdrassil.setupElements(output);
     testActiveItem();
-    ygdrassil.render();
+    ygdrassil.renderLoop();
     hookUpTestControls();
     //TODOs.drawTodos(output);
 }

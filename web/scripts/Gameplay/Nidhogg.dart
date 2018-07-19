@@ -1,7 +1,9 @@
 import 'CollectableSecret.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'OnScreenText.dart';
 import 'Player.dart';
 import 'World.dart';
+import 'dart:html';
 import "dart:math" as Math;
 
 class Nidhogg extends CollectableSecret {
@@ -15,7 +17,35 @@ class Nidhogg extends CollectableSecret {
   @override
   int collectionRadius = 200;
 
+  //when you're zero or less you're dead
+  int hp = 4037;
+
+  DateTime lastSpoke;
+  int timeBetweenSentences = 11000;
+
+  int speechIndex = 0;
+  List<String> speechLines = <String>["Hello World 1","Hello World2","HelloWorld3","HelloWorld4"];
+
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
+
+  void attemptTalk() {
+      if(lastSpoke == null) talk;
+      DateTime now = new DateTime.now();
+      Duration diff = now.difference(lastSpoke);
+      // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
+      if(diff.inMilliseconds > timeBetweenSentences && speechIndex < speechLines.length) {
+          talk();
+      }
+  }
+
+  void talk() {
+      lastSpoke = new DateTime.now();
+      world.texts.add(new NidhoggText(speechLines[speechIndex]));
+  }
+
+  void takeDamage() {
+
+  }
 
   void gigglesnort(Math.Point point) {
       int eyeX = 217;

@@ -198,7 +198,7 @@ class World {
     //wait what do you mean there are boss fights in this zen tree game???
     void activateBossFight() {
         bossFightJustStarted = true;
-        consortPrint("oh god why did you do this??? NIDHOGG IS AWAKE!");
+        consortPrint("oh god why did you do this?? NIDHOGG IS AWAKE!! there's a reason we kept gnawing away the trees!! they give him life!!");
         bossFight = true;
         //show 'then perish'
         ImageElement thenPerish = new ImageElement(src: "images/BGs/thenperish.png");
@@ -215,9 +215,12 @@ class World {
         render();
     }
 
+
+
     void nidhoggSleeps() {
+        owoPrint("Oh, whew!!! New Friend, Nidhogg sleeps again. We better be careful not to wake him!!!");
         bossFight = false;
-        underWorld.player.topLeftX = 0;
+        underWorld.player.topLeftX = underWorld.width;
         underWorld.player.topLeftY = 0;
         overWorldDirty = true;
         render();
@@ -401,6 +404,13 @@ class World {
         }
     }
 
+    Future<Null> renderLoop()async {
+        render(true);
+        //if it needs to interupt it will, but no faster than min Time
+        new Timer(new Duration(milliseconds: minTimeBetweenRenders*2), () => renderLoop());
+
+    }
+
 
     Future<Null> render([bool force]) async {
         removeTrees(); //even if you don't render, do this shit.
@@ -433,8 +443,6 @@ class World {
         lastRender = new DateTime.now();
         currentlyRendering = false;
     }
-
-
 }
 
 class CustomCursor {

@@ -126,7 +126,7 @@ class UnderWorld {
             } else {
                 if(world.bossFightJustStarted)jrPrint("oh hey don't let me interupt you there, just thought you might wanna know there's like...three paths to defeating Nidhogg. I wonder what they could be???");
                 world.bossFightJustStarted = false;
-
+                nidhogg.attemptTalk();
             }
             dirt.context2D.arc(
                 player.topLeftX, player.topLeftY, flashlighRadius, 0,
