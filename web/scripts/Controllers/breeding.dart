@@ -10,10 +10,6 @@ World ygdrassil = new World();
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
     ygdrassil.health = 26;
-    ygdrassil.texts.add(new NidhoggText("Hello World"));
-    ygdrassil.texts.add(new HPNotification("-113"));
-    ygdrassil.texts.add(new HPNotification("-113"));
-    ygdrassil.texts.add(new HPNotification("-113"));
     ygdrassil.testTrees();
 
     await ygdrassil.setupElements(output);

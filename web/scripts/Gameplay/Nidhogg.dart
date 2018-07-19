@@ -1,11 +1,15 @@
 import 'CollectableSecret.dart';
 import 'Inventoryable/Inventoryable.dart';
+import 'Inventoryable/Record.dart';
 import 'OnScreenText.dart';
 import 'Player.dart';
 import 'World.dart';
 import 'dart:html';
 import "dart:math" as Math;
 
+/*
+when to json record if dead or not and hp
+ */
 class Nidhogg extends CollectableSecret {
   @override
   int width = 440;
@@ -23,6 +27,10 @@ class Nidhogg extends CollectableSecret {
 
   DateTime lastSpoke;
   int timeBetweenSentences = 11000;
+  DateTime lastTookDamage;
+  int timeBetweenDamage = 500;
+
+  bool get dead => hp <= 0;
 
 
   int speechIndex = 0;
@@ -30,6 +38,10 @@ class Nidhogg extends CollectableSecret {
 
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
+
+  bool canDamage(Record record) {
+      return record.isFraymotif;
+  }
 
 
   void attemptTalk() {
@@ -55,8 +67,26 @@ class Nidhogg extends CollectableSecret {
       speechIndex ++;
   }
 
-  void takeDamage() {
+  void attemptTakeDamage() {
+      if(lastTookDamage == null) return takeDamage();
+      DateTime now = new DateTime.now();
+      Duration diff = now.difference(lastTookDamage);
+      // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
+      if(diff.inMilliseconds > timeBetweenDamage && !dead) {
+          takeDamage();
+      }
+  }
 
+  void takeDamage() {
+      int damage = -113;
+      hp += damage;
+      lastTookDamage = new DateTime.now();
+      world.texts.add(new HPNotification("$damage"));
+      if(dead) {
+        owoPrint("New Friend!!! You did it!!! Nidhogg is defeated!!! You were so smart to try the Fraymotif!!!");
+        consortPrint("thwap!! now we can grow our trees in piece, thwap!!");
+        world.bossFight = false;
+      }
   }
 
 

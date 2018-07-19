@@ -80,7 +80,7 @@ class UnderWorld {
 
         buffer.context2D.drawImage(roots,0,0);
         cullSecrets();
-        nidhogg.render(buffer);
+        if(!nidhogg.dead) nidhogg.render(buffer);
         for(Essence e in essences) {
             //also handles collecting
             e.gigglesnort(new Math.Point(player.x, player.y));
@@ -90,7 +90,7 @@ class UnderWorld {
                     essencesToRemove.add(e);
             }
         }
-        nidhogg.gigglesnort(new Math.Point(player.x, player.y));
+        if(!nidhogg.dead) nidhogg.gigglesnort(new Math.Point(player.x, player.y));
 
 
         ImageElement playerImage = await player.image;
@@ -126,7 +126,8 @@ class UnderWorld {
             } else {
                 if(world.bossFightJustStarted)jrPrint("oh hey don't let me interupt you there, just thought you might wanna know there's like...three paths to defeating Nidhogg. I wonder what they could be???");
                 world.bossFightJustStarted = false;
-                nidhogg.attemptTalk();
+                if(!nidhogg.dead) nidhogg.attemptTalk();
+                if(world.fraymotifActive && !nidhogg.dead)nidhogg.attemptTakeDamage();
             }
             dirt.context2D.arc(
                 player.topLeftX, player.topLeftY, flashlighRadius, 0,

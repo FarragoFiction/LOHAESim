@@ -9,9 +9,13 @@ import 'package:RenderingLib/RendereringLib.dart';
 class Record extends CollectableSecret with Inventoryable{
 
     String songName;
+    bool isFraymotif = false;
 
     String get happy => songName;
-    String get creepy => "${songName}_Distorted";
+    String get creepy {
+        //most songs don't have a distorted version so just use defaults
+        return "Flow_on_2_Distorted";
+    }
 
     Record(String this.songName, World world, String myName, String specificPhrase, String imgLoc) : super(world, specificPhrase, imgLoc) {
         name = myName;
@@ -33,7 +37,9 @@ class Record extends CollectableSecret with Inventoryable{
             ..add(new Ares(world))
             ..add(new Noir(world))
             ..add(new Saphire(world))
+            ..add(new Vethrfolnir(world))
             ..add(new Splinters(world));
+
         return ret;
     }
 
@@ -45,7 +51,7 @@ class FlowOn extends Record {
 }
 
 class Ares extends Record {
-    Ares(World world) : super("Ares_Scordatura", world, "Ares Scordatura", "For a slightly an ever so slightly more energetic gardening experience. Powerful.", "images/BGs/Records/recordF.png");
+    Ares(World world) : super("Ares_Scordatura", world, "Ares Scordatura", "For a slightly an ever so slightly more energetic gardening experience.", "images/BGs/Records/recordF.png");
 }
 
 class Noir extends Record {
@@ -53,9 +59,25 @@ class Noir extends Record {
 }
 
 class Saphire extends Record {
+    @override
+    String get creepy {
+        return "${songName}_Distorted";
+    }
     Saphire(World world) : super("Saphire_Spires", world, "Saphire Spires", "Recovered from deep within the bowels of the earth in a cave where they have forgotten what light is. Perfect to shop to.", "images/BGs/Records/recordE.png");
 }
 
 class Splinters extends Record {
     Splinters(World world) : super("Splinters_of_Royalty", world, "Splinters of Royalty", "A primal song, something that came before. Full warning: Contains techno.", "images/BGs/Records/recordA.png");
+}
+
+class Vethrfolnir extends Record {
+    @override
+    bool isFraymotif = true;
+
+    @override
+    String get creepy {
+        return songName; //never changes
+    }
+    Vethrfolnir(World world) : super("Vethrfolnir", world, "Vethrfolnir", "Wow. This song is WAY too angry to garden to. Why is this even in here???", "images/BGs/Records/recordC.png");
+
 }

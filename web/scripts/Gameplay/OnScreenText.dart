@@ -69,7 +69,7 @@ class NidhoggText extends OnScreenText{
 }
 
 class HPNotification extends OnScreenText{
-    HPNotification(String text) : super(text, -100, 1100, new Colour.fromStyleString("#ff0000"), new Colour.fromStyleString("#4c0000")) {
+    HPNotification(String text) : super(text, -100, 1100, new Colour.fromStyleString("#ff0000"), new Colour.fromStyleString("#4c0000"), millisOnScreen: 3000) {
         scatterAroundCentralPoint();
     }
 

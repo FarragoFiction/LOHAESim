@@ -19,7 +19,7 @@ class Tree {
 
     Future<CanvasElement> get canvas async {
         if(_canvas == null || dirty) {
-            print ("drawing dirty tree");
+            //print ("drawing dirty tree");
             _canvas = new CanvasElement(width: doll.width, height: doll.height);
             await DollRenderer.drawDoll(_canvas, doll);
             dirty = false;
@@ -32,8 +32,7 @@ class Tree {
 
     //nothing to see here, move along
     void corrupt() {
-        if(isCorrupt) return
-        print("corrupting $doll");
+        if(isCorrupt) return;
         isCorrupt = true;
         dirty = true;
         //caches everything, palette, fruit, whether it's fruiting, whole thing

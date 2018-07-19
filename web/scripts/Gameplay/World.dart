@@ -73,6 +73,10 @@ class World {
     //so i don't remove it mid render or some stupid shit
     List<Tree> treesToRemove = new List<Tree>();
 
+    bool get fraymotifActive {
+        return underWorld.nidhogg.canDamage(currentMusic);
+    }
+
 
     World() {
         underWorld = new UnderWorld(this);
@@ -182,7 +186,7 @@ class World {
 
         ogg.src = "$newMusicLocation.ogg";
         ogg.type = "audio/ogg";
-        //print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
+        print("can i play mp3? ${backgroundMusic.canPlayType("audio/mpeg")} can i play ogg? ${backgroundMusic.canPlayType("audio/ogg")} ");
 
         if(backgroundMusic.canPlayType("audio/mpeg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.mp3";
         if(backgroundMusic.canPlayType("audio/ogg").isNotEmpty) backgroundMusic.src = "Music/${newMusicLocation}.ogg";
@@ -190,7 +194,7 @@ class World {
         if(sync)backgroundMusic.currentTime = time;
         consortPrint("you know they say the Prince could Play the Vines. I wonder if it would sound like this??");
 
-        //print("actually playing new music $newMusicLocation");
+        print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
 
     }
@@ -390,7 +394,7 @@ class World {
         List<OnScreenText> toRemove = new List<OnScreenText>();
         for(OnScreenText text in texts) {
             text.render(buffer);
-            if(text.finished) toRemove.add(text);
+            if(text.finished || underWorld.nidhogg.dead && (text is HPNotification || text is NidhoggText)) toRemove.add(text);
         }
 
         for(OnScreenText text in toRemove) {
