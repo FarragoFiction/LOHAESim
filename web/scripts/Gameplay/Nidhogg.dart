@@ -28,7 +28,7 @@ class Nidhogg extends CollectableSecret {
   DateTime lastSpoke;
   int timeBetweenSentences = 11000;
   DateTime lastTookDamage;
-  int timeBetweenDamage = 500;
+  int timeBetweenDamage = 700;
 
   bool get dead => hp <= 0;
 
