@@ -5,6 +5,7 @@ import 'package:RenderingLib/RendereringLib.dart';
 class OnScreenText {
     String text;
     int fontSize = 48;
+    String font = "Courier New";
     Colour color1;
     Colour color2;
     int x;
@@ -28,7 +29,7 @@ class OnScreenText {
 
     void render(CanvasElement buffer) {
         if(checkFinished()) return;
-        buffer.context2D.font = "bold ${fontSize}px Courier New";
+        buffer.context2D.font = "bold ${fontSize}px $font";
         buffer.context2D.fillStyle = color1.toStyleString();
         String canvasText = text.replaceAll("<br>", "\n");
         int borderSize = 1;
@@ -42,7 +43,28 @@ class OnScreenText {
 }
 
 class NidhoggText extends OnScreenText{
-  NidhoggText(String text) : super(text,-100, 1000, new Colour.fromStyleString("#85afff"), new Colour.fromStyleString("#291d53"));
+    String font = "Strife";
+    int fontSize = 32;
+    NidhoggText(String text) : super(text,-100, 1000, new Colour.fromStyleString("#85afff"), new Colour.fromStyleString("#291d53"));
+
+    @override
+    void render(CanvasElement buffer) {
+        if(checkFinished()) return;
+        buffer.context2D.font = "bold ${fontSize}px $font";
+        buffer.context2D.fillStyle = color1.toStyleString();
+        String canvasText = text.replaceAll("<br>", "\n");
+        Random rand = new Random();
+        int borderSize = rand.nextInt(fontSize) ;
+        Renderer.wrap_text(buffer.context2D, canvasText, x+borderSize, y+borderSize, 300, 650, "center");
+        borderSize = rand.nextInt(fontSize) ;
+        Renderer.wrap_text(buffer.context2D, canvasText, x+borderSize, y-borderSize, 300, 650, "center");
+        borderSize = rand.nextInt(fontSize) ;
+        Renderer.wrap_text(buffer.context2D, canvasText, x-borderSize, y+borderSize, 300, 650, "center");
+        borderSize = rand.nextInt(fontSize) ;
+        Renderer.wrap_text(buffer.context2D, canvasText, x-borderSize, y-borderSize, 300, 650, "center");
+        buffer.context2D.fillStyle = color2.toStyleString();
+        Renderer.wrap_text(buffer.context2D, canvasText, x, y, 300, 650, "center");
+    }
 
 }
 

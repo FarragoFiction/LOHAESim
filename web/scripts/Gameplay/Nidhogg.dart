@@ -19,17 +19,28 @@ class Nidhogg extends CollectableSecret {
 
   //when you're zero or less you're dead
   int hp = 4037;
+  int scaleDirection  = -1;
 
   DateTime lastSpoke;
   int timeBetweenSentences = 11000;
+
 
   int speechIndex = 0;
   List<String> speechLines = <String>["Hello World 1","Hello World2","HelloWorld3","HelloWorld4"];
 
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
+
+
   void attemptTalk() {
-      if(lastSpoke == null) talk;
+      if(scaleX < 0.98) {
+          scaleDirection = scaleDirection * -1;
+      }else if (scaleX > 1.0) {
+          scaleDirection = scaleDirection * -1;
+      }
+      scaleX = scaleX - 0.001*scaleDirection;
+
+      if(lastSpoke == null) return talk();
       DateTime now = new DateTime.now();
       Duration diff = now.difference(lastSpoke);
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
@@ -41,11 +52,13 @@ class Nidhogg extends CollectableSecret {
   void talk() {
       lastSpoke = new DateTime.now();
       world.texts.add(new NidhoggText(speechLines[speechIndex]));
+      speechIndex ++;
   }
 
   void takeDamage() {
 
   }
+
 
   void gigglesnort(Math.Point point) {
       int eyeX = 217;
