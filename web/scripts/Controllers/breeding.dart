@@ -10,8 +10,6 @@ World ygdrassil = new World();
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
     ygdrassil.health = 26;
-    ygdrassil.testTrees();
-
     await ygdrassil.setupElements(output);
     testActiveItem();
     ygdrassil.renderLoop();

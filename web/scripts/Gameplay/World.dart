@@ -394,7 +394,7 @@ class World {
         List<OnScreenText> toRemove = new List<OnScreenText>();
         for(OnScreenText text in texts) {
             text.render(buffer);
-            if(text.finished || underWorld.nidhogg.dead && (text is HPNotification || text is NidhoggText)) toRemove.add(text);
+            if(text.finished || (!bossFight && (text is HPNotification || text is NidhoggText))) toRemove.add(text);
         }
 
         for(OnScreenText text in toRemove) {
@@ -409,7 +409,7 @@ class World {
     }
 
     Future<Null> renderLoop()async {
-        render(true);
+        await render(true);
         //if it needs to interupt it will, but no faster than min Time
         new Timer(new Duration(milliseconds: minTimeBetweenRenders*2), () => renderLoop());
 
