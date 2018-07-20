@@ -63,6 +63,9 @@ class Nidhogg extends CollectableSecret {
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
       if(diff.inMilliseconds > timeBetweenSentences || (world.fraymotifActive && !hadPain)) {
           if(world.fraymotifActive) {
+              if(!hadPain) {
+                  speechIndex = 0; //start over
+              }
               talkPain();
           }else if(speechIndex < speechLines.length) {
               talk();
@@ -87,7 +90,6 @@ class Nidhogg extends CollectableSecret {
 
   void attemptTakeDamage() {
       if(lastTookDamage == null) {
-          speechIndex = 0;
           return takeDamage();
       }
       DateTime now = new DateTime.now();
