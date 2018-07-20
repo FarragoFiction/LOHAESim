@@ -2,7 +2,7 @@ import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 
-import 'package:LoaderLib/Loader.dart';
+import 'package:LoaderLib/Loader.dart' as NewLoader;
 
 
 class Secret {
@@ -30,7 +30,7 @@ class Secret {
     Secret(World this.world);
 
     Future<Null> initCanvasAndBuffer() async {
-        _image = await Loader.getResource(imgLoc);
+        _image = await NewLoader.Loader.getResource(imgLoc);
     }
 
     Future<Null> render(CanvasElement buffer) async {
