@@ -6,6 +6,7 @@ import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
+import 'Inventoryable/YellowYard.dart';
 import 'Secret.dart';
 import 'World.dart';
 import 'dart:async';
@@ -34,6 +35,7 @@ class Player extends Secret {
         inventory= new Inventory(world, new List<Inventoryable>());
         inventory.add(new Flashlight(world));
         inventory.add(new Ax(world));
+        inventory.add(new YellowYard(world));
         inventory.addAll(Record.spawn(world));
         for(int i = 0; i<3; i++) {
             initialInventory();

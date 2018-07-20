@@ -71,6 +71,26 @@ class NidhoggText extends OnScreenText{
 
 }
 
+class NidhoggPride extends NidhoggText {
+  NidhoggPride(String text) : super(text);
+
+  @override
+  void render(CanvasElement buffer) {
+      if(checkFinished()) return;
+      buffer.context2D.font = "bold ${fontSize}px $font";
+      buffer.context2D.fillStyle = color1.toStyleString();
+      String canvasText = text.replaceAll("<br>", "\n");
+      int borderSize = 1;
+      //stable text, not overflowing with life
+      Renderer.wrap_text(buffer.context2D, canvasText, x+borderSize, y+borderSize, fontSize * 2, width, "left");
+      Renderer.wrap_text(buffer.context2D, canvasText, x+borderSize, y-borderSize, fontSize * 2, width, "left");
+      Renderer.wrap_text(buffer.context2D, canvasText, x-borderSize, y+borderSize, fontSize * 2, width, "left");
+      Renderer.wrap_text(buffer.context2D, canvasText, x-borderSize, y-borderSize, fontSize * 2, width, "left");
+      buffer.context2D.fillStyle = color2.toStyleString();
+      Renderer.wrap_text(buffer.context2D, canvasText, x, y, fontSize * 2, width, "left");
+  }
+}
+
 class NidhoggPain extends NidhoggText {
   NidhoggPain(String text) : super(text);
 

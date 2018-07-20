@@ -39,13 +39,16 @@ class Nidhogg extends CollectableSecret {
 
   bool hadPain = false;
 
+  bool purified = false;
+  bool wasProud = false;
+
 
   int speechIndex = 0;
   List<String> speechLines = <String>["Child, Two Paths Lie Before You. Which Will Uou Choose?","Will You Choose to Extingish The Spark Of Life Within Your Own Children?","Or Will You Choose To Snuff Out My Own Spark?","Or...Is There a Third Path, a Hidden One? One that does not Destroy Life?"];
   //then perish
   List<String> damageLines = <String>["Oof","Is This Your Choice Then?","So Be It.","I Shall Perish.", "The Spark of My Life Will Forever Go Out."];
 
-
+  List<String> proudLines = <String>["I Am So, So Proud Of You, Child.","You Have Clensed The Rampant Life Within My Body Without Snuffing It Out.","Here, Take This, I Trust You To Use It Wisely."];
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
 
@@ -66,12 +69,18 @@ class Nidhogg extends CollectableSecret {
       DateTime now = new DateTime.now();
       Duration diff = now.difference(lastSpoke);
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
-      if(diff.inMilliseconds > timeBetweenSentences || (world.fraymotifActive && !hadPain)) {
+      if(diff.inMilliseconds > timeBetweenSentences || (world.fraymotifActive && !hadPain) || (purified && !wasProud)) {
           if(world.fraymotifActive) {
               if(!hadPain) {
                   speechIndex = 0; //start over
               }
               talkPain();
+          }else if(purified) {
+              if(!wasProud) {
+                  speechIndex = 0;
+              }
+              wasProud = true;
+              talkPurified();
           }else if(speechIndex < speechLines.length) {
               talk();
           }
@@ -81,6 +90,22 @@ class Nidhogg extends CollectableSecret {
   void talk() {
       lastSpoke = new DateTime.now();
       world.texts.add(new NidhoggText(speechLines[speechIndex]));
+      speechIndex ++;
+      //if you're talking and not in pain and not too many trees, tree
+      if(world.trees.length < world.maxTrees) {
+          int randomX = new Random().nextInt(world.width);
+          int randomY = new Random().nextInt(world.height);
+          Point p = new Point(randomX, randomY);
+          FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
+          Fruit fruit = new Fruit(eye);
+          fruit.parents.add(new TreeDoll());
+          world.plantATreeAtPoint(fruit, p);
+      }
+  }
+
+  void talkPurified() {
+      lastSpoke = new DateTime.now();
+      world.texts.add(new NidhoggPride(speechLines[speechIndex]));
       speechIndex ++;
       //if you're talking and not in pain and not too many trees, tree
       if(world.trees.length < world.maxTrees) {

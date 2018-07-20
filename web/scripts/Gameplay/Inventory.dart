@@ -5,6 +5,7 @@ import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
+import 'Inventoryable/YellowYard.dart';
 import 'World.dart';
 import 'dart:async';
 import 'dart:collection';
@@ -90,6 +91,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             }else if(inventoryItem is Flashlight) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is Record) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is YellowYard) {
                 await inventoryItem.setCanvasForStore();
             }
             inventoryItem.inventory = this;
