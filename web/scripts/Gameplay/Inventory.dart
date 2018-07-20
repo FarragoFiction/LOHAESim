@@ -16,6 +16,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     DivElement container;
     InventoryPopup popup;
     Element rightElement;
+    DivElement inventoryColumn;
     //if it's active this is the thing we'll buy if it's a store
     //otherwise it's rendered as your mouse pointer in the canvas.
     Inventoryable activeItem;
@@ -48,10 +49,14 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     void add(Inventoryable item) {
         inventory.add(item);
+        drawOneItem(item);
     }
 
     void addAll(List<Inventoryable> items) {
-        inventory.addAll(items);
+        //don't just call add all, make sure the extra shit happens.
+        for(Inventoryable item in items) {
+            add(item);
+        }
     }
 
     void remove(Inventoryable item) {
@@ -75,28 +80,14 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         TableCellElement td1 = new TableCellElement();
         row.append(td1);
 
-        DivElement table = new DivElement();
-        table.classes.add("innerInventoryRowContainer");
-        td1.append(table);
+        inventoryColumn = new DivElement();
+        inventoryColumn.classes.add("innerInventoryRowContainer");
+        td1.append(inventoryColumn);
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
             //tbh i want each kind of inventorable to do something different here, but don't know how to make that a thing
             //and also not have to cast them. deal with it for now
-            if(inventoryItem is Essence) {
-                await inventoryItem.setCanvasForStore();
-            }else if(inventoryItem is Fruit) {
-                await inventoryItem.setCanvasForStore();
-            }else if(inventoryItem is Ax) {
-                await inventoryItem.setCanvasForStore();
-            }else if(inventoryItem is Flashlight) {
-                await inventoryItem.setCanvasForStore();
-            }else if(inventoryItem is Record) {
-                await inventoryItem.setCanvasForStore();
-            }else if(inventoryItem is YellowYard) {
-                await inventoryItem.setCanvasForStore();
-            }
-            inventoryItem.inventory = this;
-            inventoryItem.renderMyInventoryRow(table);
+            await drawOneItem(inventoryItem);
         }
 
         if(rightElement == null) makeRightElement();
@@ -112,6 +103,30 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
         popup = new InventoryPopup(container);
 
+    }
+
+    Future drawOneItem(Inventoryable inventoryItem) async {
+
+      //so they know how to popup
+      //tbh i want each kind of inventorable to do something different here, but don't know how to make that a thing
+      //and also not have to cast them. deal with it for now
+      if(inventoryItem is Essence) {
+          await inventoryItem.setCanvasForStore();
+      }else if(inventoryItem is Fruit) {
+          await inventoryItem.setCanvasForStore();
+      }else if(inventoryItem is Ax) {
+          await inventoryItem.setCanvasForStore();
+      }else if(inventoryItem is Flashlight) {
+          await inventoryItem.setCanvasForStore();
+      }else if(inventoryItem is Record) {
+          await inventoryItem.setCanvasForStore();
+      }else if(inventoryItem is YellowYard) {
+          await inventoryItem.setCanvasForStore();
+      }
+      inventoryItem.inventory = this;
+      if(inventoryColumn != null) {
+          inventoryItem.renderMyInventoryRow(inventoryColumn);
+      }
     }
 
 
