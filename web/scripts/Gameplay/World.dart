@@ -45,6 +45,7 @@ class World {
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
     List<Tree> trees = new List<Tree>();
+    int maxTrees = 8;
     List<OnScreenText> texts = new List<OnScreenText>();
 
     UnderWorld underWorld;

@@ -1,4 +1,5 @@
 import 'CollectableSecret.dart';
+import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'OnScreenText.dart';
@@ -6,6 +7,9 @@ import 'Player.dart';
 import 'World.dart';
 import 'dart:html';
 import "dart:math" as Math;
+
+import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
+import 'package:RenderingLib/RendereringLib.dart';
 
 /*
 when to json record if dead or not and hp
@@ -77,6 +81,15 @@ class Nidhogg extends CollectableSecret {
       lastSpoke = new DateTime.now();
       world.texts.add(new NidhoggText(speechLines[speechIndex]));
       speechIndex ++;
+      //if you're talking and not in pain and not too many trees, tree
+      if(world.trees.length < world.maxTrees) {
+          int randomX = new Random().nextInt(world.width);
+          int randomY = new Random().nextInt(world.height);
+          Point p = new Point(randomX, randomY);
+          FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
+          Fruit fruit = new Fruit(eye);
+          world.plantATreeAtPoint(fruit, p);
+      }
   }
 
   //wrap around
