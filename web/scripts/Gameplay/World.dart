@@ -10,6 +10,7 @@ import 'UnderWorld.dart';
 import 'dart:async';
 import 'dart:html';
 import "package:DollLibCorrect/DollRenderer.dart";
+import "package:CommonLib/NavBar.dart";
 //yggdrasil
 class World {
     int width = 800;
@@ -73,6 +74,7 @@ class World {
 
     //so i don't remove it mid render or some stupid shit
     List<Tree> treesToRemove = new List<Tree>();
+    List<Tree> treesToAdd = new List<Tree>();
 
     bool get fraymotifActive {
         return underWorld.nidhogg.canDamage(currentMusic);
@@ -378,6 +380,14 @@ class World {
         }
     }
 
+    void addTrees() {
+        for(Tree tree in treesToAdd) {
+            trees.add(tree);
+            overWorldDirty = true; //since i removed a tree, need to update graphics
+        }
+        treesToAdd.clear();
+    }
+
     void plantATreeAtPoint(Fruit fruit, Point point) {
         if(bossFight) {
             consortPrint("no the denizen is awake these trees are BAD!!");
@@ -389,9 +399,14 @@ class World {
         Doll treeDoll = Doll.breedDolls(fruit.parents);
         //ground level
         int y = 300;
+        int x = point.x - (treeDoll.width/2).round(); //center it
+
+        if(getParameterByName("haxMode") == "on") {
+            y = point.y;
+        }
         if(treeDoll is TreeDoll) {
-            Tree tree = new Tree(treeDoll, point.x, y);
-            trees.add(tree);
+            Tree tree = new Tree(treeDoll, x, y);
+            treesToAdd.add(tree);
             overWorldDirty = true;
             cursor = null;
             moveOwO(treeDoll);
@@ -446,6 +461,7 @@ class World {
 
     Future<Null> render([bool force]) async {
         removeTrees(); //even if you don't render, do this shit.
+        addTrees();
         if(buffer == null) await initCanvasAndBuffer();
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
