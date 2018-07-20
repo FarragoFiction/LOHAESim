@@ -35,6 +35,8 @@ class Nidhogg extends CollectableSecret {
 
   int speechIndex = 0;
   List<String> speechLines = <String>["Hello World 1","Hello World2","HelloWorld3","HelloWorld4"];
+  List<String> damageLines = <String>["Oof 1","Oof 2","Oof 3","Oof4"];
+
 
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
@@ -56,8 +58,12 @@ class Nidhogg extends CollectableSecret {
       DateTime now = new DateTime.now();
       Duration diff = now.difference(lastSpoke);
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
-      if(diff.inMilliseconds > timeBetweenSentences && speechIndex < speechLines.length) {
-          talk();
+      if(diff.inMilliseconds > timeBetweenSentences) {
+          if(world.fraymotifActive) {
+              talkPain();
+          }else if(speechIndex < speechLines.length) {
+              talk();
+          }
       }
   }
 
@@ -67,8 +73,19 @@ class Nidhogg extends CollectableSecret {
       speechIndex ++;
   }
 
+  //wrap around
+  void talkPain() {
+      lastSpoke = new DateTime.now();
+      world.texts.add(new NidhoggPain(damageLines[speechIndex]));
+      if(speechIndex >= damageLines.length) speechIndex = 0;
+      speechIndex ++;
+  }
+
   void attemptTakeDamage() {
-      if(lastTookDamage == null) return takeDamage();
+      if(lastTookDamage == null) {
+          speechIndex = 0;
+          return takeDamage();
+      }
       DateTime now = new DateTime.now();
       Duration diff = now.difference(lastTookDamage);
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");

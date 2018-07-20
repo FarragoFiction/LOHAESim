@@ -68,6 +68,33 @@ class NidhoggText extends OnScreenText{
 
 }
 
+class NidhoggPain extends NidhoggText {
+  NidhoggPain(String text) : super(text);
+
+  @override
+  void render(CanvasElement buffer) {
+      if(checkFinished()) return;
+      buffer.context2D.font = "bold ${fontSize}px $font";
+      buffer.context2D.fillStyle = color1.toStyleString();
+      String canvasText = text.replaceAll("<br>", "\n");
+      Random rand = new Random();
+      //text is more scattered because pain
+      int borderSize = rand.nextInt(fontSize*3) ;
+      Renderer.wrap_text(buffer.context2D, canvasText, x+borderSize, y+borderSize, 300, 650, "center");
+      borderSize = rand.nextInt(fontSize) ;
+      Renderer.wrap_text(buffer.context2D, canvasText, x+borderSize, y-borderSize, 300, 650, "center");
+      borderSize = rand.nextInt(fontSize) ;
+      Renderer.wrap_text(buffer.context2D, canvasText, x-borderSize, y+borderSize, 300, 650, "center");
+      borderSize = rand.nextInt(fontSize) ;
+      Renderer.wrap_text(buffer.context2D, canvasText, x-borderSize, y-borderSize, 300, 650, "center");
+      buffer.context2D.fillStyle = color2.toStyleString();
+      //even the center text is disrupted from pain
+      borderSize = rand.nextInt(fontSize) ;
+      Renderer.wrap_text(buffer.context2D, canvasText, x+ borderSize/fontSize, y+ borderSize/fontSize, 300, 650, "center");
+  }
+
+}
+
 class HPNotification extends OnScreenText{
     HPNotification(String text) : super(text, -100, 1100, new Colour.fromStyleString("#ff0000"), new Colour.fromStyleString("#4c0000"), millisOnScreen: 3000) {
         scatterAroundCentralPoint();

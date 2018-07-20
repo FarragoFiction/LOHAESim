@@ -410,7 +410,13 @@ class World {
         List<OnScreenText> toRemove = new List<OnScreenText>();
         for(OnScreenText text in texts) {
             text.render(buffer);
-            if(text.finished || (!bossFight && (text is HPNotification || text is NidhoggText))) toRemove.add(text);
+            //if the fraymotif is active, interupt what you were saying and be in pain instead
+            if(fraymotifActive && text is NidhoggText && !(text is NidhoggPain)){
+                toRemove.add(text);
+            }else if(text.finished || (!bossFight && (text is HPNotification || text is NidhoggText))) {
+                //if nidhogg isn't on screen, interupt what you were saying
+                toRemove.add(text);
+            }
         }
 
         for(OnScreenText text in toRemove) {
