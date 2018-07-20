@@ -90,7 +90,7 @@ class NidhoggPain extends NidhoggText {
       buffer.context2D.fillStyle = color2.toStyleString();
       //even the center text is disrupted from pain
       borderSize = rand.nextInt(fontSize) ;
-      Renderer.wrap_text(buffer.context2D, canvasText, x+ borderSize/fontSize, y+ borderSize/fontSize, 300, 650, "center");
+      Renderer.wrap_text(buffer.context2D, canvasText, x+ borderSize, y+ borderSize, 300, 650, "center");
   }
 
 }

@@ -32,10 +32,13 @@ class Nidhogg extends CollectableSecret {
 
   bool get dead => hp <= 0;
 
+  bool hadPain = false;
+
 
   int speechIndex = 0;
-  List<String> speechLines = <String>["Hello World 1","Hello World2","HelloWorld3","HelloWorld4"];
-  List<String> damageLines = <String>["Oof 1","Oof 2","Oof 3","Oof4"];
+  List<String> speechLines = <String>["Child, Two Paths Lie Before You. Which Will Uou Choose?","Will You Choose to Extingish The Spark Of Life Within Your Own Children?","Or Will You Choose To Snuff Out My Own Spark?","Or...Is There a Third Path, a Hidden One?"];
+  //then perish
+  List<String> damageLines = <String>["Oof","Is This Your Choice Then?","So Be It.","I Shall Perish.", "The Spark of My Life Will Forever Go Out."];
 
 
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
@@ -58,7 +61,7 @@ class Nidhogg extends CollectableSecret {
       DateTime now = new DateTime.now();
       Duration diff = now.difference(lastSpoke);
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
-      if(diff.inMilliseconds > timeBetweenSentences) {
+      if(diff.inMilliseconds > timeBetweenSentences || (world.fraymotifActive && !hadPain)) {
           if(world.fraymotifActive) {
               talkPain();
           }else if(speechIndex < speechLines.length) {
@@ -75,10 +78,11 @@ class Nidhogg extends CollectableSecret {
 
   //wrap around
   void talkPain() {
+      hadPain = true;
       lastSpoke = new DateTime.now();
       world.texts.add(new NidhoggPain(damageLines[speechIndex]));
-      if(speechIndex >= damageLines.length) speechIndex = 0;
       speechIndex ++;
+      if(speechIndex >= damageLines.length) speechIndex = 0;
   }
 
   void attemptTakeDamage() {
