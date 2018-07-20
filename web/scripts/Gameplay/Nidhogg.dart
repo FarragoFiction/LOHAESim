@@ -8,6 +8,7 @@ import 'World.dart';
 import 'dart:html';
 import "dart:math" as Math;
 
+import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 
@@ -88,6 +89,7 @@ class Nidhogg extends CollectableSecret {
           Point p = new Point(randomX, randomY);
           FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
           Fruit fruit = new Fruit(eye);
+          fruit.parents.add(new TreeDoll());
           world.plantATreeAtPoint(fruit, p);
       }
   }

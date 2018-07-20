@@ -303,6 +303,7 @@ class World {
     void processClickAtCursor() {
         if(activeItem is Fruit) {
             plantATreeAtPoint(activeItem, cursor.position);
+            underWorld.player.inventory.removeItem(activeItem);
         }else if(activeItem is Record) {
             currentMusic = activeItem;
             changeMusic((activeItem as Record).songName, false);
@@ -378,7 +379,12 @@ class World {
     }
 
     void plantATreeAtPoint(Fruit fruit, Point point) {
-        consortPrint("thwap!! are you sure it's a good idea to plant all these trees?? The Denizen might wake up... he's SCARY!!");
+        if(bossFight) {
+            consortPrint("no the denizen is awake these trees are BAD!!");
+        }else {
+            consortPrint(
+                "thwap!! are you sure it's a good idea to plant all these trees?? The Denizen might wake up... he's SCARY!!");
+        }
         //just a logical result of the trees this fruit came from
         Doll treeDoll = Doll.breedDolls(fruit.parents);
         //ground level
@@ -388,7 +394,6 @@ class World {
             trees.add(tree);
             overWorldDirty = true;
             cursor = null;
-            underWorld.player.inventory.removeItem(fruit);
             moveOwO(treeDoll);
             if(bossFight) tree.corrupt();
             render();
