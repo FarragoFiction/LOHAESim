@@ -41,7 +41,7 @@ class Nidhogg extends CollectableSecret {
 
 
   int speechIndex = 0;
-  List<String> speechLines = <String>["Child, Two Paths Lie Before You. Which Will Uou Choose?","Will You Choose to Extingish The Spark Of Life Within Your Own Children?","Or Will You Choose To Snuff Out My Own Spark?","Or...Is There a Third Path, a Hidden One?"];
+  List<String> speechLines = <String>["Child, Two Paths Lie Before You. Which Will Uou Choose?","Will You Choose to Extingish The Spark Of Life Within Your Own Children?","Or Will You Choose To Snuff Out My Own Spark?","Or...Is There a Third Path, a Hidden One? One that does not Destroy Life?"];
   //then perish
   List<String> damageLines = <String>["Oof","Is This Your Choice Then?","So Be It.","I Shall Perish.", "The Spark of My Life Will Forever Go Out."];
 

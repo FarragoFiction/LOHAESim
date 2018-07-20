@@ -399,10 +399,10 @@ class World {
         Doll treeDoll = Doll.breedDolls(fruit.parents);
         //ground level
         int y = 300;
-        int x = point.x - (treeDoll.width/2).round(); //center it
+        int x = point.x - (treeDoll.width/4).round(); //center it
 
         if(getParameterByName("haxMode") == "on") {
-            y = point.y;
+            y = point.y - treeDoll.height/2; //plant base where you click
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(treeDoll, x, y);
@@ -447,7 +447,7 @@ class World {
 
     Future<Null> doTrees() async {
         for (Tree tree in trees) {
-            tree.render(buffer);
+            await tree.render(buffer);
         }
     }
 
@@ -476,17 +476,20 @@ class World {
                 buffer.context2D.drawImage(bgCorrupt, 0, 0);
             }
 
-            await doTrees();
             overWorldDirty = false; //not dirty anymore, am drawing.
         }
 
+
         await underWorld.render(buffer);
 
+        //for reasons, make sure trees are over even dirt
+        await doTrees();
+
+        doText();
         if(cursor != null) {
             await cursor.render(buffer);
         }
 
-        doText();
         onScreen.context2D.drawImage(buffer, 0,0);
         lastRender = new DateTime.now();
         currentlyRendering = false;
