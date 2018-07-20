@@ -2,7 +2,8 @@ import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 
-import 'package:DollLibCorrect/DollRenderer.dart';
+import 'package:LoaderLib/Loader.dart';
+
 
 class Secret {
     int topLeftX = 400;
