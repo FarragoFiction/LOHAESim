@@ -83,12 +83,14 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         inventoryColumn = new DivElement();
         inventoryColumn.classes.add("innerInventoryRowContainer");
         td1.append(inventoryColumn);
+        /*doing this here makes ghost items, they'll draw when they are added
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
             //tbh i want each kind of inventorable to do something different here, but don't know how to make that a thing
             //and also not have to cast them. deal with it for now
-            await drawOneItem(inventoryItem);
+            //await drawOneItem(inventoryItem);
         }
+        */
 
         if(rightElement == null) makeRightElement();
         rightElement.onClick.listen((Event e) {
