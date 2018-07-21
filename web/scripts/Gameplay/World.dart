@@ -246,6 +246,8 @@ class World {
         for(Tree tree in trees) {
             tree.uncorrupt();
         }
+
+        underWorld.player.inventory.unlockHidden();
         render();
     }
 

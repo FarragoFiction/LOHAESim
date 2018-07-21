@@ -16,6 +16,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     DivElement container;
     InventoryPopup popup;
     Element rightElement;
+
     DivElement inventoryColumn;
     //if it's active this is the thing we'll buy if it's a store
     //otherwise it's rendered as your mouse pointer in the canvas.
@@ -105,6 +106,12 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
         popup = new InventoryPopup(container);
 
+    }
+
+    void unlockHidden() {
+        for(Inventoryable item in inventory) {
+            item.unHide();
+        }
     }
 
     Future drawOneItem(Inventoryable inventoryItem) async {

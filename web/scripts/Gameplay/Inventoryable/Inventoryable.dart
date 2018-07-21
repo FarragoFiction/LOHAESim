@@ -5,6 +5,8 @@ abstract class Inventoryable {
     String name = "???";
     String description = "An item???";
     Element myInventoryDiv;
+    //things like essences are hidden till you beat the game
+    bool hidden = false;
     int cost = 113;
     Inventory inventory; //will be set when there's a store
     //up to whoever uses me to make this a thing
@@ -32,6 +34,11 @@ abstract class Inventoryable {
         myInventoryDiv.remove();
     }
 
+    void unHide() {
+        hidden = false;
+        myInventoryDiv.style.display = "block";
+    }
+
     void renderMyInventoryRow(DivElement parent) {
         myInventoryDiv = new DivElement();
         myInventoryDiv.classes.add("innerInventoryTableRow");
@@ -45,5 +52,9 @@ abstract class Inventoryable {
         myInventoryDiv.onClick.listen((MouseEvent e) {
             inventory.handleItemClick(this, preview:  itemCanvas);
         });
+
+        if(hidden) {
+            myInventoryDiv.style.display = "none";
+        }
     }
 }

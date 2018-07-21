@@ -11,7 +11,7 @@ Element output = querySelector('#output');
 World ygdrassil = new World();
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
-    OldRenderer.Loader.preloadManifest();
+    await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     await ygdrassil.setupElements(output);
     testActiveItem();
