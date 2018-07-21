@@ -365,6 +365,7 @@ class World {
             {
                 parentDiv.remove();
                 treesToRemove.add(tree);
+                unmoveOwO(tree.doll);
                 render(true);
             });
         }
@@ -417,6 +418,7 @@ class World {
         }
     }
 
+    //???
     void moveOwO(TreeDoll tree) {
         if(tree.form is BushForm) {
             underWorld.player.down();
@@ -424,8 +426,21 @@ class World {
             underWorld.player.left();
         }else if (tree.form is RightFrom) {
             underWorld.player.right();
-        }else if (tree.form is TreeForm) {
+        }else if (tree.form is TreeForm) {//tree form has to be at bottom because it's the parent class
             underWorld.player.up();
+        }
+    }
+
+    //for when you need to undo your movement, ax no questions
+    void unmoveOwO(TreeDoll tree) {
+        if(tree.form is BushForm) {
+            underWorld.player.up();
+        }else if (tree.form is RightFrom) {
+            underWorld.player.left();
+        }else if (tree.form is LeftForm) {
+            underWorld.player.right();
+        }else if (tree.form is TreeForm) {//tree form has to be at bottom because it's the parent class
+            underWorld.player.down();
         }
     }
 

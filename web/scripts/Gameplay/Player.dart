@@ -26,8 +26,8 @@ class Player extends Secret {
     int minY = 0;
     Inventory inventory;
 
-    //only gigglesnort if you move
-    bool playerMoved = false;
+    //only gigglesnort if you move. spawning counts as moving
+    bool playerMoved = true;
 
     //TODO relative to size of moneybags
     int flashlightRadius =75;

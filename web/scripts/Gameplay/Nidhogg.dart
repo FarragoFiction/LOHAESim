@@ -172,7 +172,7 @@ class Nidhogg extends CollectableSecret {
         if(world.bossFight) {
             owoPrint("$specificPhrase. Or is it ${distance.round()}?");
         }else {
-            owoPrint("It GROWS!");
+            //owoPrint("It GROWS!");
         }
     }
 
