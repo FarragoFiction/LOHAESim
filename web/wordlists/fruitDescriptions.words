@@ -132,10 +132,11 @@ flavor
     strong
     tasty
     forbidden
-    like szechuan sauce 0.5
-    like a tidepod 0.1
-    like body butter and despair 0.1
-    like justice 0.5
+    szechuan sauce like: 0.5
+    tidepod like: 0.1
+    body butter and despair like: 0.1
+    justice like: 0.5
+    deceit like: 0.1
 
 texture
     juicy
