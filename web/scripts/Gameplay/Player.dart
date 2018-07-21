@@ -26,6 +26,9 @@ class Player extends Secret {
     int minY = 0;
     Inventory inventory;
 
+    //only gigglesnort if you move
+    bool playerMoved = false;
+
     //TODO relative to size of moneybags
     int flashlightRadius =75;
 
@@ -49,6 +52,7 @@ class Player extends Secret {
             owoPrint("New friend, I can't go any more above! I'd break through the surface and that would be TERRIBLE!");
         }else {
             owoPrint("What's this above me?");
+            playerMoved = true;
         }
     }
 
@@ -59,6 +63,8 @@ class Player extends Secret {
             owoPrint("New friend, I can't go any more below!");
         }else {
             owoPrint("What's this down below?");
+            playerMoved = true;
+
         }
     }
 
@@ -69,6 +75,7 @@ class Player extends Secret {
             owoPrint("New friend, I can't go any more to the left!");
         }else {
             owoPrint("What's this to the left?");
+            playerMoved = true;
         }
     }
 
@@ -79,6 +86,7 @@ class Player extends Secret {
             owoPrint("New friend, I can't go any more to the right!");
         }else {
             owoPrint("What's this to the right?");
+            playerMoved = true;
         }
     }
 
@@ -123,6 +131,9 @@ void consortPrint(String text, [int size = 18]) {
 }
 
 void jrPrint(String text, [int size = 18]) {
-    String consortCss = "color:#3da35a;font-size: ${size}px;font-weight: bold;";
-    fancyPrint("JR: $text",consortCss);
+    String jrCSS = "color:#3da35a;font-size: ${size}px;font-weight: bold;";
+    String jrGigglesnortCSS = "color:#ffffff;font-size: ${size}px;font-weight: bold;";
+    fancyPrint("JR: $text",jrCSS);
+    fancyPrint("JR: I mean, if you're here you're practically a Waste already, so...   haxMode=on might help you with that secret path, if you know what i mean. ;) ;) ;)",jrGigglesnortCSS);
+
 }

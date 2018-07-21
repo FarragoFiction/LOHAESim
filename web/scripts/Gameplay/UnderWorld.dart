@@ -85,14 +85,17 @@ class UnderWorld {
         if(!nidhogg.dead) nidhogg.render(buffer);
         for(Essence e in essences) {
             //also handles collecting
-            e.gigglesnort(new Math.Point(player.x, player.y));
+            if(player.playerMoved) {
+                e.gigglesnort(new Math.Point(player.x, player.y));
+            }
             if(!e.collected) {
                 e.render(buffer);
             }else {
                     essencesToRemove.add(e);
             }
         }
-        if(!nidhogg.dead) nidhogg.gigglesnort(new Math.Point(player.x, player.y));
+        if(!nidhogg.dead && player.playerMoved) nidhogg.gigglesnort(new Math.Point(player.x, player.y));
+        player.playerMoved = false;
 
 
         ImageElement playerImage = await player.image;
