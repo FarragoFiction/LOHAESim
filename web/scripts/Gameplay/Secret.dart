@@ -18,12 +18,13 @@ class Secret {
 
     num get x => topLeftX-width/2;
     num get y => topLeftY-height/2;
+    bool dirty = false;
 
     String imgLoc = "images/BGs/owo.png";
     ImageElement _image;
 
     Future<ImageElement> get image async {
-        if(_image == null) await initCanvasAndBuffer();
+        if(_image == null || dirty) await initCanvasAndBuffer();
         return _image;
     }
 

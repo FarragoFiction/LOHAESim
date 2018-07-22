@@ -26,6 +26,8 @@ class Nidhogg extends CollectableSecret {
   @override
   int collectionRadius = 200;
 
+  String purifiedLoc = "images/BGs/nidhoggPure.png";
+
   //when you're zero or less you're dead
   int hp = 4037;
   int scaleDirection  = -1;
@@ -87,6 +89,19 @@ class Nidhogg extends CollectableSecret {
       }
   }
 
+  void checkPurity(Point point) {
+      if(pointInsideMe(point)){
+          purified = true;
+          imgLoc = purifiedLoc;
+          dirty = true; //redraw
+      }
+  }
+
+  bool pointInsideMe(Point point) {
+      Rectangle rect = new Rectangle(x, y, width, height);
+      return rect.containsPoint(point);
+  }
+
   void talk() {
       lastSpoke = new DateTime.now();
       world.texts.add(new NidhoggText(speechLines[speechIndex]));
@@ -105,17 +120,10 @@ class Nidhogg extends CollectableSecret {
 
   void talkPurified() {
       lastSpoke = new DateTime.now();
-      world.texts.add(new NidhoggPride(speechLines[speechIndex]));
+      world.texts.add(new NidhoggPride(proudLines[speechIndex]));
       speechIndex ++;
-      //if you're talking and not in pain and not too many trees, tree
-      if(world.trees.length < world.maxTrees) {
-          int randomX = new Random().nextInt(world.width);
-          int randomY = new Random().nextInt(world.height);
-          Point p = new Point(randomX, randomY);
-          FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
-          Fruit fruit = new Fruit(eye);
-          fruit.parents.add(new TreeDoll());
-          world.plantATreeAtPoint(fruit, p);
+      if(speechIndex >= proudLines.length) {
+          world.bossFight = false;
       }
   }
 
@@ -152,6 +160,8 @@ class Nidhogg extends CollectableSecret {
 
 
   void gigglesnort(Math.Point point) {
+      //we're done if purified
+      if(purified) return;
       int eyeX = 217;
       int eyeY = 364;
     Math.Point myPoint = new Math.Point(x+eyeX,y+eyeY);

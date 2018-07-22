@@ -257,6 +257,7 @@ class World {
         render();
     }
 
+
     void showAndHideYgdrssylLayers() {
         if(health <= TENTACLELEVEL || bossFight) {
             if(bossFightJustStarted)consortPrint("Oh god oh god oh god what do we do!!??");
@@ -310,6 +311,7 @@ class World {
         return false;
     }
 
+
     void processClickAtCursor() {
         if(activeItem is Fruit) {
             plantATreeAtPoint(activeItem, cursor.position);
@@ -335,12 +337,17 @@ class World {
         //tell all trees to process this. first tree to return a fruit ends things.
         for(Tree tree in trees) {
             //print("is it $tree I'm looking for?");
-            PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
-            if(fruitLayer != null) {
-               // print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
-                tree.produceFruit(fruitLayer, floweringTrees);
-                //if that was your last fruit, you're slated for removal.
-                if(!tree.doll.hasHangablesAlready()) treesToRemove.add(tree);
+            //don't pick flowers or whatever
+            if(tree.stage >= Tree.FRUIT) {
+                PositionedDollLayer fruitLayer = tree.fruitPicked(
+                    cursor.position);
+                if (fruitLayer != null) {
+                    // print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
+                    tree.produceFruit(fruitLayer, floweringTrees);
+                    //if that was your last fruit, you're slated for removal.
+                    if (!tree.doll.hasHangablesAlready()) treesToRemove.add(
+                        tree);
+                }
             }
         }
     }
@@ -431,6 +438,7 @@ class World {
 
         if(getParameterByName("haxMode") == "on") {
             y = point.y - treeDoll.height/2; //plant base where you click
+            underWorld.nidhogg.checkPurity(new Point(x,y));
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
