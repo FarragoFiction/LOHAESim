@@ -49,7 +49,7 @@ class World {
     List<Tree> trees = new List<Tree>();
     //flower and fruit both , even if in reality what matters is when both are flowering
     //this is a shortcut because fruit parentage is decided when you pick it, at least for now
-    List<Tree> get floweringTrees => trees.where((Tree t) => t.stage > Tree.FRUIT  );
+    List<Tree> get floweringTrees =>trees.where((Tree t) => t.stage >= Tree.FLOWERS);
 
     int maxTrees = 8;
     List<OnScreenText> texts = new List<OnScreenText>();
