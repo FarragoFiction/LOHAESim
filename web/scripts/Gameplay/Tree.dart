@@ -45,6 +45,7 @@ class Tree {
     void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
         print("producing fruit with parents $parents");
         Fruit fruitItem = new Fruit(fruitLayer.doll.clone());
+        if(fruitItem.doll is FruitDoll)(fruitItem.doll as FruitDoll).setName();
         fruitItem.parents = new List.from(parents.map((Tree tree)=> tree.doll));
         world.underWorld.player.inventory.add(fruitItem);
         // print("before picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
