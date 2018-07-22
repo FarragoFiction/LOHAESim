@@ -93,7 +93,6 @@ class World {
         //want inventory on left, world on right
         await underWorld.player.drawInventory(parentContainer);
         container = underWorld.player.inventory.rightElement;
-        //parentContainer.append(container);
     }
 
     void testTrees() {

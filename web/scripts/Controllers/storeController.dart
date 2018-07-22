@@ -3,8 +3,10 @@ import '../Gameplay/Inventoryable/Fruit.dart';
 import '../Gameplay/Player.dart';
 import '../Gameplay/Store.dart';
 import '../Gameplay/World.dart';
+import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
+import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
@@ -16,7 +18,8 @@ Store store;
 //how often do you get new things? every five minutes
 int refreshMinute = 60;
 
-void main() {
+Future<Null> main() async{
+    await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     //example store, TODO have actual inventory system loaded from cache
     Store store = new Store(ygdrassil, spawnRandomFruit());

@@ -7,6 +7,7 @@ import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'Inventoryable/YellowYard.dart';
+import 'Store.dart';
 import 'World.dart';
 import 'dart:async';
 import 'dart:collection';
@@ -66,12 +67,13 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     }
 
     void handleItemClick(Inventoryable item, {Element preview}) {
-        activeItem.unSelect();
+        if(activeItem != null) activeItem.unSelect();
         item.select();
         activeItem = item;
         popup.popup(item,  preview:preview);
         world.cursor = new CustomCursor(activeItem.itemCanvas, new Point(100,100));
-        world.render(true);
+        //stores don't need to worry about rendering the playing field
+        if(!(this is Store))world.render(true);
     }
 
     Future<Null> render() async{
