@@ -1,3 +1,5 @@
+import 'Inventoryable/Fruit.dart';
+import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:DollLibCorrect/DollRenderer.dart';
@@ -18,6 +20,7 @@ class Tree {
     int oldStage = FRUIT;
     int stage = FRUIT;
     double scale = 0.5;
+    World world;
 
 
     FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
@@ -37,12 +40,24 @@ class Tree {
         return _canvas;
     }
 
-    Tree(TreeDoll this.doll, int this.x, int this.y);
+    Tree(World this.world,TreeDoll this.doll, int this.x, int this.y);
+
+    void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
+        print("producing fruit with parents $parents");
+        Fruit fruitItem = new Fruit(fruitLayer.doll.clone());
+        fruitItem.parents = new List.from(parents);
+        world.underWorld.player.inventory.add(fruitItem);
+        // print("before picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
+        doll.dataOrderLayers.remove(fruitLayer);
+        doll.renderingOrderLayers.remove(fruitLayer);
+        // print("after picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
+        reallyDirty = true; //render plz
+    }
 
     PositionedDollLayer fruitPicked(Point point) {
         //first, is this point inside of me?
         if(!pointInsideMe(point)) return null;
-        print("you clicked inside me!");
+       // print("you clicked inside me!");
         //next convert this point to be relative to my upper left
         //if i'm at 330 and the point is 400, then i should make it be 70. point - me
         //need to divide by scale to undo the multiplying i'm doing to render. maybe?
@@ -51,7 +66,7 @@ class Tree {
         int convertedY = ((point.y - y)/scale).round();
         Point convertedPoint = new Point(convertedX, convertedY);
         for(PositionedDollLayer layer in doll.hangables) {
-            print("is the point in $layer?, point is $point and layer is at ${layer.x}, ${layer.y}");
+           // print("is the point in $layer?, point is $point and layer is at ${layer.x}, ${layer.y}");
             if(layer.pointInsideMe(convertedPoint)) return layer;
         }
 

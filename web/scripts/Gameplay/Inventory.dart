@@ -37,6 +37,15 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         item.removeFromInventoryScreen();
     }
 
+    void helpingHand() {
+        for(Inventoryable item in inventory) {
+            if(item is HelpingHand) {
+                activeItem = item;
+                break;
+            }
+        }
+    }
+
     void makeRightElement() {
         if(rightElement == null) {
             rightElement = new DivElement();

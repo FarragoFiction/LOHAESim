@@ -49,7 +49,8 @@ class World {
     List<Tree> trees = new List<Tree>();
     //flower and fruit both , even if in reality what matters is when both are flowering
     //this is a shortcut because fruit parentage is decided when you pick it, at least for now
-    List<Tree> get floweringTrees => trees.where((Tree tree){ tree.stage >= Tree.FLOWERS;});
+    List<Tree> get floweringTrees => trees.where((Tree t) => t.stage > Tree.FRUIT  );
+
     int maxTrees = 8;
     List<OnScreenText> texts = new List<OnScreenText>();
 
@@ -100,10 +101,10 @@ class World {
     }
 
     void testTrees() {
-        trees.add(new Tree(new TreeDoll(), 150, 300));
-        trees.add(new Tree(new TreeDoll(), 300, 300));
-        trees.add(new Tree(new TreeDoll(), 450, 300));
-        trees.add(new Tree(new TreeDoll(), 600, 300));
+        trees.add(new Tree(this,new TreeDoll(), 150, 300));
+        trees.add(new Tree(this,new TreeDoll(), 300, 300));
+        trees.add(new Tree(this,new TreeDoll(), 450, 300));
+        trees.add(new Tree(this,new TreeDoll(), 600, 300));
     }
 
 
@@ -118,6 +119,8 @@ class World {
 
         onScreen.onMouseMove.listen((MouseEvent event)
         {
+            if(activeItem == null)underWorld.player.inventory.helpingHand();
+
             if(activeItem != null) {
                 //print("there is an active item so that should be my cursor");
                 CanvasElement itemCanvas = activeItem.itemCanvas;
@@ -328,21 +331,15 @@ class World {
 
     //despap citato is a good bean
     void pickFruit() {
-        print("trying to pick fruit");
+        //print("trying to pick fruit");
         //tell all trees to process this. first tree to return a fruit ends things.
         for(Tree tree in trees) {
-            print("is it $tree I'm looking for?");
+            //print("is it $tree I'm looking for?");
             PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
             if(fruitLayer != null) {
-                print("i found a fruit");
-                Fruit fruitItem = new Fruit(fruitLayer.doll);
-                fruitItem.parents = new List.from(floweringTrees);
-                underWorld.player.inventory.add(fruitItem);
-                print("before picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
-                tree.doll.dataOrderLayers.remove(fruitLayer);
-                tree.doll.renderingOrderLayers.remove(fruitLayer);
-                print("after picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
-                tree.reallyDirty = true; //render plz
+                print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
+                tree.produceFruit(fruitLayer, floweringTrees);
+
             }
         }
     }
@@ -435,7 +432,7 @@ class World {
             y = point.y - treeDoll.height/2; //plant base where you click
         }
         if(treeDoll is TreeDoll) {
-            Tree tree = new Tree(treeDoll, x, y);
+            Tree tree = new Tree(this,treeDoll, x, y);
             treesToAdd.add(tree);
             overWorldDirty = true;
             cursor = null;
