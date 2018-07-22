@@ -1,6 +1,7 @@
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
+import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'OnScreenText.dart';
@@ -314,8 +315,24 @@ class World {
             removeTreePopup();
         }else if(activeItem is Flashlight) {
             activateFlashlight();
+        }else if(activeItem is HelpingHand) {
+            pickFruit();
         }else {
             consortPrint("i don't know what to do with this!! thwap!! thwap!!");
+        }
+    }
+
+    //despap citato is a good bean
+    void pickFruit() {
+        //tell all trees to process this. first tree to return a fruit ends things.
+        for(Tree tree in trees) {
+            PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
+            if(fruitLayer != null) {
+                Fruit fruitItem = new Fruit(fruitLayer.doll);
+                underWorld.player.inventory.add(fruitItem);
+                tree.doll.hangables.remove(fruitLayer);
+                tree.reallyDirty = true; //render plz
+            }
         }
     }
 

@@ -20,8 +20,9 @@ class Tree {
 
 
     FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
+    bool reallyDirty;
     //if dirty redraw tree. dirty if my current stage is diff than the last stage i rendered as
-    bool get  dirty => oldStage != stage;
+    bool get  dirty => oldStage != stage || reallyDirty;
 
 
     Future<CanvasElement> get canvas async {
@@ -30,11 +31,31 @@ class Tree {
             _canvas = new CanvasElement(width: doll.width, height: doll.height);
             await DollRenderer.drawDoll(_canvas, doll);
             oldStage = stage;
+            reallyDirty = false;
         }
         return _canvas;
     }
 
     Tree(TreeDoll this.doll, int this.x, int this.y);
+
+    PositionedDollLayer fruitPicked(Point point) {
+        //first, is this point inside of me?
+        if(!pointInsideMe(point)) return null;
+        //next convert this point to be relative to my upper left
+        //if i'm at 330 and the point is 400, then i should make it be 70. point - me
+        int convertedX = point.x - x;
+        int convertedY = point.y - y;
+        Point convertedPoint = new Point(convertedX, convertedY);
+        for(PositionedDollLayer layer in doll.hangables) {
+            if(layer.pointInsideMe(convertedPoint)) return layer;
+        }
+
+    }
+
+    bool pointInsideMe(Point point) {
+        Rectangle rect = new Rectangle(x, y, doll.width, doll.height);
+        return rect.containsPoint(point);
+    }
 
     void syncDollToStage() {
         if(stage == SAPPLING) {
