@@ -17,6 +17,7 @@ class Tree {
     //if old stage and new stage don't match, auto dirty
     int oldStage = FRUIT;
     int stage = FRUIT;
+    double scale = 0.5;
 
 
     FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
@@ -41,19 +42,23 @@ class Tree {
     PositionedDollLayer fruitPicked(Point point) {
         //first, is this point inside of me?
         if(!pointInsideMe(point)) return null;
+        print("you clicked inside me!");
         //next convert this point to be relative to my upper left
         //if i'm at 330 and the point is 400, then i should make it be 70. point - me
-        int convertedX = point.x - x;
-        int convertedY = point.y - y;
+        //need to divide by scale to undo the multiplying i'm doing to render. maybe?
+        //if i'm half as big and at 330, and the click is at 345, then the click needs to be at 30. yes.
+        int convertedX = ((point.x - x)/scale).round();
+        int convertedY = ((point.y - y)/scale).round();
         Point convertedPoint = new Point(convertedX, convertedY);
         for(PositionedDollLayer layer in doll.hangables) {
+            print("is the point in $layer?, point is $point and layer is at ${layer.x}, ${layer.y}");
             if(layer.pointInsideMe(convertedPoint)) return layer;
         }
 
     }
 
     bool pointInsideMe(Point point) {
-        Rectangle rect = new Rectangle(x, y, doll.width, doll.height);
+        Rectangle rect = new Rectangle(x, y, doll.width*scale, doll.height*scale);
         return rect.containsPoint(point);
     }
 
@@ -116,8 +121,8 @@ class Tree {
         syncDollToStage();
         CanvasElement treeCanvas = await canvas;
         buffer.context2D.drawImageScaled(
-            treeCanvas, x, y, doll.width / 2,
-            doll.width / 2);
+            treeCanvas, x, y, (doll.width * 0.5).round(),
+            (doll.width * 0.5).round());
     }
 
 }
