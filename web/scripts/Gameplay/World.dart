@@ -337,7 +337,7 @@ class World {
             //print("is it $tree I'm looking for?");
             PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
             if(fruitLayer != null) {
-                print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
+               // print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
                 tree.produceFruit(fruitLayer, floweringTrees);
                 //if that was your last fruit, you're slated for removal.
                 if(!tree.doll.hasHangablesAlready()) treesToRemove.add(tree);

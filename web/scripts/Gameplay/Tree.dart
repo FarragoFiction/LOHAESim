@@ -43,9 +43,12 @@ class Tree {
     Tree(World this.world,TreeDoll this.doll, int this.x, int this.y);
 
     void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
-        print("producing fruit with parents $parents");
+        //print("producing fruit with parents $parents");
         Fruit fruitItem = new Fruit(fruitLayer.doll.clone());
-        if(fruitItem.doll is FruitDoll)(fruitItem.doll as FruitDoll).setName();
+        if(fruitItem.doll is FruitDoll) {
+            (fruitItem.doll as FruitDoll).setName();
+            //print("producing fruit with seed ${fruitItem.doll.seed} and name ${fruitItem.doll.dollName}");
+        }
         fruitItem.parents = new List.from(parents.map((Tree tree)=> tree.doll));
         world.underWorld.player.inventory.add(fruitItem);
         // print("before picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
@@ -136,6 +139,7 @@ class Tree {
     Future<Null> render(CanvasElement buffer) async {
         syncDollToStage();
         CanvasElement treeCanvas = await canvas;
+        treeCanvas.context2D.imageSmoothingEnabled = false;
         buffer.context2D.drawImageScaled(
             treeCanvas, x, y, (doll.width * 0.5).round(),
             (doll.width * 0.5).round());
