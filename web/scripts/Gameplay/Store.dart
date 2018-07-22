@@ -3,6 +3,7 @@ import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
+import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'Inventoryable/YellowYard.dart';
@@ -49,6 +50,8 @@ class Store extends Inventory {
             }else if(inventoryItem is Record) {
                 await inventoryItem.setCanvasForStore();
             }else if(inventoryItem is YellowYard) {
+                await inventoryItem.setCanvasForStore();
+            }else if(inventoryItem is HelpingHand) {
                 await inventoryItem.setCanvasForStore();
             }
             inventoryItem.inventory = this;

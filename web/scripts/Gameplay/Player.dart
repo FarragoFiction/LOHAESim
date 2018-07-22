@@ -4,6 +4,7 @@ import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
+import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'Inventoryable/YellowYard.dart';
@@ -36,6 +37,7 @@ class Player extends Secret {
     Player(World world, int this.maxX, int this.maxY):super(world) {
         //TODO have all this be a thing you buy from the store
         inventory= new Inventory(world, new List<Inventoryable>());
+        inventory.add(new HelpingHand(world));
         inventory.add(new Flashlight(world));
         inventory.add(new Ax(world));
         inventory.add(new YellowYard(world));

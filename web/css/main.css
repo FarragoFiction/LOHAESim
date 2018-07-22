@@ -50,6 +50,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     border-radius: 10px;
 }
 
+.selected{
+    border: 5px solid #76c34e;
+}
+
 
 .imageCell{
     display: inline-block;

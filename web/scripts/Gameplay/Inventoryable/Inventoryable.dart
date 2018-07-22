@@ -39,6 +39,15 @@ abstract class Inventoryable {
         myInventoryDiv.style.display = "block";
     }
 
+    void select() {
+        myInventoryDiv.classes.add("selected");
+    }
+
+    void unSelect() {
+        myInventoryDiv.classes.remove("selected");
+
+    }
+
     void renderMyInventoryRow(DivElement parent) {
         myInventoryDiv = new DivElement();
         myInventoryDiv.classes.add("innerInventoryTableRow");
