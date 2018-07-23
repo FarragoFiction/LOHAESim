@@ -6,6 +6,7 @@ import 'package:DollLibCorrect/DollRenderer.dart';
 
 class Tree {
     static int SAPPLING = 0;
+    static int LEAVES = 1;
     static int FLOWERS = 2;
     static int FRUIT = 3;
     static int CORRUPT = -1;
@@ -21,6 +22,10 @@ class Tree {
     int stage = SAPPLING;
     double scale = 0.5;
     World world;
+
+    CanvasElement _saplingCanvas;
+    CanvasElement _treeCanvas;
+    CanvasElement _hangableCanvas;
 
 
     FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
@@ -39,6 +44,38 @@ class Tree {
         }
         return _canvas;
     }
+
+    Future<CanvasElement> get saplingCanvas async {
+        if(_saplingCanvas == null || dirty) {
+            //print ("drawing dirty tree");
+            _saplingCanvas = await doll.renderJustBranches();
+            oldStage = stage;
+            reallyDirty = false;
+        }
+        return _saplingCanvas;
+    }
+
+    Future<CanvasElement> get treeCanvas async {
+        if(_treeCanvas == null || dirty) {
+            //print ("drawing dirty tree");
+            _treeCanvas = await doll.renderJustLeavesAndBranches();
+            oldStage = stage;
+            reallyDirty = false;
+        }
+        return _treeCanvas;
+    }
+
+    Future<CanvasElement> get hangableCanvas async {
+        if(_hangableCanvas == null || dirty) {
+            //print ("drawing dirty tree");
+            _hangableCanvas = await doll.renderJustHangables();
+            oldStage = stage;
+            reallyDirty = false;
+        }
+        return _hangableCanvas;
+    }
+
+
 
     Tree(World this.world,TreeDoll this.doll, int this.x, int this.y);
 
@@ -88,19 +125,44 @@ class Tree {
         if(stage >= FRUIT) stage = FRUIT;
     }
 
-    void syncDollToStage() {
+
+
+    Future<CanvasElement> getCanvasBasedOnStage() async {
         if(stage == SAPPLING) {
-            doll.flowerTime = false;
-            doll.fruitTime = false;
+            return await saplingCanvas;
+        }else if(stage == LEAVES) {
+            return await treeCanvas;
         }else if(stage == FLOWERS) {
-            doll.fruitTime = false;
+            CanvasElement treeC = await treeCanvas;
             doll.flowerTime = true;
+            CanvasElement flowC = await hangableCanvas;
+            treeC.context2D.imageSmoothingEnabled = false;
+            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width, doll.height);
+            return treeC;
         }else if(stage == FRUIT) {
-            doll.fruitTime = true;
-            doll.flowerTime = false;
+            if(doll.fruitTime = false) {
+                doll.fruitTime = true;
+                doll.transformHangablesInto(); //auto does fruit
+            }
+            CanvasElement treeC = await treeCanvas;
+            CanvasElement flowC = await hangableCanvas;
+            treeC.context2D.imageSmoothingEnabled = false;
+            //right now this will just wildly change every tick, just doing to test
+            double scale = doll.rand.nextDouble()+0.5;
+            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*scale, doll.height*scale);
+            return treeC;
         }else if (stage == CORRUPT) {
-            doll.fruitTime = true;
-            doll.flowerTime = false;
+            if(doll.fruitTime = false) {
+                doll.fruitTime = true;
+                doll.transformHangablesInto(); //auto does fruit which is eyes right now
+            }
+            CanvasElement treeC = await treeCanvas;
+            CanvasElement flowC = await hangableCanvas;
+            treeC.context2D.imageSmoothingEnabled = false;
+            //right now this will just wildly change every tick, just doing to test
+            double scale = doll.rand.nextDouble()+0.5;
+            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*scale, doll.height*scale);
+            return treeC;
         }
     }
 
@@ -145,8 +207,7 @@ class Tree {
 
 
     Future<Null> render(CanvasElement buffer) async {
-        syncDollToStage();
-        CanvasElement treeCanvas = await canvas;
+        CanvasElement treeCanvas = await getCanvasBasedOnStage();
         treeCanvas.context2D.imageSmoothingEnabled = false;
         buffer.context2D.drawImageScaled(
             treeCanvas, x, y, (doll.width * 0.5).round(),
