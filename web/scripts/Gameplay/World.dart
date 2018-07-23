@@ -91,6 +91,7 @@ class World {
     World() {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
+        testTrees();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
     }
@@ -103,10 +104,20 @@ class World {
     }
 
     void testTrees() {
-        trees.add(new Tree(this,new TreeDoll(), 150, 300));
-        trees.add(new Tree(this,new TreeDoll(), 300, 300));
-        trees.add(new Tree(this,new TreeDoll(), 450, 300));
-        trees.add(new Tree(this,new TreeDoll(), 600, 300));
+        Tree tree = new Tree(this,new TreeDoll(), 150, 550);
+        tree.stage = Tree.SAPPLING;
+        trees.add(tree);
+        tree = new Tree(this,new TreeDoll(), 300, 550);
+        tree.stage = Tree.LEAVES;
+        trees.add(tree);
+
+        tree = new Tree(this,new TreeDoll(), 450, 550);
+        tree.stage = Tree.FLOWERS;
+        trees.add(tree);
+
+        tree = new Tree(this,new TreeDoll(), 600, 550);
+        tree.stage = Tree.FRUIT;
+        trees.add(tree);
     }
 
 
@@ -355,13 +366,12 @@ class World {
         //print("trying to pick fruit");
         //tell all trees to process this. first tree to return a fruit ends things.
         for(Tree tree in trees) {
-            //print("is it $tree I'm looking for?");
+            print("is it $tree I'm looking for? stage is ${tree.stage}");
             //don't pick flowers or whatever
             if(tree.stage >= Tree.FRUIT) {
-                PositionedDollLayer fruitLayer = tree.fruitPicked(
-                    cursor.position);
+                PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
                 if (fruitLayer != null) {
-                    // print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
+                     print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
                     tree.produceFruit(fruitLayer, floweringTrees);
                     //if that was your last fruit, you're slated for removal.
                     if (!tree.doll.hasHangablesAlready()) treesToRemove.add(

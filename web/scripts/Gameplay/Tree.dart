@@ -119,7 +119,7 @@ class Tree {
         int convertedY = ((point.y - y)/scale).round();
         Point convertedPoint = new Point(convertedX, convertedY);
         for(PositionedDollLayer layer in doll.hangables) {
-           // print("is the point in $layer?, point is $point and layer is at ${layer.x}, ${layer.y}");
+           print("is the point in $layer?, point is $point and layer is at ${layer.x}, ${layer.y}");
             if(layer.pointInsideMe(convertedPoint)) return layer;
         }
 
@@ -155,6 +155,7 @@ class Tree {
             if(oldStage != FRUIT) {
                 print("making fruit should only happen once per tree");
                 doll.transformHangablesInto(); //auto does fruit
+                print("made hangables ${doll.hangables}");
                 reallyDirty = true;
             }
             CanvasElement blank = doll.blankCanvas;
@@ -192,7 +193,7 @@ class Tree {
         }
         numTicksSinceLastPulse ++;
 
-        double buffer = 0.013;
+        double buffer = 0.001;
       if(fruitScale > 1+buffer) {
           fruitScale = 1+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;
