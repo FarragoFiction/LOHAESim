@@ -148,37 +148,37 @@ class Tree {
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
             treeC.context2D.drawImageScaled(flowC, 0,0, doll.width, doll.height);
-            print("drawing a tree with flowers");
             return treeC;
         }else if(stage == FRUIT) {
-            if(doll.fruitTime = false) {
-                doll.fruitTime = true;
+            if(oldStage != FRUIT) {
+                print("making fruit should only happen once per tree");
                 doll.transformHangablesInto(); //auto does fruit
                 reallyDirty = true;
             }
             CanvasElement blank = doll.blankCanvas;
             CanvasElement treeC = await treeCanvas;
             CanvasElement flowC = await hangableCanvas;
-            treeC.context2D.imageSmoothingEnabled = false;
+            blank.context2D.imageSmoothingEnabled = false;
+            blank.context2D.drawImage(treeC, 0,0);
             //pulse the fruit to show you should click it
             double scale = doll.rand.nextDouble()/10;
             setFruitScale(scale);
-            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
-
-            print("drawing a tree with fruit");
+            blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
             return blank;
         }else if (stage == CORRUPT) {
             if(doll.fruitTime = false) {
                 doll.fruitTime = true;
                 doll.transformHangablesInto(); //auto does fruit which is eyes right now
             }
+            CanvasElement blank = doll.blankCanvas;
             CanvasElement treeC = await treeCanvas;
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
+            blank.context2D.drawImage(treeC, 0,0);
             //pulse the fruit to show you should click it
             double scale = doll.rand.nextDouble()/10;
             setFruitScale(scale);
-            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
+            blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
             return treeC;
         }
     }
