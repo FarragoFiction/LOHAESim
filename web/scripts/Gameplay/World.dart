@@ -4,6 +4,7 @@ import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
+import 'Inventoryable/YellowYard.dart';
 import 'OnScreenText.dart';
 import 'Player.dart';
 import 'Tree.dart';
@@ -341,6 +342,8 @@ class World {
             activateFlashlight();
         }else if(activeItem is HelpingHand) {
             pickFruit();
+        }else if(activeItem is YellowYard) {
+            cycleTreePopup();
         }else {
             consortPrint("i don't know what to do with this!! thwap!! thwap!!");
         }
@@ -372,6 +375,24 @@ class World {
         owoPrint("Oh! I can see! What's this?");
         underWorld.player.hasActiveFlashlight = true;
         render();
+    }
+
+    void cycleTreePopup() {
+        consortPrint("thwap!! thwap!! Grow that tree!");
+        DivElement axContainer = new DivElement();
+        axContainer.classes.add("parentHorizontalScroll");
+        axContainer.classes.add("popupParents");
+        axContainer.id = "yellowContainer";
+        List<CanvasElement> pendingCanvases = new List<CanvasElement>();
+        for(Tree tree in trees) {
+            CanvasElement parentDiv = new CanvasElement(width: 80, height: 80);
+            parentDiv.classes.add("parentBox");
+            pendingCanvases.add(parentDiv);
+        }
+
+        underWorld.player.inventory.popup.displayElement(axContainer, "Super charge a Tree's Life?");
+        finishDrawingTreesYellow(pendingCanvases, axContainer);
+
     }
 
     void removeTreePopup() {
@@ -414,6 +435,32 @@ class World {
                 parentDiv.remove();
                 treesToRemove.add(tree);
                 unmoveOwO(tree.doll);
+                render(true);
+            });
+        }
+
+    }
+
+    Future<Null> finishDrawingTreesYellow(List<CanvasElement> pendingCanvases, Element parentDivContainer) async {
+        for(Tree tree in trees) {
+            CanvasElement parentDiv = pendingCanvases[trees.indexOf(tree)];
+            parentDiv.style.border = "1px solid black";
+            CanvasElement parentCanvas = await tree.canvas;
+            Renderer.drawToFitCentered(parentDiv, parentCanvas);
+            parentDivContainer.append(parentDiv);
+            parentDiv.onMouseEnter.listen((Event e)
+            {
+                parentDiv.style.backgroundColor = "yellow";
+            });
+
+            parentDiv.onMouseLeave.listen((Event e)
+            {
+                parentDiv.style.backgroundColor = "transparent";
+            });
+
+            parentDiv.onMouseUp.listen((Event e)
+            {
+                tree.grow();
                 render(true);
             });
         }
@@ -572,6 +619,7 @@ class World {
         onScreen.context2D.drawImage(buffer, 0,0);
         lastRender = new DateTime.now();
         currentlyRendering = false;
+        backgroundMusic.play();
     }
 }
 

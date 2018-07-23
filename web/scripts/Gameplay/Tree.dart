@@ -81,6 +81,12 @@ class Tree {
         return rect.containsPoint(point);
     }
 
+    void grow() {
+        oldStage = stage;
+        stage ++;
+        if(stage > FRUIT) stage = FRUIT;
+    }
+
     void syncDollToStage() {
         if(stage == SAPPLING) {
             doll.flowerTime = false;
