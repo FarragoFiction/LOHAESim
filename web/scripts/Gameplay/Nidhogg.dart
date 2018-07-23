@@ -82,7 +82,7 @@ class Nidhogg extends CollectableSecret {
                   speechIndex = 0; //start over
               }
               talkPain();
-          }else if(purified) {
+          }else if(purified && speechIndex < proudLines.length) {
               if(!wasProud) {
                   speechIndex = 0;
               }
@@ -99,7 +99,9 @@ class Nidhogg extends CollectableSecret {
       if(pointInsideMe(point) && checkItem(item)){
           print("trying to purify nidhogg");
           purified = true;
+          speechIndex = 0;
           imgLoc = purifiedLoc;
+          world.underWorld.player.inventory.add(new YellowYard(world));
           dirty = true; //redraw
           world.nidhoggPurified();
       }
@@ -117,10 +119,10 @@ class Nidhogg extends CollectableSecret {
       }else if(item is HelpingHand) {
           if(!purified) {
               owoPrint("Paps won't help here, New Friend!");
-              Random rand = new Random();
-              world.textsToAdd.add(new NidhoggPride(rand.pickFrom(happy)));
           }else {
               owoPrint("Yay!! More Friends!!");
+              Random rand = new Random();
+              world.textsToAdd.add(new NidhoggPride(rand.pickFrom(happy)));
           }
       }else if(item is YellowYard) {
           if(!purified) owoPrint("I... New Friend!! Are you CHEATING!!?? How did you get that??");

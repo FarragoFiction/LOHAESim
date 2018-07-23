@@ -36,11 +36,11 @@ abstract class Inventoryable {
 
     void unHide() {
         hidden = false;
-        myInventoryDiv.style.display = "block";
+        if(myInventoryDiv != null) myInventoryDiv.style.display = "block";
     }
 
     void select() {
-        myInventoryDiv.classes.add("selected");
+        if(myInventoryDiv != null) myInventoryDiv.classes.add("selected");
     }
 
     void unSelect() {

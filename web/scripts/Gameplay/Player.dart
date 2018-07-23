@@ -40,7 +40,6 @@ class Player extends Secret {
         inventory.add(new HelpingHand(world));
         inventory.add(new Flashlight(world));
         inventory.add(new Ax(world));
-        inventory.add(new YellowYard(world));
         inventory.addAll(Record.spawn(world));
         for(int i = 0; i<3; i++) {
             initialInventory();
