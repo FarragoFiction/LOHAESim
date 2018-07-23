@@ -10,6 +10,8 @@ class Tree {
     static int FLOWERS = 2;
     static int FRUIT = 3;
     static int CORRUPT = -1;
+    double saplingScale = 0.25;
+    double adultScale = 0.5;
 
     TreeDoll doll;
     int x;
@@ -18,9 +20,14 @@ class Tree {
     //for uncorrupting, if you figure out how to
     String cachedTreeDoll;
     //if old stage and new stage don't match, auto dirty
-    int oldStage = FRUIT;
+    int oldStage = SAPPLING;
     int stage = SAPPLING;
-    double scale = 0.5;
+
+    double get scale {
+        if(stage == SAPPLING) return saplingScale;
+        return adultScale;
+    }
+
     World world;
 
     CanvasElement _saplingCanvas;
@@ -29,7 +36,7 @@ class Tree {
 
 
     FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
-    bool reallyDirty;
+    bool reallyDirty = true; //render first time
     //if dirty redraw tree. dirty if my current stage is diff than the last stage i rendered as
     bool get  dirty => oldStage != stage || reallyDirty;
 
@@ -210,8 +217,8 @@ class Tree {
         CanvasElement treeCanvas = await getCanvasBasedOnStage();
         treeCanvas.context2D.imageSmoothingEnabled = false;
         buffer.context2D.drawImageScaled(
-            treeCanvas, x, y, (doll.width * 0.5).round(),
-            (doll.width * 0.5).round());
+            treeCanvas, x, y, (doll.width * scale).round(),
+            (doll.width * scale).round());
     }
 
 }
