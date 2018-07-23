@@ -12,6 +12,8 @@ class Tree {
     static int CORRUPT = -1;
     double saplingScale = 0.25;
     double adultScale = 0.5;
+    int ticksBetweenPulse = 5;
+    int numTicksSinceLastPulse = 0;
 
     double fruitScale = 1.0;
     int fruitScaleDirection = 1; //is it going bigger or smaller in the pulse
@@ -184,12 +186,18 @@ class Tree {
     }
 
     void setFruitScale(double scale) {
-      fruitScale += scale * fruitScaleDirection;
-      if(fruitScale > 1.1) {
-          fruitScale = 1.1;
+        if(numTicksSinceLastPulse >= ticksBetweenPulse) {
+            fruitScale += scale * fruitScaleDirection;
+            numTicksSinceLastPulse = 0;
+        }
+        numTicksSinceLastPulse ++;
+
+        double buffer = 0.013;
+      if(fruitScale > 1+buffer) {
+          fruitScale = 1+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;
-      }else if(fruitScale<0.9) {
-          fruitScale = 0.9;
+      }else if(fruitScale<1-buffer) {
+          fruitScale = 1-buffer;
           fruitScaleDirection = fruitScaleDirection * -1;
       }
     }
