@@ -154,16 +154,17 @@ class Tree {
             if(doll.fruitTime = false) {
                 doll.fruitTime = true;
                 doll.transformHangablesInto(); //auto does fruit
+                reallyDirty = true;
             }
             CanvasElement blank = doll.blankCanvas;
             CanvasElement treeC = await treeCanvas;
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
-            //right now this will just wildly change every tick, just doing to test
-            double scale = (doll.rand.nextDouble()/10)+0.9;
-            if(doll.rand.nextBool()) scale = scale * -1;
-            blank.context2D.drawImage(treeC,0,0);
-            blank.context2D.drawImageScaled(flowC, 0,0, doll.width*scale, doll.height*scale);
+            //pulse the fruit to show you should click it
+            double scale = doll.rand.nextDouble()/10;
+            setFruitScale(scale);
+            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
+
             print("drawing a tree with fruit");
             return blank;
         }else if (stage == CORRUPT) {
@@ -174,13 +175,23 @@ class Tree {
             CanvasElement treeC = await treeCanvas;
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
-            //right now this will just wildly change every tick, just doing to test
+            //pulse the fruit to show you should click it
             double scale = doll.rand.nextDouble()/10;
-            fruitScale += scale * fruitScaleDirection;
-            if(fruitScale > 1.1 || fruitScale < 0.9) fruitScaleDirection = fruitScaleDirection * -1;
+            setFruitScale(scale);
             treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
             return treeC;
         }
+    }
+
+    void setFruitScale(double scale) {
+      fruitScale += scale * fruitScaleDirection;
+      if(fruitScale > 1.1) {
+          fruitScale = 1.1;
+          fruitScaleDirection = fruitScaleDirection * -1;
+      }else if(fruitScale<0.9) {
+          fruitScale = 0.9;
+          fruitScaleDirection = fruitScaleDirection * -1;
+      }
     }
 
 
