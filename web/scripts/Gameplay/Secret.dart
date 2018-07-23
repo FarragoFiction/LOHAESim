@@ -25,12 +25,14 @@ class Secret {
 
     Future<ImageElement> get image async {
         if(_image == null || dirty) await initCanvasAndBuffer();
+        dirty = false;
         return _image;
     }
 
     Secret(World this.world);
 
     Future<Null> initCanvasAndBuffer() async {
+        print("drawing $imgLoc");
         _image = await NewLoader.Loader.getResource(imgLoc);
     }
 

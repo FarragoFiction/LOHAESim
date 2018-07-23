@@ -1,13 +1,17 @@
 import 'CollectableSecret.dart';
+import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Fruit.dart';
+import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
+import 'Inventoryable/YellowYard.dart';
 import 'OnScreenText.dart';
 import 'Player.dart';
 import 'World.dart';
 import 'dart:html';
 import "dart:math" as Math;
 
+import 'package:CommonLib/NavBar.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
@@ -50,7 +54,8 @@ class Nidhogg extends CollectableSecret {
   //then perish
   List<String> damageLines = <String>["Oof","Is This Your Choice Then?","So Be It.","I Shall Perish.", "The Spark of My Life Will Forever Go Out."];
 
-  List<String> proudLines = <String>["I Am So, So Proud Of You, Child.","You Have Clensed The Rampant Life Within My Body Without Snuffing It Out.","Here, Take This, I Trust You To Use It Wisely."];
+  List<String> proudLines = <String>["I Am So, So Proud Of You, Child.","You Have Cleansed The Rampant Life Within My Body Without Snuffing It Out.","Here, Take This, I Trust You To Use It Wisely."];
+  List<String> happy = <String>["!","I Value Our Friendship, Child.","Thank You, Child.","How May I Help You, Child?","This Pleases Me.","?","...","I Am So, So Proud of You, Child."];
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
 
@@ -89,22 +94,49 @@ class Nidhogg extends CollectableSecret {
       }
   }
 
-  void checkPurity(Point point) {
-      if(pointInsideMe(point)){
+  void checkPurity(Inventoryable item, Point point) {
+      print("checking purity");
+      if(pointInsideMe(point) && checkItem(item)){
+          print("trying to purify nidhogg");
           purified = true;
           imgLoc = purifiedLoc;
           dirty = true; //redraw
+          world.nidhoggPurified();
       }
   }
 
+  bool checkItem(Inventoryable item) {
+      if(item is Ax) {
+          if(!purified) owoPrint("You can't do that New Friend, you're not Mr Obama!! There is probably ANOTHER way for you to do damage to the big meanie!!");
+      }else if(item is Fruit) {
+          if(getParameterByName("haxMode") == "on") {
+              return true;
+          }else{
+              if(!purified) owoPrint("I think that's a good idea, New Friend, but how would you plant trees underground??");
+          }
+      }else if(item is HelpingHand) {
+          if(!purified) {
+              owoPrint("Paps won't help here, New Friend!");
+              Random rand = new Random();
+              world.textsToAdd.add(new NidhoggPride(rand.pickFrom(happy)));
+          }else {
+              owoPrint("Yay!! More Friends!!");
+          }
+      }else if(item is YellowYard) {
+          if(!purified) owoPrint("I... New Friend!! Are you CHEATING!!?? How did you get that??");
+      }
+      return false;
+  }
+
   bool pointInsideMe(Point point) {
-      Rectangle rect = new Rectangle(x, y, width, height);
+      print("point is $point and my x is $x and my y is $y");
+      Rectangle rect = new Rectangle(x+world.underWorld.x, y+world.underWorld.y, width, height);
       return rect.containsPoint(point);
   }
 
   void talk() {
       lastSpoke = new DateTime.now();
-      world.texts.add(new NidhoggText(speechLines[speechIndex]));
+      world.textsToAdd.add(new NidhoggText(speechLines[speechIndex]));
       speechIndex ++;
       //if you're talking and not in pain and not too many trees, tree
       if(world.trees.length < world.maxTrees) {
@@ -114,13 +146,13 @@ class Nidhogg extends CollectableSecret {
           FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
           Fruit fruit = new Fruit(eye);
           fruit.parents.add(new TreeDoll());
-          world.plantATreeAtPoint(fruit, p);
+          //world.plantATreeAtPoint(fruit, p);
       }
   }
 
   void talkPurified() {
       lastSpoke = new DateTime.now();
-      world.texts.add(new NidhoggPride(proudLines[speechIndex]));
+      world.textsToAdd.add(new NidhoggPride(proudLines[speechIndex]));
       speechIndex ++;
       if(speechIndex >= proudLines.length) {
           world.bossFight = false;
@@ -131,7 +163,7 @@ class Nidhogg extends CollectableSecret {
   void talkPain() {
       hadPain = true;
       lastSpoke = new DateTime.now();
-      world.texts.add(new NidhoggPain(damageLines[speechIndex]));
+      world.textsToAdd.add(new NidhoggPain(damageLines[speechIndex]));
       speechIndex ++;
       if(speechIndex >= damageLines.length) speechIndex = 0;
   }
@@ -152,7 +184,7 @@ class Nidhogg extends CollectableSecret {
       int damage = -113;
       hp += damage;
       lastTookDamage = new DateTime.now();
-      world.texts.add(new HPNotification("$damage"));
+      world.textsToAdd.add(new HPNotification("$damage"));
       if(dead) {
         world.nidhoggDies();
       }
@@ -168,12 +200,12 @@ class Nidhogg extends CollectableSecret {
     double distance = point.distanceTo(myPoint);
     if(distance < collectionRadius) {
       if(world.bossFight) {
-          if(world.bossFightJustStarted)owoPrint("New friend!!! Get away from Nidhogg you can't fight him directly!!! And especially not with some weird ghost bear avatar!",48);
+          if(world.bossFightJustStarted)owoPrint("New Friend!!! Get away from Nidhogg you can't fight him directly!!! And especially not with some weird ghost bear avatar!",48);
       }else {
           if(world.underWorld.player.hasActiveFlashlight) {
               world.activateBossFight();
           }else {
-              owoPrint("Um. Are...are you sure you want to be here, new friend? Something seems to be....moving. In the dark. If only there were some way to turn on a light...",12);
+              owoPrint("Um. Are...are you sure you want to be here, New Friend? Something seems to be....moving. In the dark. If only there were some way to turn on a light...",12);
           }
       }
     }

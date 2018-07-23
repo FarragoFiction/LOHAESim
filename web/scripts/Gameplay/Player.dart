@@ -51,7 +51,7 @@ class Player extends Secret {
         topLeftY += -42;
         if(topLeftY <minY) {
             topLeftY = minY;
-            owoPrint("New friend, I can't go any more above! I'd break through the surface and that would be TERRIBLE!");
+            owoPrint("New Friend, I can't go any more above! I'd break through the surface and that would be TERRIBLE!");
         }else {
             owoPrint("What's this above me?");
             playerMoved = true;
@@ -62,7 +62,7 @@ class Player extends Secret {
         topLeftY += 42;
         if(topLeftY > maxY) {
             topLeftY = maxY;
-            owoPrint("New friend, I can't go any more below!");
+            owoPrint("New Friend, I can't go any more below!");
         }else {
             owoPrint("What's this down below?");
             playerMoved = true;
@@ -74,7 +74,7 @@ class Player extends Secret {
         topLeftX += -42;
         if(topLeftX < minX) {
             topLeftX = minX;
-            owoPrint("New friend, I can't go any more to the left!");
+            owoPrint("New Friend, I can't go any more to the left!");
         }else {
             owoPrint("What's this to the left?");
             playerMoved = true;
@@ -85,7 +85,7 @@ class Player extends Secret {
         topLeftX += 42;
         if(topLeftX > maxX){
             topLeftX = maxX;
-            owoPrint("New friend, I can't go any more to the right!");
+            owoPrint("New Friend, I can't go any more to the right!");
         }else {
             owoPrint("What's this to the right?");
             playerMoved = true;

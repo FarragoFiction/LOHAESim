@@ -128,7 +128,9 @@ class Tree {
     }
 
     void uncorrupt() {
-        doll = Doll.loadSpecificDoll(cachedTreeDoll);
+        print("trying to restore from uncorrupt doll $cachedTreeDoll");
+        //TODO turn this back on
+        //doll = Doll.loadSpecificDoll(cachedTreeDoll);
         stage = oldStage;
         oldStage = CORRUPT;
     }

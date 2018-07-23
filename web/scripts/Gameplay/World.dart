@@ -53,6 +53,7 @@ class World {
 
     int maxTrees = 8;
     List<OnScreenText> texts = new List<OnScreenText>();
+    List<OnScreenText> textsToAdd = new List<OnScreenText>();
 
     UnderWorld underWorld;
 
@@ -243,6 +244,20 @@ class World {
         render();
     }
 
+    void nidhoggPurified() {
+        owoPrint("!!! New Friend!!! You did it!!! You purified that meany Nidhogg!!!");
+        bossFight = false;
+        overWorldDirty = true;
+        print("about to be uncorrupting trees");
+        for(Tree tree in trees) {
+            tree.uncorrupt();
+        }
+        underWorld.player.inventory.unlockHidden();
+        print("about to render");
+        render();
+        print("purify render is done");
+    }
+
 
     void nidhoggDies() {
         owoPrint("New Friend!!! You did it!!! Nidhogg is defeated!!! You were so smart to try the Fraymotif!!!");
@@ -313,6 +328,7 @@ class World {
 
 
     void processClickAtCursor() {
+        underWorld.nidhogg.checkPurity(activeItem, cursor.position);
         if(activeItem is Fruit) {
             plantATreeAtPoint(activeItem, cursor.position);
             underWorld.player.inventory.removeItem(activeItem);
@@ -438,7 +454,6 @@ class World {
 
         if(getParameterByName("haxMode") == "on") {
             y = point.y - treeDoll.height/2; //plant base where you click
-            underWorld.nidhogg.checkPurity(new Point(x,y));
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
@@ -477,12 +492,20 @@ class World {
         }
     }
 
+    void addTexts() {
+        for(OnScreenText text in textsToAdd) {
+            texts.add(text);
+        }
+    }
+
     void doText() {
         List<OnScreenText> toRemove = new List<OnScreenText>();
         for(OnScreenText text in texts) {
             text.render(buffer);
             //if the fraymotif is active, interupt what you were saying and be in pain instead
             if(fraymotifActive && text is NidhoggText && !(text is NidhoggPain)){
+                toRemove.add(text);
+            }else if(underWorld.nidhogg.purified && text is NidhoggText && !(text is NidhoggPride)){
                 toRemove.add(text);
             }else if(text.finished || (!bossFight && (text is HPNotification || text is NidhoggText))) {
                 //if nidhogg isn't on screen, interupt what you were saying
@@ -512,6 +535,7 @@ class World {
     Future<Null> render([bool force]) async {
         removeTrees(); //even if you don't render, do this shit.
         addTrees();
+        addTexts();
         if(buffer == null) await initCanvasAndBuffer();
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {

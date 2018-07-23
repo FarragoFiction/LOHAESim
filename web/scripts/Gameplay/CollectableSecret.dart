@@ -20,7 +20,7 @@ class CollectableSecret extends Secret {
         double distance = point.distanceTo(myPoint);
         if(distance < collectionRadius) {
             if(world.bossFight) {
-                owoPrint("New friend, you can't collect anything while NIDHOGG is awake!!! FIGHT!!!",48);
+                owoPrint("New Friend, you can't collect anything while NIDHOGG is awake!!! FIGHT!!!",48);
             }else {
                 collected = true;
                 if (this is Inventoryable) {
@@ -28,7 +28,7 @@ class CollectableSecret extends Secret {
                     world.underWorld.player.inventory.add(meAsItem);
                     owoPrint("You got a ${meAsItem.name}!!! I wonder what it will take to use it???",33);
                 } else{
-                    owoPrint("You got a $this!!! I don't think it does anything though, new friend...");
+                    owoPrint("You got a $this!!! I don't think it does anything though, New Friend...");
                 }
             }
         }

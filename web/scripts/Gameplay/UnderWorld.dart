@@ -14,6 +14,8 @@ class UnderWorld {
     CanvasElement buffer;
     CanvasElement dirt;
     Player player;
+    int x = 0;
+    int y = 680;
     int width = 800;
     int height = 800;
     //TODO load this from json too
@@ -111,8 +113,8 @@ class UnderWorld {
         await handleDirt();
 
         //worldBuffer might not have cleared self if it wasn't dirty
-        worldBuffer.context2D.clearRect(0,680, width, height);
-        worldBuffer.context2D.drawImage(buffer, 0, 680);
+        worldBuffer.context2D.clearRect(x,y, width, height);
+        worldBuffer.context2D.drawImage(buffer, x, y);
 
     }
 
@@ -124,9 +126,8 @@ class UnderWorld {
         dirt.context2D.fillRect(0, 0, dirt.width, dirt.height);
         if(player.hasActiveFlashlight) {
             dirt.context2D.beginPath();
-            int flashlighRadius = dirt.width *
-                2; //if you're in a boss fight, show everything
-            if (!world.bossFight) {
+            int flashlighRadius = dirt.width * 2; //if you're in a boss fight, show everything
+            if (!world.bossFight && !nidhogg.purified) {
                 flashlighRadius = player.flashlightRadius;
             } else {
                 if(world.bossFightJustStarted)jrPrint("oh hey don't let me interupt you there, just thought you might wanna know there's like...three paths to defeating Nidhogg. I wonder what they could be???");
