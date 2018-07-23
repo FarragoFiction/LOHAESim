@@ -619,7 +619,6 @@ class World {
         onScreen.context2D.drawImage(buffer, 0,0);
         lastRender = new DateTime.now();
         currentlyRendering = false;
-        backgroundMusic.play();
     }
 }
 

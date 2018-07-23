@@ -17,6 +17,7 @@ Future<Null> main() async {
     testActiveItem();
     ygdrassil.renderLoop();
     hookUpTestControls();
+    ygdrassil.backgroundMusic.play(); //get around auto play not working in some browsers
     //TODOs.drawTodos(output);
 }
 

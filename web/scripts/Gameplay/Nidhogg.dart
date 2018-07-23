@@ -103,9 +103,9 @@ class Nidhogg extends CollectableSecret {
   }
 
   void checkPurity(Inventoryable item, Point point) {
-      print("checking purity");
+      //print("checking purity");
       if(pointInsideMe(point) && checkItem(item)){
-          print("trying to purify nidhogg");
+          //print("trying to purify nidhogg");
           purified = true;
           speechIndex = 0;
           imgLoc = purifiedLoc;
@@ -139,7 +139,7 @@ class Nidhogg extends CollectableSecret {
   }
 
   bool pointInsideMe(Point point) {
-      print("point is $point and my x is $x and my y is $y");
+      //print("point is $point and my x is $x and my y is $y");
       Rectangle rect = new Rectangle(x+world.underWorld.x, y+world.underWorld.y, width, height);
       return rect.containsPoint(point);
   }

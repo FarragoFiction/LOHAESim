@@ -18,7 +18,7 @@ class Tree {
     String cachedTreeDoll;
     //if old stage and new stage don't match, auto dirty
     int oldStage = FRUIT;
-    int stage = FRUIT;
+    int stage = SAPPLING;
     double scale = 0.5;
     World world;
 
@@ -81,10 +81,11 @@ class Tree {
         return rect.containsPoint(point);
     }
 
+    //usually called by enough time passing
     void grow() {
         oldStage = stage;
         stage ++;
-        if(stage > FRUIT) stage = FRUIT;
+        if(stage >= FRUIT) stage = FRUIT;
     }
 
     void syncDollToStage() {
