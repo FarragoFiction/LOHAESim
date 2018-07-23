@@ -496,10 +496,12 @@ class World {
         for(OnScreenText text in textsToAdd) {
             texts.add(text);
         }
+        textsToAdd.clear();
     }
 
     void doText() {
         List<OnScreenText> toRemove = new List<OnScreenText>();
+        addTexts();
         for(OnScreenText text in texts) {
             text.render(buffer);
             //if the fraymotif is active, interupt what you were saying and be in pain instead
@@ -507,8 +509,10 @@ class World {
                 toRemove.add(text);
             }else if(underWorld.nidhogg.purified && text is NidhoggText && !(text is NidhoggPride)){
                 toRemove.add(text);
-            }else if(text.finished || (!bossFight && (text is HPNotification || text is NidhoggText))) {
-                //if nidhogg isn't on screen, interupt what you were saying
+            }else if(text.finished ) {
+                toRemove.add(text);
+            }else if((!bossFight && (text is HPNotification || text is NidhoggText && !(text is NidhoggPride)))) {
+                //if nidhogg isn't on screen, interupt what you were saying, unless purified
                 toRemove.add(text);
             }
         }
@@ -527,6 +531,7 @@ class World {
     Future<Null> renderLoop()async {
         await render(true);
         //if it needs to interupt it will, but no faster than min Time
+        //TODO turn this back on
         new Timer(new Duration(milliseconds: minTimeBetweenRenders*5), () => renderLoop());
 
     }
@@ -535,14 +540,14 @@ class World {
     Future<Null> render([bool force]) async {
         removeTrees(); //even if you don't render, do this shit.
         addTrees();
-        addTexts();
         if(buffer == null) await initCanvasAndBuffer();
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
             currentlyRendering = true;
             //print("rendering");
-            Renderer.clearCanvas(buffer);
+            //Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
+            //makes sure the part between roots and ground is clear
             buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
             if(!bossFight) {
                 buffer.context2D.drawImage(bg, 0, 0);

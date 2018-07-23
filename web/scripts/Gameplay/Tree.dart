@@ -101,12 +101,12 @@ class Tree {
     //nothing to see here, move along
     void corrupt() {
         if(stage == CORRUPT) return;
-        oldStage = stage;
-        stage = CORRUPT;
+
         //caches everything, palette, fruit, whether it's fruiting, whole thing
         cachedTreeDoll = doll.toDataBytesX();
 
-
+        oldStage = stage;
+        stage = CORRUPT;
         doll.palette = ReferenceColours.CORRUPT;
         doll.fruitTemplate = eye;
         doll.fruitTime = true;
@@ -129,8 +129,7 @@ class Tree {
 
     void uncorrupt() {
         print("trying to restore from uncorrupt doll $cachedTreeDoll");
-        //TODO turn this back on
-        //doll = Doll.loadSpecificDoll(cachedTreeDoll);
+        doll = Doll.loadSpecificDoll(cachedTreeDoll);
         stage = oldStage;
         oldStage = CORRUPT;
     }

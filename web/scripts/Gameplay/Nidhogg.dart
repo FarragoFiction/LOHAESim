@@ -76,7 +76,8 @@ class Nidhogg extends CollectableSecret {
       DateTime now = new DateTime.now();
       Duration diff = now.difference(lastSpoke);
       // print("it's been ${diff.inMilliseconds} since last render, is that more than ${minTimeBetweenRenders}?");
-      if(diff.inMilliseconds > timeBetweenSentences || (world.fraymotifActive && !hadPain) || (purified && !wasProud)) {
+      //you can talk if it's time, else you can interupt in specific circumstances
+      if(diff.inMilliseconds > timeBetweenSentences) {
           if(world.fraymotifActive) {
               if(!hadPain) {
                   speechIndex = 0; //start over
@@ -89,8 +90,15 @@ class Nidhogg extends CollectableSecret {
               wasProud = true;
               talkPurified();
           }else if(speechIndex < speechLines.length) {
+              print("talking because ${diff.inMilliseconds} is more than $timeBetweenSentences");
               talk();
           }
+      }else if(world.fraymotifActive && !hadPain) {
+          speechIndex = 0; //start over
+          talkPain();
+      }else if(purified && !wasProud) {
+          wasProud = true;
+          talkPurified();
       }
   }
 
@@ -109,7 +117,7 @@ class Nidhogg extends CollectableSecret {
 
   bool checkItem(Inventoryable item) {
       if(item is Ax) {
-          if(!purified) owoPrint("You can't do that New Friend, you're not Mr Obama!! There is probably ANOTHER way for you to do damage to the big meanie!!");
+          if(!purified) owoPrint("You can't do that New Friend, you're not Mister Shogunbot!! There is probably ANOTHER way for you to do damage to the big meanie!!");
       }else if(item is Fruit) {
           if(getParameterByName("haxMode") == "on") {
               return true;
