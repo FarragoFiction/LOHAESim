@@ -13,6 +13,9 @@ class Tree {
     double saplingScale = 0.25;
     double adultScale = 0.5;
 
+    double fruitScale = 1.0;
+    int fruitScaleDirection = 1; //is it going bigger or smaller in the pulse
+
     TreeDoll doll;
     int x;
     int y;
@@ -145,19 +148,24 @@ class Tree {
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
             treeC.context2D.drawImageScaled(flowC, 0,0, doll.width, doll.height);
+            print("drawing a tree with flowers");
             return treeC;
         }else if(stage == FRUIT) {
             if(doll.fruitTime = false) {
                 doll.fruitTime = true;
                 doll.transformHangablesInto(); //auto does fruit
             }
+            CanvasElement blank = doll.blankCanvas;
             CanvasElement treeC = await treeCanvas;
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
             //right now this will just wildly change every tick, just doing to test
-            double scale = doll.rand.nextDouble()+0.5;
-            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*scale, doll.height*scale);
-            return treeC;
+            double scale = (doll.rand.nextDouble()/10)+0.9;
+            if(doll.rand.nextBool()) scale = scale * -1;
+            blank.context2D.drawImage(treeC,0,0);
+            blank.context2D.drawImageScaled(flowC, 0,0, doll.width*scale, doll.height*scale);
+            print("drawing a tree with fruit");
+            return blank;
         }else if (stage == CORRUPT) {
             if(doll.fruitTime = false) {
                 doll.fruitTime = true;
@@ -167,8 +175,10 @@ class Tree {
             CanvasElement flowC = await hangableCanvas;
             treeC.context2D.imageSmoothingEnabled = false;
             //right now this will just wildly change every tick, just doing to test
-            double scale = doll.rand.nextDouble()+0.5;
-            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*scale, doll.height*scale);
+            double scale = doll.rand.nextDouble()/10;
+            fruitScale += scale * fruitScaleDirection;
+            if(fruitScale > 1.1 || fruitScale < 0.9) fruitScaleDirection = fruitScaleDirection * -1;
+            treeC.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
             return treeC;
         }
     }
@@ -216,8 +226,14 @@ class Tree {
     Future<Null> render(CanvasElement buffer) async {
         CanvasElement treeCanvas = await getCanvasBasedOnStage();
         treeCanvas.context2D.imageSmoothingEnabled = false;
+        //y position should be bottom, not top. so if i want it at 100, and my height is 500, then i need to do what?
+        //i would need to put it at 100-500.
+        //and it should be centered, because that's roughly where the trunk is going to be
+        num calculatedY = y-(doll.height * scale);
+        num calculatedX = x-(doll.width * scale)/4;
+
         buffer.context2D.drawImageScaled(
-            treeCanvas, x, y, (doll.width * scale).round(),
+            treeCanvas, x, calculatedY, (doll.width * scale).round(),
             (doll.width * scale).round());
     }
 

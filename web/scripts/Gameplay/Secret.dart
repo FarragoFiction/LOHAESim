@@ -32,7 +32,7 @@ class Secret {
     Secret(World this.world);
 
     Future<Null> initCanvasAndBuffer() async {
-        print("drawing $imgLoc");
+       // print("drawing $imgLoc");
         _image = await NewLoader.Loader.getResource(imgLoc);
     }
 

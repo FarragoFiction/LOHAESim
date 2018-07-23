@@ -496,8 +496,9 @@ class World {
         //just a logical result of the trees this fruit came from
         Doll treeDoll = Doll.breedDolls(fruit.parents);
         //ground level
-        int y = 300;
-        int x = point.x - (treeDoll.width/4).round(); //center it
+        //bottom center
+        int y = 550;
+        int x = point.x;
 
         if(getParameterByName("haxMode") == "on") {
             y = point.y - treeDoll.height/2; //plant base where you click
