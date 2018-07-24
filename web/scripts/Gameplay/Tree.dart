@@ -45,6 +45,10 @@ class Tree {
 
     FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
     bool reallyDirty = true; //render first time
+    bool branchesDirty = true;
+    bool hangablesDirty = true;
+    bool leavesDirty = true;
+
     //if dirty redraw tree. dirty if my current stage is diff than the last stage i rendered as
     bool get  dirty => oldStage != stage || reallyDirty;
 
@@ -61,31 +65,35 @@ class Tree {
     }
 
     Future<CanvasElement> get saplingCanvas async {
-        if(_saplingCanvas == null || dirty) {
+        if(_saplingCanvas == null || dirty || branchesDirty) {
             //print ("drawing dirty tree");
             _saplingCanvas = await doll.renderJustBranches();
             oldStage = stage;
             reallyDirty = false;
+            branchesDirty = false;
         }
         return _saplingCanvas;
     }
 
     Future<CanvasElement> get treeCanvas async {
-        if(_treeCanvas == null || dirty) {
+        if(_treeCanvas == null || dirty || branchesDirty || leavesDirty) {
             //print ("drawing dirty tree");
             _treeCanvas = await doll.renderJustLeavesAndBranches();
             oldStage = stage;
             reallyDirty = false;
+            branchesDirty = false;
+            leavesDirty = false;
         }
         return _treeCanvas;
     }
 
     Future<CanvasElement> get hangableCanvas async {
-        if(_hangableCanvas == null || dirty) {
+        if(_hangableCanvas == null || dirty || hangablesDirty) {
             print ("drawing dirty hangables");
             _hangableCanvas = await doll.renderJustHangables();
             oldStage = stage;
             reallyDirty = false;
+            hangablesDirty = false;
         }
         return _hangableCanvas;
     }
@@ -107,7 +115,7 @@ class Tree {
         doll.dataOrderLayers.remove(fruitLayer);
         doll.renderingOrderLayers.remove(fruitLayer);
         // print("after picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
-        reallyDirty = true; //render plz
+        hangablesDirty = true; //render plz
     }
 
     PositionedDollLayer fruitPicked(Point point) {
@@ -123,7 +131,7 @@ class Tree {
         Point convertedPoint = new Point(convertedX, convertedY);
         //print("converted point is $convertedPoint");
         for(PositionedDollLayer layer in doll.hangables) {
-           //print("is the point in $layer?, converted point is $convertedPoint and layer is at ${layer.x}, ${layer.y}");
+           print("is the point in $layer?, converted point is $convertedPoint and layer is at ${layer.x}, ${layer.y}");
             if(layer.pointInsideMe(convertedPoint)) return layer;
             //print("wasn't $layer");
         }
@@ -169,7 +177,7 @@ class Tree {
                 doll.transformHangablesInto(); //auto does fruit
             }
             print("made hangables ${doll.hangables}");
-            reallyDirty = true;
+            hangablesDirty = true;
         }
         CanvasElement blank = doll.blankCanvas;
         CanvasElement treeC = await treeCanvas;
@@ -269,6 +277,9 @@ class Tree {
                 }
             }
         }
+        hangablesDirty = true;
+        branchesDirty = true;
+        leavesDirty  = true;
     }
 
     void uncorrupt() {
@@ -276,6 +287,9 @@ class Tree {
         doll = Doll.loadSpecificDoll(cachedTreeDoll);
         stage = oldStage;
         oldStage = CORRUPT;
+        hangablesDirty = true;
+        branchesDirty = true;
+        leavesDirty  = true;
     }
 
 
