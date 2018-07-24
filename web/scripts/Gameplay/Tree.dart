@@ -154,7 +154,12 @@ class Tree {
         }else if(stage == FRUIT) {
             if(oldStage != FRUIT) {
                 print("making fruit should only happen once per tree");
-                doll.transformHangablesInto(); //auto does fruit
+                doll.fruitTime = true;
+                if(doll.hangables.isEmpty) {
+                    doll.createFruit();
+                }else {
+                    doll.transformHangablesInto(); //auto does fruit
+                }
                 print("made hangables ${doll.hangables}");
                 reallyDirty = true;
             }
