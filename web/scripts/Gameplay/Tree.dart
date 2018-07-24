@@ -113,7 +113,7 @@ class Tree {
     PositionedDollLayer fruitPicked(Point point) {
         //first, is this point inside of me?
         if(!pointInsideMe(point)) return null;
-        print("you clicked inside me a tree}!");
+        //print("you clicked inside me a tree}!");
         //next convert this point to be relative to my upper left
         //if i'm at 330 and the point is 400, then i should make it be 70. point - me
         //need to divide by scale to undo the multiplying i'm doing to render. maybe?
@@ -121,18 +121,18 @@ class Tree {
         int convertedX = ((point.x - topLeftX)/scale).round();
         int convertedY = ((point.y - topLeftY)/scale).round();
         Point convertedPoint = new Point(convertedX, convertedY);
-        print("converted point is $convertedPoint");
+        //print("converted point is $convertedPoint");
         for(PositionedDollLayer layer in doll.hangables) {
-           print("is the point in $layer?, converted point is $convertedPoint and layer is at ${layer.x}, ${layer.y}");
+           //print("is the point in $layer?, converted point is $convertedPoint and layer is at ${layer.x}, ${layer.y}");
             if(layer.pointInsideMe(convertedPoint)) return layer;
-            print("wasn't $layer");
+            //print("wasn't $layer");
         }
 
     }
 
     bool pointInsideMe(Point point) {
         Rectangle rect = new Rectangle(topLeftX, topLeftY, doll.width*scale, doll.height*scale);
-        print("did you click in tree? point is $point and I am $rect, scale was $scale and my stage is $stage");
+       // print("did you click in tree? point is $point and I am $rect, scale was $scale and my stage is $stage");
         return rect.containsPoint(point);
     }
 
