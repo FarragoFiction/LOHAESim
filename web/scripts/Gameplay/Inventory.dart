@@ -81,6 +81,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         activeItem = item;
         popup.popup(item,  preview:preview);
         world.cursor = new CustomCursor(activeItem.itemCanvas, new Point(100,100));
+        if(item is HelpingHand) world.cursor.mode = CustomCursor.BOTTOMRIGHT;
         //stores don't need to worry about rendering the playing field
         if(!(this is Store))world.render(true);
     }

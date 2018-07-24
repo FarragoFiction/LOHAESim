@@ -140,6 +140,7 @@ class World {
                 Rectangle rect = onScreen.getBoundingClientRect();
                 Point point = new Point(event.client.x-rect.left, event.client.y-rect.top);
                 cursor = new CustomCursor(itemCanvas, point);
+                if(activeItem is HelpingHand) cursor.mode = CustomCursor.BOTTOMRIGHT;
                 overWorldDirty = true;
                 render();
             }else {
@@ -636,11 +637,25 @@ class World {
 class CustomCursor {
     Point position;
     CanvasElement image;
+    static int MIDDLE = 0;
+    static int TOPLEFT = -1;
+    static int BOTTOMRIGHT = 1;
+
+    int mode = MIDDLE;
 
     CustomCursor(CanvasElement this.image, Point this.position);
 
     Future<Null> render(CanvasElement canvas) async {
         //print("rendering a cursor to ${position.x}, ${position.y}");
-        canvas.context2D.drawImage(image, position.x, position.y);
+        num x = position.x;
+        num y = position.y;
+        if(mode == BOTTOMRIGHT) {
+            x = position.x - image.width;
+            y = position.y - image.height;
+        }else if(mode == MIDDLE) {
+            x = position.x - image.width/2;
+            y = position.y - image.height/2;
+        }
+        canvas.context2D.drawImage(image, x, y);
     }
 }
