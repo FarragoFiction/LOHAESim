@@ -89,7 +89,7 @@ class Tree {
 
     Future<CanvasElement> get hangableCanvas async {
         if(_hangableCanvas == null || dirty || hangablesDirty) {
-            print ("drawing dirty hangables");
+            print ("drawing ${doll.hangables.length} dirty hangables, _hangable canvas is $_hangableCanvas, dirty is $dirty and hangables dirty is $hangablesDirty");
             _hangableCanvas = await doll.renderJustHangables();
             oldStage = stage;
             reallyDirty = false;
@@ -131,7 +131,7 @@ class Tree {
         Point convertedPoint = new Point(convertedX, convertedY);
         //print("converted point is $convertedPoint");
         for(PositionedDollLayer layer in doll.hangables) {
-           print("is the point in $layer?, converted point is $convertedPoint and layer is at ${layer.x}, ${layer.y}");
+           //print("is the point in $layer?, converted point is $convertedPoint and layer is at ${layer.x}, ${layer.y}");
             if(layer.pointInsideMe(convertedPoint)) return layer;
             //print("wasn't $layer");
         }
@@ -154,6 +154,17 @@ class Tree {
 
     //TODO instead of getting the whole canvas, process each fruit individually, and rotate/scale individually
     Future<CanvasElement> getRipeFruitCanvas() async {
+        if(oldStage < RIPEFRUIT) {
+            // print("making fruit should only happen once per tree");
+            doll.fruitTime = true;
+            if(doll.hangables.isEmpty) {
+                await doll.createFruit();
+            }else {
+                doll.transformHangablesInto(); //auto does fruit
+            }
+            //print("made hangables ${doll.hangables}");
+            hangablesDirty = true;
+        }
         CanvasElement blank = doll.blankCanvas;
         CanvasElement treeC = await treeCanvas;
         CanvasElement flowC = await hangableCanvas;
@@ -168,15 +179,15 @@ class Tree {
 
     //unripe fruits don't draw attention to themselves (but you can still click them)
     Future<CanvasElement> getFruitCanvas() async {
-        if(oldStage != FRUIT) {
-            print("making fruit should only happen once per tree");
+        if(oldStage < FRUIT) {
+           // print("making fruit should only happen once per tree");
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
                 await doll.createFruit();
             }else {
                 doll.transformHangablesInto(); //auto does fruit
             }
-            print("made hangables ${doll.hangables}");
+            //print("made hangables ${doll.hangables}");
             hangablesDirty = true;
         }
         CanvasElement blank = doll.blankCanvas;
@@ -184,7 +195,7 @@ class Tree {
         CanvasElement flowC = await hangableCanvas;
         blank.context2D.imageSmoothingEnabled = false;
         blank.context2D.drawImage(treeC, 0,0);
-        treeC.context2D.drawImageScaled(flowC, 0,0, doll.width, doll.height);
+        blank.context2D.drawImageScaled(flowC, 0,0, doll.width, doll.height);
         return blank;
     }
 

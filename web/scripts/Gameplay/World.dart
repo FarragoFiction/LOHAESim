@@ -104,15 +104,19 @@ class World {
     }
 
     void testTrees() {
-        Tree tree = new Tree(this,new TreeDoll(), 150, 550);
-        tree.stage = Tree.SAPPLING;
+        Tree tree = new Tree(this,new TreeDoll(), 50, 550);
+        tree.stage = Tree.FRUIT;
         trees.add(tree);
-        tree = new Tree(this,new TreeDoll(), 300, 550);
-        tree.stage = Tree.LEAVES;
+        tree = new Tree(this,new TreeDoll(), 200, 550);
+        tree.stage = Tree.FRUIT;
         trees.add(tree);
 
-        tree = new Tree(this,new TreeDoll(), 450, 550);
-        tree.stage = Tree.FLOWERS;
+        tree = new Tree(this,new TreeDoll(), 350, 550);
+        tree.stage = Tree.FRUIT;
+        trees.add(tree);
+
+        tree = new Tree(this,new TreeDoll(), 500, 550);
+        tree.stage = Tree.FRUIT;
         trees.add(tree);
 
         tree = new Tree(this,new TreeDoll(), 600, 550);
