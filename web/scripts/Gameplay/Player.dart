@@ -30,6 +30,7 @@ class Player extends Secret {
     int minX = 0;
     int minY = 0;
     Inventory inventory;
+    int funds = 0;
 
     //only gigglesnort if you move. spawning counts as moving
     bool playerMoved = true;
@@ -65,6 +66,7 @@ class Player extends Secret {
         JSONObject json = new JSONObject();
         json["topLeftX"] = "$topLeftX";
         json["topLeftY"] = "$topLeftY";
+        json["funds"] = "$funds";
         json["inventory"] = inventory.toJSON().toString();
         return json;
     }
@@ -83,6 +85,7 @@ class Player extends Secret {
     }
 
     void copyFromJSON(JSONObject json) {
+        funds = int.parse(json["funds"]);
         topLeftX = int.parse(json["topLeftX"]);
         topLeftY = int.parse(json["topLeftY"]);
         inventory.copyFromJSON(new JSONObject.fromJSONString(json["inventory"]));

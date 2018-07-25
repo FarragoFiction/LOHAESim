@@ -18,6 +18,7 @@ import "package:CommonLib/NavBar.dart";
 //yggdrasil
 class World {
     static String labelPattern = ":___ ";
+    static String SAVEKEY = "yggdrasilSAVEDATA";
     int width = 800;
     int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
@@ -94,9 +95,20 @@ class World {
     World() {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-        testTrees();
+        load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
+    }
+
+    void save() {
+        window.localStorage[SAVEKEY] = toDataString();
+    }
+
+    void load() {
+        if(window.localStorage.containsKey(SAVEKEY)){
+            String data = window.localStorage[SAVEKEY];
+            copyFromDataString(data);
+        }
     }
 
     String toDataString() {

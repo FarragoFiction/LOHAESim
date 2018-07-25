@@ -19,6 +19,7 @@ Future<Null> main() async {
     hookUpTestControls();
     ygdrassil.backgroundMusic.play(); //get around auto play not working in some browsers
     print(ygdrassil.toDataString());
+    ygdrassil.save();
     //TODOs.drawTodos(output);
 }
 
