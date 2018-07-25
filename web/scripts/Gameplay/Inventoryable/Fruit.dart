@@ -1,6 +1,7 @@
 import '../Inventoryable/Inventoryable.dart';
 import 'dart:async';
 import 'dart:html';
+import 'package:CommonLib/Utility.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:TextEngine/TextEngine.dart';
 
@@ -24,6 +25,42 @@ class Fruit extends Object with Inventoryable {
 
     Fruit(Doll this.doll) {
         name = doll.dollName;
+    }
+
+    //only item type that has a doll
+    @override
+    JSONObject toJSON() {
+        JSONObject json = super.toJSON();
+        json["dollString"] = doll.toString();
+        List<String> parentArray = new List<String>();
+        for(Doll parent in parents) {
+            parentArray.add(parent.toDataBytesX());
+        }
+        json["parents"] = parentArray.toString();
+
+        return json;
+    }
+
+    @override
+    void copyFromJSON(JSONObject json) {
+        super.copyFromJSON(json);
+        String idontevenKnow = json["parents"];
+        loadParentsFromJSON(idontevenKnow);
+
+    }
+
+    void loadParentsFromJSON(String idontevenKnow) {
+        if(idontevenKnow == null) return;
+        Set<String> what = JSONObject.jsonStringToStringSet(idontevenKnow);
+        for(String w in what) {
+            try {
+                Doll parent = Doll.loadSpecificDoll(w);
+                parents.add(doll);
+            }catch(e, trace) {
+                print("error loading parent $w, $e, $trace");
+            }
+        }
+
     }
 
     Future<DivElement> generateHorizontalScrollOfParents() async {

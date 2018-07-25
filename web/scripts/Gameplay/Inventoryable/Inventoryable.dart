@@ -36,6 +36,27 @@ abstract class Inventoryable {
         return json;
     }
 
+    void copyFromDataString(String dataString) {
+        //print("dataString is $dataString");
+        List<String> parts = dataString.split("$labelPattern");
+        //print("parts are $parts");
+        if(parts.length > 1) {
+            dataString = parts[1];
+        }
+
+        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        JSONObject json = new JSONObject.fromJSONString(rawJson);
+        copyFromJSON(json);
+    }
+
+    void copyFromJSON(JSONObject json) {
+        name = json["name"];
+        description = json["description"];
+        cost = int.parse(json["cost"]);
+        hidden =  json["hidden"] == true.toString();
+        name = json["name"];
+    }
+
     void renderStoreInventoryRow(DivElement parent) {
         myInventoryDiv = new DivElement();
         myInventoryDiv.classes.add("innerStoreTableRow");
