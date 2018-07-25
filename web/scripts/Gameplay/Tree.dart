@@ -152,7 +152,6 @@ class Tree {
     }
 
 
-    //TODO instead of getting the whole canvas, process each fruit individually, and rotate/scale individually
     Future<CanvasElement> getRipeFruitCanvas() async {
         if(oldStage < RIPEFRUIT) {
             // print("making fruit should only happen once per tree");
@@ -167,15 +166,29 @@ class Tree {
         }
         CanvasElement blank = doll.blankCanvas;
         CanvasElement treeC = await treeCanvas;
-        CanvasElement flowC = await hangableCanvas;
+        //CanvasElement flowC = await hangableCanvas;
         blank.context2D.imageSmoothingEnabled = false;
         blank.context2D.drawImage(treeC, 0,0);
         //pulse the fruit to show you should click it
         double scale = doll.rand.nextDouble()/10;
         setFruitScale(scale);
-        print("fruit scale is $fruitScale");
         hangablesDirty = true;
-        blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
+        //renders things with a stable center
+        for(SpriteLayer layer in doll.hangables) {
+            if(layer is PositionedDollLayer) {
+                num x = layer.x + layer.width/2;
+                num y = layer.y + layer.height/2;
+                //blank.context2D.translate(x, y);
+                blank.context2D.translate(-layer.width/2, -layer.height/2);
+                CanvasElement dollCanvas = await layer.doll.getNewCanvas();
+
+                blank.context2D.drawImageScaled(dollCanvas, x, y, layer.width*fruitScale, layer.height*fruitScale);
+                //save / restore is apparently expensive so try this instead.
+                blank.context2D.setTransform(1,0,0,1,0,0);
+            }
+        }
+        //this would render it all as a single plane, but looks bad for pulsing
+        //blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
         return blank;
     }
 
@@ -215,26 +228,10 @@ class Tree {
         }else if(stage == RIPEFRUIT) {
             return await getRipeFruitCanvas();
         }else if (stage == CORRUPT) {
-            return await getCorruptCanvas();
+            return await getRipeFruitCanvas();
         }
     }
-
-    Future<CanvasElement> getCorruptCanvas() async {
-      if(doll.fruitTime = false) {
-          doll.fruitTime = true;
-          doll.transformHangablesInto(); //auto does fruit which is eyes right now
-      }
-      CanvasElement blank = doll.blankCanvas;
-      CanvasElement treeC = await treeCanvas;
-      CanvasElement flowC = await hangableCanvas;
-      treeC.context2D.imageSmoothingEnabled = false;
-      blank.context2D.drawImage(treeC, 0,0);
-      //pulse the fruit to show you should click it
-      double scale = doll.rand.nextDouble()/10;
-      setFruitScale(scale);
-      blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
-      return treeC;
-    }
+    
 
     Future<CanvasElement> getFlowerCanvas() async {
       CanvasElement treeC = await treeCanvas;
@@ -252,7 +249,7 @@ class Tree {
         }
         numTicksSinceLastPulse ++;
 
-        double buffer = 0.01;
+        double buffer = 0.05;
       if(fruitScale > 1+buffer) {
           fruitScale = 1+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;

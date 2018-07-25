@@ -43,7 +43,7 @@ class World {
     bool currentlyRendering = false;
     DateTime lastRender;
     //essentially the frame rate
-    static int fps = 30;
+    static int fps = 60;
     int minTimeBetweenRenders = (1000/fps).round();
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
