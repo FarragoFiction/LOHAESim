@@ -148,7 +148,7 @@ class Tree {
     void grow() {
         oldStage = stage;
         stage ++;
-        if(stage >= FRUIT) stage = FRUIT;
+        if(stage >= RIPEFRUIT) stage = RIPEFRUIT;
     }
 
 
@@ -173,6 +173,8 @@ class Tree {
         //pulse the fruit to show you should click it
         double scale = doll.rand.nextDouble()/10;
         setFruitScale(scale);
+        print("fruit scale is $fruitScale");
+        hangablesDirty = true;
         blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
         return blank;
     }
@@ -250,7 +252,7 @@ class Tree {
         }
         numTicksSinceLastPulse ++;
 
-        double buffer = 0.001;
+        double buffer = 0.01;
       if(fruitScale > 1+buffer) {
           fruitScale = 1+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;

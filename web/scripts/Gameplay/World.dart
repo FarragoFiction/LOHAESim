@@ -105,14 +105,14 @@ class World {
 
     void testTrees() {
         Tree tree = new Tree(this,new TreeDoll(), 50, 550);
-        tree.stage = Tree.FRUIT;
+        tree.stage = Tree.SAPPLING;
         trees.add(tree);
         tree = new Tree(this,new TreeDoll(), 200, 550);
-        tree.stage = Tree.FRUIT;
+        tree.stage = Tree.LEAVES;
         trees.add(tree);
 
         tree = new Tree(this,new TreeDoll(), 350, 550);
-        tree.stage = Tree.FRUIT;
+        tree.stage = Tree.FLOWERS;
         trees.add(tree);
 
         tree = new Tree(this,new TreeDoll(), 500, 550);
@@ -120,7 +120,7 @@ class World {
         trees.add(tree);
 
         tree = new Tree(this,new TreeDoll(), 600, 550);
-        tree.stage = Tree.FRUIT;
+        tree.stage = Tree.RIPEFRUIT;
         trees.add(tree);
     }
 
