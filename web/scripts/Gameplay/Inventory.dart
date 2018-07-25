@@ -11,10 +11,14 @@ import 'Store.dart';
 import 'World.dart';
 import 'dart:async';
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:html';
 
+import 'package:CommonLib/Utility.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 class Inventory extends Object with IterableMixin<Inventoryable>{
+    static String labelPattern = ":___ ";
+
     DivElement container;
     InventoryPopup popup;
     Element rightElement;
@@ -29,6 +33,26 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     Inventory(World this.world, List<Inventoryable> this.inventory) {
 
+    }
+
+    String toDataString() {
+        try {
+            String ret = toJSON().toString();
+            return "Inventory$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+        }catch(e) {
+            print(e);
+            print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+        }
+    }
+
+    JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        List<JSONObject> itemArray = new List<JSONObject>();
+        for(Inventoryable item in inventory) {
+            itemArray.add(item.toJSON());
+        }
+        json["inventory"] = itemArray.toString();
+        return json;
     }
 
     void removeItem(Inventoryable item) {

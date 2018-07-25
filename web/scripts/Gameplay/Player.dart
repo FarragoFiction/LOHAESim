@@ -11,11 +11,15 @@ import 'Inventoryable/YellowYard.dart';
 import 'Secret.dart';
 import 'World.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 import "package:CommonLib/Logging.dart";
+import 'package:CommonLib/Utility.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 class Player extends Secret {
+    static String labelPattern = ":___ ";
+
     //relative to underworld, center of player (not top left)
 
     bool hasActiveFlashlight = false;
@@ -45,6 +49,24 @@ class Player extends Secret {
         for(int i = 0; i<3; i++) {
             initialInventory();
         }
+    }
+
+    String toDataString() {
+        try {
+            String ret = toJSON().toString();
+            return "Player$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+        }catch(e) {
+            print(e);
+            print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+        }
+    }
+
+    JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json["topLeftX"] = "$topLeftX";
+        json["topLeftY"] = "$topLeftY";
+        json["inventory"] = inventory.toJSON().toString();
+        return json;
     }
 
     void up() {
