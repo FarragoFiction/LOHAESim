@@ -127,12 +127,35 @@ class Tree {
 
     JSONObject toJSON() {
         JSONObject json = new JSONObject();
-        json["name"] = name;
         json["dollString"] = doll.toDataBytesX();
         json["bottomCenterX"] = "$bottomCenterX";
         json["bottomCenterY"] = "$bottomCenterY";
         json["stage"] = "$stage";
         return json;
+    }
+
+    void copyFromDataString(String dataString) {
+        //print("dataString is $dataString");
+        List<String> parts = dataString.split("$labelPattern");
+        //print("parts are $parts");
+        if(parts.length > 1) {
+            dataString = parts[1];
+        }
+
+        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        JSONObject json = new JSONObject.fromJSONString(rawJson);
+        copyFromJSON(json);
+    }
+
+    void copyFromJSON(JSONObject json) {
+        try {
+            doll = Doll.loadSpecificDoll(json["dollString"]);
+        }catch(e, trace) {
+            print("couldn't laod doll from string ${json["dollString"]}, $e, $trace ");
+        }
+        bottomCenterX = int.parse(json["bottomCenterX"]);
+        bottomCenterY = int.parse(json["bottomCenterY"]);
+        stage =  int.parse(json["stage"]);
     }
 
     void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
