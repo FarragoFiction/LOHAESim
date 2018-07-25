@@ -69,6 +69,25 @@ class Player extends Secret {
         return json;
     }
 
+    void copyFromDataString(String dataString) {
+        //print("dataString is $dataString");
+        List<String> parts = dataString.split("$labelPattern");
+        //print("parts are $parts");
+        if(parts.length > 1) {
+            dataString = parts[1];
+        }
+
+        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        JSONObject json = new JSONObject.fromJSONString(rawJson);
+        copyFromJSON(json);
+    }
+
+    void copyFromJSON(JSONObject json) {
+        topLeftX = int.parse(json["topLeftX"]);
+        topLeftY = int.parse(json["topLeftY"]);
+        inventory.copyFromJSON(new JSONObject.fromJSONString(json["inventory"]));
+    }
+
     void up() {
         topLeftY += -42;
         if(topLeftY <minY) {
