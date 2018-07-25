@@ -62,7 +62,6 @@ class Fruit extends Object with Inventoryable {
                 print("error loading parent $w, $e, $trace");
             }
         }
-
     }
 
     Future<DivElement> generateHorizontalScrollOfParents() async {

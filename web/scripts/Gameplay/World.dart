@@ -122,6 +122,39 @@ class World {
         return json;
     }
 
+    void copyFromDataString(String dataString) {
+        //print("dataString is $dataString");
+        List<String> parts = dataString.split("$labelPattern");
+        //print("parts are $parts");
+        if(parts.length > 1) {
+            dataString = parts[1];
+        }
+
+        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        JSONObject json = new JSONObject.fromJSONString(rawJson);
+        copyFromJSON(json);
+    }
+
+    void copyFromJSON(JSONObject json) {
+        bossFight = json["bossFight"] ==true.toString();;
+        underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
+        String idontevenKnow = json["trees"];
+        loadTreesFromJSON(idontevenKnow);
+    }
+
+    void loadTreesFromJSON(String idontevenKnow) {
+        if(idontevenKnow == null) return;
+        List<dynamic> what = JSON.decode(idontevenKnow);
+        //print("what json is $what");
+        for(dynamic d in what) {
+            //print("dynamic json thing is  $d");
+            JSONObject j = new JSONObject();
+            j.json = d;
+            //shit, okay i need to know what kind of object it is
+            trees.add(new Tree(this, new TreeDoll(), 0,0)..copyFromJSON(j));
+        }
+    }
+
     //it's a sub part of inventory now, don't do it's own thing
     Future<Null> setupElements(Element parentContainer) async {
         //want inventory on left, world on right
