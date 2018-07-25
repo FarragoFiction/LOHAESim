@@ -3,6 +3,7 @@ import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:DollLibCorrect/DollRenderer.dart';
+import "dart:math" as Math;
 
 class Tree {
     static int SAPPLING = 0;
@@ -170,21 +171,25 @@ class Tree {
         blank.context2D.imageSmoothingEnabled = false;
         blank.context2D.drawImage(treeC, 0,0);
         //pulse the fruit to show you should click it
-        double scale = doll.rand.nextDouble()/10;
-        setFruitScale(scale);
+        setFruitScale(0.05);
         hangablesDirty = true;
         //renders things with a stable center
         for(SpriteLayer layer in doll.hangables) {
             if(layer is PositionedDollLayer) {
+                //saving might be expensive
+                //blank.context2D.save();
                 num x = layer.x + layer.width/2;
                 num y = layer.y + layer.height/2;
-                //blank.context2D.translate(x, y);
+                blank.context2D.translate(x, y);
                 blank.context2D.translate(-layer.width/2, -layer.height/2);
                 CanvasElement dollCanvas = await layer.doll.getNewCanvas();
+                //rotation not worht it rn
+                //blank.context2D.rotate(fruitScaleDirection* fruitScale);
 
-                blank.context2D.drawImageScaled(dollCanvas, x, y, layer.width*fruitScale, layer.height*fruitScale);
+                blank.context2D.drawImageScaled(dollCanvas, 0, 0, layer.width*fruitScale, layer.height*fruitScale);
                 //save / restore is apparently expensive so try this instead.
                 blank.context2D.setTransform(1,0,0,1,0,0);
+                //blank.context2D.rotate(0);
             }
         }
         //this would render it all as a single plane, but looks bad for pulsing
@@ -231,7 +236,7 @@ class Tree {
             return await getRipeFruitCanvas();
         }
     }
-    
+
 
     Future<CanvasElement> getFlowerCanvas() async {
       CanvasElement treeC = await treeCanvas;
@@ -249,7 +254,7 @@ class Tree {
         }
         numTicksSinceLastPulse ++;
 
-        double buffer = 0.05;
+        double buffer = 0.1;
       if(fruitScale > 1+buffer) {
           fruitScale = 1+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;
