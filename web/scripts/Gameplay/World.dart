@@ -43,7 +43,7 @@ class World {
     bool currentlyRendering = false;
     DateTime lastRender;
     //essentially the frame rate
-    static int fps = 60;
+    static int fps = 45;
     int minTimeBetweenRenders = (1000/fps).round();
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
@@ -146,7 +146,7 @@ class World {
                 cursor = new CustomCursor(itemCanvas, point);
                 if(activeItem is HelpingHand) cursor.mode = CustomCursor.BOTTOMRIGHT;
                 overWorldDirty = true;
-                render();
+                //render(); render loop does this now
             }else {
                 cursor = null;
             }
@@ -595,7 +595,7 @@ class World {
         await render(true);
         //if it needs to interupt it will, but no faster than min Time
         //TODO turn this back on
-        new Timer(new Duration(milliseconds: minTimeBetweenRenders*5), () => renderLoop());
+        new Timer(new Duration(milliseconds: minTimeBetweenRenders), () => renderLoop());
 
     }
 
