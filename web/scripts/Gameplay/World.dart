@@ -102,7 +102,7 @@ class World {
     String toDataString() {
         try {
             String ret = toJSON().toString();
-            return "Inventory$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+            return "Ygdrassil$labelPattern${BASE64URL.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
             print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
