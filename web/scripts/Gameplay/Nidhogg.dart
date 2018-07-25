@@ -8,10 +8,12 @@ import 'Inventoryable/YellowYard.dart';
 import 'OnScreenText.dart';
 import 'Player.dart';
 import 'World.dart';
+import 'dart:convert';
 import 'dart:html';
 import "dart:math" as Math;
 
 import 'package:CommonLib/NavBar.dart';
+import 'package:CommonLib/Utility.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
@@ -20,7 +22,10 @@ import 'package:RenderingLib/RendereringLib.dart';
 when to json record if dead or not and hp
  */
 class Nidhogg extends CollectableSecret {
-  @override
+
+  static String labelPattern = ":___ ";
+
+    @override
   int width = 440;
   @override
   int height = 580;
@@ -58,6 +63,22 @@ class Nidhogg extends CollectableSecret {
   List<String> happy = <String>["!","I Value Our Friendship, Child.","Thank You, Child.","How May I Help You, Child?","This Pleases Me.","?","...","I Am So, So Proud of You, Child."];
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
+  String toDataString() {
+      try {
+          String ret = toJSON().toString();
+          return "Nidhogg$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+      }catch(e) {
+          print(e);
+          print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+      }
+  }
+
+  JSONObject toJSON() {
+      JSONObject json = new JSONObject();
+      json["purified"] = purified.toString();
+      json["hp"] = "$hp";
+      return json;
+  }
 
   bool canDamage(Record record) {
       return record.isFraymotif;

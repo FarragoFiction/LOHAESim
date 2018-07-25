@@ -1,7 +1,12 @@
 import '../Inventory.dart';
+import 'dart:convert';
 import 'dart:html';
 
+import 'package:CommonLib/Utility.dart';
+
 abstract class Inventoryable {
+    static String labelPattern = ":___ ";
+
     String name = "???";
     String description = "An item???";
     Element myInventoryDiv;
@@ -11,6 +16,25 @@ abstract class Inventoryable {
     Inventory inventory; //will be set when there's a store
     //up to whoever uses me to make this a thing
     CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);
+
+    String toDataString() {
+        try {
+            String ret = toJSON().toString();
+            return "$name$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+        }catch(e) {
+            print(e);
+            print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+        }
+    }
+
+    JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json["name"] = name;
+        json["description"] = description;
+        json["cost"] = "$cost";
+        json["hidden"] = hidden.toString();
+        return json;
+    }
 
     void renderStoreInventoryRow(DivElement parent) {
         myInventoryDiv = new DivElement();

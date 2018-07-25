@@ -374,7 +374,7 @@ class World {
             //print("is it $tree I'm looking for? stage is ${tree.stage}");
             //don't pick flowers or whatever
             if(tree.stage >= Tree.FRUIT) {
-                print("${tree.stage} is past fruit");
+               // print("${tree.stage} is past fruit");
                 PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
                 if (fruitLayer != null) {
                      //print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");

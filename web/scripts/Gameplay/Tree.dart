@@ -1,11 +1,15 @@
 import 'Inventoryable/Fruit.dart';
 import 'World.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 import 'package:DollLibCorrect/DollRenderer.dart';
+import 'package:CommonLib/Utility.dart';
 import "dart:math" as Math;
 
 class Tree {
+    static String labelPattern = ":___ ";
+
     static int SAPPLING = 0;
     static int LEAVES = 1;
     static int FLOWERS = 2;
@@ -19,6 +23,14 @@ class Tree {
 
     double fruitScale = 1.0;
     int fruitScaleDirection = 1; //is it going bigger or smaller in the pulse
+
+    String get name{
+        if(doll.fruitTemplate != null) {
+            return "${doll.fruitTemplate.dollName} Tree";
+        }
+        return "Random Tree";
+
+    }
 
     TreeDoll doll;
     num get topLeftY => bottomCenterY-(doll.height * scale);
@@ -90,7 +102,7 @@ class Tree {
 
     Future<CanvasElement> get hangableCanvas async {
         if(_hangableCanvas == null || dirty || hangablesDirty) {
-            print ("drawing ${doll.hangables.length} dirty hangables, _hangable canvas is $_hangableCanvas, dirty is $dirty and hangables dirty is $hangablesDirty");
+            //print ("drawing ${doll.hangables.length} dirty hangables, _hangable canvas is $_hangableCanvas, dirty is $dirty and hangables dirty is $hangablesDirty");
             _hangableCanvas = await doll.renderJustHangables();
             oldStage = stage;
             reallyDirty = false;
@@ -102,6 +114,26 @@ class Tree {
 
 
     Tree(World this.world,TreeDoll this.doll, int this.bottomCenterX, int this.bottomCenterY);
+
+    String toDataString() {
+        try {
+            String ret = toJSON().toString();
+            return "$name$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+        }catch(e) {
+            print(e);
+           print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+        }
+    }
+
+    JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json["name"] = name;
+        json["dollString"] = doll.toDataBytesX();
+        json["bottomCenterX"] = "$bottomCenterX";
+        json["bottomCenterY"] = "$bottomCenterY";
+        json["stage"] = "$stage";
+        return json;
+    }
 
     void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
         //print("producing fruit with parents $parents");
@@ -298,7 +330,7 @@ class Tree {
     }
 
     void uncorrupt() {
-        print("trying to restore from uncorrupt doll $cachedTreeDoll");
+        //print("trying to restore from uncorrupt doll $cachedTreeDoll");
         doll = Doll.loadSpecificDoll(cachedTreeDoll);
         stage = oldStage;
         oldStage = CORRUPT;
