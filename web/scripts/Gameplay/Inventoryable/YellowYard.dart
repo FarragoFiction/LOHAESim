@@ -12,6 +12,8 @@ class YellowYard extends CollectableSecret with Inventoryable{
         name = "Yellow Yard";
         cost = 4037;
         description = specificPhrase;
+        type = name;
+
     }
 
     Future<Null> setCanvasForStore() async{

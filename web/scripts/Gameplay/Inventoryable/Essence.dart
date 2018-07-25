@@ -16,6 +16,7 @@ abstract class Essence extends CollectableSecret with Inventoryable {
     name = myName;
     description = specificPhrase;
     hidden = true;
+    type = myName;
   }
 
   static List<Essence> spawn(World world) {

@@ -12,6 +12,8 @@ class HelpingHand extends CollectableSecret with Inventoryable{
         name = "Helping Hand";
         cost = 4037;
         description = specificPhrase;
+        type = "Helping Hand";
+
     }
 
     Future<Null> setCanvasForStore() async{

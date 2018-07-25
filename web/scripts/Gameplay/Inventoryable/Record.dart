@@ -21,6 +21,7 @@ class Record extends CollectableSecret with Inventoryable{
         name = myName;
         cost = 4037;
         description = specificPhrase;
+        type = name;
     }
 
     Future<Null> setCanvasForStore() async{

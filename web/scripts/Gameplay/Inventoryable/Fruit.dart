@@ -25,6 +25,8 @@ class Fruit extends Object with Inventoryable {
 
     Fruit(Doll this.doll) {
         name = doll.dollName;
+        type = "Fruit";
+
     }
 
     //only item type that has a doll

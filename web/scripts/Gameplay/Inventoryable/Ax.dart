@@ -12,6 +12,7 @@ class Ax extends CollectableSecret with Inventoryable{
         name = "ShogunBot's Ax";
         cost = 4037;
         description = specificPhrase;
+        type = "Ax";
     }
 
     Future<Null> setCanvasForStore() async{

@@ -1,4 +1,11 @@
 import '../Inventory.dart';
+import 'Ax.dart';
+import 'Essence.dart';
+import 'Flashlight.dart';
+import 'Fruit.dart';
+import 'HelpingHand.dart';
+import 'Record.dart';
+import 'YellowYard.dart';
 import 'dart:convert';
 import 'dart:html';
 
@@ -8,6 +15,8 @@ abstract class Inventoryable {
     static String labelPattern = ":___ ";
 
     String name = "???";
+    //set this on init
+    String type = "???";
     String description = "An item???";
     Element myInventoryDiv;
     //things like essences are hidden till you beat the game
@@ -27,9 +36,36 @@ abstract class Inventoryable {
         }
     }
 
+    static List<Inventoryable> oneOfEachType() {
+        List<Inventoryable> all = new List<Inventoryable>();
+        all.add(new Ax(null));
+        all.add(new Flashlight(null));
+        all.add(new Flashlight(null));
+        all.add(new Fruit(null));
+        all.add(new HelpingHand(null));
+        all.add(new YellowYard(null));
+        all.addAll(Essence.spawn(null));
+        all.addAll(Record.spawn(null));
+        return all;
+    }
+
+    static Inventoryable loadItemFromJSON(JSONObject json) {
+        //there has to be a better way than this, but essentially i'm doing it like dolls are trigger conditions
+        //which is to say, get a list of all possible inventoryable types and see if it matches
+        List<Inventoryable> allItems = oneOfEachType();
+        for(Inventoryable item in allItems) {
+            if(item.type == json["type"]) {
+                item.copyFromJSON(json);
+                return item;
+            };
+        }
+        print("ERROR: COULD NOT FIND ITEM");
+    }
+
     JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json["name"] = name;
+        json["type"] = type;//need to know what to instantiate this as
         json["description"] = description;
         json["cost"] = "$cost";
         json["hidden"] = hidden.toString();

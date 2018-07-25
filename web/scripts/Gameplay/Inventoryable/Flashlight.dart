@@ -12,6 +12,8 @@ class Flashlight extends CollectableSecret with Inventoryable{
         name = "???'s Flashlight";
         cost = 4037;
         description = specificPhrase;
+        type = "Flashlight";
+
     }
 
     Future<Null> setCanvasForStore() async{
