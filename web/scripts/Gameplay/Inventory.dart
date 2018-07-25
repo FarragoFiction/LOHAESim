@@ -55,6 +55,11 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         return json;
     }
 
+    void copyFromJSON(JSONObject json) {
+        String idontevenKnow = json["inventory"];
+        loadInventoryFromJSON(idontevenKnow);
+    }
+
     void loadInventoryFromJSON(String idontevenKnow) {
         if(idontevenKnow == null) return;
         List<dynamic> what = JSON.decode(idontevenKnow);
