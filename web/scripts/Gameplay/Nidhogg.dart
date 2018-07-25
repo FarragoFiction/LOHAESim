@@ -80,6 +80,24 @@ class Nidhogg extends CollectableSecret {
       return json;
   }
 
+  void copyFromDataString(String dataString) {
+      //print("dataString is $dataString");
+      List<String> parts = dataString.split("$labelPattern");
+      //print("parts are $parts");
+      if(parts.length > 1) {
+          dataString = parts[1];
+      }
+
+      String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+      JSONObject json = new JSONObject.fromJSONString(rawJson);
+      copyFromJSON(json);
+  }
+
+  void copyFromJSON(JSONObject json) {
+      purified = json["purified"] ==true.toString();;
+      hp = int.parse(json["hp"]);
+  }
+
   bool canDamage(Record record) {
       return record.isFraymotif;
   }
