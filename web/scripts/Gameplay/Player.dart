@@ -40,6 +40,10 @@ class Player extends Secret {
 
 
     Player(World world, int this.maxX, int this.maxY):super(world) {
+
+    }
+
+    void initialInventory() {
         //TODO have all this be a thing you buy from the store
         inventory= new Inventory(world, new List<Inventoryable>());
         inventory.add(new HelpingHand(world));
@@ -48,7 +52,7 @@ class Player extends Secret {
         inventory.add(new Ax(world));
         inventory.addAll(Record.spawn(world));
         for(int i = 0; i<3; i++) {
-            initialInventory();
+            initialFruitInventory();
         }
     }
 
@@ -136,7 +140,7 @@ class Player extends Secret {
         }
     }
 
-    void initialInventory() {
+    void initialFruitInventory() {
         FruitDoll doll = new FruitDoll();
         TreeDoll parent = new TreeDoll();
         parent.rand.setSeed(doll.seed);
@@ -145,11 +149,10 @@ class Player extends Secret {
         //not for normies
         List<int> banList = <int>[14,15,24];
         if(banList.contains(doll.body.imgNumber)) doll.body.imgNumber = 11;
-        Fruit fruit = new Fruit(doll);
+        Fruit fruit = new Fruit(world,doll);
         fruit.parents.add(parent);
         //make sure the clone parent has you as it's fruit
         parent.fruitTemplate = doll;
-
         inventory.add(fruit);
     }
 

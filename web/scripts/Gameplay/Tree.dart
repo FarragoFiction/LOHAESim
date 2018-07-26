@@ -160,7 +160,7 @@ class Tree {
 
     void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
         //print("producing fruit with parents $parents");
-        Fruit fruitItem = new Fruit(fruitLayer.doll.clone());
+        Fruit fruitItem = new Fruit(world,fruitLayer.doll.clone());
         if(fruitItem.doll is FruitDoll) {
             (fruitItem.doll as FruitDoll).setName();
             //print("producing fruit with seed ${fruitItem.doll.seed} and name ${fruitItem.doll.dollName}");
@@ -204,7 +204,11 @@ class Tree {
     void grow() {
         oldStage = stage;
         stage ++;
-        if(stage >= RIPEFRUIT) stage = RIPEFRUIT;
+        if(stage >= RIPEFRUIT) {
+            stage = RIPEFRUIT;
+        }else {
+            world.save();
+        }
     }
 
 

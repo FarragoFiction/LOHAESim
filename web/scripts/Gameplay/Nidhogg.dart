@@ -193,7 +193,7 @@ class Nidhogg extends CollectableSecret {
           int randomY = new Random().nextInt(world.height);
           Point p = new Point(randomX, randomY);
           FruitDoll eye = new FruitDoll()..body.imgNumber = 24;
-          Fruit fruit = new Fruit(eye);
+          Fruit fruit = new Fruit(world,eye);
           fruit.parents.add(new TreeDoll());
           //world.plantATreeAtPoint(fruit, p);
       }

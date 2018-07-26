@@ -1,4 +1,5 @@
 import '../Inventoryable/Inventoryable.dart';
+import '../World.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:CommonLib/Utility.dart';
@@ -14,6 +15,7 @@ class Fruit extends Object with Inventoryable {
     //if dirty redraw tree.
     bool dirty = true;
     TextEngine textEngine;
+    World world;
 
     Future<CanvasElement> get canvas async {
         if(_canvas == null || dirty) {
@@ -23,10 +25,19 @@ class Fruit extends Object with Inventoryable {
         return _canvas;
     }
 
-    Fruit(Doll this.doll) {
+    Fruit(World world, Doll this.doll) {
         name = doll.dollName;
         type = "Fruit";
+    }
 
+    //lets world know about the unique fruit you've found
+    //as well as giving me an idea if it's a new game or not
+    ArchivedFruit makeArchive() {
+        if(world != null && !(this is ArchivedFruit)) {
+            ArchivedFruit archive = new ArchivedFruit(doll);
+            archive.description = description;
+            world.pastFruit[doll.toDataBytesX()]= archive;
+        }
     }
 
     //only item type that has a doll
@@ -48,7 +59,6 @@ class Fruit extends Object with Inventoryable {
         super.copyFromJSON(json);
         String idontevenKnow = json["parents"];
         loadParentsFromJSON(idontevenKnow);
-
     }
 
     void loadParentsFromJSON(String idontevenKnow) {
@@ -114,8 +124,26 @@ class Fruit extends Object with Inventoryable {
        description = "${textEngine.phrase("FruitDescriptions")}";
         Random rand = new Random(doll.seed);
         cost = rand.nextIntRange(13, 113);
+        //only archive if the player actually owns this, not if they see it in the store.
+        if(world.underWorld.player.inventory.contains(this)){
+            makeArchive();
+        }
     }
 
 
 
+}
+
+//no unneccessary info like about parents
+class ArchivedFruit extends Fruit {
+    String type = "ArchivedFruit";
+
+  ArchivedFruit(Doll doll) : super(null,doll);
+
+    @override
+    JSONObject toJSON() {
+        JSONObject json = super.toJSON();
+        json.remove("parents"); //don't bother savings, this will be a HUGE amount of data since it will be trees
+        return json;
+    }
 }

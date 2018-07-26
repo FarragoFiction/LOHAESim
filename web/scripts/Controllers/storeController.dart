@@ -40,7 +40,7 @@ List<Fruit> spawnRandomFruit() {
         //not for normies
         List<int> banList = <int>[14,15,24];
         if(banList.contains(doll.body.imgNumber)) doll.body.imgNumber = 11;
-        Fruit fruit = new Fruit(doll);
+        Fruit fruit = new Fruit(ygdrassil,doll);
         fruit.parents.add(parent);
         //make sure the clone parent has you as it's fruit
         parent.fruitTemplate = doll;

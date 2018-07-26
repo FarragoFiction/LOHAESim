@@ -79,6 +79,10 @@ class World {
     SourceElement mp3 = querySelector("#mp3");
     SourceElement ogg = querySelector("#ogg");
 
+    //dollstring, archived pairs, useful for record keeping and the like. doesn't have parents (since its meant to be the
+    //archetypal fruit, not a specific one
+    Map<String,ArchivedFruit> pastFruit = new Map<String, Fruit>();
+
 
     //don't redraw overworld unless you really have to
     bool overWorldDirty = true;
@@ -101,6 +105,7 @@ class World {
     }
 
     void save() {
+        print("saving...");
         window.localStorage[SAVEKEY] = toDataString();
     }
 
@@ -420,6 +425,7 @@ class World {
         if(activeItem is Fruit) {
             plantATreeAtPoint(activeItem, cursor.position);
             underWorld.player.inventory.removeItem(activeItem);
+            save();
         }else if(activeItem is Record) {
             currentMusic = activeItem;
             changeMusic((activeItem as Record).songName, false);
@@ -429,6 +435,7 @@ class World {
             activateFlashlight();
         }else if(activeItem is HelpingHand) {
             pickFruit();
+            save();
         }else if(activeItem is YellowYard) {
             cycleTreePopup();
         }else {
@@ -522,6 +529,7 @@ class World {
                 treesToRemove.add(tree);
                 unmoveOwO(tree.doll);
                 render(true);
+                save();
             });
         }
 

@@ -42,7 +42,7 @@ abstract class Inventoryable {
         all.add(new Ax(null));
         all.add(new Flashlight(null));
         all.add(new Flashlight(null));
-        all.add(new Fruit(new FruitDoll()));
+        all.add(new Fruit(null,new FruitDoll()));
         all.add(new HelpingHand(null));
         all.add(new YellowYard(null));
         all.addAll(Essence.spawn(null));
