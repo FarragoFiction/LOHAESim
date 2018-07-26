@@ -35,8 +35,8 @@ class Tree {
     TreeDoll doll;
     num get topLeftY => bottomCenterY-(doll.height * scale);
     num get topLeftX => bottomCenterX-(doll.width * scale)/4;
-    int bottomCenterX;
-    int bottomCenterY;
+    num bottomCenterX = 0;
+    num bottomCenterY = 0;
     CanvasElement _canvas;
     //for uncorrupting, if you figure out how to
     String cachedTreeDoll;
@@ -153,8 +153,8 @@ class Tree {
         }catch(e, trace) {
             print("couldn't laod doll from string ${json["dollString"]}, $e, $trace ");
         }
-        bottomCenterX = int.parse(json["bottomCenterX"]);
-        bottomCenterY = int.parse(json["bottomCenterY"]);
+        bottomCenterX = num.parse(json["bottomCenterX"]);
+        bottomCenterY = num.parse(json["bottomCenterY"]);
         stage =  int.parse(json["stage"]);
     }
 
