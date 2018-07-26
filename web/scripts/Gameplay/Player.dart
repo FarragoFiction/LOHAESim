@@ -51,7 +51,7 @@ class Player extends Secret {
         inventory.inventory.add(new Flashlight(world));
         inventory.inventory.add(new YellowYard(world));
         inventory.inventory.add(new Ax(world));
-        //inventory.addAll(Record.spawn(world));
+        inventory.addAll(Record.spawn(world));
         for(int i = 0; i<13; i++) {
             initialFruitInventory();
         }
@@ -90,7 +90,7 @@ class Player extends Secret {
     }
 
     void copyFromJSON(JSONObject json) {
-        print("copying player from json");
+        //print("copying player from json");
         funds = int.parse(json["funds"]);
         topLeftX = int.parse(json["topLeftX"]);
         topLeftY = int.parse(json["topLeftY"]);

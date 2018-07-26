@@ -52,10 +52,18 @@ class FlowOn extends Record {
 }
 
 class Ares extends Record {
+    @override
+    String get creepy {
+        return "Ares_Scordatura_Distorted";
+    }
     Ares(World world) : super("Ares_Scordatura", world, "Ares Scordatura", "For a slightly an ever so slightly more energetic gardening experience.", "images/BGs/Records/recordF.png");
 }
 
 class Noir extends Record {
+    @override
+    String get creepy {
+        return "Noirsong_Distorted";
+    }
     Noir(World world) : super("Noirsong", world, "Noir Song", "A cool buildup of a song for the discerning gardener. ", "images/BGs/Records/recordD.png");
 }
 
@@ -68,6 +76,10 @@ class Saphire extends Record {
 }
 
 class Splinters extends Record {
+    @override
+    String get creepy {
+        return "Royalty_Reformed";
+    }
     Splinters(World world) : super("Splinters_of_Royalty", world, "Splinters of Royalty", "A primal song, something that came before. Full warning: Contains techno.", "images/BGs/Records/recordA.png");
 }
 
