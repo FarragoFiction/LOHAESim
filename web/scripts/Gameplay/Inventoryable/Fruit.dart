@@ -77,7 +77,7 @@ class Fruit extends Object with Inventoryable {
             try {
                 if(w != null && w.isNotEmpty) {
                     Doll parent = Doll.loadSpecificDoll(w);
-                    parents.add(doll);
+                    parents.add(parent);
                 }
             }catch(e, trace) {
                 print("error loading parent $w, $e, $trace");
