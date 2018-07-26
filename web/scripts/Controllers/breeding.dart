@@ -14,11 +14,9 @@ Future<Null> main() async {
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     await ygdrassil.setupElements(output);
-    testActiveItem();
     ygdrassil.renderLoop();
     hookUpTestControls();
     ygdrassil.backgroundMusic.play(); //get around auto play not working in some browsers
-    print(ygdrassil.toDataString());
     ygdrassil.save();
     //TODOs.drawTodos(output);
 }

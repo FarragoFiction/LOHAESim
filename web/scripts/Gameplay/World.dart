@@ -99,20 +99,21 @@ class World {
     World() {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-       // load();
+        load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
     }
 
     void save() {
         print("saving...");
-        window.localStorage[SAVEKEY] = toDataString();
+        //TODO convert to data string
+        window.localStorage[SAVEKEY] = toJSON().toString();
     }
 
     void load() {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
-            copyFromDataString(data);
+            copyFromJSON(new JSONObject.fromJSONString(data));
         }
     }
 
