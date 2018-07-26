@@ -64,7 +64,6 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         print("loading inventory from $idontevenKnow");
         if(idontevenKnow == null) return;
         List<dynamic> what = JSON.decode(idontevenKnow);
-        List<Inventoryable> allToAdd= new List<Inventoryable>();
         //print("what json is $what");
         for(dynamic d in what) {
             //print("dynamic json thing is  $d");
@@ -73,10 +72,9 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             //shit, okay i need to know what kind of object it is
             Inventoryable item = Inventoryable.loadItemFromJSON(j);
             print("adding $item to inventory from json");
-            allToAdd.add(item);
+            inventory.add(item);
         }
         //do it all at once so it happens in same order
-        addAll(allToAdd);
     }
 
 
@@ -109,15 +107,15 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         parent.append(container);
     }
 
-    Future<Null> add(Inventoryable item) async {
+    void add(Inventoryable item)  {
         inventory.add(item);
-        await drawOneItem(item);
+         drawOneItem(item);
     }
 
-    Future<Null> addAll(List<Inventoryable> items) async{
+    void addAll(List<Inventoryable> items) {
         //don't just call add all, make sure the extra shit happens.
         for(Inventoryable item in items) {
-            await add(item);
+             add(item);
         }
     }
 
@@ -149,14 +147,12 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         inventoryColumn = new DivElement();
         inventoryColumn.classes.add("innerInventoryRowContainer");
         td1.append(inventoryColumn);
-        /*doing this here makes ghost items, they'll draw when they are added
         for(Inventoryable inventoryItem in inventory) {
             //so they know how to popup
             //tbh i want each kind of inventorable to do something different here, but don't know how to make that a thing
             //and also not have to cast them. deal with it for now
-            //await drawOneItem(inventoryItem);
+            await drawOneItem(inventoryItem);
         }
-        */
 
         if(rightElement == null) makeRightElement();
         rightElement.onClick.listen((Event e) {

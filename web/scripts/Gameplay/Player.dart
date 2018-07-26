@@ -46,10 +46,11 @@ class Player extends Secret {
 
     void initialInventory() {
         //TODO have all this be a thing you buy from the store
-        inventory.add(new HelpingHand(world));
-        inventory.add(new Flashlight(world));
-        inventory.add(new YellowYard(world));
-        inventory.add(new Ax(world));
+        //add directly to circumvent drawings
+        inventory.inventory.add(new HelpingHand(world));
+        inventory.inventory.add(new Flashlight(world));
+        inventory.inventory.add(new YellowYard(world));
+        inventory.inventory.add(new Ax(world));
         //inventory.addAll(Record.spawn(world));
         for(int i = 0; i<13; i++) {
             initialFruitInventory();
@@ -93,6 +94,7 @@ class Player extends Secret {
         funds = int.parse(json["funds"]);
         topLeftX = int.parse(json["topLeftX"]);
         topLeftY = int.parse(json["topLeftY"]);
+        //empty array counts too dunkass
         inventory.copyFromJSON(new JSONObject.fromJSONString(json["inventory"]));
         if(inventory.isEmpty && world.pastFruit.isEmpty) {
             initialInventory();
@@ -157,7 +159,7 @@ class Player extends Secret {
         fruit.parents.add(parent);
         //make sure the clone parent has you as it's fruit
         parent.fruitTemplate = doll;
-        inventory.add(fruit);
+        inventory.inventory.add(fruit);
     }
 
     Future<Null> drawInventory(Element container) async{
