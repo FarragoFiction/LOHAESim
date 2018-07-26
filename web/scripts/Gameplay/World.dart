@@ -131,11 +131,16 @@ class World {
         json["bossFight"] = bossFight.toString();
         json["player"] = underWorld.player.toJSON().toString();
         List<JSONObject> treeArray = new List<JSONObject>();
-
         for(Tree tree in trees) {
             treeArray.add(tree.toJSON());
         }
         json["trees"] = treeArray.toString();
+
+        List<JSONObject> fruitArray = new List<JSONObject>();
+        for(ArchivedFruit fruit in pastFruit.values) {
+            treeArray.add(fruit.toJSON());
+        }
+        json["pastFruit"] = fruitArray.toString();
         return json;
     }
 
@@ -157,6 +162,9 @@ class World {
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         String idontevenKnow = json["trees"];
         loadTreesFromJSON(idontevenKnow);
+
+        String idontevenKnow2 = json["pastFruit"];
+        loadPastFruitFromJSON(idontevenKnow2);
     }
 
     void loadTreesFromJSON(String idontevenKnow) {
@@ -169,6 +177,20 @@ class World {
             j.json = d;
             //shit, okay i need to know what kind of object it is
             trees.add(new Tree(this, new TreeDoll(), 0,0)..copyFromJSON(j));
+        }
+    }
+
+    void loadPastFruitFromJSON(String idontevenKnow) {
+        if(idontevenKnow == null) return;
+        List<dynamic> what = JSON.decode(idontevenKnow);
+        //print("what json is $what");
+        for(dynamic d in what) {
+            //print("dynamic json thing is  $d");
+            JSONObject j = new JSONObject();
+            j.json = d;
+            //shit, okay i need to know what kind of object it is
+            ArchivedFruit fruit = (new ArchivedFruit(new FruitDoll())..copyFromJSON(j));
+            pastFruit[fruit.doll.toDataBytesX()] = fruit;
         }
     }
 

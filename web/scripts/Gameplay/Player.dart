@@ -93,6 +93,9 @@ class Player extends Secret {
         topLeftX = int.parse(json["topLeftX"]);
         topLeftY = int.parse(json["topLeftY"]);
         inventory.copyFromJSON(new JSONObject.fromJSONString(json["inventory"]));
+        if(inventory.isEmpty && world.pastFruit.isEmpty) {
+            initialInventory();
+        }
     }
 
     void up() {
