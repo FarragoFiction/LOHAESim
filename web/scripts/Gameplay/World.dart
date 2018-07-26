@@ -99,7 +99,7 @@ class World {
     World() {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-        load();
+       // load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
     }

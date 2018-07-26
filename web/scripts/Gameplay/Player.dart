@@ -40,12 +40,12 @@ class Player extends Secret {
 
 
     Player(World world, int this.maxX, int this.maxY):super(world) {
-
+        inventory= new Inventory(world, new List<Inventoryable>());
+       // initialInventory();
     }
 
     void initialInventory() {
         //TODO have all this be a thing you buy from the store
-        inventory= new Inventory(world, new List<Inventoryable>());
         inventory.add(new HelpingHand(world));
         inventory.add(new Flashlight(world));
         inventory.add(new YellowYard(world));

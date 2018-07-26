@@ -125,7 +125,7 @@ class Fruit extends Object with Inventoryable {
         Random rand = new Random(doll.seed);
         cost = rand.nextIntRange(13, 113);
         //only archive if the player actually owns this, not if they see it in the store.
-        if(world.underWorld.player.inventory.contains(this)){
+        if(world != null && world.underWorld.player.inventory.contains(this)){
             makeArchive();
         }
     }
