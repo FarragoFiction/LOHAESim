@@ -57,6 +57,11 @@ class Fruit extends Object with Inventoryable {
     @override
     void copyFromJSON(JSONObject json) {
         super.copyFromJSON(json);
+        try {
+            doll = Doll.loadSpecificDoll(json["dollString"]);
+        }catch(e, trace) {
+            print("error loading doll for fruit, ${json["dollString"]}, $e, $trace");
+        }
         String idontevenKnow = json["parents"];
         loadParentsFromJSON(idontevenKnow);
     }
