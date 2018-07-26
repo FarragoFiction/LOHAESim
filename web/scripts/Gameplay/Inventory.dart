@@ -64,6 +64,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         print("loading inventory from $idontevenKnow");
         if(idontevenKnow == null) return;
         List<dynamic> what = JSON.decode(idontevenKnow);
+        List<Inventoryable> allToAdd= new List<Inventoryable>();
         //print("what json is $what");
         for(dynamic d in what) {
             //print("dynamic json thing is  $d");
@@ -72,8 +73,10 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             //shit, okay i need to know what kind of object it is
             Inventoryable item = Inventoryable.loadItemFromJSON(j);
             print("adding $item to inventory from json");
-            add(item);
+            allToAdd.add(item);
         }
+        //do it all at once so it happens in same order
+        addAll(allToAdd);
     }
 
 
@@ -106,15 +109,15 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         parent.append(container);
     }
 
-    void add(Inventoryable item) {
+    Future<Null> add(Inventoryable item) async {
         inventory.add(item);
-        drawOneItem(item);
+        await drawOneItem(item);
     }
 
-    void addAll(List<Inventoryable> items) {
+    Future<Null> addAll(List<Inventoryable> items) async{
         //don't just call add all, make sure the extra shit happens.
         for(Inventoryable item in items) {
-            add(item);
+            await add(item);
         }
     }
 
