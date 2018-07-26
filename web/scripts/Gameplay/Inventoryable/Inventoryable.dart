@@ -10,6 +10,7 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:CommonLib/Utility.dart';
+import 'package:DollLibCorrect/DollRenderer.dart';
 
 abstract class Inventoryable {
     static String labelPattern = ":___ ";
@@ -41,7 +42,7 @@ abstract class Inventoryable {
         all.add(new Ax(null));
         all.add(new Flashlight(null));
         all.add(new Flashlight(null));
-        all.add(new Fruit(null));
+        all.add(new Fruit(new FruitDoll()));
         all.add(new HelpingHand(null));
         all.add(new YellowYard(null));
         all.addAll(Essence.spawn(null));

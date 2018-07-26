@@ -53,11 +53,15 @@ class Fruit extends Object with Inventoryable {
 
     void loadParentsFromJSON(String idontevenKnow) {
         if(idontevenKnow == null) return;
-        Set<String> what = JSONObject.jsonStringToStringSet(idontevenKnow);
+        print("fruit parents raw is $idontevenKnow");
+        List<String> what = JSONObject.jsonStringToStringArray(idontevenKnow);
+        print("as  a set its $what");
         for(String w in what) {
             try {
-                Doll parent = Doll.loadSpecificDoll(w);
-                parents.add(doll);
+                if(w != null && w.isNotEmpty) {
+                    Doll parent = Doll.loadSpecificDoll(w);
+                    parents.add(doll);
+                }
             }catch(e, trace) {
                 print("error loading parent $w, $e, $trace");
             }
