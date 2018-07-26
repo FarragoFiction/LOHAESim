@@ -44,7 +44,7 @@ class Fruit extends Object with Inventoryable {
     @override
     JSONObject toJSON() {
         JSONObject json = super.toJSON();
-        json["dollString"] = doll.toString();
+        json["dollString"] = doll.toDataBytesX();
         List<String> parentArray = new List<String>();
         for(Doll parent in parents) {
             parentArray.add(parent.toDataBytesX());
@@ -58,7 +58,9 @@ class Fruit extends Object with Inventoryable {
     void copyFromJSON(JSONObject json) {
         super.copyFromJSON(json);
         try {
-            doll = Doll.loadSpecificDoll(json["dollString"]);
+            String dollString = json["dollString"];
+            print("doll string is $dollString");
+            doll = Doll.loadSpecificDoll(dollString);
         }catch(e, trace) {
             print("error loading doll for fruit, ${json["dollString"]}, $e, $trace");
         }
