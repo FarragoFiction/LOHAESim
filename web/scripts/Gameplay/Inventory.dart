@@ -61,6 +61,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     }
 
     void loadInventoryFromJSON(String idontevenKnow) {
+        print("loading inventory from $idontevenKnow");
         if(idontevenKnow == null) return;
         List<dynamic> what = JSON.decode(idontevenKnow);
         //print("what json is $what");
@@ -69,7 +70,9 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             JSONObject j = new JSONObject();
             j.json = d;
             //shit, okay i need to know what kind of object it is
-            inventory.add(Inventoryable.loadItemFromJSON(j));
+            Inventoryable item = Inventoryable.loadItemFromJSON(j);
+            print("adding $item to inventory from json");
+            add(item);
         }
     }
 

@@ -51,6 +51,7 @@ abstract class Inventoryable {
     }
 
     static Inventoryable loadItemFromJSON(JSONObject json) {
+        print("trying to load item from $json");
         //there has to be a better way than this, but essentially i'm doing it like dolls are trigger conditions
         //which is to say, get a list of all possible inventoryable types and see if it matches
         List<Inventoryable> allItems = oneOfEachType();

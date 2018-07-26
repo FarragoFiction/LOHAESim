@@ -89,6 +89,7 @@ class Player extends Secret {
     }
 
     void copyFromJSON(JSONObject json) {
+        print("copying player from json");
         funds = int.parse(json["funds"]);
         topLeftX = int.parse(json["topLeftX"]);
         topLeftY = int.parse(json["topLeftY"]);
