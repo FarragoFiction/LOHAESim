@@ -30,6 +30,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     List<Inventoryable> inventory;
     World world;
+    List<Inventoryable> get saleItems =>inventory.where((Inventoryable t) => t.canSell);
+
 
     Inventory(World this.world, List<Inventoryable> this.inventory) {
 

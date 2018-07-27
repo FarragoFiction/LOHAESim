@@ -15,6 +15,7 @@ import 'package:DollLibCorrect/DollRenderer.dart';
 abstract class Inventoryable {
     static String labelPattern = ":___ ";
 
+    bool canSell = false;
     String name = "???";
     //set this on init
     String type = "???";

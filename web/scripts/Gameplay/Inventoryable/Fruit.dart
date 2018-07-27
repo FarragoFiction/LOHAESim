@@ -10,6 +10,8 @@ class Fruit extends Object with Inventoryable {
     //not necessarily a fruit doll
     Doll doll;
     List<Doll> parents = new List<Doll>();
+    @override
+    bool canSell = true;
 
     CanvasElement _canvas;
     //if dirty redraw tree.
