@@ -19,7 +19,11 @@ Store store;
 //how often do you get new things? every five minutes
 int refreshMinute = 60;
 
+DateTime firstLoad;
+DateTime finallyDoneLoading;
+
 Future<Null> main() async{
+    firstLoad = new DateTime.now();
     await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
@@ -27,6 +31,10 @@ Future<Null> main() async{
     Store store = new Store(ygdrassil, spawnRandomFruit());
     store.createContainer(output);
     store.render();
+    finallyDoneLoading = new DateTime.now();
+    Duration diff = finallyDoneLoading.difference(firstLoad);
+    window.alert("Took ${diff.inMilliseconds} to load!");
+
 }
 
 //this only changes once every hour

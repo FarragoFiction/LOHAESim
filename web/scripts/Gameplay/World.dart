@@ -160,13 +160,18 @@ class World {
     }
 
     void copyFromJSON(JSONObject json) {
-        bossFight = json["bossFight"] ==true.toString();;
+        DateTime startTime = new DateTime.now();
+        bossFight = json["bossFight"] ==true.toString();
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
+        new TimeProfiler("Loading Player", startTime);
+        startTime = new DateTime.now();
         String idontevenKnow = json["trees"];
         loadTreesFromJSON(idontevenKnow);
-
+        new TimeProfiler("Loading Trees", startTime);
+        startTime = new DateTime.now();
         String idontevenKnow2 = json["pastFruit"];
         loadPastFruitFromJSON(idontevenKnow2);
+        new TimeProfiler("Loading Archived Fruit", startTime);
     }
 
     void loadTreesFromJSON(String idontevenKnow) {
@@ -765,5 +770,17 @@ class CustomCursor {
             y = position.y - image.height/2;
         }
         canvas.context2D.drawImage(image, x, y);
+    }
+}
+
+class TimeProfiler {
+    String label;
+    DateTime start;
+    DateTime end;
+
+    TimeProfiler(String this.label, DateTime this.start) {
+        end = new DateTime.now();
+        Duration diff = end.difference(start);
+        print("$label stopped after ${diff.inMilliseconds} ms.");
     }
 }
