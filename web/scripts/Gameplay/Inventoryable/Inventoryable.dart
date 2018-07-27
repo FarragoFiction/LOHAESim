@@ -1,4 +1,5 @@
 import '../Inventory.dart';
+import '../World.dart';
 import 'Ax.dart';
 import 'Essence.dart';
 import 'Flashlight.dart';
@@ -54,10 +55,14 @@ abstract class Inventoryable {
     static Inventoryable loadItemFromJSON(JSONObject json) {
         //there has to be a better way than this, but essentially i'm doing it like dolls are trigger conditions
         //which is to say, get a list of all possible inventoryable types and see if it matches
+        DateTime startTime = new DateTime.now();
         List<Inventoryable> allItems = oneOfEachType();
+        new TimeProfiler("One of Each Type of Item", startTime);
         for(Inventoryable item in allItems) {
             if(item.type == json["type"]) {
+                startTime = new DateTime.now();
                 item.copyFromJSON(json);
+                new TimeProfiler("Initializing $item", startTime);
                 return item;
             };
         }
