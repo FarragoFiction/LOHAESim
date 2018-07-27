@@ -15,6 +15,7 @@ import 'package:RenderingLib/RendereringLib.dart';
 
 class Store extends Inventory {
     List<Inventoryable> saleItems;
+    bool buying = true;
   Store(World world, List<Inventoryable> inventory, List<Inventoryable> this.saleItems) : super(world, inventory);
 
   @override
@@ -23,11 +24,31 @@ class Store extends Inventory {
 
   }
 
+  void buyMode() {
+
+  }
+
+  void sellMode() {
+
+  }
+
 
     @override
     Future<Null> render() async{
-      DivElement buyButton = new DivElement()..text = "Buy"..classes.add("buyTab");
-      DivElement sellButton = new DivElement()..text = "Sell"..classes.add("sellTab");
+      DivElement buyButton = new DivElement()..text = "Buy Items"..classes.add("tab")..classes.add("selectedTab");
+
+      DivElement sellButton = new DivElement()..text = "Sell Items"..classes.add("tab");
+      buyButton.onClick.listen((Event e) {
+          sellButton.classes.remove("selectedTab");
+          buyButton.classes.add("selectedTab");
+          buyMode();
+      });
+
+      sellButton.onClick.listen((Event e) {
+          buyButton.classes.remove("selectedTab");
+          sellButton.classes.add("selectedTab");
+          sellMode();
+      });
 
 
       TableElement outerTable = new TableElement();
