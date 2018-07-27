@@ -47,6 +47,24 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         }
     }
 
+    Future setCanvasForItem(Inventoryable inventoryItem) async {
+        if(inventoryItem is Essence) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is Fruit) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is Ax) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is Flashlight) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is Record) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is YellowYard) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is HelpingHand) {
+            await inventoryItem.setCanvasForStore();
+        }
+    }
+
     JSONObject toJSON() {
         JSONObject json = new JSONObject();
         List<JSONObject> itemArray = new List<JSONObject>();
@@ -182,21 +200,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
       //so they know how to popup
       //tbh i want each kind of inventorable to do something different here, but don't know how to make that a thing
       //and also not have to cast them. deal with it for now
-      if(inventoryItem is Essence) {
-          await inventoryItem.setCanvasForStore();
-      }else if(inventoryItem is Fruit) {
-          await inventoryItem.setCanvasForStore();
-      }else if(inventoryItem is Ax) {
-          await inventoryItem.setCanvasForStore();
-      }else if(inventoryItem is Flashlight) {
-          await inventoryItem.setCanvasForStore();
-      }else if(inventoryItem is Record) {
-          await inventoryItem.setCanvasForStore();
-      }else if(inventoryItem is YellowYard) {
-          await inventoryItem.setCanvasForStore();
-      }else if(inventoryItem is HelpingHand) {
-          await inventoryItem.setCanvasForStore();
-      }
+      setCanvasForItem(inventoryItem);
       inventoryItem.inventory = this;
       if(inventoryColumn != null) {
           inventoryItem.renderMyInventoryRow(inventoryColumn);

@@ -28,9 +28,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     color: #242d26;
     border: 3px solid #242d26;
     display: inline;
-    font-size: 18px;
+    font-size: 16px;
     padding: 5px;
-    border-radius: 15px;
+    border-radius: 3px;
 }
 
 .selectedTab{
