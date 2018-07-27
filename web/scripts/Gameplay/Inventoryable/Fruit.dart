@@ -59,9 +59,9 @@ class Fruit extends Object with Inventoryable {
     @override
     void copyFromJSON(JSONObject json) {
         super.copyFromJSON(json);
+
         try {
             String dollString = json["dollString"];
-            //print("doll string is $dollString");
             doll = Doll.loadSpecificDoll(dollString);
         }catch(e, trace) {
             print("error loading doll for fruit, ${json["dollString"]}, $e, $trace");
@@ -75,6 +75,7 @@ class Fruit extends Object with Inventoryable {
         //print("fruit parents raw is $idontevenKnow");
         List<String> what = JSONObject.jsonStringToStringArray(idontevenKnow);
         //print("as  a set its $what");
+
         for(String w in what) {
             try {
                 if(w != null && w.isNotEmpty) {

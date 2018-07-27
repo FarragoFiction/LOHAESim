@@ -14,7 +14,8 @@ import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class Store extends Inventory {
-  Store(World world, List<Inventoryable> inventory) : super(world, inventory);
+    List<Inventoryable> saleItems;
+  Store(World world, List<Inventoryable> inventory, List<Inventoryable> this.saleItems) : super(world, inventory);
 
   @override
   Element makeRightElement() {
@@ -25,11 +26,20 @@ class Store extends Inventory {
 
     @override
     Future<Null> render() async{
-        TableElement outerTable = new TableElement();
+      DivElement buyButton = new DivElement()..text = "Buy"..classes.add("buyTab");
+      DivElement sellButton = new DivElement()..text = "Sell"..classes.add("sellTab");
+
+
+      TableElement outerTable = new TableElement();
         container.append(outerTable);
         outerTable.classes.add("outerStoreTable");
 
-        TableRowElement row = new TableRowElement();
+      TableRowElement tabs = new TableRowElement();
+      tabs.append(buyButton);
+      tabs.append(sellButton);
+      outerTable.append(tabs);
+
+      TableRowElement row = new TableRowElement();
         outerTable.append(row);
         TableCellElement td1 = new TableCellElement();
         row.append(td1);

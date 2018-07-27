@@ -28,12 +28,13 @@ Future<Null> main() async{
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     //example store, TODO have actual inventory system loaded from cache
-    Store store = new Store(ygdrassil, spawnRandomFruit());
+    Store store = new Store(ygdrassil, spawnRandomFruit(), ygdrassil.underWorld.player.inventory.saleItems);
     store.createContainer(output);
     store.render();
     finallyDoneLoading = new DateTime.now();
     Duration diff = finallyDoneLoading.difference(firstLoad);
     window.alert("Took ${diff.inMilliseconds} to load!");
+
 
 }
 

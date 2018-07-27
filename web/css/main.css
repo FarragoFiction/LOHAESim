@@ -23,6 +23,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
     margin-right: auto;
 }
 
+.buyTab{
+    background-color: #fef4ed;
+    color: #242d26;
+    border: 3px solid #242d26;
+    display: inline;
+    font-size: 48px;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.sellTab{
+    background-color: #fef4ed;
+    color: #242d26;
+    border: 3px solid #242d26;
+    display: inline;
+    font-size: 48px;
+    padding: 5px;
+    border-radius: 15px;
+
+}
+
 
 .inventoryItem{
     background-color: #fef4ed;
