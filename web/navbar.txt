@@ -1,0 +1,43 @@
+<div class = "banner">
+<table><tr><td>
+      <a target="_blank" href = "http://farragofiction.com/"><img src = "images/BGs/fflogoSmol.png"/></a></td>
+    <Td></td>
+    </tr>
+            </table>
+
+</div>
+
+</div>
+<ul class = "menuPureCSS">
+  <span class = 'centeredMenu'>
+
+
+  <li class = "menuButtonPureCSS"><a href="index.html">Data</a></li>
+  <li class = "menuButtonPureCSS"><a href="petInventory.html">Wigglers</a></li>
+    <li class = "menuButtonPureCSS"><a href="itemShop.html">Items</a></li>
+
+    <li class = "menuButtonPureCSS"><a href="playPen.html">Playpen</a></li>
+
+  <li class = "menuButtonPureCSS"><a href="wigglerShop.html">Adopts</a></li>
+    <li class="dropdown menuButtonPureCSS">
+    <a href="javascript:void(0)" class="dropbtn">Alumni</a>
+        <div class="dropdown-content">
+         <a href="viewAlumni.html">Alumni</a>
+         <a href="viewSigns.html">Signs</a>
+    </li>
+    <li class = "menuButtonPureCSS"><a href="currentEmpress.html">Empress</a></li>
+
+            <li class="dropdown menuButtonPureCSS">
+            <a href="javascript:void(0)" class="dropbtn">Info</a>
+                <div class="dropdown-content">
+                <a href="status.html">News</a>
+                <a href="meteors.html">Meteor Your Data</a>
+
+                <a href="http://wigglersim.wikia.com/wiki/WigglerSim_Wiki">Wiki</a>
+            </li>
+  <li class = "menuButtonPureCSS"><a href="https://discord.gg/KPunMPc">DISCORD</a></li>
+  <li class = "menuButtonPureCSS"><a href="http://www.patreon.com/FarragoFiction">SUPPORT</a></li>
+
+  </span>
+</ul>
+

@@ -6,6 +6,7 @@ import '../Gameplay/World.dart';
 import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
+import 'package:CommonLib/NavBar.dart';
 import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 import 'package:DollLibCorrect/DollRenderer.dart';
@@ -19,6 +20,7 @@ Store store;
 int refreshMinute = 60;
 
 Future<Null> main() async{
+    await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     //example store, TODO have actual inventory system loaded from cache

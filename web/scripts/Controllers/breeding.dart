@@ -4,6 +4,7 @@ import '../Gameplay/World.dart';
 import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
+import 'package:CommonLib/NavBar.dart';
 import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 
@@ -11,6 +12,7 @@ Element output = querySelector('#output');
 World ygdrassil = new World();
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
+    await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     await ygdrassil.setupElements(output);
