@@ -729,6 +729,8 @@ class World {
     }
 
     Future<Null> renderLoop()async {
+        //make sure it's the right time
+        await window.animationFrame;
         await render(true);
         //if it needs to interupt it will, but no faster than min Time
         //TODO turn this back on
