@@ -513,6 +513,8 @@ class World {
                 if (fruitLayer != null) {
                      //print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
                     tree.produceFruit(fruitLayer, floweringTrees);
+                    //https://freesound.org/people/morganpurkis/sounds/396012/
+                    playSoundEffect("396012__morganpurkis__rustling-grass-3");
                     //if that was your last fruit, you're slated for removal.
                     if (!tree.doll.hasHangablesAlready()) treesToRemove.add(tree);
                 }

@@ -66,6 +66,7 @@ class Player extends Secret {
     }
 
     void initialInventory() {
+        print("creating initial inventory");
         //add directly to circumvent drawings
         inventory.inventory.add(new HelpingHand(world));
         for(int i = 0; i<3; i++) {
@@ -112,7 +113,8 @@ class Player extends Secret {
         topLeftY = int.parse(json["topLeftY"]);
         //empty array counts too dunkass
         inventory.copyFromJSON(new JSONObject.fromJSONString(json["inventory"]));
-        if(inventory.isEmpty && world.pastFruit.isEmpty) {
+        //if you happen to spawn on an essence you could have exactly one item on init
+        if(inventory.isEmpty || inventory.length == 1 && world.pastFruit.isEmpty) {
             initialInventory();
         }
     }

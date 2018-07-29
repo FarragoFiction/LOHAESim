@@ -44,7 +44,7 @@ abstract class Essence extends CollectableSecret with Inventoryable {
       me.context2D.drawImageScaled(myImage, 0, 0, width, height);
       Renderer.drawToFitCentered(itemCanvas, me);
       //itemCanvas.context2D.drawImageScaled(me, 0,0,itemCanvas.width, itemCanvas.height);
-      print("i drew myself ($name) to the item canvas for the store");
+      //print("i drew myself ($name) to the item canvas for the store");
   }
 
 
