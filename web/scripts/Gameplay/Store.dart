@@ -169,7 +169,7 @@ class StorePopup extends InventoryPopup
     }
 
     void buyCommerce() {
-      if(store.activeItem.canAfford) {
+      if(!store.activeItem.canAfford) {
           textBody.text = rand.pickFrom(store.cantAffordToBuyQuips);
       }else {
           if (store.activeItem is Ax) {
@@ -198,16 +198,19 @@ class StorePopup extends InventoryPopup
         sell(store.activeItem);
     }
 
+    //https://freesound.org/people/tomf_/sounds/121990/
     void sell(Inventoryable item) {
         store.world.updateFunds(item.saleCost);
         store.inventory.add(item);
         store.world.underWorld.player.inventory.remove(item);
+        store.world.playSoundEffect("121990__tomf__coinbag");
     }
 
     void buy(Inventoryable item) {
         store.world.updateFunds(-1*item.saleCost);
         store.inventory.remove(item);
         store.world.underWorld.player.inventory.add(item);
+        store.world.playSoundEffect("121990__tomf__coinbag");
     }
 
     Random get rand {

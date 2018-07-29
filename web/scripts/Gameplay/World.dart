@@ -78,6 +78,7 @@ class World {
     Element fundsElement;
 
     AudioElement backgroundMusic = querySelector("#bgAudio");
+    AudioElement soundEffects = new AudioElement();
     SourceElement mp3 = querySelector("#mp3");
     SourceElement ogg = querySelector("#ogg");
 
@@ -316,6 +317,13 @@ class World {
         container.append(eyes);
         buffer = new CanvasElement(width: width, height: height);
         showAndHideYgdrssylLayers();
+    }
+
+    void playSoundEffect(String locationWithoutExtension) {
+        if(soundEffects.canPlayType("audio/mpeg").isNotEmpty) soundEffects.src = "SoundFX/${locationWithoutExtension}.mp3";
+        if(soundEffects.canPlayType("audio/ogg").isNotEmpty) soundEffects.src = "SoundFX/${locationWithoutExtension}.ogg";
+        soundEffects.play();
+
     }
 
     void changeMusic(String newMusicLocation, bool sync) {
