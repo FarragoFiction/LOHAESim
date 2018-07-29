@@ -15,7 +15,7 @@ import 'package:RenderingLib/RendereringLib.dart';
 
 class Store extends Inventory {
 
-    List<String> axQuips = <String>["This fell of the back of a truck. No, it doesn't look familiar. No, it's not pre-owened. No, it doesn't belong to an angry semi-omnipotent robot god and I'm just trying to offload it to get him off my back why would you think that?"];
+    List<String> axQuips = <String>["This fell of the back of a truck. No, it doesn't look familiar. No, it's not pre-owened. No, it doesn't belong to an angry semi-omnipotent robot god and I'm just trying to offload it to get him off my back why would you think that that would be dumb oh god you're not him in disguise are you i've heard he wears flesh suits sometimes shit if you're him you gotta tell me"];
     List<String> fruitQuips = <String>["Enjoy your juicy treat.", "One out of every ten fruits I sell is actually a vegetable.", "Uh. You sure you want that one?", "Well, ok. Not like I'm in a position to judge your food habits.", "Disclaimer: I am not responsible for disease, mutilation, or death that may cause from misuse of the fruit.", "I mean, if you're sure?"];
     List<String> flashlightQuips = <String>["Why in fuck would you need a flashlight for gardening."];
     List<String> cancelQuips = <String>["Don't waste my time you jackass.","Oh come the fuck on."];
@@ -269,8 +269,8 @@ class StorePopup extends InventoryPopup
         if(store.buying) word = "BUY";
         header.text = "$word ${header.text.replaceAll(": Parents","")}?";
 
-        DivElement yesButton = new DivElement()..text = "YES"..classes.add("storeButton");
-        DivElement noButton = new DivElement()..text = "NO"..classes.add("storeButton");
+        DivElement yesButton = new DivElement()..text = "YES"..classes.add("storeButton")..classes.add("storeButtonColor");
+        DivElement noButton = new DivElement()..text = "NO"..classes.add("storeButton")..classes.add("storeButtonColor");;
 
         yesButton.onClick.listen((Event e) {
             e.stopPropagation(); //don't give it to other things

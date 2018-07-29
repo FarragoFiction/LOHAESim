@@ -91,6 +91,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             j.json = d;
             //shit, okay i need to know what kind of object it is
             Inventoryable item = Inventoryable.loadItemFromJSON(j);
+            if(item is Fruit) item.world = world;
             //print("adding $item to inventory from json");
             inventory.add(item);
         }
@@ -129,6 +130,10 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     void add(Inventoryable item)  {
         inventory.add(item);
+        if(item is Fruit && !(this is Store)) {
+            (item as Fruit).world = world;
+            (item as Fruit).makeArchive();
+        }
         drawOneItem(item);
         world.save();
     }

@@ -20,7 +20,7 @@ abstract class Inventoryable {
     String name = "???";
     //set this on init
     String type = "???";
-    String description = "An item???";
+    String description = "";
     Element myInventoryDiv;
     //things like essences are hidden till you beat the game
     bool hidden = false;

@@ -1,7 +1,39 @@
+.vault{
+    width: 100%;
+    padding: 3px;
+    color: #242d26;
+    background-color: #ffffff;
+    border: 5px solid #242d26;
+    border-radius: 10px;
+}
+
+.details{
+    width: 200px;
+    display: block;
+    margin: 5px;
+    padding: 10px;
+    border: 5px solid #242d26;
+    border-radius: 10px;
+}
+
+.wrapper{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.vaultButton{
+    font-size: 18px;
+    width: 100px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin: 5px;
+    padding-top: 10px;
+    display: inline-block;
+}
 
 .consortStrip{
     position: relative;
-    width: 1420px;
+    width: 100%
     border: 3px solid #242d26;
     background-image: url("../images/BGs/AlternianCliffLoop.png");
     height: 375px;
@@ -20,4 +52,15 @@
     border: 3px solid #aa0fd0;
     border-radius: 45px;
     padding: 15px;
+}
+
+.innerInventoryTableRowVault{
+    width: 50px;
+    height: 55px;
+    padding: 3px;
+    color: #242d26;
+    background-color: #ffffff;
+    border: 5px solid #242d26;
+    border-radius: 10px;
+    display: inline-block;
 }

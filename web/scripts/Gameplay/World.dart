@@ -17,6 +17,13 @@ import "package:DollLibCorrect/DollRenderer.dart";
 import "package:CommonLib/NavBar.dart";
 //yggdrasil
 class World {
+    static World _instance;
+    static World get instance {
+        if(_instance == null) {
+            new World();
+        }
+        return _instance;
+    }
     static String labelPattern = ":___ ";
     static String SAVEKEY = "yggdrasilSAVEDATA";
     int width = 800;
@@ -36,6 +43,8 @@ class World {
 
 
     bool bossFight = false;
+
+    bool get bossDefeated => underWorld.nidhogg.dead || underWorld.nidhogg.purified;
 
     //HEALTH OF THE WORLD DETERMINES THE STATE OF THE TREE
     int health = 0;
@@ -100,6 +109,7 @@ class World {
 
 
     World() {
+        _instance = this;
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
         load();
@@ -127,6 +137,8 @@ class World {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
             copyFromJSON(new JSONObject.fromJSONString(data));
+        }else {
+            underWorld.player.initialInventory();
         }
     }
 
@@ -152,7 +164,7 @@ class World {
 
         List<JSONObject> fruitArray = new List<JSONObject>();
         for(ArchivedFruit fruit in pastFruit.values) {
-            treeArray.add(fruit.toJSON());
+            fruitArray.add(fruit.toJSON());
         }
         json["pastFruit"] = fruitArray.toString();
         return json;
@@ -366,6 +378,7 @@ class World {
     void activateBossFight() {
         bossFightJustStarted = true;
         consortPrint("oh god why did you do this?? NIDHOGG IS AWAKE!! there's a reason we kept gnawing away the trees!! they give him life!!");
+        consortPrint("oh right i remember now, LOHAE is also the land of HORRORTICULTURE and ESSENCE. how could i forget that?");
         bossFight = true;
         //show 'then perish'
         ImageElement thenPerish = new ImageElement(src: "images/BGs/thenperish.png");

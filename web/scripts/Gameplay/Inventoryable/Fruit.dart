@@ -1,4 +1,5 @@
 import '../Inventoryable/Inventoryable.dart';
+import '../Player.dart';
 import '../World.dart';
 import 'dart:async';
 import 'dart:html';
@@ -28,7 +29,7 @@ class Fruit extends Object with Inventoryable {
         return _canvas;
     }
 
-    Fruit(World world, Doll this.doll) {
+    Fruit(World this.world, Doll this.doll) {
         name = doll.dollName;
         type = "Fruit";
     }
@@ -37,9 +38,15 @@ class Fruit extends Object with Inventoryable {
     //as well as giving me an idea if it's a new game or not
     ArchivedFruit makeArchive() {
         if(world != null && !(this is ArchivedFruit)) {
-            ArchivedFruit archive = new ArchivedFruit(doll);
-            archive.description = description;
-            world.pastFruit[doll.toDataBytesX()]= archive;
+            String key = doll.toDataBytesX();
+            if(!world.pastFruit.containsKey(key)){
+                consortPrint("archiving $name!! now we will have this for generations!!");
+                ArchivedFruit archive = new ArchivedFruit(doll);
+                archive.description = description;
+                archive.cost = cost;
+                world.pastFruit[key]= archive;
+                world.save();
+            }
         }
     }
 
@@ -48,7 +55,7 @@ class Fruit extends Object with Inventoryable {
     JSONObject toJSON() {
         JSONObject json = super.toJSON();
         json["dollString"] = doll.toDataBytesX();
-        print("saving fruit dollstring of ${json["dollString"]}");
+        //print("saving fruit dollstring of ${json["dollString"]}");
         List<String> parentArray = new List<String>();
         for(Doll parent in parents) {
             parentArray.add(parent.toDataBytesX());
@@ -131,16 +138,20 @@ class Fruit extends Object with Inventoryable {
     }
 
     Future<Null> setDescription() async {
-        if(textEngine == null) {
-            textEngine = new TextEngine(doll.seed);
-            await textEngine.loadList("fruitDescriptions");
-        }
+        print("setting desc");
+        if(description.isEmpty) {
+            if (textEngine == null) {
+                textEngine = new TextEngine(doll.seed);
+                await textEngine.loadList("fruitDescriptions");
+            }
 
-       description = "${textEngine.phrase("FruitDescriptions")}";
-        Random rand = new Random(doll.seed);
-        cost = rand.nextIntRange(13, 113);
-        //only archive if the player actually owns this, not if they see it in the store.
-        if(world != null && world.underWorld.player.inventory.contains(this)){
+            description = "${textEngine.phrase("FruitDescriptions")}";
+            Random rand = new Random(doll.seed);
+            cost = rand.nextIntRange(13, 113);
+            //only archive if the player actually owns this, not if they see it in the store.
+
+        }
+        if (world != null && world.underWorld.player.inventory.contains(this)) {
             makeArchive();
         }
     }
@@ -152,6 +163,8 @@ class Fruit extends Object with Inventoryable {
 //no unneccessary info like about parents
 class ArchivedFruit extends Fruit {
     String type = "ArchivedFruit";
+    DivElement details;
+    Element wrapper;
 
   ArchivedFruit(Doll doll) : super(null,doll);
 
@@ -160,5 +173,62 @@ class ArchivedFruit extends Fruit {
         JSONObject json = super.toJSON();
         json.remove("parents"); //don't bother savings, this will be a HUGE amount of data since it will be trees
         return json;
+    }
+
+    void renderDetails(Element wrapper) {
+        details = new DivElement()..classes.add("details");
+        details.style.display = "none";
+        wrapper.append(details);
+
+        DivElement header = new DivElement()..text = name;
+        DivElement value = new DivElement()..text = "Value: $cost";
+        DivElement descElement = new DivElement()..text = description;
+        descElement.style.marginTop = "10px";
+
+        details.append(header);
+        details.append(value);
+        details.append(descElement);
+
+    }
+
+    void toggleDetails() {
+        if(details.style.display == "none") {
+            details.style.display = "block";
+        }else {
+            details.style.display = "none";
+        }
+    }
+
+    bool hasTerm(String term) {
+        if(name.toLowerCase().contains(term.toLowerCase())) return true;
+        if(description.toLowerCase().contains(term.toLowerCase())) return true;
+    }
+
+    void show() {
+        wrapper.style.display = "inline-block";
+    }
+
+    void hide() {
+        wrapper.style.display = "none";
+    }
+
+    void renderMyVault(DivElement parent) {
+        wrapper = new DivElement()..classes.add("wrapper");
+        myInventoryDiv = new DivElement();
+        myInventoryDiv.classes.add("innerInventoryTableRowVault");
+        parent.append(wrapper);
+        wrapper.append(myInventoryDiv);
+        renderDetails(wrapper);
+
+
+        //print("going to append item canvas for $name");
+        myInventoryDiv.append(itemCanvas);
+        itemCanvas.classes.add("imageCell");
+
+
+        myInventoryDiv.onClick.listen((MouseEvent e) {
+            toggleDetails();
+        });
+
     }
 }

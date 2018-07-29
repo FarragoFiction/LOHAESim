@@ -1,3 +1,6 @@
+import '../Gameplay/Consort.dart';
+import '../Gameplay/Inventoryable/Fruit.dart';
+import '../Gameplay/Player.dart';
 import '../Gameplay/World.dart';
 import 'dart:async';
 import 'dart:html';
@@ -7,94 +10,80 @@ import 'dart:math' as Math;
 import 'package:CommonLib/Collection.dart';
 import 'package:CommonLib/NavBar.dart';
 import 'package:CommonLib/Random.dart';
+import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
+import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
-Element output = querySelector('#output');
+Element output = querySelector('body');
 World ygdrassil = new World();
 
-List<Consort> consorts = new List<Consort>();
 
 Future<Null> main() async {
     await loadNavbar();
-    spawnConsorts();
+    await OldRenderer.Loader.preloadManifest();
+    Consort.spawnConsorts(output);
+    processVault();
 }
 
-void spawnConsorts() {
-    DivElement strip = new DivElement()..classes.add("consortStrip");
-    output.append(strip);
-    Random rand = new Random();
-    int x = rand.nextInt(10) - 5;
-    bool flip = false; //only one can flip out
-    bool alligator = false;
-    int max = 3;
-    int numberConsorts = rand.nextInt(13)+1;
-    for(int i = 0; i<numberConsorts; i++) {
-        if(flip) max = 2;
-        int image = rand.nextInt(max);
-        if(image == 4) flip = true;
-        consorts.add(new Consort(strip,x, "$image.gif"));
-        x += rand.nextInt(300);
-        if(x > 1000) x = 0;
-    }
-}
-
-
-class Consort {
-    ImageElement imageElement;
-    int x = 0;
-    int textY = 250;
-    Element container;
-    Element chatter;
-    Random rand = new Random();
-    bool up = true;
-    WeightedList<String> chats = new WeightedList();
-
-    Consort(Element this.container, int this.x, String src) {
-        rand.nextInt(); //init
-        up = rand.nextBool();
-        imageElement = new ImageElement(src: "images/Beavers/$src");
-        imageElement.style.left = "${x}px";
-        imageElement.classes.add("consort");
-        container.append(imageElement);
-        chatter = new DivElement()..text = "thwap!";
-        initTopics();
-        talk();
-        animate();
-    }
-
-    void initTopics() {
-        chats.add("",2);
-        chats.add("thwap!");
-        chats.add("seeds!");
-        chats.add("i love trees!");
-        chats.add("trees!");
-        chats.add("so many seeds!");
-
-    }
-
-    void talk() {
-        chatter.text = rand.pickFrom(chats);
-        if(chatter.text.isEmpty) {
-            chatter.style.display = "none";
-        }else {
-            chatter.style.display = "block";
+void doToggleButton(Element vault) {
+    DivElement button = new DivElement()..text = "Toggle All"..classes.add("vaultButton")..classes.add("storeButtonColor");
+    vault.append(button);
+    button.style.display = "block";
+    button.onClick.listen((Event e)
+    {
+        List<Fruit> fruits = new List.from(ygdrassil.pastFruit.values);
+        for(ArchivedFruit fruit in fruits) {
+            fruit.toggleDetails();
         }
-        chatter.classes.add("chatter");
-        chatter.style.left = "${x + 100}px";
-        chatter.style.bottom = "250px";
-        container.append(chatter);
-    }
-
-    Future<Null> animate() async{
-        if(up) {
-            chatter.style.bottom = "240px";
-                up = false;
-        }else {
-            chatter.style.bottom = "250px";
-            up = true;
-        }
-        await window.animationFrame;
-        new Timer(new Duration(milliseconds: 77), () => animate());
-    }
-
-
+    });
 }
+
+void doSearch(Element vault) {
+    TextInputElement input = new TextInputElement();
+    DivElement button = new DivElement()..text = "Filter"..classes.add("vaultButton")..classes.add("storeButtonColor");
+    vault.append(input);
+    vault.append(button);
+    button.onClick.listen((Event e)
+    {
+        String term = input.value.toLowerCase();
+        List<Fruit> fruits = new List.from(ygdrassil.pastFruit.values);
+        for(ArchivedFruit fruit in fruits) {
+            if(term.isEmpty || fruit.hasTerm(term)) {
+                fruit.show();
+            }else {
+                fruit.hide();
+            }
+        }
+    });
+}
+
+Future<Null> processVault() async {
+    consortPrint("thwap!! there are ${ygdrassil.pastFruit.values.length} seeds in the vault!!");
+    DivElement vault = new DivElement();
+    doSearch(vault);
+    doToggleButton(vault);
+    vault.classes.add('vault');
+    output.append(vault);
+    List<Fruit> fruits = new List.from(ygdrassil.pastFruit.values);
+    //if they are all fruit, sort by body number, otherwise sort by doll type
+    fruits.sort((Fruit a, Fruit b) {
+        if(a.doll is FruitDoll && b.doll is FruitDoll) {
+            return (a.doll as FruitDoll).body.imgNumber.compareTo((b.doll as FruitDoll).body.imgNumber);
+        }else {
+            return a.doll.renderingType.compareTo(b.doll.renderingType);
+        }
+
+    });
+
+    for(ArchivedFruit fruit in fruits) {
+        SpanElement wrapper = new SpanElement();
+        vault.append(wrapper);
+        //don't await it will be in same order no matter what
+        initOneVaultCell(fruit, wrapper);
+    }
+}
+
+Future<Null> initOneVaultCell(ArchivedFruit fruit, Element wrapper) async {
+    await fruit.setCanvasForStore();
+    await fruit.renderMyVault(wrapper);
+}
+
