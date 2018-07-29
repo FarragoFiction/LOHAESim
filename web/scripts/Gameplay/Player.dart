@@ -52,7 +52,7 @@ class Player extends Secret {
         inventory.inventory.add(new YellowYard(world));
         inventory.inventory.add(new Ax(world));
         inventory.addAll(Record.spawn(world));
-        for(int i = 0; i<13; i++) {
+        for(int i = 0; i<3; i++) {
             initialFruitInventory();
         }
     }

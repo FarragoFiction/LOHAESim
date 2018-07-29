@@ -14,6 +14,13 @@ import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class Store extends Inventory {
+
+    List<String> axQuips = <String>["[INSERT QUIP ABOUT FELL OFF A TRUCK HERE]"];
+    List<String> fruitQuips = <String>["[GENERIC QUIPS ABOUT FRUIT BUYING]", "[EVEN MORE GENERIC QUIPS ABOUT BUYING FRUIT]"];
+    List<String> flashlightQuips = <String>["[FLASHLIGHT QUIP GOES HERE]"];
+    List<String> cancelQuips = <String>["[INSERT SARCASTIC QUIPS ABOUT CACELING HERE]","[SARCASTIC CANCEL GOES HERE]"];
+
+
     List<Inventoryable> saleItems;
     Element buyTable;
     Element sellTable;
@@ -70,7 +77,7 @@ class Store extends Inventory {
             //so they know how to popup
             await setCanvasForItem(inventoryItem);
             inventoryItem.inventory = this;
-            inventoryItem.renderStoreInventoryRow(sellTable);
+            inventoryItem.renderStoreInventoryRow(sellTable, true);
         }
 
     }
@@ -83,7 +90,7 @@ class Store extends Inventory {
             //so they know how to popup
             await setCanvasForItem(inventoryItem);
             inventoryItem.inventory = this;
-            inventoryItem.renderStoreInventoryRow(buyTable);
+            inventoryItem.renderStoreInventoryRow(buyTable,false);
         }
     }
 
@@ -113,7 +120,7 @@ class Store extends Inventory {
         td2.append(rightElement);
         row.append(td2);
 
-        popup = new StorePopup(container);
+        popup = new StorePopup(container, this);
 
     }
 
@@ -124,8 +131,9 @@ class Store extends Inventory {
 
 class StorePopup extends InventoryPopup
 {
+    Store store;
 
-    StorePopup(Element parent) : super(parent) {
+    StorePopup(Element parent, Store this.store) : super(parent) {
         container = new DivElement();
         container.onClick.listen((Event e) {
             if(visible()) {
@@ -143,8 +151,11 @@ class StorePopup extends InventoryPopup
         container.append(textBody);
         textBody.classes.add("popupBody");
         textBody.setInnerHtml("Lorem Ipsum Dolor definitely not a typo okay?<br><br>More Lorem shit I promise okay???");
+
         parent.append(container);
+
     }
+
 
     @override
     Future<Null> popup(Inventoryable chosenItem, {Point point, Element preview}) async {
@@ -170,6 +181,19 @@ class StorePopup extends InventoryPopup
         cycle();
     }
 
+    void handlePurchasePopup() {
+        textBody.style.display = "block";
+        textBody.setInnerHtml("");
+        parentScroll.style.display = "none";
+        String word = "SELL";
+        if(store.buying) word = "BUY";
+        header.text = "$word ${header.text.replaceAll(": Parents","")}?";
+
+        DivElement buyButton = new DivElement()..text = "Buy";
+        DivElement sellButton = new DivElement()..text = "Sell";
+        textBody.append(buyButton)..append(sellButton);
+    }
+
     @override
     void cycle() {
         //print("cycling, step is $step");
@@ -180,6 +204,8 @@ class StorePopup extends InventoryPopup
             textBody.style.display = "none";
             parentScroll.style.display = "block";
             header.text = "${header.text}: Parents";
+        }else if(step == 2){
+            handlePurchasePopup();
         }else {
             if(parentScroll != null)parentScroll.remove();
             dismiss();

@@ -21,6 +21,7 @@ class Fruit extends Object with Inventoryable {
 
     Future<CanvasElement> get canvas async {
         if(_canvas == null || dirty) {
+            print("getting canvas, my doll is ${doll.associatedColor}");
             _canvas = new CanvasElement(width: doll.width, height: doll.height);
             await DollRenderer.drawDoll(_canvas, doll);
         }
@@ -47,6 +48,7 @@ class Fruit extends Object with Inventoryable {
     JSONObject toJSON() {
         JSONObject json = super.toJSON();
         json["dollString"] = doll.toDataBytesX();
+        print("saving fruit dollstring of ${json["dollString"]}");
         List<String> parentArray = new List<String>();
         for(Doll parent in parents) {
             parentArray.add(parent.toDataBytesX());
@@ -62,7 +64,10 @@ class Fruit extends Object with Inventoryable {
 
         try {
             String dollString = json["dollString"];
+            print("before i load the specific doll ${dollString}, my doll is ${doll.associatedColor}");
             doll = Doll.loadSpecificDoll(dollString);
+            print("after i load the specific doll ${dollString}, my doll is ${doll.associatedColor}");
+
         }catch(e, trace) {
             print("error loading doll for fruit, ${json["dollString"]}, $e, $trace");
         }

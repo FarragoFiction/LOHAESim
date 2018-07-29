@@ -25,6 +25,8 @@ abstract class Inventoryable {
     //things like essences are hidden till you beat the game
     bool hidden = false;
     int cost = 113;
+    //when you're selling a thing, you sell at a fraction of its value
+    int get saleCost => (cost/10).ceil();
     Inventory inventory; //will be set when there's a store
     //up to whoever uses me to make this a thing
     CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);
@@ -96,7 +98,7 @@ abstract class Inventoryable {
         name = json["name"];
     }
 
-    void renderStoreInventoryRow(DivElement parent) {
+    void renderStoreInventoryRow(DivElement parent, bool forSelling) {
         myInventoryDiv = new DivElement();
         myInventoryDiv.classes.add("innerStoreTableRow");
         parent.append(myInventoryDiv);
@@ -105,7 +107,9 @@ abstract class Inventoryable {
         myInventoryDiv.append(itemCanvas);
         itemCanvas.classes.add("imageCell");
 
-        DivElement costCell = new DivElement()..text = "\$$cost";
+        int realCost = cost;
+        if(forSelling) realCost = saleCost;
+        DivElement costCell = new DivElement()..text = "\$$realCost";
         costCell.classes.add("costCell");
         myInventoryDiv.append(costCell);
 
