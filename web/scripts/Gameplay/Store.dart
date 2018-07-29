@@ -18,8 +18,10 @@ class Store extends Inventory {
     List<String> axQuips = <String>["[INSERT QUIP ABOUT FELL OFF A TRUCK HERE]"];
     List<String> fruitQuips = <String>["[GENERIC QUIPS ABOUT FRUIT BUYING]", "[EVEN MORE GENERIC QUIPS ABOUT BUYING FRUIT]"];
     List<String> flashlightQuips = <String>["[FLASHLIGHT QUIP GOES HERE]"];
-    List<String> cancelQuips = <String>["[INSERT SARCASTIC QUIPS ABOUT CACELING HERE]","[SARCASTIC CANCEL GOES HERE]"];
-
+    List<String> cancelQuips = <String>["[INSERT SARCASTIC QUIPS ABOUT CANCELING HERE]","[SARCASTIC CANCEL GOES HERE]"];
+    List<String> recordQuips = <String>["[GENERIC QUIPS ABOUT RECORD BUYING]", "[EVEN MORE GENERIC QUIPS ABOUT BUYING RECORDS]"];
+    List<String> sellfruitQuips = <String>["[GENERIC QUIPS ABOUT FRUIT SELLING]", "[EVEN MORE GENERIC QUIPS ABOUT SELLING FRUIT]"];
+    List<String> cantAffordToBuyQuips = <String>["[GENERIC QUIPS ABOUT YOU BEING BROKE]", "[EVEN MORE GENERIC QUIPS ABOUT YOU BEING BROKE]"];
 
     List<Inventoryable> saleItems;
     Element buyTable;
@@ -156,6 +158,27 @@ class StorePopup extends InventoryPopup
 
     }
 
+    void commerce() {
+        if(store.buying) {
+
+        }else {
+
+        }
+    }
+
+    Random get rand {
+        //same fruit always gets the same responses from manic
+        if(store.activeItem is Fruit) {
+            return new Random((store.activeItem as Fruit).doll.seed);
+        }
+        return new Random();
+    }
+
+    void failedCommerce() {
+
+        textBody.text = rand.pickFrom(store.cancelQuips);
+    }
+
 
     @override
     Future<Null> popup(Inventoryable chosenItem, {Point point, Element preview}) async {
@@ -198,6 +221,16 @@ class StorePopup extends InventoryPopup
 
         DivElement yesButton = new DivElement()..text = "YES"..classes.add("storeButton");
         DivElement noButton = new DivElement()..text = "NO"..classes.add("storeButton");
+
+        yesButton.onClick.listen((Event e) {
+            e.stopPropagation(); //don't give it to other things
+            commerce();
+        });
+
+        noButton.onClick.listen((Event e) {
+            e.stopPropagation(); //don't give it to other things
+            failedCommerce();
+        });
         textBody.append(yesButton);
         textBody.append(noButton);
     }

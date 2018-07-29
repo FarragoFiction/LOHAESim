@@ -10,6 +10,8 @@ class Record extends CollectableSecret with Inventoryable{
 
     String songName;
     bool isFraymotif = false;
+    @override
+    bool canSell = true;
 
     String get happy => songName;
     String get creepy {
