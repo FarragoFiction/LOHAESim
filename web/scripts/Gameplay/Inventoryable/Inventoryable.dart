@@ -26,7 +26,7 @@ abstract class Inventoryable {
     bool hidden = false;
     int cost = 113;
     //when you're selling a thing, you sell at a fraction of its value
-    int get saleCost => (cost/10).ceil();
+    int get saleCost => (cost/5).ceil();
     Inventory inventory; //will be set when there's a store
     //up to whoever uses me to make this a thing
     CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);

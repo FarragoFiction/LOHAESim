@@ -18,6 +18,7 @@
     <li class = "menuButtonPureCSS"><a href="meteor.html">Manage Data</a></li>
 
     <li class = "menuButtonPureCSS"><a href="about.html">FAQ</a></li>
+    <li class = "menuButtonPureCSS"><a href="index_pw.html">[??]</a></li>
 
   <li class = "menuButtonPureCSS"><a href="https://discord.gg/KPunMPc">DISCORD</a></li>
   <li class = "menuButtonPureCSS"><a href="http://www.patreon.com/FarragoFiction">SUPPORT</a></li>

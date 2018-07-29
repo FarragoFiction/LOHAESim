@@ -1,0 +1,48 @@
+.container{
+    width: 100%;
+    padding: 3px;
+    color: #242d26;
+}
+
+.faqWrapper{
+    border: 3px solid #242d26;
+    border-radius: 15px;
+    background-color: #fef4ed;
+}
+.questionHeader{
+    border: 3px solid #242d26;
+    color: #fef4ed;
+    font-size: 18px;
+    background-color: #204020;
+    border-radius: 15px;
+    margin: 15px;
+}
+
+.answerBody{
+    text-align: left;
+    padding: 15px;
+
+}
+
+.consortStrip{
+    position: relative;
+    height: 375px;
+    vertical-align: bottom;
+    background-image: url("../images/BGs/AlternianCliff.png");
+    width: 150px;
+}
+
+.consort{
+    vertical-align: bottom;
+}
+
+
+
+.chatter{
+    position:absolute;
+    color: #4e2370;
+    background: #dcb4e9;
+    border: 3px solid #aa0fd0;
+    border-radius: 45px;
+    padding: 15px;
+}

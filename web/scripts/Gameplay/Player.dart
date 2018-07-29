@@ -42,6 +42,7 @@ class Player extends Secret {
                 essenceCount ++;
             }
         }
+        owoPrint("Hey New Friend, you have ${essenceCount} essences already!");
         return essenceCount > 3;
     }
 

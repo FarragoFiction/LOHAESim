@@ -13,6 +13,7 @@ class Consort {
     int talkCount = 0;
     Element container;
     Element chatter;
+    static int max = 1;
     Random rand = new Random();
     bool up = true;
     WeightedList<String> chats = new WeightedList();
@@ -37,17 +38,13 @@ class Consort {
         output.append(strip);
         Random rand = new Random();
         int x = rand.nextInt(10) - 5;
-        bool flip = false; //only one can flip out
         bool alligator = false;
-        int max = 3;
         int numberConsorts = rand.nextInt(5)+1;
         if(rand.nextDouble()<.1) {
             numberConsorts = rand.nextInt(13)+1;
         }
         for(int i = 0; i<numberConsorts; i++) {
-            if(flip) max = 2;
             int image = rand.nextInt(max);
-            if(image == 4) flip = true;
             new Consort(strip,x, "$image.gif");
             x += rand.nextInt(500)+50;
             if(x > 1000) x = 0;
@@ -122,4 +119,25 @@ class Consort {
     }
 
 
+}
+
+class FAQConsort extends Consort {
+  FAQConsort(Element container, int x, String src) : super(container, x, src);
+
+  @override
+  void initTopics() {
+      chats.add("",10.0);
+      chats.add("thwap!!",10.0);
+      chats.add("thwap thwap!!",10.0);
+      chats.add("seeds!!",2);
+      chats.add("hi!!",2);
+      chats.add("??",10);
+      chats.add("i love trees!!");
+      chats.add("trees!!",2);
+      chats.add("fruit!!",2);
+      chats.add("flowers!!",2);
+      chats.add("leaves!!",2);
+      chats.add("lohae has two names!!",0.3);
+
+  }
 }

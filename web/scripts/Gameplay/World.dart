@@ -121,6 +121,7 @@ class World {
     void updateFunds(int amountToChange) {
         underWorld.player.funds += amountToChange;
         syncFunds();
+        save();
     }
 
     void syncFunds() {

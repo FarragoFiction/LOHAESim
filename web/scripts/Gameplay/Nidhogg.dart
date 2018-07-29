@@ -156,12 +156,12 @@ class Nidhogg extends CollectableSecret {
 
   bool checkItem(Inventoryable item) {
       if(item is Ax) {
-          if(!purified) owoPrint("You can't do that New Friend, you're not Mister Shogunbot!! There is probably ANOTHER way for you to do damage to the big meanie!!");
+          if(!purified) owoPrint("You can't do that New Friend, you're not Mister Shogunbot!!! There is probably ANOTHER way for you to do damage to the big meanie!!!");
       }else if(item is Fruit) {
           if(getParameterByName("haxMode") == "on") {
               return true;
           }else{
-              if(!purified) owoPrint("I think that's a good idea, New Friend, but how would you plant trees underground??");
+              if(!purified) owoPrint("I think that's a good idea, New Friend, but how would you plant trees underground???");
           }
       }else if(item is HelpingHand) {
           if(!purified) {
