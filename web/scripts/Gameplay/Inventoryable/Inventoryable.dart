@@ -31,6 +31,13 @@ abstract class Inventoryable {
     //up to whoever uses me to make this a thing
     CanvasElement itemCanvas = new CanvasElement(width: 50, height: 50);
 
+    bool get canAfford {
+        if(inventory != null) {
+            if(inventory.world.underWorld.player.funds >= cost) return true;
+        }
+        return false;
+    }
+
     String toDataString() {
         try {
             String ret = toJSON().toString();

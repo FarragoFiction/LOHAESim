@@ -21,6 +21,8 @@ class Store extends Inventory {
     List<String> cancelQuips = <String>["[INSERT SARCASTIC QUIPS ABOUT CANCELING HERE]","[SARCASTIC CANCEL GOES HERE]"];
     List<String> recordQuips = <String>["[GENERIC QUIPS ABOUT RECORD BUYING]", "[EVEN MORE GENERIC QUIPS ABOUT BUYING RECORDS]"];
     List<String> sellfruitQuips = <String>["[GENERIC QUIPS ABOUT FRUIT SELLING]", "[EVEN MORE GENERIC QUIPS ABOUT SELLING FRUIT]"];
+    List<String> sellRecordQuips = <String>["[GENERIC QUIPS ABOUT RECORD SELLING]", "[EVEN MORE GENERIC QUIPS ABOUT SELLING RECORDS]"];
+
     List<String> cantAffordToBuyQuips = <String>["[GENERIC QUIPS ABOUT YOU BEING BROKE]", "[EVEN MORE GENERIC QUIPS ABOUT YOU BEING BROKE]"];
 
     List<Inventoryable> saleItems;
@@ -160,10 +162,52 @@ class StorePopup extends InventoryPopup
 
     void commerce() {
         if(store.buying) {
-
+            buyCommerce();
         }else {
-
+            sellCommerce();
         }
+    }
+
+    void buyCommerce() {
+      if(store.activeItem.canAfford) {
+          textBody.text = rand.pickFrom(store.cantAffordToBuyQuips);
+      }else {
+          if (store.activeItem is Ax) {
+              textBody.text = rand.pickFrom(store.axQuips);
+          } else if (store.activeItem is Fruit) {
+              textBody.text = rand.pickFrom(store.fruitQuips);
+          } else if (store.activeItem is Flashlight) {
+              textBody.text = rand.pickFrom(store.flashlightQuips);
+          } else if (store.activeItem is Record) {
+              textBody.text = rand.pickFrom(store.recordQuips);
+          }else {
+              textBody.text = "???";
+          }
+          buy(store.activeItem);
+      }
+    }
+
+    void sellCommerce() {
+        if (store.activeItem is Fruit) {
+            textBody.text = rand.pickFrom(store.sellfruitQuips);
+        } else if (store.activeItem is Record) {
+            textBody.text = rand.pickFrom(store.sellRecordQuips);
+        }else {
+            textBody.text = "???";
+        }
+        sell(store.activeItem);
+    }
+
+    void sell(Inventoryable item) {
+        store.world.updateFunds(item.saleCost);
+        store.inventory.add(item);
+        store.world.underWorld.player.inventory.remove(item);
+    }
+
+    void buy(Inventoryable item) {
+        store.world.updateFunds(-1*item.saleCost);
+        store.inventory.remove(item);
+        store.world.underWorld.player.inventory.add(item);
     }
 
     Random get rand {

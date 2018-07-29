@@ -129,7 +129,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     void add(Inventoryable item)  {
         inventory.add(item);
-         drawOneItem(item);
+        drawOneItem(item);
+        world.save();
     }
 
     void addAll(List<Inventoryable> items) {
@@ -141,6 +142,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     void remove(Inventoryable item) {
         inventory.remove(item);
+        if(item.myInventoryDiv != null) item.myInventoryDiv.remove();
+        world.save();
     }
 
     void handleItemClick(Inventoryable item, {Element preview}) {
