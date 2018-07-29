@@ -170,6 +170,10 @@ class StorePopup extends InventoryPopup
             header.append(previewBox);
         }
         textBody.setInnerHtml("${chosenItem.description}");
+        if(parentScroll != null) {
+            parentScroll.remove();
+            parentScroll = null;
+        }
         if(chosenItem is Fruit) {
             if(parentScroll != null) parentScroll.remove();
             parentScroll = await chosenItem.generateHorizontalScrollOfParents();
@@ -184,14 +188,18 @@ class StorePopup extends InventoryPopup
     void handlePurchasePopup() {
         textBody.style.display = "block";
         textBody.setInnerHtml("");
-        parentScroll.style.display = "none";
+        if(parentScroll != null) {
+            parentScroll.remove();
+            parentScroll = null;
+        }
         String word = "SELL";
         if(store.buying) word = "BUY";
         header.text = "$word ${header.text.replaceAll(": Parents","")}?";
 
-        DivElement buyButton = new DivElement()..text = "Buy";
-        DivElement sellButton = new DivElement()..text = "Sell";
-        textBody.append(buyButton)..append(sellButton);
+        DivElement yesButton = new DivElement()..text = "YES"..classes.add("storeButton");
+        DivElement noButton = new DivElement()..text = "NO"..classes.add("storeButton");
+        textBody.append(yesButton);
+        textBody.append(noButton);
     }
 
     @override
@@ -204,10 +212,13 @@ class StorePopup extends InventoryPopup
             textBody.style.display = "none";
             parentScroll.style.display = "block";
             header.text = "${header.text}: Parents";
-        }else if(step == 2){
+        }else if(step == 2 || step == 1 && parentScroll == null){
             handlePurchasePopup();
         }else {
-            if(parentScroll != null)parentScroll.remove();
+            if(parentScroll != null) {
+                parentScroll.remove();
+                parentScroll = null;
+            }
             dismiss();
         }
         step ++;

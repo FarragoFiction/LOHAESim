@@ -31,13 +31,14 @@ Future<Null> main() async{
     await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
+    ygdrassil.makeFundsElement(querySelector("#navbar"));
     //example store, TODO have actual inventory system loaded from cache
     Store store = new Store(ygdrassil, spawnInventory(), ygdrassil.underWorld.player.inventory.saleItems);
     store.createContainer(output);
     store.render();
     finallyDoneLoading = new DateTime.now();
     Duration diff = finallyDoneLoading.difference(firstLoad);
-    window.alert("Took ${diff.inMilliseconds} to load!");
+    print("Took ${diff.inMilliseconds} to load!");
 
 
 }

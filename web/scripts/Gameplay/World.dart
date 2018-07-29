@@ -75,6 +75,8 @@ class World {
     ImageElement eyes;
     ImageElement tentacles;
 
+    Element fundsElement;
+
     AudioElement backgroundMusic = querySelector("#bgAudio");
     SourceElement mp3 = querySelector("#mp3");
     SourceElement ogg = querySelector("#ogg");
@@ -103,6 +105,15 @@ class World {
         //testTrees();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
+    }
+
+    void updateFunds(int amountToChange) {
+        underWorld.player.funds += amountToChange;
+        syncFunds();
+    }
+
+    void syncFunds() {
+        fundsElement.text = "Funds: \$${underWorld.player.funds}";
     }
 
     void save() {
@@ -206,6 +217,13 @@ class World {
         //want inventory on left, world on right
         await underWorld.player.drawInventory(parentContainer);
         container = underWorld.player.inventory.rightElement;
+
+    }
+
+    void makeFundsElement(Element parent) {
+        fundsElement = new DivElement()..classes.add("funds");
+        parent.append(fundsElement);
+        syncFunds();
     }
 
     void testTrees() {

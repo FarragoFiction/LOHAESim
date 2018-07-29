@@ -15,6 +15,7 @@ Future<Null> main() async {
     await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
+    ygdrassil.makeFundsElement(querySelector("#navbar"));
     await ygdrassil.setupElements(output);
     ygdrassil.renderLoop();
     hookUpTestControls();

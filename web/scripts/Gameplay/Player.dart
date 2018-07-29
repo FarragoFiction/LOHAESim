@@ -31,7 +31,7 @@ class Player extends Secret {
     int minX = 0;
     int minY = 0;
     Inventory inventory;
-    int funds = 0;
+    int funds = 4037;
 
     bool get canBuyFlashlight {
         int essenceCount = 0;

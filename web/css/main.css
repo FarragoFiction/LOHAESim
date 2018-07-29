@@ -18,6 +18,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
   color: #ffffff;
 }
 
+.storeButton{
+    border: 8px solid #900618;
+    background-color: #b3041b;
+    font-size: 32px;
+    width: 100px;
+    display: inline;
+    border-right: none;
+    border-top: none;
+    padding-left: 33px;
+    padding-right: 33px;
+    margin: 50px;
+    padding-top: 10px;
+}
+
+.funds{
+    margin-left: 148px;
+}
+
 .outerStoreTable{
     margin-left: auto;
     margin-right: auto;
