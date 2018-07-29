@@ -24,6 +24,8 @@ class UnderWorld {
     List<Essence> essences;
     List<Essence> essencesToRemove = new List<Essence>();
 
+
+
     UnderWorld(World this.world) {
         nidhogg = new Nidhogg(world);
         player = new Player(world, width, height);

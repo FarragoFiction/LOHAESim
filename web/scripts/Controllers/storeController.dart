@@ -1,5 +1,9 @@
+import '../Gameplay/Inventoryable/Ax.dart';
 import '../Gameplay/Inventoryable/Essence.dart';
+import '../Gameplay/Inventoryable/Flashlight.dart';
 import '../Gameplay/Inventoryable/Fruit.dart';
+import '../Gameplay/Inventoryable/Inventoryable.dart';
+import '../Gameplay/Inventoryable/Record.dart';
 import '../Gameplay/Player.dart';
 import '../Gameplay/Store.dart';
 import '../Gameplay/World.dart';
@@ -28,7 +32,7 @@ Future<Null> main() async{
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     //example store, TODO have actual inventory system loaded from cache
-    Store store = new Store(ygdrassil, spawnRandomFruit(), ygdrassil.underWorld.player.inventory.saleItems);
+    Store store = new Store(ygdrassil, spawnInventory(), ygdrassil.underWorld.player.inventory.saleItems);
     store.createContainer(output);
     store.render();
     finallyDoneLoading = new DateTime.now();
@@ -36,6 +40,21 @@ Future<Null> main() async{
     window.alert("Took ${diff.inMilliseconds} to load!");
 
 
+}
+
+List<Inventoryable> spawnInventory() {
+    List<Inventoryable> ret = new List<Inventoryable>();
+
+    if(ygdrassil.underWorld.player.canBuyAx) {
+        ret.add(new Ax(ygdrassil));
+    }
+    if(ygdrassil.underWorld.player.canBuyFlashlight) {
+        ret.add(new Flashlight(ygdrassil));
+    }
+    ret.addAll(spawnRandomFruit());
+    ret.addAll(Record.spawn(ygdrassil)); //can always buy
+
+    return ret;
 }
 
 //this only changes once every hour

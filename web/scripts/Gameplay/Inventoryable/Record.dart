@@ -19,7 +19,7 @@ class Record extends CollectableSecret with Inventoryable{
 
     Record(String this.songName, World world, String myName, String specificPhrase, String imgLoc) : super(world, specificPhrase, imgLoc) {
         name = myName;
-        cost = 4037;
+        cost = 999;
         description = specificPhrase;
         type = name;
     }

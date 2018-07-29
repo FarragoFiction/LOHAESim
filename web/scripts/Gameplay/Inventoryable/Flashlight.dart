@@ -10,7 +10,7 @@ class Flashlight extends CollectableSecret with Inventoryable{
 
     Flashlight(World world) : super(world, "Why would you need this???", "images/BGs/flashlightOwo.png") {
         name = "???'s Flashlight";
-        cost = 4037;
+        cost = 999;
         description = specificPhrase;
         type = "Flashlight";
 

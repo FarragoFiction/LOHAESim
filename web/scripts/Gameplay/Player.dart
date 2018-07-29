@@ -1,6 +1,7 @@
 //wait what why is their a player???
 
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventory.dart';
@@ -32,6 +33,26 @@ class Player extends Secret {
     Inventory inventory;
     int funds = 0;
 
+    bool get canBuyFlashlight {
+        int essenceCount = 0;
+        for(Inventoryable item in inventory) {
+            if(item is Flashlight) {
+                return false;
+            }else if (item is Essence) {
+                essenceCount ++;
+            }
+        }
+        return essenceCount > 3;
+    }
+
+    //if don't have ax in inventory
+    bool get canBuyAx {
+        for(Inventoryable item in inventory) {
+            if(item is Ax) return false;
+        }
+        return true;
+    }
+
     //only gigglesnort if you move. spawning counts as moving
     bool playerMoved = true;
 
@@ -45,13 +66,8 @@ class Player extends Secret {
     }
 
     void initialInventory() {
-        //TODO have all this be a thing you buy from the store
         //add directly to circumvent drawings
         inventory.inventory.add(new HelpingHand(world));
-        inventory.inventory.add(new Flashlight(world));
-        inventory.inventory.add(new YellowYard(world));
-        inventory.inventory.add(new Ax(world));
-        inventory.addAll(Record.spawn(world));
         for(int i = 0; i<3; i++) {
             initialFruitInventory();
         }

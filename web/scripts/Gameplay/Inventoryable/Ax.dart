@@ -10,7 +10,7 @@ class Ax extends CollectableSecret with Inventoryable{
 
     Ax(World world) : super(world, "Use it to chop down unwanted trees. But why would you do this???", "images/BGs/talosAx2.png") {
         name = "ShogunBot's Ax";
-        cost = 4037;
+        cost = 1;
         description = specificPhrase;
         type = "Ax";
     }
