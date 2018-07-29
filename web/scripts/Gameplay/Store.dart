@@ -209,6 +209,7 @@ class StorePopup extends InventoryPopup
     void buy(Inventoryable item) {
         store.world.updateFunds(-1*item.saleCost);
         store.inventory.remove(item);
+        item.myInventoryDiv.remove();
         store.world.underWorld.player.inventory.add(item);
         store.world.playSoundEffect("121990__tomf__coinbag");
     }
@@ -232,7 +233,9 @@ class StorePopup extends InventoryPopup
         step = 0;
 
         container.style.display = "block";
-        header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
+        int realCost = chosenItem.cost;
+        if(!store.buying) realCost = chosenItem.saleCost;
+        header.text = "${chosenItem.name.toUpperCase()} - \$${realCost}";
         if(preview != null) {
             CanvasElement previewBox = new CanvasElement(width: 15, height: 15);
             previewBox.style.display = "inline";
