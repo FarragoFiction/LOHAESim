@@ -1,4 +1,5 @@
 import 'Inventoryable/Essence.dart';
+import 'Inventoryable/HelpingHand.dart';
 import 'Nidhogg.dart';
 import 'Player.dart';
 import 'World.dart';
@@ -76,8 +77,16 @@ class UnderWorld {
         }
     }
 
+    void checkPlusUltra() {
+        if(player.canGetUpgradedHelpingHand) {
+            player.inventory.add(new HelpingHandPlusUltra(world));
+
+        }
+    }
+
     Future<Null> render(CanvasElement worldBuffer) async {
         if(buffer == null) await initCanvasAndBuffer();
+        checkPlusUltra();
         //print("rendering underworld");
         //slightly brighter dirt to look like light
         //buffer.context2D.fillStyle = "#71402a";

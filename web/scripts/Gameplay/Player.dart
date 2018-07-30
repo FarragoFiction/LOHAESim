@@ -34,6 +34,19 @@ class Player extends Secret {
     int funds = 113;
 
 
+    bool get canGetUpgradedHelpingHand {
+        int essenceCount = 0;
+        for(Inventoryable item in inventory) {
+            if(item is HelpingHandPlusUltra) {
+                return false;
+            }else if (item is Essence) {
+                essenceCount ++;
+            }
+        }
+        owoPrint("Hey New Friend, you have ${essenceCount} essences already!");
+        return essenceCount >= 13;
+    }
+
 
     bool get canBuyFlashlight {
         int essenceCount = 0;
