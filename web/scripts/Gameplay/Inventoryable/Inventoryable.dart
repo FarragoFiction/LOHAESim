@@ -55,6 +55,7 @@ abstract class Inventoryable {
         all.add(new Flashlight(null));
         all.add(new Fruit(null,new FruitDoll()));
         all.add(new HelpingHand(null));
+        all.add(new HelpingHandPlusUltra(null));
         all.add(new YellowYard(null));
         all.addAll(Essence.spawn(null));
         all.addAll(Record.spawn(null));

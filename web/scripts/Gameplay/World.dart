@@ -503,6 +503,9 @@ class World {
             removeTreePopup();
         }else if(activeItem is Flashlight) {
             activateFlashlight();
+        }else if(activeItem is HelpingHandPlusUltra) {
+            pickFruit(true);
+            save();
         }else if(activeItem is HelpingHand) {
             pickFruit();
             save();
@@ -515,7 +518,7 @@ class World {
 
 
     //despap citato is a good bean
-    void pickFruit() {
+    void pickFruit([bool omni = false]) {
         //print("trying to pick fruit");
         //tell all trees to process this. first tree to return a fruit ends things.
         for(Tree tree in trees) {
@@ -526,7 +529,11 @@ class World {
                 PositionedDollLayer fruitLayer = tree.fruitPicked(cursor.position);
                 if (fruitLayer != null) {
                      //print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
-                    tree.produceFruit(fruitLayer, floweringTrees);
+                    if(omni) {
+                        tree.produceFruitOmni(floweringTrees);
+                    }else {
+                        tree.produceFruit(fruitLayer, floweringTrees);
+                    }
                     //https://freesound.org/people/morganpurkis/sounds/396012/
                     playSoundEffect("396012__morganpurkis__rustling-grass-3");
                     //if that was your last fruit, you're slated for removal.

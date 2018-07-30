@@ -27,3 +27,14 @@ class HelpingHand extends CollectableSecret with Inventoryable{
 
 
 }
+
+class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
+  HelpingHandPlusUltra(World world) : super(world) {
+    name = "Helping Hand Plus Ultra";
+    specificPhrase = "Shhh...only Fruit now.";
+    cost = 4037;
+    type = "Helping Hand Plus Ultra";
+    imgLoc = "images/BGs/fruitPickingOmni.png";
+  }
+
+}
