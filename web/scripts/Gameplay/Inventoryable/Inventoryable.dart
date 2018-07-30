@@ -49,16 +49,20 @@ abstract class Inventoryable {
             if(fruit.doll.seed == fruit2.doll.seed) {
                 //print("they have the same seed");
                 for(Doll doll in fruit.parents) {
-                    String first = doll.toDataBytesX();
+                    int first = doll.seed;
+                    //print("first is $first");
                     bool found = false;
                     for(Doll doll2 in fruit2.parents) {
-                        String second = doll2.toDataBytesX();
+                        int second = doll2.seed;
+                        print("second is $second");
                         if(first == second) {
+                            //print("found first in second's parents");
                             found = true;
                             break;
                         }
                     }
                     if(!found) {
+                        //print("couldn't find the same parents in both fruits");
                         return false;
                     }
                 }
