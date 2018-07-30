@@ -145,6 +145,7 @@ class Fruit extends Object with Inventoryable {
         if(description.isEmpty) {
             if(!(doll is FruitDoll)) {
                 description = "Uh. Huh. Why was there a ${doll.dollName} growing on a tree?";
+                if(doll is HomestuckGrubDoll) description = "$description Maybe you can convince the Empress to let you raise it?";
                 return;
             }
             if (textEngine == null) {

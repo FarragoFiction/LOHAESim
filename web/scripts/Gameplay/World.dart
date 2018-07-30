@@ -273,6 +273,7 @@ class World {
     Future<Null> initCanvasAndBuffer() async {
         //graphic of branches holding it up, yggdrasil style
         onScreen = new CanvasElement(width: width, height:height);
+        onScreen.style.cursor = "none";
 
         onScreen.onMouseDown.listen((MouseEvent event) {
             processClickAtCursor();
