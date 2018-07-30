@@ -3,6 +3,7 @@ import 'World.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
+import 'package:CommonLib/NavBar.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:CommonLib/Utility.dart';
 import "dart:math" as Math;
@@ -26,15 +27,24 @@ class Tree {
 
     int get msPerStage {
         if(_msPerStage < 0) {
-            Colour color = doll.fruitTemplate.associatedColor;
-            int base = 30 * 60*1000; //30 minutes
+            Colour color = doll.associatedColor;
+            int minutesMax = 30;
+            int minutesMin = 5;
+            if(getParameterByName("haxMode") == "on") {
+                minutesMax = 5;
+                minutesMin = 1;
+            }
+
+            int base = minutesMax * 60*1000; //30 minutes
+
             //darker colors grow slower
             //brightness is a number between 0 and 1. 1 is very bright, 0 is very dark
-            double modifier = color.value* 25*60*1000;
+            double modifier = color.value* (minutesMax-minutesMin)*60*1000;
             //very bright colors take five minutes, very dark ones take 30 minutes per stage
             _msPerStage = (base - modifier).floor();
+
         }
-        return 1000; //for testing
+        return 10000; //for testing
         return _msPerStage;
     }
 
@@ -147,7 +157,9 @@ class Tree {
         json["dollString"] = doll.toDataBytesX();
         json["bottomCenterX"] = "$bottomCenterX";
         json["bottomCenterY"] = "$bottomCenterY";
-        json["plantTime"] = "${plantTime.millisecondsSinceEpoch}";
+        if(plantTime != null) {
+            json["plantTime"] = "${plantTime.millisecondsSinceEpoch}";
+        }
         return json;
     }
 
@@ -173,7 +185,7 @@ class Tree {
         bottomCenterX = num.parse(json["bottomCenterX"]);
         bottomCenterY = num.parse(json["bottomCenterY"]);
         if(json["plantTime"] != null) {
-            String plantString = json[plantTime];
+            String plantString = json["plantTime"];
             plantTime = new DateTime.fromMillisecondsSinceEpoch(int.parse(plantString));
 
         }
@@ -221,7 +233,7 @@ class Tree {
         return rect.containsPoint(point);
     }
 
-    //usually called by enough time passing
+    //yellow yard hax, wont effect if you load, whatever
     void grow() {
         oldStage = stage;
         stage ++;
@@ -312,6 +324,8 @@ class Tree {
             stage = RIPEFRUIT;
         }
         if(oldStage != stage){
+            //https://freesound.org/people/adcbicycle/sounds/13951/
+            world.playSoundEffect("13951__adcbicycle__23");
             world.save();
         }
 
@@ -374,6 +388,7 @@ class Tree {
         stage = CORRUPT;
         doll.palette = ReferenceColours.CORRUPT;
         doll.fruitTemplate = eye;
+
         doll.fruitTime = true;
         for(SpriteLayer leaf in doll.clusters) {
             if(leaf is PositionedDollLayer) {
