@@ -30,8 +30,6 @@ class UnderWorld {
         nidhogg = new Nidhogg(world);
         player = new Player(world, width, height);
         //TODO load essences and their location from json, if can't find, then spawn
-        essences = Essence.spawn(world, player);
-        scatterEssences();
         scatterNidhogg();
     }
 
@@ -42,22 +40,33 @@ class UnderWorld {
 
     //each essence is one level down from the last
     void scatterEssences() {
+        essences = Essence.spawn(world);
         //random, but always in the same places
         Random rand = new Random(13);
         int x = 0;
         int y = 0;
+        List<Essence> toRemove = new List<Essence>();
         for(Essence e in essences) {
             y += (height/essences.length).round();
             x = rand.nextIntRange(e.width, width-e.width);
             e.topLeftX = x;
             e.topLeftY = y;
+            //now that i've used my rand so they are stable, remove if i already have it
+            if(player.hasItem(e)) toRemove.add(e);
         }
+
+        for(Essence e in toRemove) {
+            essences.remove(e);
+        }
+
     }
 
     Future<Null> initCanvasAndBuffer() async {
         buffer = new CanvasElement(width: width, height: height);
         dirt = new CanvasElement(width: width, height: height);
         roots = await Loader.getResource("images/BGs/rootsPlain.png");
+        if(essences == null) scatterEssences();
+
         //print("I inited the buffer, roots are $roots");
     }
 

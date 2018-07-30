@@ -46,7 +46,7 @@ class FAQ {
 
         consortElement = new TableCellElement()..classes.add("consortStrip");
         consortElement.style.backgroundPosition = "${rand.nextInt(100)}% 0%";
-        FAQConsort consort = new FAQConsort(consortElement, 0, "${rand.nextInt(1)}.gif");
+        FAQConsort consort = new FAQConsort(consortElement, 0, "${rand.nextInt(2)}.gif");
 
         textElement = new TableCellElement()..classes.add("faqWrapper");
         textElement.style.verticalAlign = "top";

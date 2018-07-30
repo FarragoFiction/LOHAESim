@@ -60,7 +60,10 @@ class Player extends Secret {
     bool playerMoved = true;
 
     //TODO relative to size of moneybags
-    int flashlightRadius =75;
+    int get flashlightRadius{
+        return (75 + funds/13).round();
+
+    }
 
 
     Player(World world, int this.maxX, int this.maxY):super(world) {
@@ -87,8 +90,13 @@ class Player extends Secret {
     }
 
     bool hasItem(Inventoryable itemToCheck) {
+        print("item is $itemToCheck and inventory is ${inventory.length}}");
         for(Inventoryable item in inventory) {
-            if(item.name == itemToCheck.name) return true;
+            print("is $itemToCheck the same as $item");
+            if(item.name == itemToCheck.name) {
+                print('yes');
+                return true;
+            }
         }
         return false;
     }
@@ -123,7 +131,7 @@ class Player extends Secret {
         //empty array counts too dunkass
         inventory.copyFromJSON(new JSONObject.fromJSONString(json["inventory"]));
         //if you happen to spawn on an essence you could have exactly one item on init
-        print("inventory is $inventory, pastFruit is ${world.pastFruit}");
+        //print("inventory is $inventory, pastFruit is ${world.pastFruit}");
         if(inventory.isEmpty || inventory.length == 1 && world.pastFruit.isEmpty) {
             initialInventory();
         }

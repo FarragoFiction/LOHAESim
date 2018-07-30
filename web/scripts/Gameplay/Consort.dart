@@ -44,7 +44,7 @@ class Consort {
             numberConsorts = rand.nextInt(13)+1;
         }
         for(int i = 0; i<numberConsorts; i++) {
-            int image = rand.nextInt(max);
+            int image = rand.nextInt(2);
             new Consort(strip,x, "$image.gif");
             x += rand.nextInt(500)+50;
             if(x > 1000) x = 0;

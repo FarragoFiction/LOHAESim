@@ -1,3 +1,4 @@
+import '../Gameplay/Inventoryable/Flashlight.dart';
 import '../Gameplay/Player.dart';
 import '../Gameplay/World.dart';
 import 'dart:async';
@@ -32,7 +33,8 @@ Future<Null> main() async {
         if(BASE64URL.encode(guess.codeUnits) == answer) {
             ygdrassil.playSoundEffect("340356__daehedon__medium-sized-indoor-crowd-clapping-intro");
             ygdrassil.updateFunds(9999);
-            window.alert("You're right!!!");
+            ygdrassil.underWorld.player.inventory.add(new Flashlight(ygdrassil));
+            window.alert("You're right, have some funds and a flashlight!!!");
         }else {
             window.alert("Nope!!!");
         }
