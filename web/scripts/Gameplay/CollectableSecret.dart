@@ -26,6 +26,7 @@ class CollectableSecret extends Secret {
                 if (this is Inventoryable) {
                     Inventoryable meAsItem = this as Inventoryable;
                     world.underWorld.player.inventory.add(meAsItem);
+                    if(world.bossDefeated) meAsItem.hidden = false;
                     owoPrint("You got a ${meAsItem.name}!!! I wonder what it will take to use it???",33);
                 } else{
                     owoPrint("You got a $this!!! I don't think it does anything though, New Friend...");

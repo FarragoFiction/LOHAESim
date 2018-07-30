@@ -1,4 +1,5 @@
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/HelpingHand.dart';
@@ -157,6 +158,8 @@ class World {
         JSONObject json = new JSONObject();
 
         json["player"] = underWorld.player.toJSON().toString();
+        json["nidhogg"] = underWorld.nidhogg.toJSON().toString();
+
         List<JSONObject> treeArray = new List<JSONObject>();
         for(Tree tree in trees) {
             treeArray.add(tree.toJSON());
@@ -187,6 +190,10 @@ class World {
     void copyFromJSON(JSONObject json) {
         DateTime startTime = new DateTime.now();
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
+        if(json["nidhogg"] != null) {
+            underWorld.nidhogg.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));
+        }
+
         new TimeProfiler("Loading Player", startTime);
         startTime = new DateTime.now();
         String idontevenKnow = json["trees"];
@@ -495,6 +502,17 @@ class World {
             plantATreeAtPoint(activeItem, cursor.position);
             underWorld.player.inventory.removeItem(activeItem);
             save();
+        }else if(activeItem is Essence) {
+            plantAWigglerAtPoint(activeItem, cursor.position);
+            //guess who is alive again. it's nidhogg. nidhogg is alive again
+            if(!underWorld.nidhogg.purified) {
+                owoPrint("Uh. New Friend? I think Nidhogg just respawned... ");
+                consortPrint("thawp!! oh no!! its the Lifey Thing!!");
+            }
+
+            underWorld.nidhogg.hp = 4037;
+            underWorld.player.inventory.removeItem(activeItem);
+            save();
         }else if(activeItem is Record) {
             currentMusic = activeItem;
             changeMusic((activeItem as Record).songName, false);
@@ -668,6 +686,36 @@ class World {
         }
         //just a logical result of the trees this fruit came from
         Doll treeDoll = Doll.breedDolls(fruit.parents);
+        //ground level
+        //bottom center
+        int y = 550;
+        int x = point.x;
+
+        if(getParameterByName("haxMode") == "on") {
+            y = point.y - treeDoll.height/2; //plant base where you click
+        }
+        if(treeDoll is TreeDoll) {
+            Tree tree = new Tree(this,treeDoll, x, y);
+            treesToAdd.add(tree);
+            overWorldDirty = true;
+            cursor = null;
+            moveOwO(treeDoll);
+            if(bossFight) tree.corrupt();
+            render();
+        }
+    }
+
+    void plantAWigglerAtPoint(Essence essence, Point point) {
+        owoPrint("Oh! New Friend! I didn't know you were an AUXILIATRIX!!");
+        //just a logical result of the trees this fruit came from
+        TreeDoll treeDoll = new TreeDoll();
+        treeDoll.copyPalette(essence.palette);
+        HomestuckGrubDoll grub = new HomestuckGrubDoll();
+        grub.copyPalette(ReferenceColours.CORRUPT);
+        //grubs are corrupt, except they are the same cast as the essence
+        grub.palette.add(HomestuckPalette.ASPECT_LIGHT, treeDoll.palette[HomestuckPalette.ASPECT_LIGHT], true);
+        grub.palette.add(HomestuckPalette.ASPECT_DARK, treeDoll.palette[HomestuckPalette.ASPECT_DARK], true);
+        treeDoll.fruitTemplate = grub;
         //ground level
         //bottom center
         int y = 550;

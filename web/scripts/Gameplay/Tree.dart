@@ -44,10 +44,16 @@ class Tree {
             _msPerStage = (base - modifier).floor();
 
         }
-        return 10000; //for testing
+        if(world != null && world.bossFight) {
+            return 10000; //nidhogg is life gone wild
+        }
         return _msPerStage;
     }
 
+    double get fruitScaleBase{
+        if(doll is FruitDoll) return 1.0;
+        return 3.0;
+    }
     double fruitScale = 1.0;
     int fruitScaleDirection = 1; //is it going bigger or smaller in the pulse
 
@@ -255,13 +261,8 @@ class Tree {
 
     //yellow yard hax, wont effect if you load, whatever
     void grow() {
-        oldStage = stage;
-        stage ++;
-        if(stage >= RIPEFRUIT) {
-            stage = RIPEFRUIT;
-        }else {
-            world.save();
-        }
+        //pretend you were planted one stage extra ago
+        plantTime= plantTime.subtract(new Duration(milliseconds: msPerStage));
     }
 
 
@@ -386,9 +387,9 @@ class Tree {
         }
         numTicksSinceLastPulse ++;
 
-        double buffer = 0.1;
-      if(fruitScale > 1+buffer) {
-          fruitScale = 1+buffer;
+        double buffer = fruitScaleBase/10;
+      if(fruitScale > fruitScaleBase+buffer) {
+          fruitScale = fruitScaleBase+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;
       }else if(fruitScale<1-buffer) {
           fruitScale = 1-buffer;
