@@ -193,7 +193,8 @@ class Tree {
 
     void produceFruitOmni(List<Tree> parents) {
         //print("producing fruit with parents $parents");
-        for(PositionedDollLayer fruitLayer in doll.hangables) {
+        List<PositionedDollLayer> hangables = new List.from(doll.hangables);
+        for(PositionedDollLayer fruitLayer in hangables) {
             Fruit fruitItem = new Fruit(world, fruitLayer.doll.clone());
             if (fruitItem.doll is FruitDoll) {
                 (fruitItem.doll as FruitDoll).setName();

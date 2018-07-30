@@ -32,6 +32,7 @@ class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
   HelpingHandPlusUltra(World world) : super(world) {
     name = "Helping Hand Plus Ultra";
     specificPhrase = "Shhh...only Fruit now.";
+    description = specificPhrase;
     cost = 4037;
     type = "Helping Hand Plus Ultra";
     imgLoc = "images/BGs/fruitPickingOmni.png";

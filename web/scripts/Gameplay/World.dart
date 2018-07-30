@@ -530,6 +530,7 @@ class World {
                 if (fruitLayer != null) {
                      //print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
                     if(omni) {
+                        consortPrint("thwap!! uh. that. sure is. an interesting. technique for fruit picking you have there??");
                         tree.produceFruitOmni(floweringTrees);
                     }else {
                         tree.produceFruit(fruitLayer, floweringTrees);
