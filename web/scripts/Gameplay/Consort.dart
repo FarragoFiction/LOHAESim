@@ -66,6 +66,7 @@ class Consort {
         if(!world.bossDefeated) {
             chats.add("the DENIZEN keeps us from growing trees ourselves!!",0.5);
             chats.add("don't wake the DENIZEN!!",0.5);
+            chats.add("they say the PRINCE will save us!!",0.5);
             chats.add("so many eyes :( :(",0.3);
             chats.add("even if the Nidhogg causes all trees to die, the seed vault will survive!!",0.5);
         }else if (world.underWorld.nidhogg.dead) {

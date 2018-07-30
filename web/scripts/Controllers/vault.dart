@@ -20,6 +20,7 @@ World ygdrassil = new World();
 Future<Null> main() async {
     await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
+    ygdrassil.makeFundsElement(querySelector("#navbar"));
     Consort.spawnConsorts(output);
     processVault();
 }

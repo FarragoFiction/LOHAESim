@@ -33,6 +33,8 @@ class Player extends Secret {
     Inventory inventory;
     int funds = 113;
 
+
+
     bool get canBuyFlashlight {
         int essenceCount = 0;
         for(Inventoryable item in inventory) {
@@ -82,6 +84,13 @@ class Player extends Secret {
             print(e);
             print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
         }
+    }
+
+    bool hasItem(Inventoryable itemToCheck) {
+        for(Inventoryable item in inventory) {
+            if(item.name == itemToCheck.name) return true;
+        }
+        return false;
     }
 
     JSONObject toJSON() {

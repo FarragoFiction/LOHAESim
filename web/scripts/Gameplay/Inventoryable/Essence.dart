@@ -1,5 +1,6 @@
 import '../CollectableSecret.dart';
 import '../Inventoryable/Inventoryable.dart';
+import '../Player.dart';
 import '../World.dart';
 import 'dart:async';
 
@@ -19,21 +20,61 @@ abstract class Essence extends CollectableSecret with Inventoryable {
     type = myName;
   }
 
-  static List<Essence> spawn(World world) {
-    List<Essence> allEssence = new List<Essence>()
-        ..add(new BurgundyEssence(world))
-        ..add(new BronzeEssence(world))
-        ..add(new GoldEssence(world))
-        ..add(new LimeEssence(world))
-        ..add(new OliveEssence(world))
-        ..add(new JadeEssence(world))
-        ..add(new TealEssence(world))
-        ..add(new CeruleanEssence(world))
-        ..add(new IndigoEssence(world))
-        ..add(new PurpleEssence(world))
-        ..add(new VioletEssence(world))
-        ..add(new FuchsiaEssence(world))
-        ..add(new MutantEssence(world));
+  static List<Essence> spawn(World world, Player player, [bool forceAll = false]) {
+    List<Essence> allEssence = new List<Essence>();
+
+    Essence essence = new BurgundyEssence(world);
+    if(forceAll || !player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence = new BronzeEssence(world);
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new GoldEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new LimeEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new OliveEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new JadeEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new TealEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new CeruleanEssence(world));
+    if(forceAll ||player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new IndigoEssence(world));
+    if(forceAll ||player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new PurpleEssence(world));
+    if(forceAll ||player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new VioletEssence(world));
+    if(forceAll ||player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new FuchsiaEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
+    essence =(new MutantEssence(world));
+    if(forceAll ||!player.hasItem(essence)){
+        allEssence.add(essence);
+    }
 
     return allEssence;
   }

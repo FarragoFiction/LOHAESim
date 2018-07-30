@@ -138,7 +138,7 @@ class Fruit extends Object with Inventoryable {
     }
 
     Future<Null> setDescription() async {
-        print("setting desc");
+        //print("setting desc");
         if(description.isEmpty) {
             if (textEngine == null) {
                 textEngine = new TextEngine(doll.seed);

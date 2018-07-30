@@ -30,7 +30,7 @@ class UnderWorld {
         nidhogg = new Nidhogg(world);
         player = new Player(world, width, height);
         //TODO load essences and their location from json, if can't find, then spawn
-        essences = Essence.spawn(world);
+        essences = Essence.spawn(world, player);
         scatterEssences();
         scatterNidhogg();
     }
