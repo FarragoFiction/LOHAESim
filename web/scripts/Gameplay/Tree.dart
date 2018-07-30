@@ -20,6 +20,23 @@ class Tree {
     double adultScale = 0.5;
     int ticksBetweenPulse = 5;
     int numTicksSinceLastPulse = 0;
+    DateTime plantTime;
+    //cached, but procedural so don't need to save
+    int _msPerStage = -1;
+
+    int get msPerStage {
+        if(_msPerStage < 0) {
+            Colour color = doll.fruitTemplate.associatedColor;
+            int base = 30 * 60*1000; //30 minutes
+            //darker colors grow slower
+            //brightness is a number between 0 and 1. 1 is very bright, 0 is very dark
+            double modifier = color.value* 25*60*1000;
+            //very bright colors take five minutes, very dark ones take 30 minutes per stage
+            _msPerStage = (base - modifier).floor();
+        }
+        return 1000; //for testing
+        return _msPerStage;
+    }
 
     double fruitScale = 1.0;
     int fruitScaleDirection = 1; //is it going bigger or smaller in the pulse
@@ -130,7 +147,7 @@ class Tree {
         json["dollString"] = doll.toDataBytesX();
         json["bottomCenterX"] = "$bottomCenterX";
         json["bottomCenterY"] = "$bottomCenterY";
-        json["stage"] = "$stage";
+        json["plantTime"] = "${plantTime.millisecondsSinceEpoch}";
         return json;
     }
 
@@ -151,11 +168,15 @@ class Tree {
         try {
             doll = Doll.loadSpecificDoll(json["dollString"]);
         }catch(e, trace) {
-            print("couldn't laod doll from string ${json["dollString"]}, $e, $trace ");
+            print("couldn't load doll from string ${json["dollString"]}, $e, $trace ");
         }
         bottomCenterX = num.parse(json["bottomCenterX"]);
         bottomCenterY = num.parse(json["bottomCenterY"]);
-        stage =  int.parse(json["stage"]);
+        if(json["plantTime"] != null) {
+            String plantString = json[plantTime];
+            plantTime = new DateTime.fromMillisecondsSinceEpoch(int.parse(plantString));
+
+        }
     }
 
     void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
@@ -278,9 +299,27 @@ class Tree {
         return blank;
     }
 
+    void setStage() {
+        if(plantTime == null) plantTime = new DateTime.now();
+        Duration diff = new DateTime.now().difference(plantTime);
+        int age = diff.inMilliseconds;
+        oldStage = stage;
+        //if i am an hour and five minutes old and there is 30 minute sper stage, i would be at stage 2.
+        //if i am 25 minutes old and there is 30 minutes per stage, i would be at stage 0.
+        stage = (age/msPerStage).floor();
+
+        if(stage >= RIPEFRUIT) {
+            stage = RIPEFRUIT;
+        }
+        if(oldStage != stage){
+            world.save();
+        }
+
+    }
 
 
     Future<CanvasElement> getCanvasBasedOnStage() async {
+        setStage();
         if(stage == SAPPLING) {
             return await saplingCanvas;
         }else if(stage == LEAVES) {

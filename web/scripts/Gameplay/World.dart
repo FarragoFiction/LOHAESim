@@ -222,7 +222,7 @@ class World {
             j.json = d;
             //shit, okay i need to know what kind of object it is
             ArchivedFruit fruit = (new ArchivedFruit(new FruitDoll())..copyFromJSON(j));
-            pastFruit[fruit.doll.toDataBytesX()] = fruit;
+            pastFruit["${fruit.doll.seed}"] = fruit;
         }
     }
 

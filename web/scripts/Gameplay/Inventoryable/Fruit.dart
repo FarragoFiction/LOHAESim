@@ -6,6 +6,7 @@ import 'dart:html';
 import 'package:CommonLib/Utility.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:TextEngine/TextEngine.dart';
+import "dart:math" as Math;
 
 class Fruit extends Object with Inventoryable {
     //not necessarily a fruit doll
@@ -38,7 +39,9 @@ class Fruit extends Object with Inventoryable {
     //as well as giving me an idea if it's a new game or not
     ArchivedFruit makeArchive() {
         if(world != null && !(this is ArchivedFruit)) {
-            String key = doll.toDataBytesX();
+            //using seed because otherwise offscreen colors will effect if it's 'unique'
+            //and that's unintuitive
+            String key = "${doll.seed}";
             if(!world.pastFruit.containsKey(key)){
                 consortPrint("archiving $name!! now we will have this for generations!!");
                 ArchivedFruit archive = new ArchivedFruit(doll);
@@ -151,10 +154,12 @@ class Fruit extends Object with Inventoryable {
             if(doll is FruitDoll) {
                 FruitDoll fruitDoll = doll as FruitDoll;
                 if(FruitDoll.mutants.contains(fruitDoll.body.imgNumber)){
-                    cost = cost+5 * 5;
+                    cost = (cost+5) * 5;
+                    cost = Math.min(cost, 999);
                 }
             }else if (!(doll is FruitDoll)) {
-                cost = cost+13 * 13;
+                cost = (cost+13) * 13;
+                cost = Math.min(cost, 999);
             }
             //only archive if the player actually owns this, not if they see it in the store.
 
