@@ -168,6 +168,17 @@ class StorePopup extends InventoryPopup
         }
     }
 
+    void commerceAll() {
+        if (store.activeItem is Fruit) {
+            textBody.text = rand.pickFrom(store.sellfruitQuips);
+        } else if (store.activeItem is Record) {
+            textBody.text = rand.pickFrom(store.sellRecordQuips);
+        }else {
+            textBody.text = "???";
+        }
+        sellAll(store.activeItem);
+    }
+
     void buyCommerce() {
       if(!store.activeItem.canAfford) {
           textBody.text = rand.pickFrom(store.cantAffordToBuyQuips);
@@ -203,6 +214,26 @@ class StorePopup extends InventoryPopup
         store.world.updateFunds(item.saleCost);
         store.inventory.add(item);
         store.world.underWorld.player.inventory.remove(item);
+        store.world.playSoundEffect("121990__tomf__coinbag");
+    }
+
+    List<Inventoryable> allItemsThatMatch(Inventoryable itemToMatch) {
+        List<Inventoryable> ret = new List<Inventoryable>();
+        for(Inventoryable item in store.inventory) {
+            if(item.matches(itemToMatch)){
+                ret.add(item); //yes even yourself.
+            }
+        }
+        return ret;
+    }
+
+    void sellAll(Inventoryable itemTemplate) {
+        List<Inventoryable> allItemsOfType = allItemsThatMatch(itemTemplate);
+        for(Inventoryable item in allItemsOfType) {
+            store.world.updateFunds(item.saleCost);
+            store.inventory.add(item);
+            store.world.underWorld.player.inventory.remove(item);
+        }
         store.world.playSoundEffect("121990__tomf__coinbag");
     }
 
@@ -270,6 +301,8 @@ class StorePopup extends InventoryPopup
         header.text = "$word ${header.text.replaceAll(": Parents","")}?";
 
         DivElement yesButton = new DivElement()..text = "YES"..classes.add("storeButton")..classes.add("storeButtonColor");
+        DivElement yesAll = new DivElement()..text = "ALL"..classes.add("storeButton")..classes.add("storeButtonColor");;
+
         DivElement noButton = new DivElement()..text = "NO"..classes.add("storeButton")..classes.add("storeButtonColor");;
 
         yesButton.onClick.listen((Event e) {
@@ -277,11 +310,22 @@ class StorePopup extends InventoryPopup
             commerce();
         });
 
+        yesAll.onClick.listen((Event e) {
+            e.stopPropagation(); //don't give it to other things
+            commerceAll();
+        });
+
         noButton.onClick.listen((Event e) {
             e.stopPropagation(); //don't give it to other things
             failedCommerce();
         });
         textBody.append(yesButton);
+        if(!store.buying) {
+            yesButton.style.margin = "5px";
+            yesAll.style.margin = "5px";
+            noButton.style.margin = "5px";
+            textBody.append(yesAll);
+        }
         textBody.append(noButton);
     }
 

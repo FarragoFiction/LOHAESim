@@ -38,6 +38,31 @@ abstract class Inventoryable {
         return false;
     }
 
+    bool matches(Inventoryable item) {
+        //only for fruits
+        if(this is Fruit && item is Fruit) {
+            Fruit fruit = this as Fruit;
+            Fruit fruit2 = item as Fruit;
+            //i have all your parents, you have all mine
+            if(fruit.doll.seed == fruit2.doll.seed) {
+                for(Doll doll in fruit.parents) {
+                    if(!fruit2.parents.contains(doll)) {
+                        return false;
+                    }
+                }
+                for(Doll doll in fruit2.parents) {
+                    if(!fruit.parents.contains(doll)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     String toDataString() {
         try {
             String ret = toJSON().toString();
