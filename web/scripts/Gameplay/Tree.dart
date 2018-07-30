@@ -51,7 +51,7 @@ class Tree {
     }
 
     double get fruitScaleBase{
-        if(doll is FruitDoll) return 1.0;
+        if(doll is FruitDoll) return 1.1;
         return 3.0;
     }
     double fruitScale = 1.0;
@@ -381,15 +381,18 @@ class Tree {
     }
 
     void setFruitScale(double scale) {
+        if(fruitScale == 1.0) {
+            fruitScale = fruitScaleBase;
+        }
         if(numTicksSinceLastPulse >= ticksBetweenPulse) {
             fruitScale += scale * fruitScaleDirection;
             numTicksSinceLastPulse = 0;
         }
         numTicksSinceLastPulse ++;
 
-        double buffer = fruitScaleBase/10;
-      if(fruitScale > fruitScaleBase+buffer) {
-          fruitScale = fruitScaleBase+buffer;
+        double buffer = 0.1;
+      if(fruitScale > fruitScale+buffer) {
+          fruitScale = fruitScale+buffer;
           fruitScaleDirection = fruitScaleDirection * -1;
       }else if(fruitScale<1-buffer) {
           fruitScale = 1-buffer;
