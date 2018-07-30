@@ -1,5 +1,6 @@
 .vault{
     width: 100%;
+    min-width: 1000px;
     padding: 3px;
     color: #242d26;
     background-color: #ffffff;
