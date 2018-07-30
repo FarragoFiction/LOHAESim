@@ -87,8 +87,6 @@ class Player extends Secret {
     void initialInventory() {
         //add directly to circumvent drawings
         inventory.inventory.add(new HelpingHand(world));
-        //TODO this is only for secrets
-        inventory.inventory.add(new HelpingHandPlusUltra(world));
         for(int i = 0; i<3; i++) {
             initialFruitInventory();
         }

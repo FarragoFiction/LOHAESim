@@ -432,7 +432,9 @@ class Tree {
 
     void uncorrupt() {
         //print("trying to restore from uncorrupt doll $cachedTreeDoll");
-        doll = Doll.loadSpecificDoll(cachedTreeDoll);
+        if(cachedTreeDoll != null) {
+            doll = Doll.loadSpecificDoll(cachedTreeDoll);
+        }
         stage = oldStage;
         oldStage = CORRUPT;
         hangablesDirty = true;

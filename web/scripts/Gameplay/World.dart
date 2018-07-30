@@ -155,7 +155,7 @@ class World {
 
     JSONObject toJSON() {
         JSONObject json = new JSONObject();
-        json["bossFight"] = bossFight.toString();
+
         json["player"] = underWorld.player.toJSON().toString();
         List<JSONObject> treeArray = new List<JSONObject>();
         for(Tree tree in trees) {
@@ -186,7 +186,6 @@ class World {
 
     void copyFromJSON(JSONObject json) {
         DateTime startTime = new DateTime.now();
-        bossFight = json["bossFight"] ==true.toString();
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         new TimeProfiler("Loading Player", startTime);
         startTime = new DateTime.now();
