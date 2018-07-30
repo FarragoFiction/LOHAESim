@@ -47,6 +47,7 @@ abstract class Inventoryable {
 
             //i have all your parents, you have all mine
             if(fruit.doll.seed == fruit2.doll.seed) {
+                if(fruit.parents.length != fruit2.parents.length) return false;
                 //print("they have the same seed");
                 for(Doll doll in fruit.parents) {
                     int first = doll.seed;
