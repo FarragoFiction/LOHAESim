@@ -219,7 +219,7 @@ class StorePopup extends InventoryPopup
 
     List<Inventoryable> allItemsThatMatch(Inventoryable itemToMatch) {
         List<Inventoryable> ret = new List<Inventoryable>();
-        for(Inventoryable item in store.inventory) {
+        for(Inventoryable item in store.saleItems) {
             if(item.matches(itemToMatch)){
                 ret.add(item); //yes even yourself.
             }
@@ -229,6 +229,7 @@ class StorePopup extends InventoryPopup
 
     void sellAll(Inventoryable itemTemplate) {
         List<Inventoryable> allItemsOfType = allItemsThatMatch(itemTemplate);
+        //print("found ${allItemsOfType.length} copies of this item");
         for(Inventoryable item in allItemsOfType) {
             store.world.updateFunds(item.saleCost);
             store.inventory.add(item);

@@ -43,23 +43,28 @@ abstract class Inventoryable {
         if(this is Fruit && item is Fruit) {
             Fruit fruit = this as Fruit;
             Fruit fruit2 = item as Fruit;
+            //print("they are both fruit, ${fruit.name} is ${fruit.doll.seed} and ${fruit2.name} is ${fruit2.doll.seed}");
+
             //i have all your parents, you have all mine
             if(fruit.doll.seed == fruit2.doll.seed) {
+                //print("they have the same seed");
                 for(Doll doll in fruit.parents) {
-                    if(!fruit2.parents.contains(doll)) {
+                    String first = doll.toDataBytesX();
+                    bool found = false;
+                    for(Doll doll2 in fruit2.parents) {
+                        String second = doll2.toDataBytesX();
+                        if(first == second) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found) {
                         return false;
                     }
                 }
-                for(Doll doll in fruit2.parents) {
-                    if(!fruit.parents.contains(doll)) {
-                        return false;
-                    }
-                }
-
                 return true;
             }
         }
-
         return false;
     }
 
