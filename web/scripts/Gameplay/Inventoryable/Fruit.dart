@@ -148,6 +148,14 @@ class Fruit extends Object with Inventoryable {
             description = "${textEngine.phrase("FruitDescriptions")}";
             Random rand = new Random(doll.seed);
             cost = rand.nextIntRange(13, 113);
+            if(doll is FruitDoll) {
+                FruitDoll fruitDoll = doll as FruitDoll;
+                if(FruitDoll.mutants.contains(fruitDoll.body.imgNumber)){
+                    cost = cost+5 * 5;
+                }
+            }else if (!(doll is FruitDoll)) {
+                cost = cost+13 * 13;
+            }
             //only archive if the player actually owns this, not if they see it in the store.
 
         }

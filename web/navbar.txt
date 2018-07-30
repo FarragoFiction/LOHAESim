@@ -13,7 +13,7 @@
 
 
   <li class = "menuButtonPureCSS"><a href="index.html">Grow</a></li>
-  <li class = "menuButtonPureCSS"><a href="store.html">Store</a></li>
+  <li class = "menuButtonPureCSS"><a href="store.html">Shop</a></li>
     <li class = "menuButtonPureCSS"><a href="vault.html">Seed Vault</a></li>
     <li class = "menuButtonPureCSS"><a href="meteor.html">Manage Data</a></li>
 
