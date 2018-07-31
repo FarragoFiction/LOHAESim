@@ -33,7 +33,12 @@ class Nidhogg extends CollectableSecret {
   @override
   int giggleSnortRadius = 400;
   @override
-  int collectionRadius = 200;
+  int get collectionRadius {
+      if(world != null) {
+        return world.underWorld.player.flashlightRadius;
+      }
+      return 200;
+  }
 
   String purifiedLoc = "images/BGs/nidhoggPure.png";
 

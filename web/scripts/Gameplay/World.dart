@@ -193,7 +193,7 @@ class World {
     void copyFromJSON(JSONObject json) {
         DateTime startTime = new DateTime.now();
         if(json["secretsForCalm"] != null) {
-            secretsForCalm = json["secretsForCalm"].split(",");
+            secretsForCalm = json["secretsForCalm"].split(",").where((s) => s.isNotEmpty).toList();
         }
         bossFight = json["bossFight"] ==true.toString();;
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));

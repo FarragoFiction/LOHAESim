@@ -87,11 +87,12 @@ class Consort {
 
         if(world.bossFight) {
             chats.add("Nidhogg absorbs the Life from Trees!!",10);
-            chats.add("the Denizen is awake!!",10);
-            chats.add("run!!",10);
+            chats.add("the Denizen is awake!!",5);
+            chats.add("run!!",6);
             chats.add("use fraymotiffs!!",1);
-            chats.add("find the EAGLE!!",1);
-            chats.add("hide!!",10);
+            chats.add("find the EAGLE!!",5);
+            chats.add("the BARD can help!!",5);
+            chats.add("hide!!",6);
         }
 
     }
@@ -156,6 +157,7 @@ class FAQConsort extends Consort {
           chats.add("run!!",10);
           chats.add("use fraymotiffs!!",1);
           chats.add("find the EAGLE!!",5);
+          chats.add("the BARD can help!!",5);
           chats.add("hide!!",10);
       }
 
