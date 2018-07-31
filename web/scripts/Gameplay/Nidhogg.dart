@@ -101,7 +101,7 @@ class Nidhogg extends CollectableSecret {
   void copyFromJSON(JSONObject json) {
       purified = json["purified"] ==true.toString();;
       hp = int.parse(json["hp"]);
-      print("Nidhog loaded with purity of $purified and hp of $hp");
+      //print("Nidhog loaded with purity of $purified and hp of $hp");
       if(purified || dead) {
           world.underWorld.player.inventory.unlockHidden();
       }

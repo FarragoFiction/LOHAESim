@@ -50,7 +50,7 @@ void saveBackups() {
         try {
             AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
-            String string = window.localStorage[World.SAVEKEY];
+            String string = window.localStorage[World.SHAREDKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
             saveLink2.href = Url.createObjectUrl(blob).toString();
             saveLink2.target = "_blank";

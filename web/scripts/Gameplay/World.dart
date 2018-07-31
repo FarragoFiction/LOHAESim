@@ -58,7 +58,7 @@ class World {
     bool currentlyRendering = false;
     DateTime lastRender;
     //essentially the frame rate
-    static int fps = 45;
+    static int fps = 30;
     int minTimeBetweenRenders = (1000/fps).round();
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
@@ -145,8 +145,8 @@ class World {
         }else {
             underWorld.player.initialInventory();
         }
-        if(window.localStorage[SHAREDKEY] != null) {
-            copyFromDataString(window.localStorage[SHAREDKEY]);
+        if(window.localStorage.containsKey(SHAREDKEY)) {
+            copySharedFromDataString(window.localStorage[SHAREDKEY]);
         }
     }
 
@@ -180,7 +180,6 @@ class World {
     }
 
     void copyFromDataString(String dataString) {
-        //print("dataString is $dataString");
         List<String> parts = dataString.split("$labelPattern");
         //print("parts are $parts");
         if(parts.length > 1) {
@@ -216,11 +215,13 @@ class World {
         JSONObject json = new JSONObject();
         json["SHARED_FUNDS"] = "${underWorld.player.funds}";
         json["CALM_SECRETS"] = secretsForCalm.join(",");
+        return json;
     }
 
     String sharedToDataString() {
         try {
             String ret = sharedToJSON().toString();
+            print("the json string for shared data was $ret");
             return "${BASE64URL.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
@@ -229,14 +230,17 @@ class World {
     }
 
     void copySharedFromDataString(String dataString) {
+        print("dataString is $dataString");
         String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        print("rawJSON is $rawJson");
         JSONObject json = new JSONObject.fromJSONString(rawJson);
+        print("json is $json");
         copySharedFromJSON(json);
     }
 
     void copySharedFromJSON(JSONObject json) {
         secretsForCalm = json["CALM_SECRETS"].split(",").where((s) => s.isNotEmpty).toList();
-        underWorld.player.funds = int.parse("SHARED_FUNDS");
+        underWorld.player.funds = int.parse(json["SHARED_FUNDS"]);
 
     }
 

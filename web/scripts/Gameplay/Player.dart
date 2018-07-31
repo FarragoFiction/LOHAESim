@@ -43,7 +43,6 @@ class Player extends Secret {
                 essenceCount ++;
             }
         }
-        owoPrint("Hey New Friend, you have ${essenceCount} essences already!");
         return essenceCount >= 13;
     }
 
@@ -57,7 +56,6 @@ class Player extends Secret {
                 essenceCount ++;
             }
         }
-        owoPrint("Hey New Friend, you have ${essenceCount} essences already!");
         return essenceCount > 3;
     }
 
@@ -103,11 +101,11 @@ class Player extends Secret {
     }
 
     bool hasItem(Inventoryable itemToCheck) {
-        print("item is $itemToCheck and inventory is ${inventory.length}}");
+        //print("item is $itemToCheck and inventory is ${inventory.length}}");
         for(Inventoryable item in inventory) {
-            print("is $itemToCheck the same as $item");
+            //print("is $itemToCheck the same as $item");
             if(item.name == itemToCheck.name) {
-                print('yes');
+               // print('yes');
                 return true;
             }
         }

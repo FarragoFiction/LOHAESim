@@ -34,7 +34,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
   font-family: 'strife', sans-serif;
     font-size: 32px;
     width: 300px;
-    display: inline;
+    display: inline-block;
 
     padding-left: 33px;
     padding-right: 33px;
