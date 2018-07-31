@@ -28,7 +28,13 @@ void start() {
     if(ygdrassil.underWorld.player.canBuyFlashlight) {
         new FAQ(table, "Oh god what is that thing!?", "Hehehehe");
     }
-    new FAQ(table, "What is the Land of Horticulture and Essence's other name?", "Hehehehe");
+
+    if(ygdrassil.bossFight) {
+        new FAQ(table, "Shit where are my trees, what is going on? Why are there EYES???", "Gosh its ALMOST like you absconded from the middle of a boss fight to go read the FAQ like a total n00b!!<br><br> Let's break this down: *I* am not going to be giving you the answer here, but maybe there are some other friendly FAQ associated buck toothed morons who might be happy to help? I wonder if they ever babble about ominous shit.");
+        new FAQ(table, "Is there NOTHING you can tell me about defeating this weird Eye thing?","Tell you what. If you know how to think like a Waste, maybe I have a couple clues sitting around for you. Knock yourself out.");
+    }
+    new FAQ(table, "What is the Land of Horticulture and Essence's other name?", "Hehehehe.<br><br>While giving you the answer would be cheating, I CAN assure that you probably aren't gonna guess the password until you've seen at least a FEW of LOHAE's secrets...");
+    new FAQ(table, "Wait. You mean there's multiple secrets???",";) ;) ;)  <br><Br>Even my secrets have secrets. Off the top of my head I can think of.... <br><br><li>Why is the canvas [REDACTED]???<li>How do you move [REDACTED]??? <li>[??]<li>How do you defeat [REDACTED]??? (and there's multiple ways for that one)<li>what does [REDACTED] do??? (where theres like....at least 3 different [REDACTED]s.)<li>How do you upgrade [REDACTED]???<li>Oh! And the one this was all built around, how does this all relate to <a target = '_blank' href = 'http://www.farragofiction.com/WigglerSim'>WigglerSim</a>???<li>And of course, the classic: 'How do you Think Like a Waste(tm)???'  ");
 }
 
 class FAQ {

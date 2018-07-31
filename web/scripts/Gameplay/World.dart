@@ -132,8 +132,7 @@ class World {
 
     void save() {
         print("saving...");
-        //TODO convert to data string
-        window.localStorage[SAVEKEY] = toJSON().toString();
+        window.localStorage[SAVEKEY] = toDataString().toString();
         window.localStorage["SECRETS_FOR_CALM"] = toJSON().toString();
 
     }
@@ -141,7 +140,7 @@ class World {
     void load() {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
-            copyFromJSON(new JSONObject.fromJSONString(data));
+            copyFromDataString(data);
         }else {
             underWorld.player.initialInventory();
         }
@@ -159,7 +158,7 @@ class World {
 
     JSONObject toJSON() {
         JSONObject json = new JSONObject();
-
+        json["bossFight"] = bossFight.toString();
         json["player"] = underWorld.player.toJSON().toString();
         json["nidhogg"] = underWorld.nidhogg.toJSON().toString();
         json["secretsForCalm"] = secretsForCalm.join(","); //csv
@@ -196,6 +195,7 @@ class World {
         if(json["secretsForCalm"] != null) {
             secretsForCalm = json["secretsForCalm"].split(",");
         }
+        bossFight = json["bossFight"] ==true.toString();;
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         if(json["nidhogg"] != null) {
             underWorld.nidhogg.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));

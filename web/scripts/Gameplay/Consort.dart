@@ -68,6 +68,7 @@ class Consort {
             chats.add("don't wake the DENIZEN!!",0.5);
             chats.add("they say the PRINCE will save us!!",0.5);
             chats.add("so many eyes :( :(",0.3);
+            chats.add("we had to stop planting trees because Nidhogg would wake!!",0.1);
             chats.add("even if the Nidhogg causes all trees to die, the seed vault will survive!!",0.5);
         }else if (world.underWorld.nidhogg.dead) {
             chats.add("thank you for saving us!!");
@@ -83,6 +84,15 @@ class Consort {
         chats.add("seed vault best vault!!");
         chats.add("we store seeds here so they will never go extinct!!");
         chats.add("lohae has two names!!",0.3);
+
+        if(world.bossFight) {
+            chats.add("Nidhogg absorbs the Life from Trees!!",10);
+            chats.add("the Denizen is awake!!",10);
+            chats.add("run!!",10);
+            chats.add("use fraymotiffs!!",1);
+            chats.add("find the EAGLE!!",1);
+            chats.add("hide!!",10);
+        }
 
     }
 
@@ -127,18 +137,27 @@ class FAQConsort extends Consort {
 
   @override
   void initTopics() {
-      chats.add("",10.0);
-      chats.add("thwap!!",10.0);
-      chats.add("thwap thwap!!",10.0);
+      chats.add("",5.0);
+      chats.add("thwap!!",5.0);
+      chats.add("thwap thwap!!",5.0);
       chats.add("seeds!!",2);
       chats.add("hi!!",2);
-      chats.add("??",10);
+      chats.add("??",5);
       chats.add("i love trees!!");
       chats.add("trees!!",2);
       chats.add("fruit!!",2);
       chats.add("flowers!!",2);
       chats.add("leaves!!",2);
       chats.add("lohae has two names!!",0.3);
+      World world = World.instance;
+      if(world.bossFight) {
+          chats.add("Nidhogg absorbs the Life from Trees!!",10);
+          chats.add("the Denizen is awake!!",10);
+          chats.add("run!!",10);
+          chats.add("use fraymotiffs!!",1);
+          chats.add("find the EAGLE!!",5);
+          chats.add("hide!!",10);
+      }
 
   }
 }
