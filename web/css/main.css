@@ -19,8 +19,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002d4a', end
 }
 
 .storeButton{
+  font-family: 'strife', sans-serif;
     font-size: 32px;
     width: 100px;
+    display: inline;
+
+    padding-left: 33px;
+    padding-right: 33px;
+    margin: 50px;
+    padding-top: 10px;
+}
+
+.meteorButton{
+  font-family: 'strife', sans-serif;
+    font-size: 32px;
+    width: 300px;
     display: inline;
 
     padding-left: 33px;

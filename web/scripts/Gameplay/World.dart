@@ -27,6 +27,7 @@ class World {
     }
     static String labelPattern = ":___ ";
     static String SAVEKEY = "yggdrasilSAVEDATA";
+    static String SHAREDKEY = "SHARED_DATA";
     int width = 800;
     int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
@@ -133,9 +134,9 @@ class World {
     void save() {
         print("saving...");
         window.localStorage[SAVEKEY] = toDataString().toString();
-        window.localStorage["SECRETS_FOR_CALM"] = secretsForCalm.join(",");
-        window.localStorage["SHARED_FUNDS"] ="${underWorld.player.funds}";
+        window.localStorage[SHAREDKEY] = sharedToDataString().toString();
     }
+
 
     void load() {
         if(window.localStorage.containsKey(SAVEKEY)){
@@ -144,12 +145,8 @@ class World {
         }else {
             underWorld.player.initialInventory();
         }
-        if(window.localStorage["SECRETS_FOR_CALM"] != null) {
-            secretsForCalm = window.localStorage["SECRETS_FOR_CALM"].split(",").where((s) => s.isNotEmpty).toList();
-        }
-
-        if(window.localStorage["SHARED_FUNDS"] != null) {
-            underWorld.player.funds = int.parse(window.localStorage["SHARED_FUNDS"]);
+        if(window.localStorage[SHAREDKEY] != null) {
+            copyFromDataString(window.localStorage[SHAREDKEY]);
         }
     }
 
@@ -212,6 +209,35 @@ class World {
         String idontevenKnow2 = json["pastFruit"];
         loadPastFruitFromJSON(idontevenKnow2);
         new TimeProfiler("Loading Archived Fruit", startTime);
+    }
+
+
+    JSONObject sharedToJSON() {
+        JSONObject json = new JSONObject();
+        json["SHARED_FUNDS"] = "${underWorld.player.funds}";
+        json["CALM_SECRETS"] = secretsForCalm.join(",");
+    }
+
+    String sharedToDataString() {
+        try {
+            String ret = sharedToJSON().toString();
+            return "${BASE64URL.encode(ret.codeUnits)}";
+        }catch(e) {
+            print(e);
+            print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+        }
+    }
+
+    void copySharedFromDataString(String dataString) {
+        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        JSONObject json = new JSONObject.fromJSONString(rawJson);
+        copySharedFromJSON(json);
+    }
+
+    void copySharedFromJSON(JSONObject json) {
+        secretsForCalm = json["CALM_SECRETS"].split(",").where((s) => s.isNotEmpty).toList();
+        underWorld.player.funds = int.parse("SHARED_FUNDS");
+
     }
 
     void loadTreesFromJSON(String idontevenKnow) {
