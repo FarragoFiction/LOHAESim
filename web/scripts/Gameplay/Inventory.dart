@@ -15,6 +15,7 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:CommonLib/Utility.dart';
+import 'package:DollLibCorrect/src/Dolls/KidBased/HomestuckGrubDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 class Inventory extends Object with IterableMixin<Inventoryable>{
     static String labelPattern = ":___ ";
@@ -131,9 +132,16 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     void add(Inventoryable item)  {
         inventory.add(item);
         if(item is Fruit && !(this is Store)) {
-            (item as Fruit).world = world;
-            (item as Fruit).makeArchive();
+            Fruit fruit = item as Fruit;
+            fruit.world = world;
+            fruit.makeArchive();
+            //wait what, why would this ever happen???
+            if(fruit.doll is HomestuckGrubDoll) {
+                world.secretsForCalm.add(fruit.doll.toDataBytesX());
+            }
+
         }
+
         drawOneItem(item);
         world.save();
     }
@@ -148,6 +156,13 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     void remove(Inventoryable item) {
         inventory.remove(item);
         if(item.myInventoryDiv != null) item.myInventoryDiv.remove();
+        if(item is Fruit && !(this is Store)) {
+            Fruit fruit = item as Fruit;
+            //wait what, why would this ever happen???
+            if(fruit.doll is HomestuckGrubDoll) {
+                world.secretsForCalm.remove(fruit.doll.toDataBytesX());
+            }
+        }
         world.save();
     }
 

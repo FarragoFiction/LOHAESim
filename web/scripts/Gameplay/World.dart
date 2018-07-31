@@ -95,6 +95,7 @@ class World {
     //dollstring, archived pairs, useful for record keeping and the like. doesn't have parents (since its meant to be the
     //archetypal fruit, not a specific one
     Map<String,ArchivedFruit> pastFruit = new Map<String, Fruit>();
+    List<String> secretsForCalm = new List<String>();
 
 
     //don't redraw overworld unless you really have to
@@ -133,6 +134,8 @@ class World {
         print("saving...");
         //TODO convert to data string
         window.localStorage[SAVEKEY] = toJSON().toString();
+        window.localStorage["SECRETS_FOR_CALM"] = toJSON().toString();
+
     }
 
     void load() {
@@ -159,6 +162,7 @@ class World {
 
         json["player"] = underWorld.player.toJSON().toString();
         json["nidhogg"] = underWorld.nidhogg.toJSON().toString();
+        json["secretsForCalm"] = secretsForCalm.join(","); //csv
 
         List<JSONObject> treeArray = new List<JSONObject>();
         for(Tree tree in trees) {
@@ -189,6 +193,9 @@ class World {
 
     void copyFromJSON(JSONObject json) {
         DateTime startTime = new DateTime.now();
+        if(json["secretsForCalm"] != null) {
+            secretsForCalm = json["secretsForCalm"].split(",");
+        }
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         if(json["nidhogg"] != null) {
             underWorld.nidhogg.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));
