@@ -122,7 +122,7 @@ class Nidhogg extends CollectableSecret {
       }else if (scaleX > 1.0) {
           scaleDirection = scaleDirection * -1;
       }
-      scaleX = scaleX - 0.001*scaleDirection;
+      scaleX = scaleX - 0.0005*scaleDirection;
 
       if(lastSpoke == null) return talk();
       DateTime now = new DateTime.now();

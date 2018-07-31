@@ -91,7 +91,12 @@ void start() {
     }
 
     if(ygdrassil.secretsForCalm.isNotEmpty) {
-        new FAQ(table, "... What. The. Actual. Fuck. Why did my tree grow Wigglers?", "I mean. What did you THINK would happen when you planted weird color coded Essence Orbs you found randomly hidden in the roots of the World Tree, Ygdrassil???<br><Br>Better hope you have an Empress calm enough to not knee jerk cull these little guys, huh. Or I guess you could just....plant them???");
+        new FAQ(table, "... What. The. Actual. Fuck. Why did my tree grow Wigglers?", "I mean. What did you THINK would happen when you planted weird color coded Essence Orbs you found randomly hidden in the roots of the World Tree, Ygdrassil???<br><Br>Better hope you have an <a target = '_blank' href = 'http://www.farragofiction.com/WigglerSim/currentEmpress.html'>Empress</a> calm enough to not knee jerk cull these little guys, huh. Or I guess you could just....plant them???");
+    }
+
+    if(ygdrassil.underWorld.nidhogg.purified) {
+        new FAQ(table, "... Well THAT was a thing.", "Congrats!!! You actually got the True Ending and earned your Yellow Yard. Did all my gigglesnort help?");
+
     }
 
     if(ygdrassil.pastFruit.length >= 288 && ygdrassil.bossDefeated) {
