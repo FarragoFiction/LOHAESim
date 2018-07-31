@@ -118,7 +118,6 @@ class Player extends Secret {
         JSONObject json = new JSONObject();
         json["topLeftX"] = "$topLeftX";
         json["topLeftY"] = "$topLeftY";
-        json["funds"] = "$funds";
         json["inventory"] = inventory.toJSON().toString();
         return json;
     }
@@ -137,8 +136,8 @@ class Player extends Secret {
     }
 
     void copyFromJSON(JSONObject json) {
+        //funds are in world because secrets
         //print("copying player from json");
-        funds = int.parse(json["funds"]);
         topLeftX = int.parse(json["topLeftX"]);
         topLeftY = int.parse(json["topLeftY"]);
         //empty array counts too dunkass

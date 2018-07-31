@@ -133,8 +133,8 @@ class World {
     void save() {
         print("saving...");
         window.localStorage[SAVEKEY] = toDataString().toString();
-        window.localStorage["SECRETS_FOR_CALM"] = toJSON().toString();
-
+        window.localStorage["SECRETS_FOR_CALM"] = secretsForCalm.join(",");
+        window.localStorage["SHARED_FUNDS"] ="${underWorld.player.funds}";
     }
 
     void load() {
@@ -143,6 +143,13 @@ class World {
             copyFromDataString(data);
         }else {
             underWorld.player.initialInventory();
+        }
+        if(window.localStorage["SECRETS_FOR_CALM"] != null) {
+            secretsForCalm = window.localStorage["SECRETS_FOR_CALM"].split(",").where((s) => s.isNotEmpty).toList();
+        }
+
+        if(window.localStorage["SHARED_FUNDS"] != null) {
+            underWorld.player.funds = int.parse(window.localStorage["SHARED_FUNDS"]);
         }
     }
 
@@ -161,8 +168,6 @@ class World {
         json["bossFight"] = bossFight.toString();
         json["player"] = underWorld.player.toJSON().toString();
         json["nidhogg"] = underWorld.nidhogg.toJSON().toString();
-        json["secretsForCalm"] = secretsForCalm.join(","); //csv
-
         List<JSONObject> treeArray = new List<JSONObject>();
         for(Tree tree in trees) {
             treeArray.add(tree.toJSON());
@@ -192,9 +197,6 @@ class World {
 
     void copyFromJSON(JSONObject json) {
         DateTime startTime = new DateTime.now();
-        if(json["secretsForCalm"] != null) {
-            secretsForCalm = json["secretsForCalm"].split(",").where((s) => s.isNotEmpty).toList();
-        }
         bossFight = json["bossFight"] ==true.toString();;
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         if(json["nidhogg"] != null) {
