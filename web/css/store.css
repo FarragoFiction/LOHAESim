@@ -1,4 +1,11 @@
 
+body{
+    background-color: #112b00;
+    background-image: url('../images/BGs/AlternianCliffStore.png');
+    position: fixed;
+    bottom: 0px;
+    background-repeat: repeat-x;
+}
 .chatter{
     position:absolute;
     color: #4e2370;
