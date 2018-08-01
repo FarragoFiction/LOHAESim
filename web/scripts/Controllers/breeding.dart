@@ -12,6 +12,7 @@ Element output = querySelector('#output');
 World ygdrassil = new World();
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
+    querySelector("body").style.height = "2500px";
     await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;

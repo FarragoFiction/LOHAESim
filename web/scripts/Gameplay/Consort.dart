@@ -15,6 +15,9 @@ class Consort {
     Element chatter;
     static int max = 1;
     Random rand = new Random();
+    int speechBubbleAnchor = 240;
+    int chatterRelativeLeft = 100;
+    int chatterBounce = 10;
     bool up = true;
     WeightedList<String> chats = new WeightedList();
     DateTime lastTalk;
@@ -116,16 +119,16 @@ class Consort {
             chatter.style.display = "block";
         }
         chatter.classes.add("chatter");
-        chatter.style.left = "${x + 100}px";
+        chatter.style.left = "${x + chatterRelativeLeft}px";
         chatter.style.bottom = "250px";
     }
 
     Future<Null> animate() async{
         if(up) {
-            chatter.style.bottom = "240px";
+            chatter.style.bottom = "${speechBubbleAnchor}px";
             up = false;
         }else {
-            chatter.style.bottom = "250px";
+            chatter.style.bottom = "${speechBubbleAnchor+chatterBounce}px";
             up = true;
         }
         Duration diff = new DateTime.now().difference(lastTalk);
@@ -167,6 +170,17 @@ class FAQConsort extends Consort {
 
     }
 }
+
+class StoreConsort extends Consort {
+    StoreConsort(Element container, int x, String src) : super(container, x, src);
+
+    @override
+    void initTopics() {
+        chats.add("hi!!");
+        chats.add("",10);
+    }
+}
+
 
 
 class SecretConsort extends Consort {

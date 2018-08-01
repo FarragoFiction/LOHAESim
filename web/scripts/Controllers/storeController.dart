@@ -1,3 +1,4 @@
+import '../Gameplay/Consort.dart';
 import '../Gameplay/Inventoryable/Ax.dart';
 import '../Gameplay/Inventoryable/Essence.dart';
 import '../Gameplay/Inventoryable/Flashlight.dart';
@@ -35,6 +36,7 @@ Future<Null> main() async{
     //example store, TODO have actual inventory system loaded from cache
     Store store = new Store(ygdrassil, spawnInventory(), ygdrassil.underWorld.player.inventory.saleItems);
     store.createContainer(output);
+    new StoreConsort(store.container,400,"0.gif")..speechBubbleAnchor = 400..chatterRelativeLeft=200..chatterBounce=5;;
     store.render();
     finallyDoneLoading = new DateTime.now();
     Duration diff = finallyDoneLoading.difference(firstLoad);
