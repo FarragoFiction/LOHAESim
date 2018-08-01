@@ -225,7 +225,7 @@ class World {
             return "${BASE64URL.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
-            print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
+            print("Error Saving Data. Are there any special characters in there? ${sharedToJSON()} $e");
         }
     }
 
@@ -751,6 +751,10 @@ class World {
         TreeDoll treeDoll = new TreeDoll();
         treeDoll.copyPalette(essence.palette);
         HomestuckGrubDoll grub = new HomestuckGrubDoll();
+        //no faces
+        grub.mouth.imgNumber = 0;
+        grub.leftEye.imgNumber = 0;
+        grub.rightEye.imgNumber = 0;
         grub.copyPalette(ReferenceColours.CORRUPT);
         //grubs are corrupt, except they are the same cast as the essence
         grub.palette.add(HomestuckPalette.ASPECT_LIGHT, treeDoll.palette[HomestuckPalette.ASPECT_LIGHT], true);

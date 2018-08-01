@@ -16,14 +16,14 @@ import 'package:RenderingLib/RendereringLib.dart';
 class Store extends Inventory {
 
     List<String> axQuips = <String>["This fell of the back of a truck. No, it doesn't look familiar. No, it's not pre-owened. No, it doesn't belong to an angry semi-omnipotent robot god and I'm just trying to offload it to get him off my back why would you think that that would be dumb oh god you're not him in disguise are you i've heard he wears flesh suits sometimes shit if you're him you gotta tell me"];
-    List<String> fruitQuips = <String>["Enjoy your juicy treat.", "One out of every ten fruits I sell is actually a vegetable.", "Uh. You sure you want that one?", "Well, ok. Not like I'm in a position to judge your food habits.", "Disclaimer: I am not responsible for disease, mutilation, or death that may cause from misuse of the fruit.", "I mean, if you're sure?"];
-    List<String> flashlightQuips = <String>["Why in fuck would you need a cashlight for gardening."];
-    List<String> cancelQuips = <String>["Don't waste my time you jackass.","Oh come the fuck on."];
+    List<String> fruitQuips = <String>["Yeah yeah whatever. Hey, have you seen any eyes yet?","Enjoy your juicy treat.", "One out of every ten fruits I sell is actually a vegetable.", "Uh. You sure you want that one?", "Well, ok. Not like I'm in a position to judge your food habits.", "Disclaimer: I am not responsible for disease, mutilation, or death that may cause from misuse of the fruit.", "I mean, if you're sure?"];
+    List<String> flashlightQuips = <String>["Why in f*** would you need a cashlight for gardening."];
+    List<String> cancelQuips = <String>["Don't waste my time you jackass.","Oh come the f*** on."];
     List<String> recordQuips = <String>["I hope you enjoy!", "I really hope you like it.", "I spent a lot of time on this one, hope you like it!", "Thanks for nabbing my music"];
     List<String> sellfruitQuips = <String>["You drive a hard bargin.", "Really? You want how much?", "This smells like shit.", "My grandmas a better gardener then this.", "Damn it, I was hoping for apples.", "Well, time to re-sell these at ten times the price.", "You ever wonder why we seem to be using troll money when we're both secretly human?", "Congrats, you just collapsed the local fruit economy.", "Pleasure doing business with you, now my non-existent children won't starve.", "-The bard messily devours the fruit-" "-The bard eyes the fruit with distrust and hands you a few ceagers-"];
     List<String> sellRecordQuips = <String>["Oh. Ok. I-. Alright.", "Oh. I'm sorry you didn't like it.", "Oh. I kinda liked that one...", "Yeah, it is kinda shit, I'm sorry.", "I see. Alright. I'm sorry to have wasted your time.", "ok. sorry to have bothered you."];
 
-    List<String> cantAffordToBuyQuips = <String>["Don't touch if you can't buy!", "Get out of my shop you broke motherfucker.", "Oh come on, seriously?", "This isn't a charity.", "I only give discounts to people with good taste", "Better luck next time bozo!", "No cash, no goodies"];
+    List<String> cantAffordToBuyQuips = <String>["Don't touch if you can't buy!", "Get out of my shop you broke motherf*****.", "Oh come on, seriously?", "This isn't a charity.", "I only give discounts to people with good taste", "Better luck next time bozo!", "No cash, no goodies"];
 
     List<Inventoryable> saleItems;
     Element buyTable;
