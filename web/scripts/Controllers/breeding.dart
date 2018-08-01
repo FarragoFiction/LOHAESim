@@ -18,7 +18,9 @@ Future<Null> main() async {
     ygdrassil.makeFundsElement(querySelector("#navbar"));
     await ygdrassil.setupElements(output);
     ygdrassil.renderLoop();
-    hookUpTestControls();
+    if(getParameterByName("haxMode") == "on") {
+        hookUpTestControls();
+    }
     ygdrassil.backgroundMusic.play(); //get around auto play not working in some browsers
     ygdrassil.save();
     //TODOs.drawTodos(output);

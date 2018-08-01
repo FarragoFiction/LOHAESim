@@ -45,7 +45,11 @@ class Consort {
         }
         for(int i = 0; i<numberConsorts; i++) {
             int image = rand.nextInt(2);
-            new Consort(strip,x, "$image.gif");
+            if(rand.nextDouble()>.01) {
+                new Consort(strip, x, "$image.gif");
+            }else {
+                new SecretConsort(strip,x);
+            }
             x += rand.nextInt(500)+50;
             if(x > 1000) x = 0;
         }
@@ -134,32 +138,66 @@ class Consort {
 }
 
 class FAQConsort extends Consort {
-  FAQConsort(Element container, int x, String src) : super(container, x, src);
+    FAQConsort(Element container, int x, String src) : super(container, x, src);
 
-  @override
-  void initTopics() {
-      chats.add("",5.0);
-      chats.add("thwap!!",5.0);
-      chats.add("thwap thwap!!",5.0);
-      chats.add("seeds!!",2);
-      chats.add("hi!!",2);
-      chats.add("??",5);
-      chats.add("i love trees!!");
-      chats.add("trees!!",2);
-      chats.add("fruit!!",2);
-      chats.add("flowers!!",2);
-      chats.add("leaves!!",2);
-      chats.add("lohae has two names!!",0.3);
-      World world = World.instance;
-      if(world.bossFight) {
-          chats.add("Nidhogg absorbs the Life from Trees!!",10);
-          chats.add("the Denizen is awake!!",10);
-          chats.add("run!!",10);
-          chats.add("use fraymotiffs!!",1);
-          chats.add("find the EAGLE!!",5);
-          chats.add("the BARD can help!!",5);
-          chats.add("hide!!",10);
-      }
+    @override
+    void initTopics() {
+        chats.add("",5.0);
+        chats.add("thwap!!",5.0);
+        chats.add("thwap thwap!!",5.0);
+        chats.add("seeds!!",2);
+        chats.add("hi!!",2);
+        chats.add("??",5);
+        chats.add("i love trees!!");
+        chats.add("trees!!",2);
+        chats.add("fruit!!",2);
+        chats.add("flowers!!",2);
+        chats.add("leaves!!",2);
+        chats.add("lohae has two names!!",0.3);
+        World world = World.instance;
+        if(world.bossFight) {
+            chats.add("Nidhogg absorbs the Life from Trees!!",10);
+            chats.add("the Denizen is awake!!",10);
+            chats.add("run!!",10);
+            chats.add("use fraymotiffs!!",1);
+            chats.add("find the EAGLE!!",5);
+            chats.add("the BARD can help!!",5);
+            chats.add("hide!!",10);
+        }
 
-  }
+    }
+}
+
+
+class SecretConsort extends Consort {
+    SecretConsort(Element container, int x,) : super(container, x, "4037.gif") {
+        imageElement.onClick.listen((Event e) {
+            window.alert("!! you did it !!  you clicked my scales!! thwap thwap!! have a secret!! i don't know what it does!!");
+            window.location.href = "index.html?haxMode=on";
+        });
+    }
+
+    @override
+    void initTopics() {
+        chats.add("i am a Secret Aligator!!",10.0);
+        chats.add("thwap!!",5.0);
+        chats.add("click my Scales, y/n??",10.0);
+    }
+}
+
+class SecretFAQConsort extends FAQConsort {
+    SecretFAQConsort(Element container, int x,) : super(container, x, "4037.gif") {
+        imageElement.onClick.listen((Event e) {
+            window.alert("!! you did it !!  you clicked my scales!! thwap thwap!! have a secret!! i don't know what it does!!");
+            window.location.href = "index.html?haxMode=on";
+        });
+    }
+
+    @override
+    void initTopics() {
+        chats.add("i am a Secret Aligator!!",10.0);
+        chats.add("thwap!!",5.0);
+        chats.add("hey!! hey!! wanna know a secret??",5.0);
+        chats.add("click my Scales, y/n??",10.0);
+    }
 }

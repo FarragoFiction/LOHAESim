@@ -732,7 +732,7 @@ class World {
         int x = point.x;
 
         if(getParameterByName("haxMode") == "on") {
-            y = point.y - treeDoll.height/2; //plant base where you click
+            y = point.y; //plant base where you click
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
