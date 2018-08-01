@@ -113,7 +113,10 @@ void start() {
 
     if(ygdrassil.underWorld.player.hasItemWithSameNameAs(new Splinters(ygdrassil))){
         new FAQ(table, "Splinters of... What now? You said something about this being primal?","Yeah, this was one of the first, if not THE first, songs I ever made. Its sound is a bit raw, a bit unrefined because of that. It was one of my first attempts at working the fraymixing system, trying to hide effects within the music. It was a bit unsuccessful- Like a lot of my songs, it can act like a fraymotif, but only in certain situations. Unlike some of my other songs, the activation conditions for this one aren't in this sim.");
+    }
 
+    if(ygdrassil.underWorld.player.hasItemWithSameNameAs(new Saphire(ygdrassil))){
+        new FAQ(table, "You said you found 'Saphire Spires' in a cave or something?","Yeah, most of the flavor text for these is just a wee bit bullshit. I do tend to fuck around behind the scenes, but I don't really find music there. I usually lurk around the Root code, but recently this one asshole has been messing stuff up down there, making it hard to do my shtick. Goddamn jacking my goddamn style... Anyway, I can't exactly move on him directly- I'm a bard! We don't do face to face combat.");
     }
 
     if(ygdrassil.underWorld.player.hasItemWithSameNameAs(new Vethrfolnir(ygdrassil))){
