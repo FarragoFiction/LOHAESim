@@ -185,7 +185,14 @@ class ArchivedFruit extends Fruit {
     DivElement details;
     Element wrapper;
 
+
     int get archiveCost => cost * 100;
+
+    @override
+    bool get canAfford {
+        if(World.instance.underWorld.player.funds >= archiveCost) return true;
+        return false;
+    }
 
   ArchivedFruit(Doll doll) : super(null,doll);
 
@@ -214,10 +221,18 @@ class ArchivedFruit extends Fruit {
         buy.classes.add("vaultButton");
         buy.classes.add("storeButtonColor");
         details.append(buy);
+        if(!canAfford) {
+            buy.text = "Cannot Afford to Clone";
+        }
         buy.onClick.listen((Event e)
         {
-            world.underWorld.player.inventory.add(spawnFruit());
-            world.playSoundEffect("121990__tomf__coinbag");
+            if(canAfford) {
+                World.instance.underWorld.player.inventory.add(spawnFruit());
+                World.instance.updateFunds(-1 * archiveCost);
+                World.instance.playSoundEffect("121990__tomf__coinbag");
+            }else {
+                buy.text = "Cannot Afford to Clone";
+            }
 
         });
 
@@ -245,9 +260,10 @@ class ArchivedFruit extends Fruit {
     }
 
     Fruit spawnFruit() {
-        Fruit fruit = new Fruit(world,doll);
+        Fruit fruit = new Fruit(World.instance,doll);
         fruit.description = description;
         fruit.cost = cost;
+        return fruit;
     }
 
     void renderMyVault(DivElement parent) {
