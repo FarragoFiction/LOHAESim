@@ -11,6 +11,7 @@ import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 
+import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class Store extends Inventory {
@@ -180,11 +181,22 @@ class StorePopup extends InventoryPopup
     }
 
     bool itemIsCod() {
+        print("checking if cod");
+        if(store.activeItem is Fruit) {
+            print("it's a fruit");
+            Fruit fruit = store.activeItem as Fruit;
+            if(fruit.doll is FruitDoll) {
+                FruitDoll fruitDoll = (fruit.doll as FruitDoll);
+                print("and the doll is a fruit too, ${fruitDoll.body.imgNumber}");
 
+                return fruitDoll.body.imgNumber == 26;
+            }
+        }
+        return false;
     }
 
     bool itemIsHorseNut() {
-
+        return store.activeItem.name == "Horse Nut";
     }
 
     void buyCommerce() {
