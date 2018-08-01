@@ -15,6 +15,7 @@ class Fruit extends Object with Inventoryable {
     @override
     bool canSell = true;
 
+
     CanvasElement _canvas;
     //if dirty redraw tree.
     bool dirty = true;
@@ -184,6 +185,8 @@ class ArchivedFruit extends Fruit {
     DivElement details;
     Element wrapper;
 
+    int get archiveCost => cost * 100;
+
   ArchivedFruit(Doll doll) : super(null,doll);
 
     @override
@@ -207,6 +210,17 @@ class ArchivedFruit extends Fruit {
         details.append(value);
         details.append(descElement);
 
+        DivElement buy = new DivElement()..text = "Clone for ${archiveCost}";
+        buy.classes.add("vaultButton");
+        buy.classes.add("storeButtonColor");
+        details.append(buy);
+        buy.onClick.listen((Event e)
+        {
+            world.underWorld.player.inventory.add(spawnFruit());
+            world.playSoundEffect("121990__tomf__coinbag");
+
+        });
+
     }
 
     void toggleDetails() {
@@ -228,6 +242,12 @@ class ArchivedFruit extends Fruit {
 
     void hide() {
         wrapper.style.display = "none";
+    }
+
+    Fruit spawnFruit() {
+        Fruit fruit = new Fruit(world,doll);
+        fruit.description = description;
+        fruit.cost = cost;
     }
 
     void renderMyVault(DivElement parent) {
