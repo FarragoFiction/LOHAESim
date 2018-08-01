@@ -179,11 +179,23 @@ class StorePopup extends InventoryPopup
         sellAll(store.activeItem);
     }
 
+    bool itemIsCod() {
+
+    }
+
+    bool itemIsHorseNut() {
+
+    }
+
     void buyCommerce() {
       if(!store.activeItem.canAfford) {
           textBody.text = rand.pickFrom(store.cantAffordToBuyQuips);
       }else {
-          if (store.activeItem is Ax) {
+          if(itemIsCod()){
+              textBody.text = "Treasure them.";
+          }else if(itemIsHorseNut()) {
+              textBody.text = "I'm so, so sorry";
+          }else if (store.activeItem is Ax) {
               textBody.text = rand.pickFrom(store.axQuips);
           } else if (store.activeItem is Fruit) {
               textBody.text = rand.pickFrom(store.fruitQuips);
@@ -199,7 +211,11 @@ class StorePopup extends InventoryPopup
     }
 
     void sellCommerce() {
-        if (store.activeItem is Fruit) {
+        if(itemIsCod()){
+            textBody.text = "My children.";
+        }else if(itemIsHorseNut()) {
+            textBody.text = "Please dont ask why I want this";
+        }else if (store.activeItem is Fruit) {
             textBody.text = rand.pickFrom(store.sellfruitQuips);
         } else if (store.activeItem is Record) {
             textBody.text = rand.pickFrom(store.sellRecordQuips);
