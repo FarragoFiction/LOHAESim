@@ -100,7 +100,8 @@ class Player extends Secret {
         }
     }
 
-    bool hasItem(Inventoryable itemToCheck) {
+
+    bool hasItemWithSameNameAs(Inventoryable itemToCheck) {
         //print("item is $itemToCheck and inventory is ${inventory.length}}");
         for(Inventoryable item in inventory) {
             //print("is $itemToCheck the same as $item");

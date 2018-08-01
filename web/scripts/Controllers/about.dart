@@ -1,4 +1,5 @@
 import '../Gameplay/Consort.dart';
+import '../Gameplay/Inventoryable/Record.dart';
 import '../Gameplay/World.dart';
 import 'dart:async';
 import 'dart:html';
@@ -105,6 +106,19 @@ void start() {
         new FAQ(table, "What was the point of getting 288 unique fruits???", "Bullshit Bard restrictions means I can’t just tell you to go and do what I need you to do, so we have to litter in distractions. Wait. Shit. Have you not beaten it yet? Ignore me.");
     }
 
+    if(ygdrassil.underWorld.player.hasItemWithSameNameAs(new Noir(ygdrassil))){
+        new FAQ(table, "Does this noirsong have any reference to that one dude with the knives?","...Actually, no! Despite the fact that I tried to mix in a jazzy theme, the only reason its called 'noir' is because its associated with void and darkness and all that. Despite my attempts to try and fraymix it, it doesn't seem to actually DO anything. I blame that asshole messing around in the Root c-. Never mind!");
+
+    }
+
+    if(ygdrassil.underWorld.player.hasItemWithSameNameAs(new Splinters(ygdrassil))){
+        new FAQ(table, "Splinters of... What now? You said something about this being primal?","Yeah, this was one of the first, if not THE first, songs I ever made. Its sound is a bit raw, a bit unrefined because of that. It was one of my first attempts at working the fraymixing system, trying to hide effects within the music. It was a bit unsuccessful- Like a lot of my songs, it can act like a fraymotif, but only in certain situations. Unlike some of my other songs, the activation conditions for this one aren't in this sim.");
+
+    }
+
+    if(ygdrassil.underWorld.player.hasItemWithSameNameAs(new Vethrfolnir(ygdrassil))){
+        new FAQ(table, "What is up with this Verbi-. Vergith-. Vsomethingorother song?","Vethrfolnir was the massive Eagle who perched atop Ygdrassil, the World Tree. He oversaw the entirety of reality, all nine realms, intertwined within the World Trees branches and roots and leaves. He had a mortal enemy- Nidhogg, the Great Serpent, World Eater, Oath-breaker, Herald of The Twilight Of the Gods. Nidhogg lived in darkness, at the depths of the trees roots, gnawing at them, slowly but surely ripping away and corrupting the life of that great and terrible Ash Tree. Between Nidhogg at the bottom and Verthrfolnir at the top ran Ratasook, a squirrel of some shape. He carried messages back and forth, insults from Eagle to Beast and Beast to Eagle. <br><br> What, you wanted to know WHY I wrote it? Eh, you'll figure it out.");
+    }
     new FAQ(table, "What even IS this 'LOHAE' thing???", "The Land of Horticulture and Essence is...<br><br>Well...<br><br>Okay, bear with me now, but have you heard about Homestuck?<br><br>If yes, then it's meant to be a homestuck inspired Life Player land with Beaver consorts. <br><Br>If no, then. I dont dude, its a fantasy thing. Don’t think about it.");
     new FAQ(table, "Why is nothing happening???", "LOHAE is meant to be an idle game. Plant some trees, come back later and they'll be grown and you can harvest their fruits to sell to me to grow more trees and to raise money to buy things from me. <br><br>If nothing happens for more than, let's say... a half hour? Then there might be a bug. Send your <a href = 'meteor.html'>save data</a> to our local Omnipotent Codemiester via email, tumblr or discord (jadedResearcher in all three places) and maybe they can debug it and get you working again.");
     new FAQ(table, "Why is it called the 'Land of Horticulture and Essence'???", "'Horticulture' because you grow plants, duh. <br><br>Then why essence? Well.<br><br> Nyeheheheheheh.");

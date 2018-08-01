@@ -53,7 +53,7 @@ class UnderWorld {
             e.topLeftX = x;
             e.topLeftY = y;
             //now that i've used my rand so they are stable, remove if i already have it
-            if(player.hasItem(e)) toRemove.add(e);
+            if(player.hasItemWithSameNameAs(e)) toRemove.add(e);
         }
 
         for(Essence e in toRemove) {
