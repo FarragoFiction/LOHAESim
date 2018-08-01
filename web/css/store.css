@@ -1,0 +1,27 @@
+
+.chatter{
+    position:absolute;
+    color: #4e2370;
+    background: #dcb4e9;
+    border: 3px solid #aa0fd0;
+    border-radius: 45px;
+    padding: 15px;
+    left: 4px;
+    z-index: -1;
+
+}
+
+.consortStrip{
+    position: relative;
+    width: 100%
+    border: 3px solid #242d26;
+    height: 375px;
+    background-repeat: repeat-x;
+}
+
+.consort{
+    position:absolute;
+    bottom: 230px;
+    z-index: -1;
+
+}
