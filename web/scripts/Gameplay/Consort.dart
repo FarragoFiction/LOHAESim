@@ -71,9 +71,12 @@ class Consort {
         chats.add("so many seeds!!");
         World world = World.instance;
         if(!world.bossDefeated) {
+            chats.add("the TITAN keeps us from growing trees ourselves!!",0.5);
             chats.add("the DENIZEN keeps us from growing trees ourselves!!",0.5);
             chats.add("don't wake the DENIZEN!!",0.5);
+            chats.add("don't wake the TITAN!!",0.5);
             chats.add("they say the PRINCE will save us!!",0.5);
+            chats.add("they say the VANDAL will save us!!",0.5);
             chats.add("so many eyes :( :(",0.3);
             chats.add("we had to stop planting trees because Nidhogg would wake!!",0.1);
             chats.add("even if the Nidhogg causes all trees to die, the seed vault will survive!!",0.5);
@@ -94,7 +97,8 @@ class Consort {
 
         if(world.bossFight) {
             chats.add("Nidhogg absorbs the Life from Trees!!",10);
-            chats.add("the Denizen is awake!!",5);
+            chats.add("the DENIZEN is awake!!",5);
+            chats.add("the TITAN is awake!!",5);
             chats.add("run!!",6);
             chats.add("use fraymotiffs!!",1);
             chats.add("find the EAGLE!!",5);
@@ -160,7 +164,8 @@ class FAQConsort extends Consort {
         World world = World.instance;
         if(world.bossFight) {
             chats.add("Nidhogg absorbs the Life from Trees!!",10);
-            chats.add("the Denizen is awake!!",10);
+            chats.add("the DENIZEN is awake!!",10);
+            chats.add("the TITAN is awake!!",10);
             chats.add("run!!",10);
             chats.add("use fraymotiffs!!",1);
             chats.add("find the EAGLE!!",5);

@@ -267,7 +267,7 @@ class StorePopup extends InventoryPopup
     }
 
     void buy(Inventoryable item) {
-        store.world.updateFunds(-1*item.saleCost);
+        store.world.updateFunds(-1*item.cost);
         store.inventory.remove(item);
         item.myInventoryDiv.remove();
         store.world.underWorld.player.inventory.add(item);

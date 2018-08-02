@@ -85,6 +85,11 @@ class Fruit extends Object with Inventoryable {
         }
         String idontevenKnow = json["parents"];
         loadParentsFromJSON(idontevenKnow);
+        if( doll is FruitDoll) {
+            (doll as FruitDoll).setName();
+            print("name from seed ${doll.seed} is $name");
+        }
+
     }
 
     void loadParentsFromJSON(String idontevenKnow) {
@@ -211,10 +216,13 @@ class ArchivedFruit extends Fruit {
 
         DivElement header = new DivElement()..text = name;
         DivElement value = new DivElement()..text = "Value: $cost";
+        DivElement seedID = new DivElement()..text = "Seed ID: ${doll.seed}";
+
         DivElement descElement = new DivElement()..text = description;
         descElement.style.marginTop = "10px";
 
         details.append(header);
+        details.append(seedID);
         details.append(value);
         details.append(descElement);
 
