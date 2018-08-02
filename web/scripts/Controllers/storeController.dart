@@ -71,7 +71,7 @@ List<Fruit> spawnRandomFruit() {
         parent.randomizeNotColors(); //makes sure it's always the same parents
         parent.copyPalette(doll.palette);
         //not for normies
-        List<int> banList = <int>[14,15,24];
+        List<int> banList = FruitDoll.mutants;
         if(banList.contains(doll.body.imgNumber)) doll.body.imgNumber = 11;
         Fruit fruit = new Fruit(ygdrassil,doll);
         fruit.parents.add(parent);
