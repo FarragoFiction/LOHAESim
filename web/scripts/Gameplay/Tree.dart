@@ -70,8 +70,8 @@ class Tree {
     //for uncorrupting, if you figure out how to
     String cachedTreeDoll;
     //if old stage and new stage don't match, auto dirty
-    int oldStage = SAPPLING;
-    int stage = SAPPLING;
+    int oldStage = null;
+    int stage = null;
 
     double get scale {
         if(stage == SAPPLING) return saplingScale;
@@ -264,11 +264,13 @@ class Tree {
 
     Future<CanvasElement> getRipeFruitCanvas() async {
         if(oldStage < RIPEFRUIT) {
-            // print("making fruit should only happen once per tree");
+             print("making ripe fruit should only happen once per tree");
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
+                print("creating ripe fruit in the first place");
                 await doll.createFruit();
             }else {
+                print("transforming whatever is there into ripe fruit");
                 doll.transformHangablesInto(); //auto does fruit
             }
             //print("made hangables ${doll.hangables}");
@@ -309,11 +311,13 @@ class Tree {
     //unripe fruits don't draw attention to themselves (but you can still click them)
     Future<CanvasElement> getFruitCanvas() async {
         if(oldStage < FRUIT) {
-           // print("making fruit should only happen once per tree");
+            print("making fruit should only happen once per tree");
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
+                print("making fruit from scratch");
                 await doll.createFruit();
             }else {
+                print("turning existing hangables into fruit");
                 doll.transformHangablesInto(); //auto does fruit
             }
             //print("made hangables ${doll.hangables}");
@@ -340,6 +344,8 @@ class Tree {
         if(stage >= RIPEFRUIT) {
             stage = RIPEFRUIT;
         }
+        //get it one more time
+        if(oldStage == null) oldStage = stage;
         if(oldStage != stage){
             //https://freesound.org/people/adcbicycle/sounds/13951/
             world.playSoundEffect("13951__adcbicycle__23");

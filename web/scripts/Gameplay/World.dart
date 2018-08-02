@@ -221,7 +221,7 @@ class World {
     String sharedToDataString() {
         try {
             String ret = sharedToJSON().toString();
-            print("the json string for shared data was $ret");
+            //print("the json string for shared data was $ret");
             return "${BASE64URL.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
