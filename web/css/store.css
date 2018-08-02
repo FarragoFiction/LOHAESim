@@ -2,8 +2,7 @@
 body{
     background-color: #112b00;
     background-image: url('../images/BGs/AlternianCliffStore.png');
-    position: fixed;
-    bottom: 0px;
+    background-position: fixed;
     background-repeat: repeat-x;
 }
 .chatter{
