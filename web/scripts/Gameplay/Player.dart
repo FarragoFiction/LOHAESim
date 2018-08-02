@@ -46,6 +46,16 @@ class Player extends Secret {
         return essenceCount >= 13;
     }
 
+    int get numberEssences {
+        int essenceCount = 0;
+        for(Inventoryable item in inventory) {
+            if (item is Essence) {
+                essenceCount ++;
+            }
+        }
+        return essenceCount;
+    }
+
 
     bool get canBuyFlashlight {
         int essenceCount = 0;

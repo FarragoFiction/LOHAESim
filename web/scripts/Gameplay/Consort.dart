@@ -59,6 +59,8 @@ class Consort {
     }
 
     void initTopics() {
+        World world = World.instance;
+
         chats.add("",10.0);
         chats.add("thwap!!",10.0);
         chats.add("thwap thwap!!",10.0);
@@ -69,8 +71,9 @@ class Consort {
         chats.add("flowers!!",2);
         chats.add("leaves!!",2);
         chats.add("so many seeds!!");
-        World world = World.instance;
         if(!world.bossDefeated) {
+            chats.add("you have ${world.underWorld.player.numberEssences} of 3 needed ESSENCES!!");
+            chats.add("if you get enough ESSENCES you can get something cool in the shop!!",0.5);
             chats.add("the TITAN keeps us from growing trees ourselves!!",0.5);
             chats.add("the DENIZEN keeps us from growing trees ourselves!!",0.5);
             chats.add("don't wake the DENIZEN!!",0.5);
