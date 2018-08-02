@@ -230,11 +230,11 @@ class World {
     }
 
     void copySharedFromDataString(String dataString) {
-        print("dataString is $dataString");
+        //print("dataString is $dataString");
         String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
-        print("rawJSON is $rawJson");
+        //print("rawJSON is $rawJson");
         JSONObject json = new JSONObject.fromJSONString(rawJson);
-        print("json is $json");
+        //print("json is $json");
         copySharedFromJSON(json);
     }
 

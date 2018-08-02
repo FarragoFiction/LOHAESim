@@ -32,6 +32,7 @@ class Fruit extends Object with Inventoryable {
     }
 
     Fruit(World this.world, Doll this.doll) {
+        if( doll is FruitDoll) (doll as FruitDoll).setName();
         name = doll.dollName;
         type = "Fruit";
     }

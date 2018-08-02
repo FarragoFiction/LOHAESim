@@ -28,8 +28,8 @@ class Tree {
     int get msPerStage {
         if(_msPerStage < 0) {
             Colour color = doll.associatedColor;
-            int minutesMax = 30;
-            int minutesMin = 5;
+            int minutesMax = 2;
+            int minutesMin = 1;
             if(getParameterByName("haxMode") == "on") {
                 minutesMax = 5;
                 minutesMin = 1;
@@ -159,9 +159,9 @@ class Tree {
         json["dollString"] = doll.toDataBytesX();
         json["bottomCenterX"] = "$bottomCenterX";
         json["bottomCenterY"] = "$bottomCenterY";
-        if(plantTime != null) {
-            json["plantTime"] = "${plantTime.millisecondsSinceEpoch}";
-        }
+        if(plantTime == null) plantTime = new DateTime.now();
+        json["plantTime"] = "${plantTime.millisecondsSinceEpoch}";
+
         return json;
     }
 
