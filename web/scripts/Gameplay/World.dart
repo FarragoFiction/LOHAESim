@@ -626,7 +626,6 @@ class World {
     }
 
     void removeTreePopup() {
-        consortPrint("thwap!! thwap!! Gnaw that tree!");
         DivElement axContainer = new DivElement();
         axContainer.classes.add("parentHorizontalScroll");
         axContainer.classes.add("popupParents");
@@ -662,11 +661,11 @@ class World {
 
             parentDiv.onMouseUp.listen((Event e)
             {
+                consortPrint("thwap!! thwap!! Gnaw that tree!");
                 parentDiv.remove();
                 treesToRemove.add(tree);
                 unmoveOwO(tree.doll);
                 render(true);
-                save();
             });
         }
 
@@ -703,6 +702,8 @@ class World {
             trees.remove(tree);
             overWorldDirty = true; //since i removed a tree, need to update graphics
         }
+        if(treesToRemove.isNotEmpty) save();
+
         treesToRemove.clear();
         if(bossFight && trees.isEmpty) {
             nidhoggSleeps();
@@ -714,6 +715,8 @@ class World {
             trees.add(tree);
             overWorldDirty = true; //since i removed a tree, need to update graphics
         }
+        if(treesToAdd.isNotEmpty) save();
+
         treesToAdd.clear();
     }
 

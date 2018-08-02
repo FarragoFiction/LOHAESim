@@ -259,6 +259,7 @@ class Tree {
     void grow() {
         //pretend you were planted one stage extra ago
         plantTime= plantTime.subtract(new Duration(milliseconds: msPerStage));
+        world.save();
     }
 
 
@@ -333,7 +334,10 @@ class Tree {
     }
 
     void setStage() {
-        if(plantTime == null) plantTime = new DateTime.now();
+        if(plantTime == null) {
+            print("found a null plant time");
+            plantTime = new DateTime.now();
+        }
         Duration diff = new DateTime.now().difference(plantTime);
         int age = diff.inMilliseconds;
         oldStage = stage;
