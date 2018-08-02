@@ -116,7 +116,6 @@ class World {
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
         load();
-        //testTrees();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
     }
@@ -144,6 +143,7 @@ class World {
             copyFromDataString(data);
         }else {
             underWorld.player.initialInventory();
+            initTrees();
         }
         if(window.localStorage.containsKey(SHAREDKEY)) {
             copySharedFromDataString(window.localStorage[SHAREDKEY]);
@@ -285,26 +285,15 @@ class World {
         syncFunds();
     }
 
-    void testTrees() {
-        TreeDoll doll = new TreeDoll();
-        Tree tree = new Tree(this,doll.clone(), 50, 550);
-        tree.stage = Tree.SAPPLING;
-        trees.add(tree);
-        tree = new Tree(this,doll.clone(), 200, 550);
-        tree.stage = Tree.LEAVES;
-        trees.add(tree);
+    void initTrees() {
+        Tree tree1 = new Tree(this,new TreeDoll(), 200, 550);
+        trees.add(tree1);
 
-        tree = new Tree(this,doll.clone(), 350, 550);
-        tree.stage = Tree.FLOWERS;
-        trees.add(tree);
+        Tree tree2 = new Tree(this,new TreeDoll(), 500, 550);
+        trees.add(tree2);
 
-        tree = new Tree(this,doll.clone(), 500, 550);
-        tree.stage = Tree.FRUIT;
-        trees.add(tree);
-
-        tree = new Tree(this,doll.clone(), 600, 550);
-        tree.stage = Tree.RIPEFRUIT;
-        trees.add(tree);
+        tree1.grow(Tree.FLOWERS);
+        tree2.grow(Tree.RIPEFRUIT);
     }
 
 

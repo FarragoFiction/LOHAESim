@@ -87,7 +87,7 @@ class Fruit extends Object with Inventoryable {
         loadParentsFromJSON(idontevenKnow);
         if( doll is FruitDoll) {
             (doll as FruitDoll).setName();
-            print("name from seed ${doll.seed} is $name");
+           // print("name from seed ${doll.seed} is $name");
         }
 
     }

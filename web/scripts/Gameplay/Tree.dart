@@ -256,22 +256,23 @@ class Tree {
     }
 
     //yellow yard hax, wont effect if you load, whatever
-    void grow() {
+    void grow([int stages = 1]) {
         //pretend you were planted one stage extra ago
-        plantTime= plantTime.subtract(new Duration(milliseconds: msPerStage));
+        if(plantTime == null) plantTime = new DateTime.now();
+        plantTime= plantTime.subtract(new Duration(milliseconds: msPerStage* stages));
         world.save();
     }
 
 
     Future<CanvasElement> getRipeFruitCanvas() async {
-        if(oldStage < RIPEFRUIT) {
-             print("making ripe fruit should only happen once per tree");
+        if(oldStage == null || oldStage < RIPEFRUIT) {
+            // print("making ripe fruit should only happen once per tree");
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
-                print("creating ripe fruit in the first place");
+                //print("creating ripe fruit in the first place");
                 await doll.createFruit();
             }else {
-                print("transforming whatever is there into ripe fruit");
+                //print("transforming whatever is there into ripe fruit");
                 doll.transformHangablesInto(); //auto does fruit
             }
             //print("made hangables ${doll.hangables}");
@@ -311,14 +312,14 @@ class Tree {
 
     //unripe fruits don't draw attention to themselves (but you can still click them)
     Future<CanvasElement> getFruitCanvas() async {
-        if(oldStage < FRUIT) {
-            print("making fruit should only happen once per tree");
+        if(oldStage == null || oldStage < FRUIT) {
+            //print("making fruit should only happen once per tree");
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
-                print("making fruit from scratch");
+                //print("making fruit from scratch");
                 await doll.createFruit();
             }else {
-                print("turning existing hangables into fruit");
+                //print("turning existing hangables into fruit");
                 doll.transformHangablesInto(); //auto does fruit
             }
             //print("made hangables ${doll.hangables}");
@@ -348,8 +349,6 @@ class Tree {
         if(stage >= RIPEFRUIT) {
             stage = RIPEFRUIT;
         }
-        //get it one more time
-        if(oldStage == null) oldStage = stage;
         if(oldStage != stage){
             //https://freesound.org/people/adcbicycle/sounds/13951/
             world.playSoundEffect("13951__adcbicycle__23");
