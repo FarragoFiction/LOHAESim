@@ -28,7 +28,7 @@ class Tree {
     int get msPerStage {
         if(_msPerStage < 0) {
             Colour color = doll.associatedColor;
-            int minutesMax = 2;
+            int minutesMax = 5;
             int minutesMin = 1;
             if(getParameterByName("haxMode") == "on") {
                 minutesMax = 5;

@@ -178,6 +178,20 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         if(!(this is Store))world.render(true);
     }
 
+    void handleItemSelect(Inventoryable item, {Element preview}) {
+        if(activeItem != null) activeItem.unSelect();
+        item.select();
+        activeItem = item;
+        world.cursor = new CustomCursor(activeItem.itemCanvas, new Point(100,100));
+        if(item is HelpingHand) world.cursor.mode = CustomCursor.BOTTOMRIGHT;
+        //stores don't need to worry about rendering the playing field
+        if(!(this is Store))world.render(true);
+    }
+
+    void handleItemInfoClick(Inventoryable item, {Element preview}) {
+        popup.popup(item,  preview:preview);
+    }
+
     Future<Null> render() async{
         TableElement outerTable = new TableElement();
         container.append(outerTable);

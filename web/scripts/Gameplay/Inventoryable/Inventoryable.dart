@@ -156,9 +156,11 @@ abstract class Inventoryable {
         costCell.classes.add("costCell");
         myInventoryDiv.append(costCell);
 
-        myInventoryDiv.onClick.listen((Event e) {
-            inventory.handleItemClick(this,preview:  itemCanvas);
+        myInventoryDiv.onClick.listen((MouseEvent e) {
+            inventory.handleItemClick(this, preview:  itemCanvas);
         });
+
+
     }
 
     void removeFromInventoryScreen() {
@@ -188,9 +190,18 @@ abstract class Inventoryable {
         myInventoryDiv.append(itemCanvas);
         itemCanvas.classes.add("imageCell");
 
+        DivElement infoCell = new DivElement()..text = "??";
+        infoCell.classes.add("costCell");
+        myInventoryDiv.append(infoCell);
 
-        myInventoryDiv.onClick.listen((MouseEvent e) {
-            inventory.handleItemClick(this, preview:  itemCanvas);
+
+
+        itemCanvas.onClick.listen((Event e) {
+            inventory.handleItemSelect(this,preview:  itemCanvas);
+        });
+
+        infoCell.onClick.listen((Event e) {
+            inventory.handleItemInfoClick(this,preview:  itemCanvas);
         });
 
         if(hidden) {
