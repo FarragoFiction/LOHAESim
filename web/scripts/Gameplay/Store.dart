@@ -286,6 +286,7 @@ class StorePopup extends InventoryPopup
     void failedCommerce() {
 
         textBody.text = rand.pickFrom(store.cancelQuips);
+        step = -13;
     }
 
 
@@ -369,7 +370,7 @@ class StorePopup extends InventoryPopup
             textBody.style.display = "none";
             parentScroll.style.display = "block";
             header.text = "${header.text}: Parents";
-        }else if(step == 2 || step == 1 && parentScroll == null){
+        }else if(step == 2 || (step == 1 && parentScroll == null)){
             handlePurchasePopup();
         }else {
             if(parentScroll != null) {
