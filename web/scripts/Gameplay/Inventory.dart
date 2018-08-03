@@ -117,7 +117,6 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
                 }else if (!(activeItem is HelpingHand)) {
                     activeItem = item;
                 }
-                break;
             }
         }
     }
