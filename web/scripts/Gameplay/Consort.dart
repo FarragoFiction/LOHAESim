@@ -48,10 +48,10 @@ class Consort {
         }
         for(int i = 0; i<numberConsorts; i++) {
             int image = rand.nextInt(2);
-            if(rand.nextDouble()>.01) {
-                new Consort(strip, x, "$image.gif");
-            }else {
+            if(rand.nextDouble()>.99 && World.instance.underWorld.player.numberEssences > 7) {
                 new SecretConsort(strip,x);
+            }else {
+                new Consort(strip, x, "$image.gif");
             }
             x += rand.nextInt(500)+50;
             if(x > 1000) x = 0;

@@ -146,11 +146,10 @@ class FAQ {
 
         consortElement = new TableCellElement()..classes.add("consortStrip");
         consortElement.style.backgroundPosition = "${rand.nextInt(100)}% 0%";
-        if(rand.nextDouble() >.01) {
-            FAQConsort consort = new FAQConsort(consortElement, 0, "${rand.nextInt(2)}.gif");
+        if(rand.nextDouble()>.99 && World.instance.underWorld.player.numberEssences > 7) {
+            new SecretFAQConsort(consortElement,0);
         }else {
-            FAQConsort consort = new SecretFAQConsort(consortElement, 0);
-
+            new FAQConsort(consortElement, 0, "${rand.nextInt(2)}.gif");
         }
 
         textElement = new TableCellElement()..classes.add("faqWrapper");
