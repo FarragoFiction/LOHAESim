@@ -64,7 +64,7 @@ class Nidhogg extends CollectableSecret {
   //then perish
   List<String> damageLines = <String>["Oof","Is This Your Choice Then?","So Be It.","I Shall Perish.", "The Spark of My Life Will Forever Go Out."];
 
-  List<String> proudLines = <String>["I Am So, So Proud Of You, Child.","You Have Cleansed The Rampant Life Within My Body Without Snuffing It Out.","Here, Take This, I Trust You To Use It Wisely."];
+  List<String> proudLines = <String>["I Am So, So Proud Of You, Child.","You Have Cleansed The Rampant Life Within My Body Without Snuffing It Out.","Here, Take This, I Trust You To Use It Wisely.","I will be more careful with my Root Access in the future."];
   List<String> happy = <String>["!","I Value Our Friendship, Child.","Thank You, Child.","How May I Help You, Child?","This Pleases Me.","?","...","I Am So, So Proud of You, Child."];
   Nidhogg(World world) : super(world, "It sleeps.", "images/BGs/nidhoggTrue.png");
 
