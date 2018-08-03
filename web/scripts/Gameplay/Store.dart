@@ -36,7 +36,7 @@ class Store extends Inventory {
 
   @override
   Element makeRightElement() {
-      rightElement = new ImageElement(src: "images/BGs/miStorePiano.png");
+      rightElement = new ImageElement(src: "images/BGs/miStorePianoGlitch.png");
 
   }
 

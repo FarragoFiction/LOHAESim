@@ -532,9 +532,13 @@ class World {
     void processClickAtCursor(MouseEvent event) {
         underWorld.nidhogg.checkPurity(activeItem, cursor.position);
         if(activeItem is Fruit) {
-            plantATreeAtPoint(activeItem, cursor.position);
-            underWorld.player.inventory.removeItem(activeItem);
-            save();
+            if(trees.length <= maxTrees) {
+                plantATreeAtPoint(activeItem, cursor.position);
+                underWorld.player.inventory.removeItem(activeItem);
+                save();
+            }else {
+                window.alert("Patience, you have too many trees right now.");
+            }
         }else if(activeItem is Essence) {
             plantAWigglerAtPoint(activeItem, cursor.position);
             //guess who is alive again. it's nidhogg. nidhogg is alive again
