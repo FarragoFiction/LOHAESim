@@ -416,6 +416,9 @@ class World {
         bossFightJustStarted = true;
         consortPrint("oh god why did you do this?? NIDHOGG IS AWAKE!! there's a reason we kept gnawing away the trees!! they give him life!!");
         consortPrint("oh right i remember now, LOHAE is also the land of HORRORTICULTURE and ESSENCE. how could i forget that?");
+        if(getParameterByName("haxMode") == "on") {
+            jrPrint("Oh hey there, I see you haxxing my codes. Any ideas about what you should be doing with the power to plant trees anywhere??? In this trying time. Against the Denizen of Life???");
+        }
         bossFight = true;
         //show 'then perish'
         ImageElement thenPerish = new ImageElement(src: "images/BGs/thenperish.png");
