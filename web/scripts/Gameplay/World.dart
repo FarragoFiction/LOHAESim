@@ -757,6 +757,9 @@ class World {
         //bottom center
         int y = 550;
         int x = point.x;
+        int buffer = 100;
+        if(x <buffer) x = buffer;
+        if(x > width-buffer) x = width-buffer;
 
         if(getParameterByName("haxMode") == "on") {
             y = point.y; //plant base where you click
