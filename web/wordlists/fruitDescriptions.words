@@ -37,7 +37,7 @@ flavorDescription
     The #flavor# flavor is overwhelming.
 
 smellDescription
-    The #fruitPart# smells a #amount# #adj_smell#.
+    The #fruitPart# smells #amount# #adj_smell#.
     Has a #adj_smell# smelling #fruitPart#.
     #fameDescription# for having a #fruitPart# that smells #adj_smell#.
     #newTasters# are surprised that the #fruitPart# smells #amount# #adj_smell#.:0.3

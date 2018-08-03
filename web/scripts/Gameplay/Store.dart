@@ -23,7 +23,7 @@ class Store extends Inventory {
 
     List<String> cancelQuips = <String>["Don't waste my time you jackass.","Oh come the f*** on."];
     List<String> recordQuips = <String>["I hope you enjoy!", "I really hope you like it.", "I spent a lot of time on this one, hope you like it!", "Thanks for nabbing my music"];
-    List<String> sellfruitQuips = <String>["You drive a hard bargin.", "Really? You want how much?", "This smells like shit.", "My grandmas a better gardener then this.", "Damn it, I was hoping for apples.", "Well, time to re-sell these at ten times the price.", "You ever wonder why we seem to be using troll money when we're both secretly human?", "Congrats, you just collapsed the local fruit economy.", "Pleasure doing business with you, now my non-existent children won't starve.", "-The bard messily devours the fruit-" "-The bard eyes the fruit with distrust and hands you a few ceagers-"];
+    List<String> sellfruitQuips = <String>["You drive a hard bargin.", "Really? You want how much?", "This smells like shit.", "My grandmas a better gardener then this.", "Damn it, I was hoping for apples.", "Well, time to re-sell these at ten times the price.", "You ever wonder why we seem to be using troll money when we're both secretly human?", "Congrats, you just collapsed the local fruit economy.", "Pleasure doing business with you, now my non-existent children won't starve.", "-The bard messily devours the fruit-", "-The bard eyes the fruit with distrust and hands you a few ceagers-"];
     List<String> sellRecordQuips = <String>["Oh. Ok. I-. Alright.", "Oh. I'm sorry you didn't like it.", "Oh. I kinda liked that one...", "Yeah, it is kinda shit, I'm sorry.", "I see. Alright. I'm sorry to have wasted your time.", "ok. sorry to have bothered you."];
 
     List<String> cantAffordToBuyQuips = <String>["Don't touch if you can't buy!", "Get out of my shop you broke motherf*****.", "Oh come on, seriously?", "This isn't a charity.", "I only give discounts to people with good taste", "Better luck next time bozo!", "No cash, no goodies"];
@@ -183,13 +183,10 @@ class StorePopup extends InventoryPopup
     }
 
     bool itemIsCod() {
-        print("checking if cod");
         if(store.activeItem is Fruit) {
-            print("it's a fruit");
             Fruit fruit = store.activeItem as Fruit;
             if(fruit.doll is FruitDoll) {
                 FruitDoll fruitDoll = (fruit.doll as FruitDoll);
-                print("and the doll is a fruit too, ${fruitDoll.body.imgNumber}");
 
                 return fruitDoll.body.imgNumber == 26;
             }

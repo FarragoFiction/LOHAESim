@@ -37,7 +37,7 @@ class Player extends Secret {
     bool get canGetUpgradedHelpingHand {
         int essenceCount = 0;
         for(Inventoryable item in inventory) {
-            if(item is HelpingHandPlusUltra) {
+            if(item is HelpingHandCorrupt) {
                 return false;
             }else if (item is Essence) {
                 essenceCount ++;

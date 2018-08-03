@@ -305,7 +305,7 @@ class World {
         onScreen.style.cursor = "none";
 
         onScreen.onMouseDown.listen((MouseEvent event) {
-            processClickAtCursor();
+            processClickAtCursor(event);
         });
 
         onScreen.onMouseMove.listen((MouseEvent event)
@@ -529,7 +529,7 @@ class World {
     }
 
 
-    void processClickAtCursor() {
+    void processClickAtCursor(MouseEvent event) {
         underWorld.nidhogg.checkPurity(activeItem, cursor.position);
         if(activeItem is Fruit) {
             plantATreeAtPoint(activeItem, cursor.position);
@@ -551,6 +551,7 @@ class World {
             changeMusic((activeItem as Record).songName, false);
         }else if(activeItem is Ax) {
             removeTreePopup();
+            event.stopPropagation(); //don't give it to other things
         }else if(activeItem is Flashlight) {
             activateFlashlight();
         }else if(activeItem is HelpingHandPlusUltra) {
@@ -564,6 +565,7 @@ class World {
             save();
         }else if(activeItem is YellowYard) {
             cycleTreePopup();
+            event.stopPropagation(); //don't give it to other things
         }else {
             consortPrint("i don't know what to do with this!! thwap!! thwap!!");
         }
@@ -625,6 +627,7 @@ class World {
     void cycleTreePopup() {
         consortPrint("thwap!! thwap!! Grow that tree!");
         DivElement axContainer = new DivElement();
+        if(trees.length < 7) axContainer.style.overflowX = "hidden";
         axContainer.classes.add("parentHorizontalScroll");
         axContainer.classes.add("popupParents");
         axContainer.id = "yellowContainer";
@@ -645,6 +648,8 @@ class World {
         axContainer.classes.add("parentHorizontalScroll");
         axContainer.classes.add("popupParents");
         axContainer.id = "axContainer";
+        if(trees.length < 7) axContainer.style.overflowX = "hidden";
+
         List<CanvasElement> pendingCanvases = new List<CanvasElement>();
         for(Tree tree in trees) {
             CanvasElement parentDiv = new CanvasElement(width: 80, height: 80);

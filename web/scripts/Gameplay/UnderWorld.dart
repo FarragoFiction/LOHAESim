@@ -77,7 +77,7 @@ class UnderWorld {
         }
     }
 
-    void checkPlusUltra() {
+    void checkCorruptUpgrade() {
         if(player.canGetUpgradedHelpingHand) {
             player.inventory.add(new HelpingHandCorrupt(world));
 
@@ -86,7 +86,7 @@ class UnderWorld {
 
     Future<Null> render(CanvasElement worldBuffer) async {
         if(buffer == null) await initCanvasAndBuffer();
-        checkPlusUltra();
+        checkCorruptUpgrade();
         //print("rendering underworld");
         //slightly brighter dirt to look like light
         //buffer.context2D.fillStyle = "#71402a";

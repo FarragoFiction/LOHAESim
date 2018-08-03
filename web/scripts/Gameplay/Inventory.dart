@@ -217,7 +217,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         }
 
         if(rightElement == null) makeRightElement();
-        rightElement.onClick.listen((Event e) {
+        rightElement.onMouseDown.listen((Event e) {
             if(popup.visible()) {
                 popup.cycle();
             }
@@ -264,7 +264,7 @@ class InventoryPopup {
     int step = 0;
     InventoryPopup(Element parent) {
         container = new DivElement();
-        container.onClick.listen((Event e) {
+        container.onMouseDown.listen((Event e) {
             if(visible()) {
                 cycle();
             }
@@ -329,7 +329,6 @@ class InventoryPopup {
     }
 
     void cycle() {
-        //print("cycling, step is $step");
         if(step == 0) {
             textBody.style.display = "block";
             if(parentScroll != null) parentScroll.style.display = "none";

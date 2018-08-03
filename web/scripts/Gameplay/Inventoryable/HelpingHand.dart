@@ -44,7 +44,7 @@ class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
 
 class HelpingHandCorrupt extends HelpingHand with Inventoryable {
     HelpingHandCorrupt(World world) : super(world) {
-        name = "H̦̩͍͈͇͚͢e̗͇̲͎͓̖͞l̜p̺͚͔͕͉i̹͚n̯͎̘g̷̙ ̱̥̖̪ͅH̴̦͖a͔̙̱̼̞ͅṉ̸d̯̤";
+        name = "Nidhogg's Hand";
         tier = 3;
         specificPhrase = "Shhh...only Fruit now.";
         description = specificPhrase;
