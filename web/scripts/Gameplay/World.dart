@@ -18,6 +18,7 @@ import "package:DollLibCorrect/DollRenderer.dart";
 import "package:CommonLib/NavBar.dart";
 //yggdrasil
 class World {
+    String gigglesnort = "";
     static World _instance;
     static World get instance {
         if(_instance == null) {
@@ -127,7 +128,7 @@ class World {
     }
 
     void syncFunds() {
-        fundsElement.text = "Funds: \$${underWorld.player.funds}";
+        fundsElement.text = "Funds: \$${underWorld.player.funds} Essences: ${underWorld.player.numberEssences}/13 $gigglesnort";
     }
 
     void save() {

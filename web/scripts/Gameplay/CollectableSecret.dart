@@ -16,6 +16,7 @@ class CollectableSecret extends Secret {
     }
 
     void gigglesnort(Math.Point point) {
+        giggleSnortRadius = World.instance.underWorld.player.flashlightRadius;
         Math.Point myPoint = new Math.Point(x,y);
         double distance = point.distanceTo(myPoint);
         if(distance < collectionRadius) {
@@ -35,6 +36,8 @@ class CollectableSecret extends Secret {
         }
 
         if(distance < giggleSnortRadius) {
+            World.instance.gigglesnort = "($specificPhrase)";
+            World.instance.syncFunds();
             owoPrint("$specificPhrase. Or is it ${distance.round()}?");
         }
 
