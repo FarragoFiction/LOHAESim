@@ -683,13 +683,20 @@ class World {
                 parentDiv.style.backgroundColor = "transparent";
             });
 
-            parentDiv.onMouseUp.listen((Event e)
+            //right now i can't click a tree in the popup and also have popups consitently
+            parentDiv.onMouseDown.listen((Event e)
             {
                 consortPrint("thwap!! thwap!! Gnaw that tree!");
                 parentDiv.remove();
                 treesToRemove.add(tree);
                 unmoveOwO(tree.doll);
                 render(true);
+                e.stopPropagation(); //don't give it to other things
+
+                //if i remove all trees, then remove popup
+                if(treesToRemove.length == trees.length) {
+                    underWorld.player.inventory.popup.dismiss();
+                }
             });
         }
 
