@@ -82,7 +82,7 @@ class Player extends Secret {
 
     //TODO relative to size of moneybags
     int get flashlightRadius{
-        return (75 + funds/13).round();
+        return (75 + funds/33).round();
 
     }
 

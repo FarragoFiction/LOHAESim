@@ -115,6 +115,7 @@ class Fruit extends Object with Inventoryable {
         DivElement parentDivContainer = new DivElement();
         parentDivContainer.classes.add("parentHorizontalScroll");
         List<CanvasElement> pendingCanvases = new List<CanvasElement>();
+        if(parents.length < 7) parentDivContainer.style.overflowX = "hidden";
         for(Doll parent in parents) {
             CanvasElement parentDiv = new CanvasElement(width: 80, height: 80);
             //fruit is visible, not flower
