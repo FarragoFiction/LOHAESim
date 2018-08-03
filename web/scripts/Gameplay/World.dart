@@ -556,6 +556,9 @@ class World {
         }else if(activeItem is HelpingHandPlusUltra) {
             pickFruit(true);
             save();
+        }else if(activeItem is HelpingHandCorrupt) {
+            omniFruit();
+            save();
         }else if(activeItem is HelpingHand) {
             pickFruit();
             save();
@@ -590,6 +593,25 @@ class World {
                     //if that was your last fruit, you're slated for removal.
                     if (!tree.doll.hasHangablesAlready()) treesToRemove.add(tree);
                 }
+            }
+        }
+    }
+
+    //despap citato is a good bean. even if corrupt.
+    //no wonder where you click, harvest all fruit
+    void omniFruit() {
+        //print("trying to pick fruit");
+        //tell all trees to process this. first tree to return a fruit ends things.
+        for(Tree tree in trees) {
+            //print("is it $tree I'm looking for? stage is ${tree.stage}");
+            //don't pick flowers or whatever
+            if(tree.stage >= Tree.FRUIT) {
+                consortPrint("thwap!! uh. that. sure is. an interesting. technique for fruit picking you have there??");
+                tree.produceFruitOmni(floweringTrees);
+                //https://freesound.org/people/morganpurkis/sounds/396012/
+                playSoundEffect("396012__morganpurkis__rustling-grass-3");
+                //if that was your last fruit, you're slated for removal.
+                if (!tree.doll.hasHangablesAlready()) treesToRemove.add(tree);
             }
         }
     }

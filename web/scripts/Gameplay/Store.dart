@@ -19,6 +19,8 @@ class Store extends Inventory {
     List<String> axQuips = <String>["This fell of the back of a truck. No, it doesn't look familiar. No, it's not pre-owened. No, it doesn't belong to an angry semi-omnipotent robot god and I'm just trying to offload it to get him off my back why would you think that that would be dumb oh god you're not him in disguise are you i've heard he wears flesh suits sometimes shit if you're him you gotta tell me"];
     List<String> fruitQuips = <String>["Yeah yeah whatever. Hey, have you seen any eyes yet?","Enjoy your juicy treat.", "One out of every ten fruits I sell is actually a vegetable.", "Uh. You sure you want that one?", "Well, ok. Not like I'm in a position to judge your food habits.", "Disclaimer: I am not responsible for disease, mutilation, or death that may cause from misuse of the fruit.", "I mean, if you're sure?"];
     List<String> flashlightQuips = <String>["Why in f*** would you need a cashlight for gardening."];
+    List<String> plusUltra = <String>["Go Beyond!"];
+
     List<String> cancelQuips = <String>["Don't waste my time you jackass.","Oh come the f*** on."];
     List<String> recordQuips = <String>["I hope you enjoy!", "I really hope you like it.", "I spent a lot of time on this one, hope you like it!", "Thanks for nabbing my music"];
     List<String> sellfruitQuips = <String>["You drive a hard bargin.", "Really? You want how much?", "This smells like shit.", "My grandmas a better gardener then this.", "Damn it, I was hoping for apples.", "Well, time to re-sell these at ten times the price.", "You ever wonder why we seem to be using troll money when we're both secretly human?", "Congrats, you just collapsed the local fruit economy.", "Pleasure doing business with you, now my non-existent children won't starve.", "-The bard messily devours the fruit-" "-The bard eyes the fruit with distrust and hands you a few ceagers-"];
@@ -213,6 +215,8 @@ class StorePopup extends InventoryPopup
               textBody.text = rand.pickFrom(store.fruitQuips);
           } else if (store.activeItem is Flashlight) {
               textBody.text = rand.pickFrom(store.flashlightQuips);
+          } else if (store.activeItem is HelpingHandPlusUltra) {
+              textBody.text = rand.pickFrom(store.plusUltra);
           } else if (store.activeItem is Record) {
               textBody.text = rand.pickFrom(store.recordQuips);
           }else {

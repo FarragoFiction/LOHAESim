@@ -31,11 +31,23 @@ class HelpingHand extends CollectableSecret with Inventoryable{
 class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
   HelpingHandPlusUltra(World world) : super(world) {
     name = "Helping Hand Plus Ultra";
-    specificPhrase = "Shhh...only Fruit now.";
+    specificPhrase = "Go Beyond! (The normal mortal limits on how many fruit you can pick at a time.)";
     description = specificPhrase;
     cost = 4037;
     type = "Helping Hand Plus Ultra";
-    imgLoc = "images/BGs/fruitPickingOmni.png";
+    imgLoc = "images/BGs/fruitPicking2.png";
   }
+
+}
+
+class HelpingHandCorrupt extends HelpingHand with Inventoryable {
+    HelpingHandCorrupt(World world) : super(world) {
+        name = "H̦̩͍͈͇͚͢e̗͇̲͎͓̖͞l̜p̺͚͔͕͉i̹͚n̯͎̘g̷̙ ̱̥̖̪ͅH̴̦͖a͔̙̱̼̞ͅṉ̸d̯̤";
+        specificPhrase = "Shhh...only Fruit now.";
+        description = specificPhrase;
+        cost = 4037;
+        type = "HelpingHandCorrupt";
+        imgLoc = "images/BGs/fruitPickingOmni.png";
+    }
 
 }

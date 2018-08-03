@@ -77,6 +77,14 @@ class Player extends Secret {
         return true;
     }
 
+    //if don't have ax in inventory
+    bool get canBuyPlusUltra {
+        for(Inventoryable item in inventory) {
+            if(item is HelpingHandPlusUltra) return false;
+        }
+        return true;
+    }
+
     //only gigglesnort if you move. spawning counts as moving
     bool playerMoved = true;
 

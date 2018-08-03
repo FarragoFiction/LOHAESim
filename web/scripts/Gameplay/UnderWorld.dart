@@ -79,7 +79,7 @@ class UnderWorld {
 
     void checkPlusUltra() {
         if(player.canGetUpgradedHelpingHand) {
-            player.inventory.add(new HelpingHandPlusUltra(world));
+            player.inventory.add(new HelpingHandCorrupt(world));
 
         }
     }

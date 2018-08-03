@@ -3,6 +3,7 @@ import '../Gameplay/Inventoryable/Ax.dart';
 import '../Gameplay/Inventoryable/Essence.dart';
 import '../Gameplay/Inventoryable/Flashlight.dart';
 import '../Gameplay/Inventoryable/Fruit.dart';
+import '../Gameplay/Inventoryable/HelpingHand.dart';
 import '../Gameplay/Inventoryable/Inventoryable.dart';
 import '../Gameplay/Inventoryable/Record.dart';
 import '../Gameplay/Player.dart';
@@ -50,6 +51,10 @@ List<Inventoryable> spawnInventory() {
 
     if(ygdrassil.underWorld.player.canBuyAx) {
         ret.add(new Ax(ygdrassil));
+    }
+
+    if(ygdrassil.underWorld.player.canBuyPlusUltra) {
+        ret.add(new HelpingHandPlusUltra(ygdrassil));
     }
     if(ygdrassil.underWorld.player.canBuyFlashlight) {
         ret.add(new Flashlight(ygdrassil));
