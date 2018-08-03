@@ -8,9 +8,10 @@ import 'package:RenderingLib/RendereringLib.dart';
 
 class HelpingHand extends CollectableSecret with Inventoryable{
 
+    int tier = 1;
     HelpingHand(World world) : super(world, "It's time to pick some fruit. Don't worry about where this hand comes from, it's just here to help. Despap Citato.", "images/BGs/fruitPicking.png") {
         name = "Helping Hand";
-        cost = 4037;
+        cost = 333;
         description = specificPhrase;
         type = "Helping Hand";
 
@@ -30,10 +31,11 @@ class HelpingHand extends CollectableSecret with Inventoryable{
 
 class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
   HelpingHandPlusUltra(World world) : super(world) {
+      tier = 2;
     name = "Helping Hand Plus Ultra";
     specificPhrase = "Go Beyond! (The normal mortal limits on how many fruit you can pick at a time.)";
     description = specificPhrase;
-    cost = 4037;
+    cost = 333;
     type = "Helping Hand Plus Ultra";
     imgLoc = "images/BGs/fruitPicking2.png";
   }
@@ -43,6 +45,7 @@ class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
 class HelpingHandCorrupt extends HelpingHand with Inventoryable {
     HelpingHandCorrupt(World world) : super(world) {
         name = "H̦̩͍͈͇͚͢e̗͇̲͎͓̖͞l̜p̺͚͔͕͉i̹͚n̯͎̘g̷̙ ̱̥̖̪ͅH̴̦͖a͔̙̱̼̞ͅṉ̸d̯̤";
+        tier = 3;
         specificPhrase = "Shhh...only Fruit now.";
         description = specificPhrase;
         cost = 4037;

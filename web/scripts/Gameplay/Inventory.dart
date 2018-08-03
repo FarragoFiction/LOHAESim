@@ -108,10 +108,15 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         item.removeFromInventoryScreen();
     }
 
+    //always pick the highest tier you can
     void helpingHand() {
         for(Inventoryable item in inventory) {
             if(item is HelpingHand) {
-                activeItem = item;
+                if(activeItem is HelpingHand && item.tier > (activeItem as HelpingHand).tier) {
+                    activeItem = item;
+                }else if (!(activeItem is HelpingHand)) {
+                    activeItem = item;
+                }
                 break;
             }
         }
