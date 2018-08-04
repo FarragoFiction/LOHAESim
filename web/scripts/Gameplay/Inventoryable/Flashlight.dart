@@ -7,7 +7,8 @@ import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class Flashlight extends CollectableSecret with Inventoryable{
-
+    @override
+    int sortPriority = 2;
     Flashlight(World world) : super(world, "Why would you need this???", "images/BGs/flashlightOwo.png") {
         name = "???'s Flashlight";
         cost = 113;

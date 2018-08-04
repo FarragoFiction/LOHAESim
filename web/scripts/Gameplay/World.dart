@@ -375,18 +375,26 @@ class World {
 
     }
 
-    void changeMusic(String newMusicLocation, bool sync) {
-        //print("changing music to $newMusicLocation");
-        int time = backgroundMusic.currentTime;
-        //print("current music is ${backgroundMusic.src} time is $time");
-        //backgroundMusic.src = "${newMusicLocation}.ogg";
+    bool musicAlreadyPlaying(String newMusicLocation) {
         String old = mp3.src;
         //for some reason it is an absolute path even if i set it to relative
         old = old.split("/").last;
         String newString = "${newMusicLocation.split("/").last}.mp3";
         if(old == newString) {
-            return; //nothing changed
+            true; //nothing changed
         }
+        return false;
+    }
+
+
+    void changeMusic(String newMusicLocation, bool sync) {
+        //print("changing music to $newMusicLocation");
+        int time = backgroundMusic.currentTime;
+        //print("current music is ${backgroundMusic.src} time is $time");
+        //backgroundMusic.src = "${newMusicLocation}.ogg";
+
+
+        if(musicAlreadyPlaying(newMusicLocation)) return;
        // print("old music is ${old} and new music is $newString and I think they are different");
 
         mp3.src = "$newMusicLocation.mp3";
@@ -551,8 +559,12 @@ class World {
             underWorld.player.inventory.removeItem(activeItem);
             save();
         }else if(activeItem is Record) {
-            currentMusic = activeItem;
-            changeMusic((activeItem as Record).songName, false);
+            if(musicAlreadyPlaying((activeItem as Record).songName)){
+                window.alert("You're already playing this song!!!");
+            }else{
+                currentMusic = activeItem;
+                changeMusic((activeItem as Record).songName, false);
+            }
         }else if(activeItem is Ax) {
             removeTreePopup();
             event.stopPropagation(); //don't give it to other things
