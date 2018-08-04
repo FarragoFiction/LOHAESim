@@ -146,9 +146,12 @@ class World {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
             copyFromDataString(data);
-            backgroundMusic.volume = musicSave.volume/10;
+            backgroundMusic.volume = musicSave.volume/100;
             changeMusic(musicSave.currentSong,false); //won't do fraymotif stuff, but I am okay with this. reuse it dunkass
-            if(musicSave.paused) backgroundMusic.pause;
+            if(musicSave.paused) {
+                print("pausing from load");
+                backgroundMusic.pause();
+            }
         }else {
             underWorld.player.initialInventory();
             initTrees();
@@ -209,7 +212,7 @@ class World {
         }
 
         if(json["musicSave"] != null) {
-            musicSave.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));
+            musicSave.copyFromJSON(new JSONObject.fromJSONString(json["musicSave"]));
         }
 
         new TimeProfiler("Loading Player", startTime);
@@ -426,9 +429,8 @@ class World {
         }
         consortPrint("you know they say the Prince could Play the Vines. I wonder if it would sound like this??");
 
-        //print("actually playing new music $newMusicLocation");
+        print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
-
         musicSave.currentSong = newMusicLocation;
     }
 

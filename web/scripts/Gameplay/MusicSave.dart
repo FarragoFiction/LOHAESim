@@ -1,5 +1,6 @@
 //used to handle saving and loading music information, nothing else.
 
+import 'Inventoryable/Record.dart';
 import 'dart:convert';
 
 import 'package:CommonLib/Utility.dart';
@@ -7,12 +8,11 @@ import 'package:CommonLib/Utility.dart';
 class MusicSave {
     static String labelPattern = ":___ ";
 
-    String currentSong;
+    String currentSong = new FlowOn(null).happy;
     //number between 0 and 100;
     int volume = 50;
-    bool paused = true;
 
-
+    bool paused = false;
 
     String toDataString() {
         try {
@@ -29,6 +29,7 @@ class MusicSave {
         json["currentSong"] = currentSong;
         json["volume"] = "$volume";
         json["paused"] = "$paused";
+        print("saved, paused is $paused");
         return json;
     }
 
@@ -46,9 +47,10 @@ class MusicSave {
     }
 
     void copyFromJSON(JSONObject json) {
-        paused = json["paused"] ==true.toString();;
+        paused = json["paused"] ==true.toString();
         volume = int.parse(json["volume"]);
         currentSong = json["currentSong"];
+        print("loaded, paused is $paused");
     }
 
 

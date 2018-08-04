@@ -22,7 +22,6 @@ Future<Null> main() async {
     if(getParameterByName("haxMode") == "on") {
         hookUpTestControls();
     }
-    ygdrassil.backgroundMusic.play(); //get around auto play not working in some browsers
     ygdrassil.save();
     //TODOs.drawTodos(output);
 }
