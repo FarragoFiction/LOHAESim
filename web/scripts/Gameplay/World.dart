@@ -381,7 +381,7 @@ class World {
         old = old.split("/").last;
         String newString = "${newMusicLocation.split("/").last}.mp3";
         if(old == newString) {
-            true; //nothing changed
+            return true; //nothing changed
         }
         return false;
     }
