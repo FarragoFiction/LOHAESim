@@ -29,7 +29,7 @@ class MusicSave {
         json["currentSong"] = currentSong;
         json["volume"] = "$volume";
         json["paused"] = "$paused";
-        print("saved, paused is $paused");
+        //print("saved, currentSong is $currentSong");
         return json;
     }
 
@@ -50,7 +50,7 @@ class MusicSave {
         paused = json["paused"] ==true.toString();
         volume = int.parse(json["volume"]);
         currentSong = json["currentSong"];
-        print("loaded, paused is $paused");
+        //print("loaded, song is $currentSong");
     }
 
 

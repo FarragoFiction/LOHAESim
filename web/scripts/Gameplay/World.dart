@@ -135,8 +135,8 @@ class World {
 
     void save() {
         print("saving...");
-        musicSave.paused = backgroundMusic.paused;
-        musicSave.volume = (backgroundMusic.volume*100).round();
+        if(backgroundMusic != null) musicSave.paused = backgroundMusic.paused;
+        if(backgroundMusic != null) musicSave.volume = (backgroundMusic.volume*100).round();
         window.localStorage[SAVEKEY] = toDataString().toString();
         window.localStorage[SHAREDKEY] = sharedToDataString().toString();
     }
@@ -146,11 +146,13 @@ class World {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
             copyFromDataString(data);
-            backgroundMusic.volume = musicSave.volume/100;
-            changeMusic(musicSave.currentSong,false); //won't do fraymotif stuff, but I am okay with this. reuse it dunkass
+            currentMusic = Record.getRecordFromName(musicSave.currentSong);
+            if(backgroundMusic != null)backgroundMusic.volume = musicSave.volume/100;
+            if(backgroundMusic != null)changeMusic(musicSave.currentSong,false); //won't do fraymotif stuff, but I am okay with this. reuse it dunkass
             if(musicSave.paused) {
-                print("pausing from load");
-                backgroundMusic.pause();
+                if(backgroundMusic != null)backgroundMusic.pause();
+            }else {
+                if(backgroundMusic != null)backgroundMusic.play(); //make sure its going (might not if it was the default song)
             }
         }else {
             underWorld.player.initialInventory();
@@ -429,9 +431,10 @@ class World {
         }
         consortPrint("you know they say the Prince could Play the Vines. I wonder if it would sound like this??");
 
-        print("actually playing new music $newMusicLocation");
+        //print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
         musicSave.currentSong = newMusicLocation;
+        save();
     }
 
     //wait what do you mean there are boss fights in this zen tree game???
@@ -486,7 +489,7 @@ class World {
 
     void nidhoggDies() {
         owoPrint("New Friend!!! You did it!!! Nidhogg is defeated!!! You were so smart to try the Fraymotif!!!");
-        consortPrint("thwap!! now we can grow our trees in piece, thwap!!");
+        consortPrint("thwap!! now we can grow our trees in peace, thwap!!");
         bossFight = false;
         overWorldDirty = true;
         for(Tree tree in trees) {

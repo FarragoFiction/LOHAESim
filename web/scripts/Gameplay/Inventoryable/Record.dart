@@ -37,6 +37,16 @@ class Record extends CollectableSecret with Inventoryable{
         //itemCanvas.context2D.drawImageScaled(me, 0,0,itemCanvas.width, itemCanvas.height);
     }
 
+    static Record getRecordFromName(String name) {
+        List<Record> records = spawn(World.instance);
+        for(Record r in records) {
+            if(r.songName == name) {
+                return r;
+            }
+        }
+        throw("Couldn't find a Record named $name");
+    }
+
     static List<Record> spawn(World world) {
         List<Record> ret = new List<Record>()
             ..add(new FlowOn(world))
