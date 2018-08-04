@@ -21,7 +21,7 @@ void start() {
     UListElement list = new UListElement()..classes.add("list");
 
     output.append(list);
-    new Gigglesnort(list, "Play a relaxing idle game.","What could go wrong?");
+    new Gigglesnort(list, "Play a relaxing idle game, by the makers of <a target = '_blank' href = 'http://www.farragofiction.com/WigglerSim/landing.html'>WigglerSim</a>.","What could go wrong?");
     new Gigglesnort(list, "Grow and hybridize procedural trees and harvest their fruit.","You might want to avoid the eyes...");
     new Gigglesnort(list, "Enjoy the local fauna.","Don't wake the Denizen, though.");
     new Gigglesnort(list, "There are definitely no secrets here.","Waste's Honor.");
@@ -38,7 +38,7 @@ class Gigglesnort {
     String rootText;
 
     Gigglesnort(UListElement container, String this.surfaceText, String this.rootText) {
-        LIElement surface = new LIElement()..text = surfaceText;
+        LIElement surface = new LIElement()..setInnerHtml(surfaceText,treeSanitizer: NodeTreeSanitizer.trusted,validator: new NodeValidatorBuilder()..allowElement("a"));
         surface.classes.add("gigglesnort");
         SpanElement span = new SpanElement()..text = " $rootText"..style.textDecoration="line-through";
         surface.append(span);

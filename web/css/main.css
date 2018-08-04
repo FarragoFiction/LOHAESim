@@ -210,6 +210,9 @@ html,body {
     height: 113px;
 }
 
+a {
+    color: #005b68;
+}
 
 .frameLayer{
     position:absolute;

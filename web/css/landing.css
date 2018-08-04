@@ -6,9 +6,13 @@
     vertical-align: top;
 }
 
+.list a{
+    color: #a6f3ff;
+}
+
 .consortStrip{
     position: relative;
-    height: 500px;
+    height: 300px;
     vertical-align: bottom;
     background-image: url("../images/BGs/AlternianCliff.png");
     width: 600px;
@@ -25,6 +29,8 @@
 .gigglesnort{
     padding: 15px;
 }
+
+
 
 
 
