@@ -613,6 +613,7 @@ class World {
     void pickFruit([bool omni = false]) {
         //print("trying to pick fruit");
         //tell all trees to process this. first tree to return a fruit ends things.
+        underWorld.player.reactToPap(cursor.position);
         for(Tree tree in trees) {
             //print("is it $tree I'm looking for? stage is ${tree.stage}");
             //don't pick flowers or whatever

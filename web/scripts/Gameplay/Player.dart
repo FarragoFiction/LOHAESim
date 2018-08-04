@@ -56,6 +56,19 @@ class Player extends Secret {
         return essenceCount;
     }
 
+    void reactToPap(Point point) {
+        if(pointInsideMe(point)){
+            owoPrint("New Friend!!! That tickles!!!");
+        }
+
+    }
+
+    bool pointInsideMe(Point point) {
+        //print("point is $point and my x is $x and my y is $y");
+        Rectangle rect = new Rectangle(x+world.underWorld.x, y+world.underWorld.y, width, height);
+        return rect.containsPoint(point);
+    }
+
 
     bool get canBuyFlashlight {
         int essenceCount = 0;
@@ -66,7 +79,7 @@ class Player extends Secret {
                 essenceCount ++;
             }
         }
-        return essenceCount > 3;
+        return essenceCount > 2;
     }
 
     //if don't have ax in inventory
