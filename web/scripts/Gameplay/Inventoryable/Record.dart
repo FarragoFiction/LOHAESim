@@ -24,7 +24,7 @@ class Record extends CollectableSecret with Inventoryable{
 
     Record(String this.songName, World world, String myName, String specificPhrase, String imgLoc) : super(world, specificPhrase, imgLoc) {
         name = myName;
-        cost = 999;
+        cost = 413;
         description = specificPhrase;
         type = name;
     }
@@ -106,6 +106,8 @@ class Vethrfolnir extends Record {
     String get creepy {
         return songName; //never changes
     }
-    Vethrfolnir(World world) : super("Vethrfolnir", world, "Vethrfolnir", "Changes the BG Music. Wow. This song is WAY too angry to garden to. Why is this even in here???", "images/BGs/Records/recordC.png");
+    Vethrfolnir(World world) : super("Vethrfolnir", world, "Vethrfolnir", "Changes the BG Music. Wow. This song is WAY too angry to garden to. Why is this even in here???", "images/BGs/Records/recordC.png") {
+        cost = 612;
+    }
 
 }
