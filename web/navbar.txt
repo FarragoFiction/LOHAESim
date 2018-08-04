@@ -19,9 +19,10 @@
 
     <li class = "menuButtonPureCSS"><a href="about.html">FAQ</a></li>
     <li class = "menuButtonPureCSS"><a href="index_pw.html">[??]</a></li>
+        <li class = "menuButtonPureCSS"><a target = "_blank" href="http://treesim.wikia.com/wiki/TreeSim_Wiki">Wiki</a></li>
 
   <li class = "menuButtonPureCSS"><a href="https://discord.gg/KPunMPc">DISCORD</a></li>
-  <li class = "menuButtonPureCSS"><a href="http://www.patreon.com/FarragoFiction">SUPPORT</a></li>
+  <li class = "menuButtonPureCSS"><a href="http://www.patreon.com/FarragoFiction">Patreon</a></li>
 
   </span>
 </ul>
