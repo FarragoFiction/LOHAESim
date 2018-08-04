@@ -13,7 +13,7 @@ Future<Null> main() async{
 
 void saveBackups() {
     DivElement button = new DivElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
-    button.text = "destroy your save data?";
+    button.text = "Destroy Your Save Data?";
     button.classes.add("meteorButton");
 
 
