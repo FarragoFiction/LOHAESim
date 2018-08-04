@@ -731,10 +731,12 @@ class World {
                 parentDiv.style.backgroundColor = "transparent";
             });
 
-            parentDiv.onMouseUp.listen((Event e)
+            parentDiv.onMouseDown.listen((Event e)
             {
                 tree.grow();
                 render(true);
+                e.stopPropagation(); //don't give it to other things
+
             });
         }
 
