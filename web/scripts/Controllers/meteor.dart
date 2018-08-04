@@ -12,9 +12,10 @@ Future<Null> main() async{
 }
 
 void saveBackups() {
-    ButtonElement button = new ButtonElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
+    DivElement button = new DivElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
     button.text = "destroy your save data?";
-    querySelector('#output').append(button);
+    button.classes.add("meteorButton");
+
 
     button.onClick.listen((e) {
         if (window.confirm("Are you sure? You can't undo this...")) {
@@ -30,6 +31,7 @@ void saveBackups() {
         try {
             AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
+            saveLink2.classes.add("meteorButton");
             String string = window.localStorage[World.SAVEKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
             saveLink2.href = Url.createObjectUrl(blob).toString();
@@ -49,6 +51,7 @@ void saveBackups() {
     if (window.localStorage.containsKey(World.SHAREDKEY)) {
         try {
             AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
+            saveLink2.classes.add("meteorButton");
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
             String string = window.localStorage[World.SHAREDKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
@@ -64,6 +67,9 @@ void saveBackups() {
     }else {
         errorDiv("No Shared Data to Make Backups of.");
     }
+
+    querySelector('#output').append(button);
+
 }
 
 void errorDiv(String message) {
