@@ -8,6 +8,9 @@ import 'package:RenderingLib/RendereringLib.dart';
 
 class Record extends CollectableSecret with Inventoryable{
 
+    @override
+    int sortPriority = 3;
+
     String songName;
     bool isFraymotif = false;
     @override

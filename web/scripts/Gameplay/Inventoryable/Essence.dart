@@ -9,7 +9,10 @@ import 'package:DollLibCorrect/src/Rendering/ReferenceColors.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 
 abstract class Essence extends CollectableSecret with Inventoryable {
-  @override
+    @override
+    int sortPriority = 9;
+
+    @override
   int width = 30;
   @override
   int height = 30;

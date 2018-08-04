@@ -7,6 +7,8 @@ import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class YellowYard extends CollectableSecret with Inventoryable{
+    @override
+    int sortPriority = 2;
 
     YellowYard(World world) : super(world, "Given to those who pass a Wastes Challenge with ample Restraint. (not to scale)", "images/BGs/yellowYard.png") {
         name = "Yellow Yard";

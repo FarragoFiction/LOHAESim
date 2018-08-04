@@ -7,6 +7,8 @@ import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class HelpingHand extends CollectableSecret with Inventoryable{
+    @override
+    int sortPriority = 1;
 
     int tier = 1;
     HelpingHand(World world) : super(world, "It's time to pick some fruit. Don't worry about where this hand comes from, it's just here to help. Despap Citato.", "images/BGs/fruitPicking.png") {

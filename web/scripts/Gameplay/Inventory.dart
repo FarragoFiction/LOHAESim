@@ -25,6 +25,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     InventoryPopup popup;
     Element rightElement;
 
+
     DivElement inventoryColumn;
     //if it's active this is the thing we'll buy if it's a store
     //otherwise it's rendered as your mouse pointer in the canvas.
@@ -98,6 +99,10 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
             inventory.add(item);
         }
         //do it all at once so it happens in same order
+
+        inventory.sort((Inventoryable a, Inventoryable b) {
+            return a.sortPriority.compareTo(b.sortPriority);
+        });
     }
 
 

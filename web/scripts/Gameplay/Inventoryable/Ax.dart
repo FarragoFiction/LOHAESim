@@ -7,7 +7,8 @@ import 'dart:html';
 import 'package:RenderingLib/RendereringLib.dart';
 
 class Ax extends CollectableSecret with Inventoryable{
-
+    @override
+    int sortPriority = 2;
     Ax(World world) : super(world, "Use it to chop down unwanted trees. But why would you do this???", "images/BGs/talosAx2.png") {
         name = "ShogunBot's Ax";
         cost = 1;
