@@ -6,6 +6,7 @@ import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
 import 'Inventoryable/Record.dart';
 import 'Inventoryable/YellowYard.dart';
+import 'MusicSave.dart';
 import 'OnScreenText.dart';
 import 'Player.dart';
 import 'Tree.dart';
@@ -29,6 +30,7 @@ class World {
     static String labelPattern = ":___ ";
     static String SAVEKEY = "yggdrasilSAVEDATA";
     static String SHAREDKEY = "SHARED_DATA";
+    MusicSave musicSave = new MusicSave();
     int width = 800;
     int height = 1600;
     String bgLocation = "images/BGs/AlternianCliff.png";
@@ -133,6 +135,8 @@ class World {
 
     void save() {
         print("saving...");
+        musicSave.paused = backgroundMusic.paused;
+        musicSave.volume = (backgroundMusic.volume*100).round();
         window.localStorage[SAVEKEY] = toDataString().toString();
         window.localStorage[SHAREDKEY] = sharedToDataString().toString();
     }
@@ -142,6 +146,9 @@ class World {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
             copyFromDataString(data);
+            backgroundMusic.volume = musicSave.volume/10;
+            changeMusic(musicSave.currentSong,false); //won't do fraymotif stuff, but I am okay with this. reuse it dunkass
+            if(musicSave.paused) backgroundMusic.pause;
         }else {
             underWorld.player.initialInventory();
             initTrees();
@@ -165,6 +172,7 @@ class World {
         JSONObject json = new JSONObject();
         json["bossFight"] = bossFight.toString();
         json["player"] = underWorld.player.toJSON().toString();
+        json["musicSave"] = musicSave.toJSON().toString();
         json["nidhogg"] = underWorld.nidhogg.toJSON().toString();
         List<JSONObject> treeArray = new List<JSONObject>();
         for(Tree tree in trees) {
@@ -198,6 +206,10 @@ class World {
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         if(json["nidhogg"] != null) {
             underWorld.nidhogg.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));
+        }
+
+        if(json["musicSave"] != null) {
+            musicSave.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));
         }
 
         new TimeProfiler("Loading Player", startTime);
@@ -417,6 +429,7 @@ class World {
         //print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
 
+        musicSave.currentSong = newMusicLocation;
     }
 
     //wait what do you mean there are boss fights in this zen tree game???

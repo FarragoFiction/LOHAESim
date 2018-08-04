@@ -100,13 +100,15 @@ newTasters
 
 
 useDescription
-    Locals use it for making #uses#.
+    #people# use it for making #uses#.
     It really improves #uses#.
     #uses# are heavily improved by it.
     It's famous for being a key ingredient in #uses#.
     You can't make #uses# without it.
     Ancient cookbooks described it as being useful in #uses#.
     It really makes #uses# #adj_positive#.
+    It is #adj_positive# in #uses#.
+    It is #adj_negative# in #uses#.
     Overusing it in #uses# risks them becoming #adj_negative#.
     You would never want to use it for making #uses#.
     It is #adj_surprising# to imagine someone using it for #uses#.
@@ -114,12 +116,15 @@ useDescription
     There are #adj_few# uses for it, most people just throw it away.: 0.1
     #fameDescription# for dying #fabric# a brilliant shade of #adj_color#.
     Icons of it commonly decorate #adj_material#.
-    Ancient people kept #adj_material# shrines of it.
+    Ancient #people# kept #adj_material# shrines of it.
     It is said to keep #people# away.:0.1
     Local tradition says eating one each day keeps #people# away.
     Boiling it in vinegar is said to make a good #statTypes# potion.
     The syrup can be used to make a home #medicineTypes# remedy.
     They say as long as you have one, you will never need #people#.
+    #stone# idols of it were worshiped by ancient #people#.
+    #semiPrecious# carvings of it were kept in ancient shrines. 0.4
+    Ancient rulers would decorate their crowns with #gem# carvings of it.:0.1
 
 people
     Doctors: 2.0
@@ -134,6 +139,8 @@ people
     Muses
     Faeries
     Elves
+    Locals
+    Tourists
     Clowns
     Rogues
     Sylphs
@@ -170,6 +177,11 @@ uses
     brandy
     beer
     liqueur
+    mixed drinks
+    drinks
+    cocktails
+    compotes
+    candy
     #statTypes# potions: 0.3
     #statTypes# spells: 0.3
     #medicineTypes# medicines
