@@ -50,7 +50,7 @@ class Fruit extends Object with Inventoryable {
                 archive.description = description;
                 archive.cost = cost;
                 world.pastFruit[key]= archive;
-                world.save();
+                world.save("made an archive");
             }
         }
     }

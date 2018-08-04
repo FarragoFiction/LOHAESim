@@ -126,15 +126,15 @@ class World {
     void updateFunds(int amountToChange) {
         underWorld.player.funds += amountToChange;
         syncFunds();
-        save();
+        save("funds updated");
     }
 
     void syncFunds() {
         fundsElement.text = "Funds: \$${underWorld.player.funds} Essences: ${underWorld.player.numberEssences}/13 $gigglesnort";
     }
 
-    void save() {
-        print("saving...");
+    void save(String reason) {
+        //print("saving... because $reason");
         if(backgroundMusic != null) musicSave.paused = backgroundMusic.paused;
         if(backgroundMusic != null) musicSave.volume = (backgroundMusic.volume*100).round();
         window.localStorage[SAVEKEY] = toDataString().toString();
@@ -146,20 +146,25 @@ class World {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
             copyFromDataString(data);
-            currentMusic = Record.getRecordFromName(musicSave.currentSong);
-            if(backgroundMusic != null)backgroundMusic.volume = musicSave.volume/100;
-            if(backgroundMusic != null)changeMusic(musicSave.currentSong,false); //won't do fraymotif stuff, but I am okay with this. reuse it dunkass
-            if(musicSave.paused) {
-                if(backgroundMusic != null)backgroundMusic.pause();
-            }else {
-                if(backgroundMusic != null)backgroundMusic.play(); //make sure its going (might not if it was the default song)
-            }
         }else {
             underWorld.player.initialInventory();
             initTrees();
         }
         if(window.localStorage.containsKey(SHAREDKEY)) {
             copySharedFromDataString(window.localStorage[SHAREDKEY]);
+        }
+        //print("loading...${underWorld.player.funds}} caegers");
+        syncMusicToSave();
+    }
+
+    void syncMusicToSave() {
+        currentMusic = Record.getRecordFromName(musicSave.currentSong);
+        if(backgroundMusic != null)backgroundMusic.volume = musicSave.volume/100;
+        if(backgroundMusic != null)changeMusic(musicSave.currentSong,false); //won't do fraymotif stuff, but I am okay with this. reuse it dunkass
+        if(musicSave.paused) {
+            if(backgroundMusic != null)backgroundMusic.pause();
+        }else {
+            if(backgroundMusic != null)backgroundMusic.play(); //make sure its going (might not if it was the default song)
         }
     }
 
@@ -409,8 +414,6 @@ class World {
         int time = backgroundMusic.currentTime;
         //print("current music is ${backgroundMusic.src} time is $time");
         //backgroundMusic.src = "${newMusicLocation}.ogg";
-
-
         if(musicAlreadyPlaying(newMusicLocation)) return;
        // print("old music is ${old} and new music is $newString and I think they are different");
 
@@ -434,7 +437,7 @@ class World {
         //print("actually playing new music $newMusicLocation");
         backgroundMusic.play();
         musicSave.currentSong = newMusicLocation;
-        save();
+        save("changing music");
     }
 
     //wait what do you mean there are boss fights in this zen tree game???
@@ -561,7 +564,7 @@ class World {
             if(trees.length <= maxTrees) {
                 plantATreeAtPoint(activeItem, cursor.position);
                 underWorld.player.inventory.removeItem(activeItem);
-                save();
+                save("i planted a tree");
             }else {
                 window.alert("Patience, you have too many trees right now.");
             }
@@ -575,7 +578,7 @@ class World {
 
             underWorld.nidhogg.hp = 4037;
             underWorld.player.inventory.removeItem(activeItem);
-            save();
+            save("planted an essence");
         }else if(activeItem is Record) {
             if(musicAlreadyPlaying((activeItem as Record).songName)){
                 window.alert("You're already playing this song!!!");
@@ -590,13 +593,13 @@ class World {
             activateFlashlight();
         }else if(activeItem is HelpingHandPlusUltra) {
             pickFruit(true);
-            save();
+            save("picked all fruit but again");
         }else if(activeItem is HelpingHandCorrupt) {
             omniFruit();
-            save();
+            save("picked all fruit");
         }else if(activeItem is HelpingHand) {
             pickFruit();
-            save();
+            save("picked fruit");
         }else if(activeItem is YellowYard) {
             cycleTreePopup();
             event.stopPropagation(); //don't give it to other things
@@ -765,7 +768,7 @@ class World {
             trees.remove(tree);
             overWorldDirty = true; //since i removed a tree, need to update graphics
         }
-        if(treesToRemove.isNotEmpty) save();
+        if(treesToRemove.isNotEmpty) save("removed trees");
 
         treesToRemove.clear();
         if(bossFight && trees.isEmpty) {
@@ -778,7 +781,7 @@ class World {
             trees.add(tree);
             overWorldDirty = true; //since i removed a tree, need to update graphics
         }
-        if(treesToAdd.isNotEmpty) save();
+        if(treesToAdd.isNotEmpty) save("added tree");
 
         treesToAdd.clear();
     }

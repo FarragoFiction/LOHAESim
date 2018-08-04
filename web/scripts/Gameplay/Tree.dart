@@ -260,7 +260,7 @@ class Tree {
         //pretend you were planted one stage extra ago
         if(plantTime == null) plantTime = new DateTime.now();
         plantTime= plantTime.subtract(new Duration(milliseconds: msPerStage* stages));
-        world.save();
+        world.save("a tree growed");
     }
 
 
@@ -352,7 +352,7 @@ class Tree {
         if(oldStage != stage){
             //https://freesound.org/people/adcbicycle/sounds/13951/
             world.playSoundEffect("13951__adcbicycle__23");
-            world.save();
+            world.save("tree stage changed");
         }
 
     }

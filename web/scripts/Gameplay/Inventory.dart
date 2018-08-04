@@ -153,7 +153,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         }
 
         drawOneItem(item);
-        world.save();
+        world.save("added item to inventory");
     }
 
     void addAll(List<Inventoryable> items) {
@@ -173,7 +173,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
                 world.secretsForCalm.remove(fruit.doll.toDataBytesX());
             }
         }
-        world.save();
+        world.save("removed item from inventory");
     }
 
     void handleItemClick(Inventoryable item, {Element preview}) {

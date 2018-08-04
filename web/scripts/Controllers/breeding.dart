@@ -22,7 +22,7 @@ Future<Null> main() async {
     if(getParameterByName("haxMode") == "on") {
         hookUpTestControls();
     }
-    ygdrassil.save();
+    ygdrassil.save("From initial load");
     //TODOs.drawTodos(output);
 }
 
