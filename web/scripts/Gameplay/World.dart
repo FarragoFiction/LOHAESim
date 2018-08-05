@@ -15,6 +15,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'package:CommonLib/Utility.dart';
+import 'package:CommonLib/Compression.dart';
 import "package:DollLibCorrect/DollRenderer.dart";
 import "package:CommonLib/NavBar.dart";
 //yggdrasil
