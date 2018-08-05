@@ -855,6 +855,7 @@ class World {
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
+            tree.grow(4); //insta fully grown
             treesToAdd.add(tree);
             overWorldDirty = true;
             cursor = null;
