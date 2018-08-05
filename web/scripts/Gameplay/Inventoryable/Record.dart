@@ -40,7 +40,7 @@ class Record extends CollectableSecret with Inventoryable{
     static Record getRecordFromName(String name) {
         List<Record> records = spawn(World.instance);
         for(Record r in records) {
-            if(r.songName == name) {
+            if(r.songName == name || r.creepy == name) {
                 return r;
             }
         }
