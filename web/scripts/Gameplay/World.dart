@@ -63,7 +63,7 @@ class World {
     DateTime lastRender;
     //essentially the frame rate
     static int fps = 30;
-    int minTimeBetweenRenders = (1000/fps).round();
+    int get minTimeBetweenRenders => (1000/fps).round();
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
     List<Tree> trees = new List<Tree>();
@@ -156,6 +156,7 @@ class World {
         }
         //print("loading...${underWorld.player.funds}} caegers");
         syncMusicToSave();
+        fps = musicSave.fps;
     }
 
     void syncMusicToSave() {
@@ -494,9 +495,7 @@ class World {
             tree.uncorrupt();
         }
         underWorld.player.inventory.unlockHidden();
-        print("about to render");
         render();
-        print("purify render is done");
     }
 
 
@@ -949,7 +948,7 @@ class World {
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
             currentlyRendering = true;
-            //print("rendering");
+            print("rendering at $fps fps or $minTimeBetweenRenders min time between renders");
             //Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
             //makes sure the part between roots and ground is clear

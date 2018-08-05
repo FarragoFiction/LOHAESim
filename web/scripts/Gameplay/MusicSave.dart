@@ -13,6 +13,7 @@ class MusicSave {
     int volume = 50;
 
     bool paused = false;
+    int fps = 30;
 
     String toDataString() {
         try {
@@ -29,6 +30,8 @@ class MusicSave {
         json["currentSong"] = currentSong;
         json["volume"] = "$volume";
         json["paused"] = "$paused";
+        json["fps"] = "$fps";
+
         //print("saved, currentSong is $currentSong");
         return json;
     }
@@ -50,6 +53,9 @@ class MusicSave {
         paused = json["paused"] ==true.toString();
         volume = int.parse(json["volume"]);
         currentSong = json["currentSong"];
+        if(json["fps"] !=null) {
+            fps = int.parse(json["fps"]);
+        }
         //print("loaded, song is $currentSong");
     }
 
