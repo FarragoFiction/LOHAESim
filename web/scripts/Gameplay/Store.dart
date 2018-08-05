@@ -172,7 +172,13 @@ class StorePopup extends InventoryPopup
     }
 
     void commerceAll([bool butOne=false]) {
-        if (store.activeItem is Fruit) {
+        if(itemIsEye()){
+            textBody.text = "...I mean, I'll buy your ocular abominations against the gods, but I won't be happy about it";
+        }else if(itemIsCod()){
+            textBody.text = "My children.";
+        }else if(itemIsHorseNut()) {
+            textBody.text = "Please dont ask why I want this";
+        }else if (store.activeItem is Fruit) {
             textBody.text = rand.pickFrom(store.sellfruitQuips);
         } else if (store.activeItem is Record) {
             textBody.text = rand.pickFrom(store.sellRecordQuips);
@@ -237,7 +243,7 @@ class StorePopup extends InventoryPopup
 
     void sellCommerce() {
         if(itemIsEye()){
-            textBody.text = "...I mean, I'll buy them, but I won't be happy about it";
+            textBody.text = "...I mean, I'll buy your ocular abominations against the gods, but I won't be happy about it";
         }else if(itemIsCod()){
             textBody.text = "My children.";
         }else if(itemIsHorseNut()) {
