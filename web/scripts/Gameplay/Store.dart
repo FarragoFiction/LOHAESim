@@ -171,7 +171,7 @@ class StorePopup extends InventoryPopup
         }
     }
 
-    void commerceAll() {
+    void commerceAll([bool butOne=false]) {
         if (store.activeItem is Fruit) {
             textBody.text = rand.pickFrom(store.sellfruitQuips);
         } else if (store.activeItem is Record) {
@@ -179,7 +179,7 @@ class StorePopup extends InventoryPopup
         }else {
             textBody.text = "???";
         }
-        sellAll(store.activeItem);
+        sellAll(store.activeItem, butOne);
     }
 
     bool itemIsCod() {
@@ -256,8 +256,11 @@ class StorePopup extends InventoryPopup
         return ret;
     }
 
-    void sellAll(Inventoryable itemTemplate) {
+    void sellAll(Inventoryable itemTemplate, bool butOne) {
         List<Inventoryable> allItemsOfType = allItemsThatMatch(itemTemplate);
+        if(butOne) {
+            allItemsOfType.remove(allItemsOfType.first);
+        }
         //print("found ${allItemsOfType.length} copies of this item");
         for(Inventoryable item in allItemsOfType) {
             store.world.updateFunds(item.saleCost);
@@ -335,6 +338,7 @@ class StorePopup extends InventoryPopup
         DivElement yesAll = new DivElement()..text = "ALL"..classes.add("storeButton")..classes.add("storeButtonColor");;
 
         DivElement noButton = new DivElement()..text = "NO"..classes.add("storeButton")..classes.add("storeButtonColor");;
+        DivElement allButOne = new DivElement()..text = "Sell All But Leave One"..classes.add("storeButtonJoke")..classes.add("storeButtonColor");;
 
         yesButton.onClick.listen((Event e) {
             e.stopPropagation(); //don't give it to other things
@@ -344,6 +348,11 @@ class StorePopup extends InventoryPopup
         yesAll.onClick.listen((Event e) {
             e.stopPropagation(); //don't give it to other things
             commerceAll();
+        });
+
+        allButOne.onClick.listen((Event e) {
+            e.stopPropagation(); //don't give it to other things
+            commerceAll(true);
         });
 
         noButton.onClick.listen((Event e) {
@@ -357,7 +366,12 @@ class StorePopup extends InventoryPopup
             noButton.style.margin = "5px";
             textBody.append(yesAll);
         }
+
         textBody.append(noButton);
+
+        if(!store.buying) {
+            textBody.append(allButOne);
+        }
     }
 
     @override

@@ -1,4 +1,14 @@
 
+.storeButtonJoke{
+    font-family: 'strife', sans-serif;
+    font-size: 12px;
+    width: 200px;
+    display: block;
+    margin: 15px;
+    margin-left: 122px;
+    padding-top: 10px;
+}
+
 body{
     background-color: #112b00;
     background-image: url('../images/BGs/AlternianCliffStore.png');
