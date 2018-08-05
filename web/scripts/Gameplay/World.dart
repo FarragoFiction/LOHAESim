@@ -211,7 +211,7 @@ class World {
             JSONObject json = new JSONObject.fromJSONString(rawJSON);
             copyFromJSON(json);
         }catch(e, trace) {
-            print("error loading data, assuming legacy uncompressed, error was $e $trace");
+            print("error loading data, assuming legacy uncompressed (oh hi there beta tester, thanks for your hard work :) :) :) ), error was $e $trace");
             String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
             JSONObject json = new JSONObject.fromJSONString(rawJson);
             copyFromJSON(json);
