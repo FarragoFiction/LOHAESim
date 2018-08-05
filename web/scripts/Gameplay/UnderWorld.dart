@@ -87,31 +87,36 @@ class UnderWorld {
     Future<Null> render(CanvasElement worldBuffer) async {
         if(buffer == null) await initCanvasAndBuffer();
         checkCorruptUpgrade();
+
         //print("rendering underworld");
         //slightly brighter dirt to look like light
         //buffer.context2D.fillStyle = "#71402a";
         //#44281b
         //dirt.context2D.fillStyle = "#00ff00";
-        buffer.context2D.save();
-        CanvasGradient grd = buffer.context2D.createLinearGradient(buffer.height, buffer.height, buffer.height, 0);
-        grd.addColorStop(0, "#341c11");
-        grd.addColorStop(1,"#71402a");
+        if(player.hasActiveFlashlight) {
+            buffer.context2D.save();
+            CanvasGradient grd = buffer.context2D.createLinearGradient(
+                buffer.height, buffer.height, buffer.height, 0);
+            grd.addColorStop(0, "#341c11");
+            grd.addColorStop(1, "#71402a");
 
-        buffer.context2D.fillStyle = grd;
-        buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
-        buffer.context2D.restore();
-        //print("before drawing roots, roots are $roots");
+            buffer.context2D.fillStyle = grd;
+            buffer.context2D.fillRect(0, 0, buffer.width, buffer.height);
+            buffer.context2D.restore();
+            //print("before drawing roots, roots are $roots");
 
-        buffer.context2D.drawImage(roots,0,0);
+            buffer.context2D.drawImage(roots, 0, 0);
+        }
         cullSecrets();
-        if(!nidhogg.dead) nidhogg.render(buffer);
+
+        if(!nidhogg.dead && player.hasActiveFlashlight) nidhogg.render(buffer);
         for(Essence e in essences) {
             //also handles collecting
             if(player.playerMoved) {
                 e.gigglesnort(new Math.Point(player.x, player.y));
             }
             if(!e.collected) {
-                e.render(buffer);
+                if(player.hasActiveFlashlight)e.render(buffer);
             }else {
                     essencesToRemove.add(e);
             }
@@ -120,8 +125,11 @@ class UnderWorld {
         player.playerMoved = false;
 
 
-        ImageElement playerImage = await player.image;
-        buffer.context2D.drawImage(playerImage, player.x, player.y);
+        if(player.hasActiveFlashlight) {
+            ImageElement playerImage = await player.image;
+            buffer.context2D.drawImage(playerImage, player.x, player.y);
+        }
+
         //tree grows more healthy closer you get to nidhogg until suddenly everything is terrible forever
         if(!world.bossFight) {
             world.health = World.MAXHEALTH -
