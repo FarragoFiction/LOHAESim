@@ -171,7 +171,7 @@ class World {
     String toDataString() {
         try {
             String ret = toJSON().toString();
-            return "Ygdrassil$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+            return "Ygdrassil$labelPattern${LZString.compressToEncodedURIComponent(ret)}";
         }catch(e) {
             print(e);
             print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
@@ -205,9 +205,17 @@ class World {
             dataString = parts[1];
         }
 
-        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
-        JSONObject json = new JSONObject.fromJSONString(rawJson);
-        copyFromJSON(json);
+        //default assume data is compressed, okay?
+        try {
+            String rawJSON = LZString.decompressFromEncodedURIComponent(dataString);
+            JSONObject json = new JSONObject.fromJSONString(rawJSON);
+            copyFromJSON(json);
+        }catch(e, trace) {
+            print("error loading data, assuming legacy uncompressed, error was $e $trace");
+            String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+            JSONObject json = new JSONObject.fromJSONString(rawJson);
+            copyFromJSON(json);
+        }
     }
 
     void copyFromJSON(JSONObject json) {
@@ -245,6 +253,7 @@ class World {
         try {
             String ret = sharedToJSON().toString();
             //print("the json string for shared data was $ret");
+            //NOT compressed, for ease of accessing shared data
             return "${BASE64URL.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
@@ -623,7 +632,7 @@ class World {
                 if (fruitLayer != null) {
                      //print("i found a fruit, it's name is ${fruitLayer.doll.dollName}, it's seed is ${fruitLayer.doll.seed}");
                     if(omni) {
-                        consortPrint("thwap!! uh. that. sure is. an interesting. technique for fruit picking you have there??");
+                        //consortPrint("thwap!! uh. that. sure is. an interesting. technique for fruit picking you have there??");
                         tree.produceFruitOmni(floweringTrees);
                     }else {
                         tree.produceFruit(fruitLayer, floweringTrees);
