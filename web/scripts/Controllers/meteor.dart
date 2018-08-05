@@ -8,7 +8,64 @@ import 'package:CommonLib/NavBar.dart';
 Element output = querySelector('#output');
 Future<Null> main() async{
     await loadNavbar();
+    loadBackups();
     saveBackups();
+}
+
+void loadBackups() {
+    LabelElement label = new LabelElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
+    label.text = "Restore Main Save From Backup:";
+    InputElement fileElement = new InputElement();
+    fileElement.type = "file";
+    fileElement.setInnerHtml("Restore Main Save from Backup");
+    label.append(fileElement);
+    output.append(label);
+
+
+    fileElement.onChange.listen((e) {
+        try {
+            print("file element is $fileElement and message is ${fileElement.validationMessage} and files is ${fileElement.files}");
+            List<File> loadFiles = fileElement.files;
+            File file = loadFiles.first;
+            FileReader reader = new FileReader();
+            reader.readAsText(file);
+            reader.onLoadEnd.listen((e) {
+                String loadData = reader.result;
+                window.localStorage[World.SAVEKEY] = loadData;
+                window.location.href = "meteor.html";
+            });
+        }catch(e, trace) {
+            window.alert("error uploading file");
+            print("Error Uploading File $e, $trace");
+        }
+    });
+
+
+    label = new LabelElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
+    label.text = "Restore Money Save From Backup:";
+    InputElement fileElement2 = new InputElement();
+    fileElement2.type = "file";
+    label.append(fileElement2);
+    output.append(label);
+
+
+    fileElement2.onChange.listen((e) {
+        try {
+            List<File> loadFiles = fileElement2.files;
+            File file = loadFiles.first;
+            FileReader reader = new FileReader();
+            reader.readAsText(file);
+            reader.onLoadEnd.listen((e) {
+                String loadData = reader.result;
+                window.localStorage[World.SHAREDKEY] = loadData;
+                window.location.href = "meteor.html";
+            });
+        }catch(e, trace) {
+            window.alert("error uploading file");
+            print("Error Uploading File $e, $trace");
+        }
+    });
+
 }
 
 void saveBackups() {
