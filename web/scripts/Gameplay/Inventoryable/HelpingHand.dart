@@ -33,6 +33,7 @@ class HelpingHand extends CollectableSecret with Inventoryable{
 
 class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
   HelpingHandPlusUltra(World world) : super(world) {
+      sortPriority = 1;
       tier = 2;
     name = "Helping Hand Plus Ultra";
     specificPhrase = "Go Beyond! (The normal mortal limits on how many fruit you can pick at a time.)";
@@ -46,6 +47,8 @@ class HelpingHandPlusUltra extends HelpingHand with Inventoryable {
 
 class HelpingHandCorrupt extends HelpingHand with Inventoryable {
     HelpingHandCorrupt(World world) : super(world) {
+        sortPriority = 1;
+
         name = "Nidhogg's Hand";
         tier = 3;
         specificPhrase = "Shhh...only Fruit now.";
