@@ -916,10 +916,14 @@ class World {
 
     Future<Null> renderLoop()async {
         //make sure it's the right time
-        await window.animationFrame;
-        await render(true);
-        //if it needs to interupt it will, but no faster than min Time
-        //TODO turn this back on
+        try {
+            await window.animationFrame;
+            await render(true);
+            //if it needs to interupt it will, but no faster than min Time
+            //TODO turn this back on
+        }catch(e, trace) {
+            print("there was an error rendering and i don't know why. $e $trace");
+        }
         new Timer(new Duration(milliseconds: minTimeBetweenRenders), () => renderLoop());
 
     }
