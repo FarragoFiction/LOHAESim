@@ -194,6 +194,18 @@ class StorePopup extends InventoryPopup
         return false;
     }
 
+    bool itemIsEye() {
+        if(store.activeItem is Fruit) {
+            Fruit fruit = store.activeItem as Fruit;
+            if(fruit.doll is FruitDoll) {
+                FruitDoll fruitDoll = (fruit.doll as FruitDoll);
+
+                return fruitDoll.body.imgNumber == 24;
+            }
+        }
+        return false;
+    }
+
     bool itemIsHorseNut() {
         return store.activeItem.name == "Horse Nut";
     }
@@ -224,7 +236,9 @@ class StorePopup extends InventoryPopup
     }
 
     void sellCommerce() {
-        if(itemIsCod()){
+        if(itemIsEye()){
+            textBody.text = "...I mean, I'll buy them, but I won't be happy about it";
+        }else if(itemIsCod()){
             textBody.text = "My children.";
         }else if(itemIsHorseNut()) {
             textBody.text = "Please dont ask why I want this";

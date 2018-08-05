@@ -799,9 +799,11 @@ class World {
     void plantATreeAtPoint(Fruit fruit, Point point) {
         if(bossFight) {
             consortPrint("no the denizen is awake these trees are BAD!!");
-        }else {
+        }else if(!underWorld.nidhogg.dead && !underWorld.nidhogg.purified) {
             consortPrint(
                 "thwap!! are you sure it's a good idea to plant all these trees?? The Denizen might wake up... he's SCARY!!");
+        }else {
+            consortPrint("thwap!! thwap!! we can plant as many trees as we want now that NIDHOGG isnt sleeping anymore");
         }
         //just a logical result of the trees this fruit came from
         Doll treeDoll = Doll.breedDolls(fruit.parents);
@@ -848,7 +850,7 @@ class World {
         int x = point.x;
 
         if(getParameterByName("haxMode") == "on") {
-            y = point.y - treeDoll.height/2; //plant base where you click
+            y = point.y; //plant base where you click
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);

@@ -9,12 +9,13 @@ import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 
 Element output = querySelector('#output');
-World ygdrassil = new World();
+World ygdrassil;
 List<int> keycodes = new List<int>();
 Future<Null> main() async {
     querySelector("body").style.height = "2500px";
     await loadNavbar();
     await OldRenderer.Loader.preloadManifest();
+    ygdrassil = new World();
     ygdrassil.health = 26;
     ygdrassil.makeFundsElement(querySelector("#navbar"));
     await ygdrassil.setupElements(output);
