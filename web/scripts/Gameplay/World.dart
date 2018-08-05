@@ -948,7 +948,7 @@ class World {
         if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
             currentlyRendering = true;
-            print("rendering at $fps fps or $minTimeBetweenRenders min time between renders");
+            //print("rendering at $fps fps or $minTimeBetweenRenders min time between renders");
             //Renderer.clearCanvas(buffer);
             buffer.context2D.fillStyle = "#5d3726";
             //makes sure the part between roots and ground is clear
