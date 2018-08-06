@@ -282,6 +282,8 @@ class ArchivedFruit extends Fruit {
 
     Fruit spawnFruit() {
         Fruit fruit = new Fruit(World.instance,doll);
+        if(doll is FruitDoll) (doll as FruitDoll).setName();
+        fruit.name = doll.dollName;
         TreeDoll parent = new TreeDoll();
         parent.rand.setSeed(doll.seed);
         parent.randomizeNotColors(); //makes sure it's always the same parents

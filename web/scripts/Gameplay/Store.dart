@@ -11,6 +11,7 @@ import 'World.dart';
 import 'dart:async';
 import 'dart:html';
 
+import 'package:DollLibCorrect/src/Dolls/KidBased/HomestuckGrubDoll.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 
@@ -25,6 +26,7 @@ class Store extends Inventory {
     List<String> recordQuips = <String>["I hope you enjoy!", "I really hope you like it.", "I spent a lot of time on this one, hope you like it!", "Thanks for nabbing my music"];
     List<String> sellfruitQuips = <String>["You drive a hard bargin.", "Really? You want how much?", "This smells like shit.", "My grandmas a better gardener then this.", "Damn it, I was hoping for apples.", "Well, time to re-sell these at ten times the price.", "You ever wonder why we seem to be using troll money when we're both secretly human?", "Congrats, you just collapsed the local fruit economy.", "Pleasure doing business with you, now my non-existent children won't starve.", "-The bard messily devours the fruit-", "-The bard eyes the fruit with distrust and hands you a few ceagers-"];
     List<String> sellRecordQuips = <String>["Oh. Ok. I-. Alright.", "Oh. I'm sorry you didn't like it.", "Oh. I kinda liked that one...", "Yeah, it is kinda shit, I'm sorry.", "I see. Alright. I'm sorry to have wasted your time.", "ok. sorry to have bothered you."];
+    List<String> sellWigglerQuips = <String>["You drive a hard bargin.", "Really? You want how much?", "This smells like shit.", "My grandmas a better gardener then this.", "Damn it, I was hoping for apples.", "Well, time to re-sell these at ten times the price.", "You ever wonder why we seem to be using troll money when we're both secretly human?", "Congrats, you just collapsed the local fruit economy.", "Pleasure doing business with you, now my non-existent children won't starve.", "-The bard messily devours the fruit, and then looks you dead in the eyes- ...What. Just because its *shaped* like an alien baby doesn't mean it *is* an alien baby", "-The bard eyes the fruit with distrust and hands you a few ceagers-"];
 
     List<String> cantAffordToBuyQuips = <String>["Don't touch if you can't buy!", "Get out of my shop you broke motherf*****.", "Oh come on, seriously?", "This isn't a charity.", "I only give discounts to people with good taste", "Better luck next time bozo!", "No cash, no goodies"];
 
@@ -179,7 +181,11 @@ class StorePopup extends InventoryPopup
         }else if(itemIsHorseNut()) {
             textBody.text = "Please dont ask why I want this";
         }else if (store.activeItem is Fruit) {
-            textBody.text = rand.pickFrom(store.sellfruitQuips);
+            if((store.activeItem as Fruit).doll is HomestuckGrubDoll) {
+                textBody.text = rand.pickFrom(store.sellWigglerQuips);
+            }else {
+                textBody.text = rand.pickFrom(store.sellfruitQuips);
+            }
         } else if (store.activeItem is Record) {
             textBody.text = rand.pickFrom(store.sellRecordQuips);
         }else {
@@ -249,7 +255,11 @@ class StorePopup extends InventoryPopup
         }else if(itemIsHorseNut()) {
             textBody.text = "Please dont ask why I want this";
         }else if (store.activeItem is Fruit) {
-            textBody.text = rand.pickFrom(store.sellfruitQuips);
+            if((store.activeItem as Fruit).doll is HomestuckGrubDoll) {
+                textBody.text = rand.pickFrom(store.sellWigglerQuips);
+            }else {
+                textBody.text = rand.pickFrom(store.sellfruitQuips);
+            }
         } else if (store.activeItem is Record) {
             textBody.text = rand.pickFrom(store.sellRecordQuips);
         }else {
