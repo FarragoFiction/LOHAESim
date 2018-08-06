@@ -82,6 +82,8 @@ List<Fruit> spawnRandomFruit() {
         fruit.parents.add(parent);
         //make sure the clone parent has you as it's fruit
         parent.fruitTemplate = doll;
+        parent.leafTemplate = new LeafDoll();
+        parent.flowerTemplate = new FlowerDoll();
         parent.fruitTime = true;
 
         /*
