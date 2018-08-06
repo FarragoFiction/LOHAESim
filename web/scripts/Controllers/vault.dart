@@ -68,18 +68,21 @@ Future<Null> processVault() async {
     //if they are all fruit, sort by body number, otherwise sort by doll type
     fruits.sort((Fruit a, Fruit b) {
         if(a.doll is FruitDoll && b.doll is FruitDoll) {
-            return (a.doll as FruitDoll).body.imgNumber.compareTo((b.doll as FruitDoll).body.imgNumber);
+            return (a.doll.seed.compareTo((b.doll.seed)));
         }else {
             return a.doll.renderingType.compareTo(b.doll.renderingType);
         }
 
     });
 
+    int id = 0;
     for(ArchivedFruit fruit in fruits) {
         SpanElement wrapper = new SpanElement();
+        wrapper.id = "fruit${id}_or_${fruit.doll.seed}";
         vault.append(wrapper);
         //don't await it will be in same order no matter what
         initOneVaultCell(fruit, wrapper);
+        id++;
     }
 }
 
