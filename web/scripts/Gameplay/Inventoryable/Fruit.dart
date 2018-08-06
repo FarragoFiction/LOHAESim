@@ -37,6 +37,17 @@ class Fruit extends Object with Inventoryable {
         type = "Fruit";
     }
 
+    void debugParents() {
+        print("debugging parents for $name");
+        for(TreeDoll parent in parents) {
+            List<PositionedDollLayer> hangables = parent.hangables;
+            print("there are ${hangables.length} fruit in the parent");
+            if(hangables.isNotEmpty) {
+                print("the first hangable is seed id ${hangables.first.doll.seed} ");
+            }
+        }
+    }
+
     //lets world know about the unique fruit you've found
     //as well as giving me an idea if it's a new game or not
     ArchivedFruit makeArchive() {

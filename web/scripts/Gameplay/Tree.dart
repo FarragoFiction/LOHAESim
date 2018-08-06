@@ -142,7 +142,10 @@ class Tree {
 
 
 
-    Tree(World this.world,TreeDoll this.doll, int this.bottomCenterX, int this.bottomCenterY);
+    Tree(World this.world,TreeDoll this.doll, int this.bottomCenterX, int this.bottomCenterY) {
+        //flowers can be random but fruit MUST end up having their templates saved
+        //and the only path for that is having a doll layer exist
+    }
 
     String toDataString() {
         try {
@@ -317,10 +320,15 @@ class Tree {
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
                 //print("making fruit from scratch");
+                print("before I create fruit, the template is ${doll.fruitTemplate.seed}");
                 await doll.createFruit();
+                print("after I create fruit, the template is ${doll.fruitTemplate.seed}");
+
             }else {
                 //print("turning existing hangables into fruit");
+                print("before I transform fruit, the template is ${doll.fruitTemplate.seed}");
                 doll.transformHangablesInto(); //auto does fruit
+                print("after I transform fruit, the template is ${doll.fruitTemplate.seed}");
             }
             //print("made hangables ${doll.hangables}");
             hangablesDirty = true;
