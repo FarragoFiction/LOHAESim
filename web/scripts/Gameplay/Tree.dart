@@ -320,15 +320,15 @@ class Tree {
             doll.fruitTime = true;
             if(doll.hangables.isEmpty) {
                 //print("making fruit from scratch");
-                print("before I create fruit, the template is ${doll.fruitTemplate.seed}");
+                //print("before I create fruit, the template is ${doll.fruitTemplate.seed}");
                 await doll.createFruit();
-                print("after I create fruit, the template is ${doll.fruitTemplate.seed}");
+                //print("after I create fruit, the template is ${doll.fruitTemplate.seed}");
 
             }else {
                 //print("turning existing hangables into fruit");
-                print("before I transform fruit, the template is ${doll.fruitTemplate.seed}");
+                //print("before I transform fruit, the template is ${doll.fruitTemplate.seed}");
                 doll.transformHangablesInto(); //auto does fruit
-                print("after I transform fruit, the template is ${doll.fruitTemplate.seed}");
+                //print("after I transform fruit, the template is ${doll.fruitTemplate.seed}");
             }
             //print("made hangables ${doll.hangables}");
             hangablesDirty = true;
