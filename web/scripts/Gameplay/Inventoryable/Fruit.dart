@@ -282,6 +282,14 @@ class ArchivedFruit extends Fruit {
 
     Fruit spawnFruit() {
         Fruit fruit = new Fruit(World.instance,doll);
+        TreeDoll parent = new TreeDoll();
+        parent.rand.setSeed(doll.seed);
+        parent.randomizeNotColors(); //makes sure it's always the same parents
+        parent.copyPalette(doll.palette);
+        parent.flowerTemplate = new FlowerDoll();
+        parent.leafTemplate = new LeafDoll();
+        parent.fruitTemplate = doll;
+        fruit.parents.add(parent);
         fruit.description = description;
         fruit.cost = cost;
         return fruit;
