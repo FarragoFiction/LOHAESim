@@ -38,7 +38,9 @@ Future<Null> main() async {
         }else if(guess == "yggdrasil" || guess == "ygdrassil") {
             window.alert("Points for creativity but not what I was going for.");
             ygdrassil.updateFunds(13);
-        }else {
+        }else if(guess == "treesim") {
+            window.alert("I know I call it that and all but that's hardly a secret.");
+    }else {
             window.alert("Nope!!!");
         }
     });
