@@ -93,9 +93,12 @@ class Store extends Inventory {
         List<Inventoryable> copyList = new List.from(world.underWorld.player.inventory);
         for(Inventoryable item in copyList) {
             if(item is Fruit) {
-                world.updateFunds(item.saleCost);
-                inventory.add(item);
-                world.underWorld.player.inventory.remove(item);
+                Fruit fruit = item as Fruit;
+                if(fruit.doll is FruitDoll) {
+                    world.updateFunds(item.saleCost);
+                    inventory.add(item);
+                    world.underWorld.player.inventory.remove(item);
+                }
             }
         }
         world.playSoundEffect("121990__tomf__coinbag");
