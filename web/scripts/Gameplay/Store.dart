@@ -58,6 +58,7 @@ class Store extends Inventory {
         DivElement buyButton = new DivElement()..text = "Buy Items"..classes.add("tab")..classes.add("selectedTab");
 
         DivElement sellButton = new DivElement()..text = "Sell Items"..classes.add("tab");
+
         buyButton.onClick.listen((Event e) {
             sellButton.classes.remove("selectedTab");
             buyButton.classes.add("selectedTab");
@@ -69,11 +70,35 @@ class Store extends Inventory {
             sellButton.classes.add("selectedTab");
             sellMode();
         });
+
+
         TableRowElement tabs = new TableRowElement();
 
         tabs.append(buyButton);
         tabs.append(sellButton);
         outerTable.append(tabs);
+    }
+
+    void makeSellAllButton() {
+        DivElement sellAllButton = new DivElement()..text = "Sell All Fruit"..classes.add("meteorButton")..classes.add("storeButtonColor");
+
+        sellAllButton.onClick.listen((Event e) {
+            sellAllFruit();
+        });
+        container.append(sellAllButton);
+    }
+
+    void sellAllFruit() {
+        //print("found ${allItemsOfType.length} copies of this item");
+        List<Inventoryable> copyList = new List.from(world.underWorld.player.inventory);
+        for(Inventoryable item in copyList) {
+            if(item is Fruit) {
+                world.updateFunds(item.saleCost);
+                inventory.add(item);
+                world.underWorld.player.inventory.remove(item);
+            }
+        }
+        world.playSoundEffect("121990__tomf__coinbag");
     }
 
 
@@ -130,6 +155,8 @@ class Store extends Inventory {
         row.append(td2);
 
         popup = new StorePopup(container, this);
+      makeSellAllButton();
+
 
     }
 
