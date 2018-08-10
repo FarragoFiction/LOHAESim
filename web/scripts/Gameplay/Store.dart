@@ -361,6 +361,9 @@ class StorePopup extends InventoryPopup
         int realCost = chosenItem.cost;
         if(!store.buying) realCost = chosenItem.saleCost;
         header.text = "${chosenItem.name.toUpperCase()} - \$${realCost}";
+        if(chosenItem is Fruit) {
+            header.text = "${header.text} (Seed ID: ${(chosenItem as Fruit).doll.seed})";
+        }
         if(preview != null) {
             CanvasElement previewBox = new CanvasElement(width: 15, height: 15);
             previewBox.style.display = "inline";

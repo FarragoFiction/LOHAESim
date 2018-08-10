@@ -298,6 +298,9 @@ class InventoryPopup {
 
         container.style.display = "block";
         header.text = "${chosenItem.name.toUpperCase()} - \$${chosenItem.cost}";
+        if(chosenItem is Fruit) {
+            header.text = "${header.text} (Seed ID: ${(chosenItem as Fruit).doll.seed})";
+        }
         if(preview != null) {
             CanvasElement previewBox = new CanvasElement(width: 15, height: 15);
             previewBox.style.display = "inline";
