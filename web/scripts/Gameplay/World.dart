@@ -124,10 +124,10 @@ class World {
         owoPrint("New Friend! Let's explore these roots together!");
     }
 
-    void updateFunds(int amountToChange) {
+    void updateFunds(int amountToChange, [bool waitToSave]) {
         underWorld.player.funds += amountToChange;
         syncFunds();
-        save("funds updated");
+        if(!waitToSave) save("funds updated");
     }
 
     void syncFunds() {

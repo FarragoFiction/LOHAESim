@@ -163,7 +163,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         }
     }
 
-    void remove(Inventoryable item) {
+    void remove(Inventoryable item, [bool waitToSave = false]) {
         inventory.remove(item);
         if(item.myInventoryDiv != null) item.myInventoryDiv.remove();
         if(item is Fruit && !(this is Store)) {
@@ -173,7 +173,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
                 world.secretsForCalm.remove(fruit.doll.toDataBytesX());
             }
         }
-        world.save("removed item from inventory");
+        if(!waitToSave) world.save("removed item from inventory");
     }
 
     void handleItemClick(Inventoryable item, {Element preview}) {

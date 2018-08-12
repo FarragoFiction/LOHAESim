@@ -95,12 +95,13 @@ class Store extends Inventory {
             if(item is Fruit) {
                 Fruit fruit = item as Fruit;
                 if(fruit.doll is FruitDoll) {
-                    world.updateFunds(item.saleCost);
+                    world.updateFunds(item.saleCost,true);
                     inventory.add(item);
-                    world.underWorld.player.inventory.remove(item);
+                    world.underWorld.player.inventory.remove(item,true);
                 }
             }
         }
+        world.save("done selling all");
         world.playSoundEffect("121990__tomf__coinbag");
     }
 
