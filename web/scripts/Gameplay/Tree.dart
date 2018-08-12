@@ -25,6 +25,8 @@ class Tree {
     //cached, but procedural so don't need to save
     int _msPerStage = -1;
 
+    Map<double,CanvasElement> cachedCanvasesForFruitPulsing = new Map<double, CanvasElement>();
+
     int get msPerStage {
         if(_msPerStage < 0) {
             Colour color = doll.associatedColor;
@@ -281,13 +283,27 @@ class Tree {
             //print("made hangables ${doll.hangables}");
             hangablesDirty = true;
         }
+        setFruitScale(0.05);
+        return await canvasElementForFruitSize(fruitScale);
+    }
+
+    Future<CanvasElement> canvasElementForFruitSize(double size) async {
+        if(cachedCanvasesForFruitPulsing.containsKey(size)){
+            return cachedCanvasesForFruitPulsing[size];
+        }else {
+            return await makeCanvasElementForFruitSize(size);
+        }
+    }
+
+    //only call this if its not already cached.
+    Future<CanvasElement> makeCanvasElementForFruitSize(double size) async {
+       // print("rendering a pulsing fruit at size $size");
         CanvasElement blank = doll.blankCanvas;
         CanvasElement treeC = await treeCanvas;
         //CanvasElement flowC = await hangableCanvas;
         blank.context2D.imageSmoothingEnabled = false;
         blank.context2D.drawImage(treeC, 0,0);
         //pulse the fruit to show you should click it
-        setFruitScale(0.05);
         hangablesDirty = true;
         //renders things with a stable center
         for(SpriteLayer layer in doll.hangables) {
@@ -310,6 +326,7 @@ class Tree {
         }
         //this would render it all as a single plane, but looks bad for pulsing
         //blank.context2D.drawImageScaled(flowC, 0,0, doll.width*fruitScale, doll.height*fruitScale);
+        cachedCanvasesForFruitPulsing[size] = blank;
         return blank;
     }
 
