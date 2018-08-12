@@ -232,6 +232,14 @@ class Tree {
         doll.renderingOrderLayers.remove(fruitLayer);
         // print("after picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
         hangablesDirty = true; //render plz
+        clearFruit(fruitLayer);
+    }
+
+    void clearFruit(PositionedDollLayer fruitLayer) {
+        Rectangle rect = fruitLayer.getSelfRect();
+        for(CanvasElement canvas in cachedCanvasesForFruitPulsing.values) {
+            canvas.context2D.clearRect(rect.left,rect.top, rect.width, rect.height);
+        }
     }
 
     PositionedDollLayer fruitPicked(Point point) {
