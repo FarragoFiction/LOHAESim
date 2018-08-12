@@ -237,8 +237,9 @@ class Tree {
 
     void clearFruit(PositionedDollLayer fruitLayer) {
         Rectangle rect = fruitLayer.getSelfRect();
-        for(CanvasElement canvas in cachedCanvasesForFruitPulsing.values) {
-            canvas.context2D.clearRect(rect.left,rect.top, rect.width, rect.height);
+        for(double size in cachedCanvasesForFruitPulsing.keys) {
+            CanvasElement canvas =cachedCanvasesForFruitPulsing[size];
+            canvas.context2D.clearRect(rect.left,rect.top, rect.width*size, rect.height*size);
         }
     }
 
@@ -292,7 +293,12 @@ class Tree {
             hangablesDirty = true;
         }
         setFruitScale(0.05);
-        return await canvasElementForFruitSize(fruitScale);
+        CanvasElement ret = doll.blankCanvas;
+        CanvasElement justFruit = await canvasElementForFruitSize(fruitScale);
+        CanvasElement justTree = await treeCanvas;
+        ret.context2D.drawImage(justTree,0,0);
+        ret.context2D.drawImage(justFruit,0,0);
+        return ret;
     }
 
     Future<CanvasElement> canvasElementForFruitSize(double size) async {
@@ -307,10 +313,8 @@ class Tree {
     Future<CanvasElement> makeCanvasElementForFruitSize(double size) async {
        // print("rendering a pulsing fruit at size $size");
         CanvasElement blank = doll.blankCanvas;
-        CanvasElement treeC = await treeCanvas;
         //CanvasElement flowC = await hangableCanvas;
         blank.context2D.imageSmoothingEnabled = false;
-        blank.context2D.drawImage(treeC, 0,0);
         //pulse the fruit to show you should click it
         hangablesDirty = true;
         //renders things with a stable center
