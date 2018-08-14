@@ -304,6 +304,12 @@ class StorePopup extends InventoryPopup
         store.world.updateFunds(item.saleCost);
         store.inventory.add(item);
         store.world.underWorld.player.inventory.remove(item);
+        if(item is Fruit) {
+            Fruit fruit = item as Fruit;
+            if(fruit.doll is HomestuckGrubDoll) {
+                store.world.secretsForCalm.remove(fruit.doll.toDataBytesX());
+            }
+        }
         store.world.playSoundEffect("121990__tomf__coinbag");
     }
 
