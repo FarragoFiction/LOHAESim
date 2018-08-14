@@ -311,6 +311,7 @@ class StorePopup extends InventoryPopup
             }
         }
         store.world.playSoundEffect("121990__tomf__coinbag");
+        store.world.save("sold");
     }
 
     List<Inventoryable> allItemsThatMatch(Inventoryable itemToMatch) {
