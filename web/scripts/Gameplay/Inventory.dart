@@ -78,6 +78,22 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         return json;
     }
 
+    void syncToSharedCalm(){
+        List<Inventoryable> items = new List.from(inventory);
+        for(Inventoryable item in items) {
+            if(item is Fruit) {
+                Fruit fruit = item as Fruit;
+                if(fruit.doll is HomestuckGrubDoll) {
+                    String data = fruit.doll.toDataBytesX();
+                    if(!world.secretsForCalm.contains(data)) {
+                        //if you got removed from shared, you're removed here too.
+                        inventory.remove(item);
+                    }
+                }
+            }
+        }
+    }
+
     void copyFromJSON(JSONObject json) {
         String idontevenKnow = json["inventory"];
         loadInventoryFromJSON(idontevenKnow);

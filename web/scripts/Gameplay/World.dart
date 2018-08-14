@@ -270,6 +270,7 @@ class World {
         JSONObject json = new JSONObject.fromJSONString(rawJson);
         //print("json is $json");
         copySharedFromJSON(json);
+        underWorld.player.inventory.syncToSharedCalm();
     }
 
     void copySharedFromJSON(JSONObject json) {
