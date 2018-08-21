@@ -115,11 +115,11 @@ class World {
     }
 
 
-    World([bool reset]) {
+    World([bool pleaseLoad = true]) {
         _instance = this;
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-        if(!reset) load();
+        if(pleaseLoad) load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
     }
@@ -511,6 +511,7 @@ class World {
 
         underWorld.player.inventory.unlockHidden();
         render();
+        save("Nidhogg died");
     }
 
 

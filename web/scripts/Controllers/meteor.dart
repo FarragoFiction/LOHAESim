@@ -162,6 +162,13 @@ void errorDiv(String message) {
 class SaveSlot {
     static String labelKey = "LOHAE_SAVE_SLOT";
     static String currentTimelineLabel = "CURRENT TIMELINE";
+
+    static String sleeping = "images/BGs/sleeping.png";
+    static String dead = "images/BGs/dead.png";
+    static String owo = "images/BGs/purified.png";
+    static String fight = "images/BGs/fight.png";
+
+
     String label; //is also the key
     DateTime lastPlayed = new DateTime.now();
     String get size =>  "${((data.codeUnits.length + sharedData.codeUnits.length)/1024/1024).toStringAsFixed(4)} MBs";
@@ -213,7 +220,7 @@ class SaveSlot {
     }
 
     void resetTimeline() {
-      World newWorld = new World(true); //its reset
+      World newWorld = new World(false); //its reset
       data = newWorld.toDataString();
       sharedData = newWorld.toDataString();
       lastPlayed = new DateTime.now();
@@ -256,6 +263,22 @@ class SaveSlot {
     }
 
     void parseData() {
+        World world = new World(false);
+        world.copyFromDataString(data);
+        world.copySharedFromDataString(sharedData);
+        numberEssences = world.underWorld.player.numberEssences;
+        money = world.underWorld.player.funds;
+        numberArchives = world.pastFruit.values.length;
+
+        if(world.underWorld.nidhogg.dead) {
+            gigglesnortLocation = SaveSlot.dead;
+        }else if(world.underWorld.nidhogg.purified) {
+            gigglesnortLocation = SaveSlot.owo;
+        }else if(world.bossFight) {
+            gigglesnortLocation = SaveSlot.fight;
+        }else{
+            gigglesnortLocation = SaveSlot.sleeping;
+        }
 
     }
 
@@ -267,6 +290,11 @@ class SaveSlot {
     }
 
     void render() {
+
+        container.onClick.listen((Event e){
+            makeCurrent();
+        });
+
         DivElement nameElement = new DivElement()..text = "$label ($size)";
         container.append(nameElement);
         TableElement table = new TableElement();
@@ -293,7 +321,7 @@ class SaveSlot {
         cell = new TableCellElement();
         row.append(cell);
         deleteButton(cell);
-        changeTimeline(cell);
+        writeCurrentHere(cell);
         cell = new TableCellElement();
         row.append(cell);
         cell.style.textAlign = "right";
@@ -301,23 +329,31 @@ class SaveSlot {
         cell.append(lastPlayedElement);
     }
 
-    void changeTimeline(TableCellElement element) {
+    void writeCurrentHere(TableCellElement element) {
         if(!current) {
             DivElement button = new DivElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
-            button.text = "Make Current?";
+            button.text = "Override Timeline?";
             button.classes.add("meteorButtonSaveSlot");
 
-
             button.onClick.listen((e) {
-                World world = World.instance;
-                world.copyFromDataString(data);
-                world.copySharedFromDataString(sharedData);
-                world.save("Loading a Timeline");
+                World world = new World();
+                data = world.toDataString();
+                sharedData = world.sharedToDataString();
+                lastPlayed = new DateTime.now();
+                save();
                 window.location.href = "meteor.html";
             });
             element.append(button);
         }
 
+    }
+
+    void makeCurrent() {
+        World world = World.instance;
+        world.copyFromDataString(data);
+        world.copySharedFromDataString(sharedData);
+        world.save("Loading a Timeline");
+        window.location.href = "index.html";
     }
 
 
