@@ -3,6 +3,14 @@
     color: white;
 }
 
+.meteorButtonSaveSlot{
+  font-family: 'strife', sans-serif;
+    font-size: 12px;
+    display: block;
+    width: 100px;
+    margin: 15px;
+}
+
 a{
     color: white;
     text-decoration: none;
@@ -11,10 +19,24 @@ a{
 .saveSlot{
     border: 8px solid #900618;
     background-color: #b3041b;
-    height: 100px;
-    width: 600px;
-    padding: 10px;
+    height: 150px;
+    width: 1000px;
     margin: 10px;
     text-align: left;
+}
 
+.gigglesnort{
+}
+
+.lastPlayed{
+
+}
+
+.valueElement{
+    float: right;
+}
+
+td{
+    margin: 5px;
+    min-width:80px;
 }

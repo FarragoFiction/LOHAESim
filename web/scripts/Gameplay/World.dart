@@ -115,11 +115,11 @@ class World {
     }
 
 
-    World() {
+    World([bool reset]) {
         _instance = this;
         underWorld = new UnderWorld(this);
         currentMusic = new FlowOn(this);
-        load();
+        if(!reset) load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
     }

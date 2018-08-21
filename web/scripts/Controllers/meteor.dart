@@ -4,14 +4,15 @@ import 'dart:html';
 import "../Utility/TODOs.dart";
 
 import 'package:CommonLib/NavBar.dart';
+import 'package:CommonLib/src/utility/JSONObject.dart';
 
 Element output = querySelector('#output');
 Future<Null> main() async{
     await loadNavbar();
     SaveSlot.handleSaveSlots();
 
-    loadBackups();
-    saveBackups();
+    loadBackups(output);
+    saveBackups(output);
     changeFPS();
 }
 void changeFPS() {
@@ -40,14 +41,14 @@ void changeFPS() {
 
 }
 
-void loadBackups() {
-    LabelElement label = new LabelElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
-    label.text = "Restore Main Save From Backup:";
+void loadBackups(Element parent) {
+    LabelElement label = new LabelElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+    label.text = "Load File";
     InputElement fileElement = new InputElement();
     fileElement.type = "file";
-    fileElement.setInnerHtml("Restore Main Save from Backup");
+    fileElement.setInnerHtml("Load File:");
     label.append(fileElement);
-    output.append(label);
+    parent.append(label);
 
 
     fileElement.onChange.listen((e) {
@@ -69,12 +70,12 @@ void loadBackups() {
     });
 
 
-    label = new LabelElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
-    label.text = "Restore Money Save From Backup:";
+    label = new LabelElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+    label.text = "Load Money File:";
     InputElement fileElement2 = new InputElement();
     fileElement2.type = "file";
     label.append(fileElement2);
-    output.append(label);
+    parent.append(label);
 
 
     fileElement2.onChange.listen((e) {
@@ -96,34 +97,22 @@ void loadBackups() {
 
 }
 
-void saveBackups() {
-    DivElement button = new DivElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
-    button.text = "Destroy Your Save Data?";
-    button.classes.add("meteorButton");
-
-
-    button.onClick.listen((e) {
-        if (window.confirm("Are you sure? You can't undo this...")) {
-            window.localStorage.remove(World.SAVEKEY);
-            window.localStorage.remove(World.SHAREDKEY);
-            window.location.href = "meteor.html";
-        }
-    });
+void saveBackups(Element parent) {
 
     print("trying to do save back up links");
     if (window.localStorage.containsKey(World.SAVEKEY)) {
         print("data exists");
         try {
-            AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
+            AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
-            saveLink2.classes.add("meteorButton");
+            saveLink2.classes.add("meteorButtonSaveSlot");
             String string = window.localStorage[World.SAVEKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
             saveLink2.href = Url.createObjectUrl(blob).toString();
             saveLink2.target = "_blank";
             saveLink2.download = "treeSimData.txt";
             saveLink2.setInnerHtml("Download Backup");
-            querySelector('#output').append(saveLink2);
+            parent.append(saveLink2);
 
         } catch (e) {
             errorDiv("Error attempting to make Object URL for back up url. $e");
@@ -135,16 +124,16 @@ void saveBackups() {
 
     if (window.localStorage.containsKey(World.SHAREDKEY)) {
         try {
-            AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButton")..classes.add("storeButtonColor");
-            saveLink2.classes.add("meteorButton");
+            AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+            saveLink2.classes.add("meteorButtonSaveSlot");
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
             String string = window.localStorage[World.SHAREDKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
             saveLink2.href = Url.createObjectUrl(blob).toString();
             saveLink2.target = "_blank";
             saveLink2.download = "treeSimSharedData.txt";
-            saveLink2.setInnerHtml("Download Money Backup?");
-            querySelector('#output').append(saveLink2);
+            saveLink2.setInnerHtml("Download Money?");
+            parent.append(saveLink2);
         } catch (e) {
             errorDiv("Error attempting to shared Object URL for back up url. $e");
 
@@ -153,9 +142,10 @@ void saveBackups() {
         errorDiv("No Shared Data to Make Backups of.");
     }
 
-    querySelector('#output').append(button);
 
 }
+
+
 
 void errorDiv(String message) {
     DivElement error = new DivElement();
@@ -171,18 +161,23 @@ void errorDiv(String message) {
 //and can load this save slots data into the main file
 class SaveSlot {
     static String labelKey = "LOHAE_SAVE_SLOT";
+    static String currentTimelineLabel = "CURRENT TIMELINE";
     String label; //is also the key
-    DateTime lastPlayed;
-    int size;
+    DateTime lastPlayed = new DateTime.now();
+    String get size =>  "${((data.codeUnits.length + sharedData.codeUnits.length)/1024/1024).toStringAsFixed(4)} MBs";
     int money;
     int numberArchives;
     int numberEssences;
-    String gigglesnortLocation;
+    String gigglesnortLocation = "images/BGs/sleeping.png";
     String data;
     String sharedData;
     Element container;
 
-    SaveSlot(Element parent, String this.label) {
+    bool current;
+
+    String get key => "${labelKey}_${label}";
+
+    SaveSlot(Element parent, String this.label, bool this.current) {
         container = new DivElement()..classes.add("saveSlot");
         parent.append(container);
         slurpSelf();
@@ -191,18 +186,168 @@ class SaveSlot {
 
     //loads self from file, if can't find self use current save data to create self
     void slurpSelf() {
+        if(window.localStorage.containsKey(key) && !current) {
+            fromJSON();
+        }else {
+            createFromScratch();
+            save();
+        }
+    }
+
+    void save() {
+        window.localStorage[key] = toJSON().toString();
+    }
+
+    void deleteButton(Element parent) {
+        DivElement button = new DivElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+        button.text = "Delete?";
+        button.classes.add("meteorButtonSaveSlot");
+
+
+        button.onClick.listen((e) {
+            if (window.confirm("Are you sure? You can't undo this...")) {
+                resetTimeline();
+            }
+        });
+        parent.append(button);
+    }
+
+    void resetTimeline() {
+      World newWorld = new World(true); //its reset
+      data = newWorld.toDataString();
+      sharedData = newWorld.toDataString();
+      lastPlayed = new DateTime.now();
+      window.localStorage[key] = toJSON().toString();
+      window.location.href = "meteor.html";
+    }
+
+
+    void fromJSON() {
+        JSONObject json = new JSONObject.fromJSONString(window.localStorage[key]);
+        //everything else follows from it
+        data = json["data"];
+        sharedData = json["sharedData"];
+        String plantString = json["lastPlayed"];
+        lastPlayed = new DateTime.fromMillisecondsSinceEpoch(int.parse(plantString));
+
+        parseData();
+    }
+
+    void createFromScratch() {
+        if(window.localStorage.containsKey(World.SAVEKEY)){
+            data = window.localStorage[World.SAVEKEY];
+            sharedData = window.localStorage[World.SHAREDKEY];
+        }else {
+            World world = World.instance;
+            world.save("Making init for save slots");
+            data = world.toDataString();
+            sharedData = world.sharedToDataString();
+        }
+        parseData();
+    }
+
+    JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json["data"] = data;
+        json["sharedData"] = sharedData;
+        json["lastPlayed"] = "${lastPlayed.millisecondsSinceEpoch}";
+        return json;
+
+    }
+
+    void parseData() {
 
     }
 
     static void handleSaveSlots() {
-        new SaveSlot(output, "Timeline 1");
-        new SaveSlot(output, "Timeline 2");
-        new SaveSlot(output, "Timeline 3");
+        new SaveSlot(output, currentTimelineLabel, true);
+        new SaveSlot(output, "TIMELINE 1",false);
+        new SaveSlot(output, "TIMELINE 2",false);
+        new SaveSlot(output, "TIMELINE 3",false);
     }
 
     void render() {
-        DivElement nameElement = new DivElement()..text = "$label";
+        DivElement nameElement = new DivElement()..text = "$label ($size)";
         container.append(nameElement);
+        TableElement table = new TableElement();
+        container.append(table);
+        TableRowElement row = new TableRowElement();
+        table.append(row);
+
+        TableCellElement cell1 = new TableCellElement();
+        row.append(cell1);
+        ImageElement gigglesnort = new ImageElement(src: "$gigglesnortLocation")..classes.add("gigglesnort");
+        cell1.append(gigglesnort);
+        TableCellElement cell = new TableCellElement();
+        row.append(cell);
+        renderStats(cell);
+        cell = new TableCellElement();
+        row.append(cell);
+        saveBackups(cell);
+        cell = new TableCellElement();
+        row.append(cell);
+        loadBackups(cell);
+        cell = new TableCellElement();
+        row.append(cell);
+
+        cell = new TableCellElement();
+        row.append(cell);
+        deleteButton(cell);
+        changeTimeline(cell);
+        cell = new TableCellElement();
+        row.append(cell);
+        cell.style.textAlign = "right";
+        DivElement lastPlayedElement = new DivElement()..classes.add("lastPlayed")..text = "${lastPlayed.year}-${lastPlayed.month.toString().padLeft(2,'0')}-${lastPlayed.day.toString().padLeft(2,'0')} ${lastPlayed.hour.toString().padLeft(2,'0')}:${lastPlayed.minute.toString().padLeft(2,'0')}";
+        cell.append(lastPlayedElement);
+    }
+
+    void changeTimeline(TableCellElement element) {
+        if(!current) {
+            DivElement button = new DivElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+            button.text = "Make Current?";
+            button.classes.add("meteorButtonSaveSlot");
+
+
+            button.onClick.listen((e) {
+                World world = World.instance;
+                world.copyFromDataString(data);
+                world.copySharedFromDataString(sharedData);
+                world.save("Loading a Timeline");
+                window.location.href = "meteor.html";
+            });
+            element.append(button);
+        }
+
+    }
+
+
+
+    void renderStats(TableCellElement cell) {
+        TableElement table = new TableElement();
+        cell.append(table);
+        TableRowElement row = new TableRowElement();
+        table.append(row);
+        TableCellElement essenceElement = new TableCellElement()..text = "Essences: ";
+        TableCellElement valueElement1 = new TableCellElement()..text = "$numberEssences"..classes.add("valueElement");
+        row.append(essenceElement);
+        row.append(valueElement1);
+
+        row = new TableRowElement();
+        table.append(row);
+        TableCellElement moneyElement = new TableCellElement()..text = "Funds:";
+        TableCellElement valueElement2 = new TableCellElement()..text = "$money"..classes.add("valueElement");
+        row.append(moneyElement);
+        row.append(valueElement2);
+
+        row = new TableRowElement();
+        table.append(row);
+        TableCellElement archiveElement = new TableCellElement()..text = "Unique Fruit:";
+        TableCellElement valueElement3 = new TableCellElement()..text = "$numberArchives"..classes.add("valueElement");
+        row.append(archiveElement);
+        row.append(valueElement3);
+
+
+
     }
 
 }
