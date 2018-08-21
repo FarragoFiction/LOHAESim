@@ -211,7 +211,8 @@ class SaveSlot {
         button.classes.add("meteorButtonSaveSlot");
 
 
-        button.onClick.listen((e) {
+        button.onMouseDown.listen((e) {
+            e.stopPropagation();
             if (window.confirm("Are you sure? You can't undo this...")) {
                 resetTimeline();
             }
@@ -220,12 +221,17 @@ class SaveSlot {
     }
 
     void resetTimeline() {
-      World newWorld = new World(false); //its reset
-      data = newWorld.toDataString();
-      sharedData = newWorld.toDataString();
-      lastPlayed = new DateTime.now();
-      window.localStorage[key] = toJSON().toString();
-      window.location.href = "meteor.html";
+        if(current) {
+            window.localStorage.remove(World.SHAREDKEY);
+            window.localStorage.remove(World.SAVEKEY);
+        }else {
+            World newWorld = new World(false); //its reset
+            data = newWorld.toDataString();
+            sharedData = newWorld.toDataString();
+            lastPlayed = new DateTime.now();
+            window.localStorage[key] = toJSON().toString();
+            window.location.href = "meteor.html";
+        }
     }
 
 
@@ -291,8 +297,9 @@ class SaveSlot {
 
     void render() {
 
-        container.onClick.listen((Event e){
+        container.onMouseUp.listen((Event e){
             makeCurrent();
+            e.stopPropagation();
         });
 
         DivElement nameElement = new DivElement()..text = "$label ($size)";
@@ -335,7 +342,8 @@ class SaveSlot {
             button.text = "Override Timeline?";
             button.classes.add("meteorButtonSaveSlot");
 
-            button.onClick.listen((e) {
+            button.onMouseDown.listen((e) {
+                e.stopPropagation();
                 World world = new World();
                 data = world.toDataString();
                 sharedData = world.sharedToDataString();
