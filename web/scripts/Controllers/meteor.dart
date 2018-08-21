@@ -349,7 +349,7 @@ class SaveSlot {
     }
 
     void makeCurrent() {
-        World world = World.instance;
+        World world = new World();
         world.copyFromDataString(data);
         world.copySharedFromDataString(sharedData);
         world.save("Loading a Timeline");
