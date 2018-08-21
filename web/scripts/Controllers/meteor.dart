@@ -296,12 +296,6 @@ class SaveSlot {
     }
 
     void render() {
-
-        container.onMouseUp.listen((Event e){
-            makeCurrent();
-            e.stopPropagation();
-        });
-
         DivElement nameElement = new DivElement()..text = "$label ($size)";
         container.append(nameElement);
         TableElement table = new TableElement();
@@ -334,6 +328,12 @@ class SaveSlot {
         cell.style.textAlign = "right";
         DivElement lastPlayedElement = new DivElement()..classes.add("lastPlayed")..text = "${lastPlayed.year}-${lastPlayed.month.toString().padLeft(2,'0')}-${lastPlayed.day.toString().padLeft(2,'0')} ${lastPlayed.hour.toString().padLeft(2,'0')}:${lastPlayed.minute.toString().padLeft(2,'0')}";
         cell.append(lastPlayedElement);
+
+        //do this last in the hope that it doesn't fucking do anything if i click something more important
+        container.onMouseDown.listen((Event e){
+            makeCurrent();
+            e.stopPropagation();
+        });
     }
 
     void writeCurrentHere(TableCellElement element) {
