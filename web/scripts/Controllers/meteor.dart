@@ -8,6 +8,8 @@ import 'package:CommonLib/NavBar.dart';
 Element output = querySelector('#output');
 Future<Null> main() async{
     await loadNavbar();
+    SaveSlot.handleSaveSlots();
+
     loadBackups();
     saveBackups();
     changeFPS();
@@ -160,4 +162,47 @@ void errorDiv(String message) {
     error.style.color = "red";
     error.setInnerHtml(message);
     querySelector('#output').append(error);
+}
+
+
+//clicking one loads it to World.SHAREDKEY
+//can also delete it
+//can load data to a save slot
+//and can load this save slots data into the main file
+class SaveSlot {
+    static String labelKey = "LOHAE_SAVE_SLOT";
+    String label; //is also the key
+    DateTime lastPlayed;
+    int size;
+    int money;
+    int numberArchives;
+    int numberEssences;
+    String gigglesnortLocation;
+    String data;
+    String sharedData;
+    Element container;
+
+    SaveSlot(Element parent, String this.label) {
+        container = new DivElement()..classes.add("saveSlot");
+        parent.append(container);
+        slurpSelf();
+        render();
+    }
+
+    //loads self from file, if can't find self use current save data to create self
+    void slurpSelf() {
+
+    }
+
+    static void handleSaveSlots() {
+        new SaveSlot(output, "Timeline 1");
+        new SaveSlot(output, "Timeline 2");
+        new SaveSlot(output, "Timeline 3");
+    }
+
+    void render() {
+        DivElement nameElement = new DivElement()..text = "$label";
+        container.append(nameElement);
+    }
+
 }

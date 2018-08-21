@@ -7,3 +7,14 @@ a{
     color: white;
     text-decoration: none;
 }
+
+.saveSlot{
+    border: 8px solid #900618;
+    background-color: #b3041b;
+    height: 100px;
+    width: 600px;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+
+}
