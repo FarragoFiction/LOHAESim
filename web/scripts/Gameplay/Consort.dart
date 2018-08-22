@@ -80,6 +80,7 @@ class Consort {
             chats.add("don't wake the TITAN!!",0.5);
             chats.add("they say the PRINCE will save us!!",0.5);
             chats.add("they say the VANDAL will save us!!",0.5);
+            chats.add("they say the REAPER will save us!!",0.5);
             chats.add("so many eyes :( :(",0.3);
             chats.add("we had to stop planting trees because Nidhogg would wake!!",0.1);
             chats.add("even if the Nidhogg causes all trees to die, the seed vault will survive!!",0.5);
@@ -180,12 +181,15 @@ class FAQConsort extends Consort {
 }
 
 class StoreConsort extends Consort {
-    StoreConsort(Element container, int x, String src) : super(container, x, src);
+
+    StoreConsort(Element container, int x, String src) : super(container, x, src) {
+        print("store consort is go");
+    }
 
     @override
     void initTopics() {
-        chats.add("hi!!");
-        chats.add("",10);
+        chats.add("hi!!",1);
+        chats.add("",5);
     }
 }
 

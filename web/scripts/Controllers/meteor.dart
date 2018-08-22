@@ -11,8 +11,6 @@ Future<Null> main() async{
     await loadNavbar();
     SaveSlot.handleSaveSlots();
 
-    loadBackups(output);
-    saveBackups(output);
     changeFPS();
 }
 void changeFPS() {
@@ -171,7 +169,7 @@ class SaveSlot {
 
     String label; //is also the key
     DateTime lastPlayed = new DateTime.now();
-    String get size =>  "${((data.codeUnits.length + sharedData.codeUnits.length)/1024/1024).toStringAsFixed(4)} MBs";
+    String get size =>  "${((data.codeUnits.length + sharedData.codeUnits.length)/1024).toStringAsFixed(2)} KB";
     int money;
     int numberArchives;
     int numberEssences;
@@ -224,6 +222,7 @@ class SaveSlot {
         if(current) {
             window.localStorage.remove(World.SHAREDKEY);
             window.localStorage.remove(World.SAVEKEY);
+            window.location.href = "index.html";
         }else {
             World newWorld = new World(false); //its reset
             data = newWorld.toDataString();

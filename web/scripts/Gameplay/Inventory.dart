@@ -101,6 +101,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     void loadInventoryFromJSON(String idontevenKnow) {
         //print("loading inventory from $idontevenKnow");
+        inventory.clear(); //i'm loading it so ignore whatever is already here
         if(idontevenKnow == null) return;
         List<dynamic> what = JSON.decode(idontevenKnow);
         //print("what json is $what");
