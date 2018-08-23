@@ -17,6 +17,16 @@ html,body {
 
   }
 
+  .titleScreen{
+    position: absolute;
+    font-size: 72px;
+    top: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    left: 240px;
+  }
+
 .storeButton{
   font-family: 'strife', sans-serif;
     font-size: 32px;
