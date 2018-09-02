@@ -117,6 +117,7 @@ class Nidhogg extends CollectableSecret {
 
 
   void attemptTalk() {
+      //he breathes, he a thot
       if(scaleX < 0.98) {
           scaleDirection = scaleDirection * -1;
       }else if (scaleX > 1.0) {
