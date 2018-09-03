@@ -48,8 +48,12 @@ void loadBackups(Element parent) {
     label.append(fileElement);
     parent.append(label);
 
+    fileElement.onMouseDown.listen((Event e) {
+        e.stopPropagation();
+    });
 
-    fileElement.onChange.listen((e) {
+    fileElement.onChange.listen((Event e) {
+        e.stopPropagation();
         try {
             print("file element is $fileElement and message is ${fileElement.validationMessage} and files is ${fileElement.files}");
             List<File> loadFiles = fileElement.files;
