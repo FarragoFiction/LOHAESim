@@ -107,6 +107,9 @@ void saveBackups(Element parent) {
         try {
             AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
+            saveLink2.onMouseDown.listen((Event e) {
+                e.stopPropagation();
+            });
             saveLink2.classes.add("meteorButtonSaveSlot");
             String string = window.localStorage[World.SAVEKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
@@ -128,6 +131,9 @@ void saveBackups(Element parent) {
         try {
             AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
             saveLink2.classes.add("meteorButtonSaveSlot");
+            saveLink2.onMouseDown.listen((Event e) {
+                e.stopPropagation();
+            });
             //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
             String string = window.localStorage[World.SHAREDKEY];
             Blob blob = new Blob([string]); //needs to take in a list o flists
