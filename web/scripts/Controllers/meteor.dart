@@ -297,7 +297,7 @@ class SaveSlot {
     void saveBackups(Element parent) {
 
         print("trying to do save back up links");
-        if (window.localStorage.containsKey(World.SAVEKEY)) {
+        if (data != null) {
             print("data exists");
             try {
                 AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
@@ -306,11 +306,11 @@ class SaveSlot {
                     e.stopPropagation();
                 });
                 saveLink2.classes.add("meteorButtonSaveSlot");
-                String string = window.localStorage[World.SAVEKEY];
+                String string = data;
                 Blob blob = new Blob([string]); //needs to take in a list o flists
                 saveLink2.href = Url.createObjectUrl(blob).toString();
                 saveLink2.target = "_blank";
-                saveLink2.download = "treeSimData.txt";
+                saveLink2.download = "treeSimData${label}.txt";
                 saveLink2.setInnerHtml("Download Backup");
                 parent.append(saveLink2);
 
@@ -322,7 +322,7 @@ class SaveSlot {
 
         }
 
-        if (window.localStorage.containsKey(World.SHAREDKEY)) {
+        if (sharedData != null) {
             try {
                 AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
                 saveLink2.classes.add("meteorButtonSaveSlot");
@@ -330,11 +330,11 @@ class SaveSlot {
                     e.stopPropagation();
                 });
                 //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
-                String string = window.localStorage[World.SHAREDKEY];
+                String string = sharedData;
                 Blob blob = new Blob([string]); //needs to take in a list o flists
                 saveLink2.href = Url.createObjectUrl(blob).toString();
                 saveLink2.target = "_blank";
-                saveLink2.download = "treeSimSharedData.txt";
+                saveLink2.download = "treeSimSharedData${label}.txt";
                 saveLink2.setInnerHtml("Download Money?");
                 parent.append(saveLink2);
             } catch (e) {
