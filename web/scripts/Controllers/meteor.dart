@@ -273,6 +273,10 @@ class SaveSlot {
         label.append(fileElement2);
         parent.append(label);
 
+        fileElement2.onMouseDown.listen((Event e) {
+            e.stopPropagation();
+        });
+
 
         fileElement2.onChange.listen((e) {
             try {
