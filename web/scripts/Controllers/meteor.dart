@@ -39,119 +39,6 @@ void changeFPS() {
 
 }
 
-void loadBackups(Element parent) {
-    LabelElement label = new LabelElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
-    label.text = "Load File";
-    InputElement fileElement = new InputElement();
-    fileElement.type = "file";
-    fileElement.setInnerHtml("Load File:");
-    label.append(fileElement);
-    parent.append(label);
-
-    fileElement.onMouseDown.listen((Event e) {
-        e.stopPropagation();
-    });
-
-    fileElement.onChange.listen((Event e) {
-        e.stopPropagation();
-        try {
-            print("file element is $fileElement and message is ${fileElement.validationMessage} and files is ${fileElement.files}");
-            List<File> loadFiles = fileElement.files;
-            File file = loadFiles.first;
-            FileReader reader = new FileReader();
-            reader.readAsText(file);
-            reader.onLoadEnd.listen((e) {
-                String loadData = reader.result;
-                window.localStorage[World.SAVEKEY] = loadData;
-                window.location.href = "meteor.html";
-            });
-        }catch(e, trace) {
-            window.alert("error uploading file");
-            print("Error Uploading File $e, $trace");
-        }
-    });
-
-
-    label = new LabelElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
-    label.text = "Load Money File:";
-    InputElement fileElement2 = new InputElement();
-    fileElement2.type = "file";
-    label.append(fileElement2);
-    parent.append(label);
-
-
-    fileElement2.onChange.listen((e) {
-        try {
-            List<File> loadFiles = fileElement2.files;
-            File file = loadFiles.first;
-            FileReader reader = new FileReader();
-            reader.readAsText(file);
-            reader.onLoadEnd.listen((e) {
-                String loadData = reader.result;
-                window.localStorage[World.SHAREDKEY] = loadData;
-                window.location.href = "meteor.html";
-            });
-        }catch(e, trace) {
-            window.alert("error uploading file");
-            print("Error Uploading File $e, $trace");
-        }
-    });
-
-}
-
-void saveBackups(Element parent) {
-
-    print("trying to do save back up links");
-    if (window.localStorage.containsKey(World.SAVEKEY)) {
-        print("data exists");
-        try {
-            AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
-            //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
-            saveLink2.onMouseDown.listen((Event e) {
-                e.stopPropagation();
-            });
-            saveLink2.classes.add("meteorButtonSaveSlot");
-            String string = window.localStorage[World.SAVEKEY];
-            Blob blob = new Blob([string]); //needs to take in a list o flists
-            saveLink2.href = Url.createObjectUrl(blob).toString();
-            saveLink2.target = "_blank";
-            saveLink2.download = "treeSimData.txt";
-            saveLink2.setInnerHtml("Download Backup");
-            parent.append(saveLink2);
-
-        } catch (e) {
-            errorDiv("Error attempting to make Object URL for back up url. $e");
-        }
-    }else {
-        errorDiv("No Save Data to Make Backups of.");
-
-    }
-
-    if (window.localStorage.containsKey(World.SHAREDKEY)) {
-        try {
-            AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
-            saveLink2.classes.add("meteorButtonSaveSlot");
-            saveLink2.onMouseDown.listen((Event e) {
-                e.stopPropagation();
-            });
-            //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
-            String string = window.localStorage[World.SHAREDKEY];
-            Blob blob = new Blob([string]); //needs to take in a list o flists
-            saveLink2.href = Url.createObjectUrl(blob).toString();
-            saveLink2.target = "_blank";
-            saveLink2.download = "treeSimSharedData.txt";
-            saveLink2.setInnerHtml("Download Money?");
-            parent.append(saveLink2);
-        } catch (e) {
-            errorDiv("Error attempting to shared Object URL for back up url. $e");
-
-        }
-    }else {
-        errorDiv("No Shared Data to Make Backups of.");
-    }
-
-
-}
 
 
 
@@ -344,6 +231,123 @@ class SaveSlot {
             e.stopPropagation();
         });
     }
+
+    void loadBackups(Element parent) {
+        LabelElement label = new LabelElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+        label.text = "Load File";
+        InputElement fileElement = new InputElement();
+        fileElement.type = "file";
+        fileElement.setInnerHtml("Load File:");
+        label.append(fileElement);
+        parent.append(label);
+
+        fileElement.onMouseDown.listen((Event e) {
+            e.stopPropagation();
+        });
+
+        fileElement.onChange.listen((Event e) {
+            e.stopPropagation();
+            try {
+                print("file element is $fileElement and message is ${fileElement.validationMessage} and files is ${fileElement.files}");
+                List<File> loadFiles = fileElement.files;
+                File file = loadFiles.first;
+                FileReader reader = new FileReader();
+                reader.readAsText(file);
+                reader.onLoadEnd.listen((e) {
+                    String loadData = reader.result;
+                    data = loadData;
+                    save();
+                    window.location.href = "meteor.html";
+                });
+            }catch(e, trace) {
+                window.alert("error uploading file");
+                print("Error Uploading File $e, $trace");
+            }
+        });
+
+
+        label = new LabelElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+        label.text = "Load Money File:";
+        InputElement fileElement2 = new InputElement();
+        fileElement2.type = "file";
+        label.append(fileElement2);
+        parent.append(label);
+
+
+        fileElement2.onChange.listen((e) {
+            try {
+                List<File> loadFiles = fileElement2.files;
+                File file = loadFiles.first;
+                FileReader reader = new FileReader();
+                reader.readAsText(file);
+                reader.onLoadEnd.listen((e) {
+                    String loadData = reader.result;
+                    sharedData = loadData;
+                    save();
+                    window.location.href = "meteor.html";
+                });
+            }catch(e, trace) {
+                window.alert("error uploading file");
+                print("Error Uploading File $e, $trace");
+            }
+        });
+
+    }
+
+    void saveBackups(Element parent) {
+
+        print("trying to do save back up links");
+        if (window.localStorage.containsKey(World.SAVEKEY)) {
+            print("data exists");
+            try {
+                AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+                //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
+                saveLink2.onMouseDown.listen((Event e) {
+                    e.stopPropagation();
+                });
+                saveLink2.classes.add("meteorButtonSaveSlot");
+                String string = window.localStorage[World.SAVEKEY];
+                Blob blob = new Blob([string]); //needs to take in a list o flists
+                saveLink2.href = Url.createObjectUrl(blob).toString();
+                saveLink2.target = "_blank";
+                saveLink2.download = "treeSimData.txt";
+                saveLink2.setInnerHtml("Download Backup");
+                parent.append(saveLink2);
+
+            } catch (e) {
+                errorDiv("Error attempting to make Object URL for back up url. $e");
+            }
+        }else {
+            errorDiv("No Save Data to Make Backups of.");
+
+        }
+
+        if (window.localStorage.containsKey(World.SHAREDKEY)) {
+            try {
+                AnchorElement saveLink2 = new AnchorElement()..classes.add("meteorButtonSaveSlot")..classes.add("storeButtonColor");
+                saveLink2.classes.add("meteorButtonSaveSlot");
+                saveLink2.onMouseDown.listen((Event e) {
+                    e.stopPropagation();
+                });
+                //saveLink2.href = new UriData.fromString(window.localStorage[Player.DOLLSAVEID], mimeType: "text/plain").toString();
+                String string = window.localStorage[World.SHAREDKEY];
+                Blob blob = new Blob([string]); //needs to take in a list o flists
+                saveLink2.href = Url.createObjectUrl(blob).toString();
+                saveLink2.target = "_blank";
+                saveLink2.download = "treeSimSharedData.txt";
+                saveLink2.setInnerHtml("Download Money?");
+                parent.append(saveLink2);
+            } catch (e) {
+                errorDiv("Error attempting to shared Object URL for back up url. $e");
+
+            }
+        }else {
+            errorDiv("No Shared Data to Make Backups of.");
+        }
+
+
+    }
+
 
     void writeCurrentHere(TableCellElement element) {
         if(!current) {
