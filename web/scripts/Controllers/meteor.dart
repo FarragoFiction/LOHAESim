@@ -370,11 +370,12 @@ class SaveSlot {
     }
 
     void makeCurrent() {
-        World world = new World();
+        World world = new World(false);
         world.copyFromDataString(data);
         world.copySharedFromDataString(sharedData);
         world.save("Loading a Timeline");
-        window.location.href = "index.html";
+        //window.alert("check console did anything go wrong?");
+        window.location.href = "meteor.html";
     }
 
 
