@@ -271,5 +271,5 @@ void jrPrint(String text, [int size = 18]) {
     String jrGigglesnortCSS = "color:#ffffff;font-size: ${size}px;font-weight: bold;";
     fancyPrint("JR: $text",jrCSS);
     fancyPrint("JR: I mean, if you're here you're practically a Waste already, so...   haxMode=on might help you with that secret path, if you know what i mean. ;) ;) ;)",jrGigglesnortCSS);
-
+    fancyPrint("JR: You just had to go messing around? Didn't you? You coulda just grown trees but nooooo, you had to Snoop around.", jrGigglesnortCSS);
 }
