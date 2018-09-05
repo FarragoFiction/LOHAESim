@@ -104,7 +104,7 @@ class Consort {
             chats.add("the DENIZEN is awake!!",5);
             chats.add("the TITAN is awake!!",5);
             chats.add("run!!",6);
-            chats.add("use fraymotiffs!!",1);
+            chats.add("use fraymotiffs!!",8);
             chats.add("find the EAGLE!!",5);
             chats.add("the BARD can help!!",5);
             chats.add("hide!!",6);
