@@ -204,7 +204,7 @@ class ArchivedFruit extends Fruit {
     Element wrapper;
 
 
-    int get archiveCost => cost * 100;
+    int get archiveCost => cost * 10;
 
     @override
     bool get canAfford {
@@ -243,7 +243,7 @@ class ArchivedFruit extends Fruit {
         buy.classes.add("storeButtonColor");
         details.append(buy);
         if(!canAfford) {
-            buy.text = "Cannot Afford to Clone";
+            buy.text = "Cannot Afford to Clone (need $archiveCost)";
         }
         buy.onClick.listen((Event e)
         {
