@@ -843,7 +843,11 @@ class World {
         grub.mouth.imgNumber = 0;
         grub.leftEye.imgNumber = 0;
         grub.rightEye.imgNumber = 0;
-        grub.copyPalette(ReferenceColours.CORRUPT);
+        if(underWorld.nidhogg.purified) {
+            grub.copyPalette(ReferenceColours.PURIFIED);
+        }else {
+            grub.copyPalette(ReferenceColours.CORRUPT);
+        }
         //grubs are corrupt, except they are the same cast as the essence
         grub.palette.add(HomestuckPalette.ASPECT_LIGHT, treeDoll.palette[HomestuckPalette.ASPECT_LIGHT], true);
         grub.palette.add(HomestuckPalette.ASPECT_DARK, treeDoll.palette[HomestuckPalette.ASPECT_DARK], true);
