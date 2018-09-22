@@ -843,7 +843,9 @@ class World {
         grub.mouth.imgNumber = 0;
         grub.leftEye.imgNumber = 0;
         grub.rightEye.imgNumber = 0;
-        if(underWorld.nidhogg.purified) {
+        Random rand = new Random();
+        rand.nextInt(); //init
+        if(underWorld.nidhogg.purified && rand.nextBool()) {
             grub.copyPalette(ReferenceColours.PURIFIED);
         }else {
             grub.copyPalette(ReferenceColours.CORRUPT);
