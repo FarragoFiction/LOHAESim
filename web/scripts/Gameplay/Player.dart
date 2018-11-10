@@ -56,6 +56,16 @@ class Player extends Secret {
         return essenceCount;
     }
 
+    int get numberFruit {
+        int fruitCount = 0;
+        for(Inventoryable item in inventory) {
+            if (item is Fruit) {
+                fruitCount ++;
+            }
+        }
+        return fruitCount;
+    }
+
     void reactToPap(Point point) {
         if(pointInsideMe(point)){
             owoPrint("New Friend!!! That tickles!!!");

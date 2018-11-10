@@ -135,11 +135,13 @@ class World {
 
 
     void syncFunds() {
-        int currentFruit = 0;
+        int currentFruit = underWorld.player.numberFruit;
         int maxFruit = Inventory.FRUITLIMIT;
         String fruitText = "$currentFruit out of $maxFruit max fruit in Stack.";
 
-        if(currentFruit > maxFruit - maxFruit/5) {
+        if(currentFruit >= maxFruit) {
+            fruitText = "$fruitText Stack Overflow. Brightly colored fruits are rolling around everywhere. You are too distracted to pick more fruit. ";
+        }else if(currentFruit > maxFruit - maxFruit/5) {
             fruitText = "$fruitText You should sell fruit to the Bard soon. Don't want a Stack Overflow, now do you?";
         }
 
