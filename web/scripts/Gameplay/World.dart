@@ -1,3 +1,4 @@
+import 'Inventory.dart';
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';
@@ -91,6 +92,7 @@ class World {
     ImageElement tentacles;
 
     Element fundsElement;
+    Element fruitStatsElement;
 
     AudioElement backgroundMusic = querySelector("#bgAudio");
     AudioElement soundEffects = new AudioElement();
@@ -130,8 +132,18 @@ class World {
         if(!waitToSave) save("funds updated");
     }
 
+
+
     void syncFunds() {
-        fundsElement.text = "Funds: \$${underWorld.player.funds} Essences: ${underWorld.player.numberEssences}/13 $gigglesnort";
+        int currentFruit = 0;
+        int maxFruit = Inventory.FRUITLIMIT;
+        String fruitText = "$currentFruit out of $maxFruit max fruit in Stack.";
+
+        if(currentFruit > maxFruit - maxFruit/5) {
+            fruitText = "$fruitText You should sell fruit to the Bard soon. Don't want a Stack Overflow, now do you?";
+        }
+
+        fundsElement.text = "Funds: \$${underWorld.player.funds}, ${fruitText},  Essences: ${underWorld.player.numberEssences}/13 $gigglesnort";
     }
 
     void save(String reason) {
@@ -319,6 +331,8 @@ class World {
         parent.append(fundsElement);
         syncFunds();
     }
+
+
 
     void initTrees() {
         Tree tree1 = new Tree(this,new TreeDoll(), 200, 550);
