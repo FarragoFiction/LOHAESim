@@ -47,23 +47,15 @@ class Player extends Secret {
     }
 
     int get numberEssences {
-        int essenceCount = 0;
-        for(Inventoryable item in inventory) {
-            if (item is Essence) {
-                essenceCount ++;
-            }
-        }
-        return essenceCount;
+        return inventory.numberEssences;
+    }
+
+    bool get fruitOverflow {
+        return inventory.fruitOverflow;
     }
 
     int get numberFruit {
-        int fruitCount = 0;
-        for(Inventoryable item in inventory) {
-            if (item is Fruit) {
-                fruitCount ++;
-            }
-        }
-        return fruitCount;
+        return inventory.numberFruit;
     }
 
     void reactToPap(Point point) {

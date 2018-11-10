@@ -55,6 +55,30 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         }
     }
 
+    int get numberEssences {
+        int essenceCount = 0;
+        for(Inventoryable item in inventory) {
+            if (item is Essence) {
+                essenceCount ++;
+            }
+        }
+        return essenceCount;
+    }
+
+    int get numberFruit {
+        int fruitCount = 0;
+        for(Inventoryable item in inventory) {
+            if (item is Fruit) {
+                fruitCount ++;
+            }
+        }
+        return fruitCount;
+    }
+
+    bool get fruitOverflow {
+        return numberFruit >= FRUITLIMIT;
+    }
+
     Future setCanvasForItem(Inventoryable inventoryItem) async {
         if(inventoryItem is Essence) {
             await inventoryItem.setCanvasForStore();

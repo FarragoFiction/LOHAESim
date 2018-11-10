@@ -137,7 +137,7 @@ class World {
     void syncFunds() {
         int currentFruit = underWorld.player.numberFruit;
         int maxFruit = Inventory.FRUITLIMIT;
-        String fruitText = "$currentFruit out of $maxFruit max fruit in Stack.";
+        String fruitText = "$currentFruit out of max $maxFruit fruit in Stack.";
 
         if(currentFruit >= maxFruit) {
             fruitText = "$fruitText Stack Overflow. Brightly colored fruits are rolling around everywhere. You are too distracted to pick more fruit. ";
@@ -642,6 +642,10 @@ class World {
         //print("trying to pick fruit");
         //tell all trees to process this. first tree to return a fruit ends things.
         underWorld.player.reactToPap(cursor.position);
+        if(underWorld.player.fruitOverflow) {
+            window.alert("Fruit Overflow: You are too busy picking up all your damn fruit to pick more. Better sell some to the Bard.");
+            return;
+        }
         for(Tree tree in trees) {
             //print("is it $tree I'm looking for? stage is ${tree.stage}");
             //don't pick flowers or whatever
@@ -671,6 +675,10 @@ class World {
     void omniFruit() {
         //print("trying to pick fruit");
         //tell all trees to process this. first tree to return a fruit ends things.
+        if(underWorld.player.fruitOverflow) {
+            window.alert("Fruit Overflow: You are too busy picking up all your damn fruit to pick more. Better sell some to the Bard.");
+            return;
+        }
         for(Tree tree in trees) {
             //print("is it $tree I'm looking for? stage is ${tree.stage}");
             //don't pick flowers or whatever
