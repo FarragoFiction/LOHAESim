@@ -48,7 +48,20 @@ class Consort {
         }
         for(int i = 0; i<numberConsorts; i++) {
             int image = rand.nextInt(2);
-            if(rand.nextDouble()>.99 && World.instance.underWorld.player.numberEssences > 7) {
+            int numberEssences = World.instance.underWorld.player.numberEssences;
+            if(rand.nextDouble()>.70 && numberEssences > 12) {
+                new SecretConsort(strip,x);
+            }else if(rand.nextDouble()>.75 && numberEssences > 11) {
+                new SecretConsort(strip,x);
+            }else if(rand.nextDouble()>.80 && numberEssences > 10) {
+                new SecretConsort(strip,x);
+            }else if(rand.nextDouble()>.85 && numberEssences > 9) {
+                new SecretConsort(strip,x);
+            }else if(rand.nextDouble()>.90 && numberEssences > 8) {
+                new SecretConsort(strip,x);
+            }else if(rand.nextDouble()>.95 && numberEssences > 7) {
+                new SecretConsort(strip,x);
+            }else if(rand.nextDouble()>.99 && numberEssences > 6) {
                 new SecretConsort(strip,x);
             }else {
                 new Consort(strip, x, "$image.gif");
