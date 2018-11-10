@@ -662,6 +662,7 @@ class World {
                 }
             }
         }
+        syncFunds();
     }
 
     //despap citato is a good bean. even if corrupt.
@@ -681,6 +682,7 @@ class World {
                 if (!tree.doll.hasHangablesAlready()) treesToRemove.add(tree);
             }
         }
+        syncFunds();
     }
 
     void activateFlashlight() {
@@ -710,7 +712,6 @@ class World {
 
     void removeTreePopup() {
         DivElement axContainer = new DivElement();
-        axContainer.classes.add("parentHorizontalScroll");
         axContainer.classes.add("popupParents");
         axContainer.id = "axContainer";
         if(trees.length < 7) axContainer.style.overflowX = "hidden";
