@@ -695,7 +695,6 @@ class World {
         consortPrint("thwap!! thwap!! Grow that tree!");
         DivElement axContainer = new DivElement();
         if(trees.length < 7) axContainer.style.overflowX = "hidden";
-        axContainer.classes.add("parentHorizontalScroll");
         axContainer.classes.add("popupParents");
         axContainer.id = "yellowContainer";
         List<CanvasElement> pendingCanvases = new List<CanvasElement>();
