@@ -25,6 +25,11 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     InventoryPopup popup;
     Element rightElement;
 
+    //did you know LOHAE went live on 8/5? And that the discord server for Farrago
+    //was created on 5/17? And that 5 * 17 is 85???
+    //well now you do
+    static int FRUITLIMIT = 85;
+
 
     DivElement inventoryColumn;
     //if it's active this is the thing we'll buy if it's a store
