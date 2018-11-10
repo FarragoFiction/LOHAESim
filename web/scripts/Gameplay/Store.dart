@@ -95,9 +95,9 @@ class Store extends Inventory {
             if(item is Fruit) {
                 Fruit fruit = item as Fruit;
                 if(fruit.doll is FruitDoll) {
-                    world.updateFunds(item.saleCost,true);
                     inventory.add(item);
                     world.underWorld.player.inventory.remove(item,true);
+                    world.updateFunds(item.saleCost,true);
                 }
             }
         }
@@ -301,7 +301,6 @@ class StorePopup extends InventoryPopup
 
     //https://freesound.org/people/tomf_/sounds/121990/
     void sell(Inventoryable item) {
-        store.world.updateFunds(item.saleCost);
         store.inventory.add(item);
         store.world.underWorld.player.inventory.remove(item);
         if(item is Fruit) {
@@ -310,6 +309,7 @@ class StorePopup extends InventoryPopup
                 store.world.secretsForCalm.remove(fruit.doll.toDataBytesX());
             }
         }
+        store.world.updateFunds(item.saleCost);
         store.world.playSoundEffect("121990__tomf__coinbag");
         store.world.save("sold");
     }
@@ -331,18 +331,18 @@ class StorePopup extends InventoryPopup
         }
         //print("found ${allItemsOfType.length} copies of this item");
         for(Inventoryable item in allItemsOfType) {
-            store.world.updateFunds(item.saleCost);
             store.inventory.add(item);
             store.world.underWorld.player.inventory.remove(item);
+            store.world.updateFunds(item.saleCost);
         }
         store.world.playSoundEffect("121990__tomf__coinbag");
     }
 
     void buy(Inventoryable item) {
-        store.world.updateFunds(-1*item.cost);
         store.inventory.remove(item);
         item.myInventoryDiv.remove();
         store.world.underWorld.player.inventory.add(item);
+        store.world.updateFunds(-1*item.cost);
         store.world.playSoundEffect("121990__tomf__coinbag");
     }
 

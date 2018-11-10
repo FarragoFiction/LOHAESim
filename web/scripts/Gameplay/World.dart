@@ -145,6 +145,7 @@ class World {
             fruitText = "$fruitText You should sell fruit to the Bard soon. Don't want a Stack Overflow, now do you?";
         }
 
+
         fundsElement.text = "Funds: \$${underWorld.player.funds}, ${fruitText},  Essences: ${underWorld.player.numberEssences}/13 $gigglesnort";
     }
 
