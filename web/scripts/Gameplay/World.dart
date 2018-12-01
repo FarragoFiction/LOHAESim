@@ -848,7 +848,7 @@ class World {
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
-            print("the bred doll has a fruit template of ${tree.doll.fruitTemplate}");
+            //print("the bred doll has a fruit template of ${tree.doll.fruitTemplate}");
             treesToAdd.add(tree);
             overWorldDirty = true;
             cursor = null;

@@ -38,12 +38,12 @@ class Fruit extends Object with Inventoryable {
     }
 
     void debugParents() {
-        print("debugging parents for $name");
+       // print("debugging parents for $name");
         for(TreeDoll parent in parents) {
             List<PositionedDollLayer> hangables = parent.hangables;
-            print("there are ${hangables.length} fruit in the parent");
+            //print("there are ${hangables.length} fruit in the parent");
             if(hangables.isNotEmpty) {
-                print("the first hangable is seed id ${hangables.first.doll.seed} ");
+               // print("the first hangable is seed id ${hangables.first.doll.seed} ");
             }
         }
     }
