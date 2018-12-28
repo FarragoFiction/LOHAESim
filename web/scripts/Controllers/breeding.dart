@@ -20,7 +20,7 @@ Future<Null> main() async {
     ygdrassil.makeFundsElement(querySelector("#navbar"));
     await ygdrassil.setupElements(output);
     ygdrassil.renderLoop();
-    if(getParameterByName("haxMode") == "on") {
+    if(getParameterByName("haxMode") == "on" || getParameterByName("yearnedFor") == "Node" ) {
         hookUpTestControls();
     }
     ygdrassil.save("From initial load");

@@ -38,6 +38,7 @@ Future<Null> main() async {
         }else if(guess == "yggdrasil" || guess == "ygdrassil") {
             window.alert("Points for creativity but not what I was going for.");
             ygdrassil.updateFunds(13);
+            window.location.href = "index.html?yearnedFor=Node";
         }else if(guess == "egg dazzle") {
             window.alert("!!! how did you know!??? But I can't give you the actual prize. Sorry... have this apology egg/13 caegers.");
             ygdrassil.updateFunds(13);

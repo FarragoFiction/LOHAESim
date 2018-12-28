@@ -1,4 +1,5 @@
 import '../Gameplay/World.dart';
+import 'SaveSlot.dart';
 import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
@@ -79,6 +80,12 @@ void saveBackups() {
             window.localStorage.remove(World.SAVEKEY);
             window.localStorage.remove(World.SHAREDKEY);
             window.location.href = "meteor.html";
+
+            List<SaveSlot> allTimelines = SaveSlot.handleSaveSlots(null);
+            allTimelines.forEach((SaveSlot slot) {
+                slot.destroy();
+            });
+
         }
     });
 
