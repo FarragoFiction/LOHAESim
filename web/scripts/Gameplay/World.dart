@@ -50,6 +50,7 @@ class World {
 
 
     bool bossFight = false;
+    bool plotAlreadyPoppedUp = true;
 
     bool get bossDefeated => underWorld.nidhogg.dead || underWorld.nidhogg.purified;
 
@@ -157,12 +158,31 @@ class World {
         window.localStorage[SHAREDKEY] = sharedToDataString().toString();
     }
 
+    void plotPopup() {
+        jrPrint("Your name is Zawhei Bacama and it is time to grow trees. You know how important it is to perform your duties. You have waited your entire life to do this. Some of your friends don't understand this. But that's okay, they will soon see.");
+        Element popup = new DivElement()..classes.add("plotPopup");
+        container.append(popup);
+
+        Element header = new DivElement()..text = "Welcome to the Land of Horticulture And Essence";
+        header.classes.add("popupHeader");
+        popup.append(header);
+
+        Element textBody= new DivElement();
+        popup.append(textBody);
+        textBody.classes.add("popupBody");
+        textBody.text = "Your name is Zawhei Bacama and it is time to grow trees. You have waited your entire life to do this. Some of your friends don't understand this. But that's okay, they will soon see.";
+        popup.onClick.listen((Event e) {
+            popup.remove();
+        });
+    }
+
 
     void load() {
         if(window.localStorage.containsKey(SAVEKEY)){
             String data = window.localStorage[SAVEKEY];
             copyFromDataString(data);
         }else {
+            plotAlreadyPoppedUp = false;
             underWorld.player.initialInventory();
             initTrees();
         }
@@ -198,6 +218,8 @@ class World {
     JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json["bossFight"] = bossFight.toString();
+        json["plotAlreadyPoppedUp"] = plotAlreadyPoppedUp.toString();
+
         json["player"] = underWorld.player.toJSON().toString();
         json["musicSave"] = musicSave.toJSON().toString();
         json["nidhogg"] = underWorld.nidhogg.toJSON().toString();
@@ -238,6 +260,9 @@ class World {
     void copyFromJSON(JSONObject json) {
         DateTime startTime = new DateTime.now();
         bossFight = json["bossFight"] ==true.toString();;
+        //so it not existing means "show popup"
+        plotAlreadyPoppedUp = json["plotAlreadyPoppedUp"] ==true.toString();;
+
         underWorld.player.copyFromJSON(new JSONObject.fromJSONString(json["player"]));
         if(json["nidhogg"] != null) {
             underWorld.nidhogg.copyFromJSON(new JSONObject.fromJSONString(json["nidhogg"]));
@@ -326,6 +351,11 @@ class World {
         //want inventory on left, world on right
         await underWorld.player.drawInventory(parentContainer);
         container = underWorld.player.inventory.rightElement;
+        //only if theres shit on screen
+        if(!plotAlreadyPoppedUp) {
+            plotPopup();
+            plotAlreadyPoppedUp = true;
+        }
 
     }
 

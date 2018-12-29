@@ -272,6 +272,6 @@ void jrPrint(String text, [int size = 18]) {
     String jrCSS = "color:#3da35a;font-size: ${size}px;font-weight: bold;";
     String jrGigglesnortCSS = "color:#ffffff;font-size: ${size}px;font-weight: bold;";
     fancyPrint("JR: $text",jrCSS);
-    fancyPrint("JR: I mean, if you're here you're practically a Waste already, so...   haxMode=on might help you with that secret path, if you know what i mean. ;) ;) ;)",jrGigglesnortCSS);
+    fancyPrint("JR: I mean, if you're here you're practically a Waste already, so...   haxMode=on might help you with that secret path, if you know what i mean. ;) ;) ;) Of course, if you can't edit URLs....you might just hafta wait for a mysterious reptile.",jrGigglesnortCSS);
     fancyPrint("JR: You just had to go messing around? Didn't you? You coulda just grown trees but nooooo, you had to Snoop around.", jrGigglesnortCSS);
 }

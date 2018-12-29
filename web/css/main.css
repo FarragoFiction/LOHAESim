@@ -175,6 +175,17 @@ html,body {
     background-image: url("../images/BGs/fullPopup.png")
 }
 
+.plotPopup{
+    height: 317px;
+    width: 716px;
+    position: absolute;
+    left: 70px;
+    top: 370px;
+    z-index: 999;
+    color: #242d26;
+    background-image: url("../images/BGs/fullPopup.png")
+}
+
 .popupHeader{
     position: absolute;
     top: 88px;
