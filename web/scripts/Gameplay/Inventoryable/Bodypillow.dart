@@ -21,6 +21,7 @@ class BodyPillow extends CollectableSecret with Inventoryable{
 
     Future<Null> setCanvasForStore() async{
         CanvasElement me = new CanvasElement(width:width, height: height);
+        print("awaiting my image i guess??? $imgLoc");
         ImageElement myImage = await image;
         me.context2D.drawImageScaled(myImage, 0, 0, width, height);
         Renderer.drawToFitCentered(itemCanvas, me);

@@ -163,8 +163,8 @@ class Nidhogg extends CollectableSecret {
           purified = true;
           speechIndex = 0;
           imgLoc = purifiedLoc;
-          world.underWorld.player.inventory.add(new YellowYard(world));
-          world.underWorld.player.inventory.add(new BodyPillow(world));
+          world.underWorld.player.inventory.addIfUnique(new YellowYard(world));
+          world.underWorld.player.inventory.addIfUnique(new BodyPillow(world));
 
           dirty = true; //redraw
           world.nidhoggPurified();

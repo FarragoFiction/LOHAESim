@@ -65,6 +65,16 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         return essenceCount;
     }
 
+    void addIfUnique(Inventoryable itemToAdd) {
+        for(Inventoryable item in inventory) {
+            if(itemToAdd.name == item.name) {
+                return;
+            }
+        }
+        //can only get here if not a duplicate
+        inventory.add(itemToAdd);
+    }
+
     int get numberFruit {
         int fruitCount = 0;
         for(Inventoryable item in inventory) {
