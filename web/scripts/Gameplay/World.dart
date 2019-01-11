@@ -1,3 +1,4 @@
+import 'CollectableSecret.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Bodypillow.dart';
@@ -671,6 +672,7 @@ class World {
     }
 
     void cycleNidhogg() {
+        print("active item is $activeItem with img loc of ${(activeItem as CollectableSecret).imgLoc}");
         if(underWorld.nidhogg.purified) {
             underWorld.nidhogg.dirty = true;
             activateBossFight();

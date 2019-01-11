@@ -1,5 +1,6 @@
 import 'Consort.dart';
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Bodypillow.dart';
 import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
@@ -68,11 +69,13 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     void addIfUnique(Inventoryable itemToAdd) {
         for(Inventoryable item in inventory) {
             if(itemToAdd.name == item.name) {
+                //print("I found a copy of $itemToAdd");
                 return;
             }
         }
         //can only get here if not a duplicate
-        inventory.add(itemToAdd);
+       // print("going to add $itemToAdd");
+        add(itemToAdd);
     }
 
     int get numberFruit {
@@ -103,6 +106,8 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         }else if(inventoryItem is YellowYard) {
             await inventoryItem.setCanvasForStore();
         }else if(inventoryItem is HelpingHand) {
+            await inventoryItem.setCanvasForStore();
+        }else if(inventoryItem is BodyPillow) {
             await inventoryItem.setCanvasForStore();
         }
     }
