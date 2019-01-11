@@ -42,6 +42,7 @@ class Nidhogg extends CollectableSecret {
   }
 
   String purifiedLoc = "images/BGs/nidhoggPure.png";
+  String corruptLoc = "images/BGs/nidhoggTrue.png";
 
   //when you're zero or less you're dead
   int hp = 4037;
@@ -159,16 +160,27 @@ class Nidhogg extends CollectableSecret {
   void checkPurity(Inventoryable item, Point point) {
       //print("checking purity");
       if(pointInsideMe(point) && checkItem(item)){
-          //print("trying to purify nidhogg");
-          purified = true;
-          speechIndex = 0;
-          imgLoc = purifiedLoc;
-          world.underWorld.player.inventory.addIfUnique(new YellowYard(world));
-          world.underWorld.player.inventory.addIfUnique(new BodyPillow(world));
-
-          dirty = true; //redraw
-          world.nidhoggPurified();
+          purify();
       }
+  }
+
+  void purify() {
+    //print("trying to purify nidhogg");
+      purified = true;
+      speechIndex = 0;
+      imgLoc = purifiedLoc;
+      world.underWorld.player.inventory.addIfUnique(new YellowYard(world));
+      world.underWorld.player.inventory.addIfUnique(new BodyPillow(world));
+
+      dirty = true; //redraw
+      world.nidhoggPurified();
+  }
+
+  void corrupt() {
+      purified = false;
+      imgLoc = corruptLoc;
+      dirty = true;
+      world.activateBossFight();
   }
 
   bool checkItem(Inventoryable item) {

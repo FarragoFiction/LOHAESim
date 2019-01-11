@@ -674,11 +674,11 @@ class World {
     void cycleNidhogg() {
         print("active item is $activeItem with img loc of ${(activeItem as CollectableSecret).imgLoc}");
         if(underWorld.nidhogg.purified) {
-            underWorld.nidhogg.dirty = true;
-            activateBossFight();
+            underWorld.nidhogg.corrupt();
+            save("pillow");
         }else {
-            underWorld.nidhogg.purified = true;
-            nidhoggPurified();
+            underWorld.nidhogg.purify();
+            save("pillow");
 
         }
 
