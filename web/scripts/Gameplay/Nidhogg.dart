@@ -1,5 +1,6 @@
 import 'CollectableSecret.dart';
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Bodypillow.dart';
 import 'Inventoryable/Fruit.dart';
 import 'Inventoryable/HelpingHand.dart';
 import 'Inventoryable/Inventoryable.dart';
@@ -163,6 +164,8 @@ class Nidhogg extends CollectableSecret {
           speechIndex = 0;
           imgLoc = purifiedLoc;
           world.underWorld.player.inventory.add(new YellowYard(world));
+          world.underWorld.player.inventory.add(new BodyPillow(world));
+
           dirty = true; //redraw
           world.nidhoggPurified();
       }

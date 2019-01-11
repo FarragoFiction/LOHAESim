@@ -1,6 +1,7 @@
 import '../Inventory.dart';
 import '../World.dart';
 import 'Ax.dart';
+import 'Bodypillow.dart';
 import 'Essence.dart';
 import 'Flashlight.dart';
 import 'Fruit.dart';
@@ -94,6 +95,7 @@ abstract class Inventoryable {
         all.add(new HelpingHandPlusUltra(null));
         all.add(new HelpingHandCorrupt(null));
         all.add(new YellowYard(null));
+        all.add(new BodyPillow(null));
         all.addAll(Essence.spawn(null));
         all.addAll(Record.spawn(null));
         return all;

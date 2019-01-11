@@ -1,5 +1,6 @@
 import 'Inventory.dart';
 import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Bodypillow.dart';
 import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';
 import 'Inventoryable/Fruit.dart';
@@ -661,9 +662,24 @@ class World {
         }else if(activeItem is YellowYard) {
             cycleTreePopup();
             event.stopPropagation(); //don't give it to other things
+        }else if(activeItem is BodyPillow) {
+            cycleNidhogg();
+            event.stopPropagation(); //don't give it to other things
         }else {
             consortPrint("i don't know what to do with this!! thwap!! thwap!!");
         }
+    }
+
+    void cycleNidhogg() {
+        if(underWorld.nidhogg.purified) {
+            underWorld.nidhogg.dirty = true;
+            activateBossFight();
+        }else {
+            underWorld.nidhogg.purified = true;
+            nidhoggPurified();
+
+        }
+
     }
 
 
