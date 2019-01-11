@@ -11,9 +11,9 @@ class BodyPillow extends CollectableSecret with Inventoryable{
     @override
     int sortPriority = 2;
 
-    BodyPillow(World world) : super(world, "You...wonder why anyone would actually sleep with this, and if there is a 'real world' analogue.", "images/BGs/bodypillow.png") {
+    BodyPillow(World world) : super(world, "You...wonder why anyone would actually sleep with this reflection of Nidhogg's dual nature, and if there is a 'real world' analogue.  What will it do?", "images/BGs/bodypillow.png") {
         name = "Body Pillow Of Nidhogg";
-        cost = 4037;
+        cost = 85;
         description = specificPhrase;
         type = name;
 
