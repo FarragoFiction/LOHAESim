@@ -918,7 +918,8 @@ class World {
         grub.rightEye.imgNumber = 0;
         Random rand = new Random();
         rand.nextInt(); //init
-        if(underWorld.nidhogg.purified && rand.nextBool()) {
+        //now that you can swap between purified and corrupt no more random
+        if(underWorld.nidhogg.purified) {
             grub.copyPalette(ReferenceColours.PURIFIED);
         }else {
             grub.copyPalette(ReferenceColours.CORRUPT);
