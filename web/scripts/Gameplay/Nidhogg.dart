@@ -109,6 +109,7 @@ class Nidhogg extends CollectableSecret {
       }
       if(purified) {
           imgLoc = purifiedLoc;
+          world.underWorld.player.inventory.addIfUnique(new BodyPillow(world));
           world.underWorld.player.hasActiveFlashlight = true;
       }
   }
