@@ -192,6 +192,7 @@ class World {
             copyFromDataString(data);
         }else {
             plotAlreadyPoppedUp = false;
+            unlockAchievement("LOHAE");
             underWorld.player.initialInventory();
             initTrees();
         }
