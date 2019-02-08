@@ -204,9 +204,7 @@ class World {
         syncMusicToSave();
         fps = musicSave.fps;
         //not just the first time in case something goes wrong
-        //unlockAchievement("true_name");
         unlockAchievement("LOHAE");
-        //unlockAchievement("secret_aligator");
     }
 
     void syncMusicToSave() {
@@ -924,6 +922,7 @@ class World {
 
     void plantAWigglerAtPoint(Essence essence, Point point) {
         owoPrint("Oh! New Friend! I didn't know you were an AUXILIATRIX!!");
+        unlockAchievement("myserty");
         //just a logical result of the trees this fruit came from
         TreeDoll treeDoll = new TreeDoll();
         treeDoll.copyPalette(essence.palette);

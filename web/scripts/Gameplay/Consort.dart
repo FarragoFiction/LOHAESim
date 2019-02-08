@@ -211,6 +211,7 @@ class StoreConsort extends Consort {
 class SecretConsort extends Consort {
     SecretConsort(Element container, int x,) : super(container, x, "4037.gif") {
         imageElement.onClick.listen((Event e) {
+            World.instance.unlockAchievement("secret_aligator");
             window.alert("!! you did it !!  you clicked my scales!! thwap thwap!! have a secret!! i don't know what it does!!");
             window.location.href = "index.html?haxMode=on";
         });
@@ -227,8 +228,8 @@ class SecretConsort extends Consort {
 class SecretFAQConsort extends FAQConsort {
     SecretFAQConsort(Element container, int x,) : super(container, x, "4037.gif") {
         imageElement.onClick.listen((Event e) {
-            window.alert("!! you did it !!  you clicked my scales!! thwap thwap!! have a secret!! i don't know what it does!!");
             World.instance.unlockAchievement("secret_aligator");
+            window.alert("!! you did it !!  you clicked my scales!! thwap thwap!! have a secret!! i don't know what it does!!");
             window.location.href = "index.html?haxMode=on";
         });
     }
