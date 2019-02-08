@@ -12,6 +12,8 @@ Element output = querySelector('#output');
 Future<Null> main() async {
     await loadNavbar();
     World ygdrassil = new World();
+
+
     ButtonElement button = querySelector("#pw_hint_button");
     button.onClick.listen((Event e) {
         Element spoiler = querySelector("#spoiler");

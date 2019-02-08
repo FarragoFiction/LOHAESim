@@ -204,7 +204,9 @@ class World {
         syncMusicToSave();
         fps = musicSave.fps;
         //not just the first time in case something goes wrong
+        //unlockAchievement("true_name");
         unlockAchievement("LOHAE");
+        //unlockAchievement("secret_aligator");
     }
 
     void syncMusicToSave() {
