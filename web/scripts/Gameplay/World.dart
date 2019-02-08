@@ -139,6 +139,8 @@ class World {
     void unlockAchievement(String name) {
         HttpRequest.getString("http://localhost:215/$name").then((String data) {
             consortPrint("thwap!! what is an 'achievement'?? can you eat it?? does it taste better if its a '$name'??");
+        }).catchError((String error) {
+            owoPrint("Oh no New Friend! You aren't on steam (or maybe there is a bug?) You can't GET achievements. Not even $name");
         });
     }
 
@@ -202,6 +204,8 @@ class World {
         //print("loading...${underWorld.player.funds}} caegers");
         syncMusicToSave();
         fps = musicSave.fps;
+        unlockAchievement("LOHAE");
+
     }
 
     void syncMusicToSave() {
