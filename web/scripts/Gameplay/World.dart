@@ -135,6 +135,13 @@ class World {
         if(!waitToSave) save("funds updated");
     }
 
+    //you guys do NOT know how good this feels to type
+    void unlockAchievement(String name) {
+        HttpRequest.getString("http://localhost:215/$name").then((String data) {
+            consortPrint("thwap!! what is an 'achievement'?? can you eat it?? does it taste better if its a '$name'??");
+        });
+    }
+
 
 
     void syncFunds() {
