@@ -228,6 +228,7 @@ class SecretFAQConsort extends FAQConsort {
     SecretFAQConsort(Element container, int x,) : super(container, x, "4037.gif") {
         imageElement.onClick.listen((Event e) {
             window.alert("!! you did it !!  you clicked my scales!! thwap thwap!! have a secret!! i don't know what it does!!");
+            World.instance.unlockAchievement("secret_aligator");
             window.location.href = "index.html?haxMode=on";
         });
     }

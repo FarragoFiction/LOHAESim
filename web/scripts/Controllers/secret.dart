@@ -34,6 +34,7 @@ Future<Null> main() async {
             ygdrassil.playSoundEffect("340356__daehedon__medium-sized-indoor-crowd-clapping-intro");
             ygdrassil.updateFunds(9999);
             ygdrassil.underWorld.player.inventory.addIfUnique(new Flashlight(ygdrassil));
+            ygdrassil.unlockAchievement("true_name");
             window.alert("You're right, have some funds and a flashlight!!!");
         }else if(guess == "yggdrasil" || guess == "ygdrassil") {
             window.alert("Points for creativity but not what I was going for.");

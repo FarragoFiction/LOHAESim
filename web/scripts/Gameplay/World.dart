@@ -194,7 +194,6 @@ class World {
             copyFromDataString(data);
         }else {
             plotAlreadyPoppedUp = false;
-            unlockAchievement("LOHAE");
             underWorld.player.initialInventory();
             initTrees();
         }
@@ -204,8 +203,8 @@ class World {
         //print("loading...${underWorld.player.funds}} caegers");
         syncMusicToSave();
         fps = musicSave.fps;
+        //not just the first time in case something goes wrong
         unlockAchievement("LOHAE");
-
     }
 
     void syncMusicToSave() {
@@ -515,6 +514,7 @@ class World {
 
     //wait what do you mean there are boss fights in this zen tree game???
     void activateBossFight() {
+        unlockAchievement("Woke_Nidhogg");
         bossFightJustStarted = true;
         consortPrint("oh god why did you do this?? NIDHOGG IS AWAKE!! there's a reason we kept gnawing away the trees!! they give him life!!");
         consortPrint("oh right i remember now, LOHAE is also the land of HORRORTICULTURE and ESSENCE. how could i forget that?");
@@ -550,6 +550,7 @@ class World {
 
     void nidhoggPurified() {
         owoPrint("!!! New Friend!!! You did it!!! You purified that meany Nidhogg!!!");
+        unlockAchievement("purified_nidhogg");
         bossFight = false;
         overWorldDirty = true;
         print("about to be uncorrupting trees");
@@ -564,6 +565,7 @@ class World {
     void nidhoggDies() {
         owoPrint("New Friend!!! You did it!!! Nidhogg is defeated!!! You were so smart to try the Fraymotif!!!");
         consortPrint("thwap!! now we can grow our trees in peace, thwap!!");
+        unlockAchievement("Killed_Nidhogg");
         bossFight = false;
         overWorldDirty = true;
         for(Tree tree in trees) {
