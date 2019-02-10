@@ -127,6 +127,9 @@ class World {
         if(pleaseLoad) load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
+        window.onClick.listen((Event e) {
+            backgroundMusic.play();
+        });
     }
 
     void updateFunds(int amountToChange, [bool waitToSave]) {
