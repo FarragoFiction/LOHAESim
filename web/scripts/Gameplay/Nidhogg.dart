@@ -175,6 +175,13 @@ class Nidhogg extends CollectableSecret {
 
       dirty = true; //redraw
       world.nidhoggPurified();
+      AnchorElement link = new AnchorElement(href: "../PaldemicSim/login.html?username=purified_nidhogg")..text = "What's this?";
+      ImageElement img = new ImageElement(src: "images/BGs/paldemic.png");
+      img.style.display = "inline";
+      link.style.display = "block";
+      link.append(img);
+      link.target="_blank";
+      world.fundsElement.append(link);
   }
 
   void corrupt() {
