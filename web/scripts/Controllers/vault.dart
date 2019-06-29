@@ -11,7 +11,6 @@ import 'package:CommonLib/Collection.dart';
 import 'package:CommonLib/NavBar.dart';
 import 'package:CommonLib/Random.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
-import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 Element output = querySelector('body');
 World ygdrassil = new World();
@@ -19,7 +18,6 @@ World ygdrassil = new World();
 
 Future<Null> main() async {
     await loadNavbar();
-    await OldRenderer.Loader.preloadManifest();
     ygdrassil.makeFundsElement(querySelector("#navbar"));
     Consort.spawnConsorts(output);
     processVault();

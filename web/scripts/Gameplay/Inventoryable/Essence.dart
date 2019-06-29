@@ -1,3 +1,5 @@
+import 'package:CommonLib/Colours.dart';
+
 import '../CollectableSecret.dart';
 import '../Inventoryable/Inventoryable.dart';
 import '../Player.dart';

@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
 import 'package:CommonLib/NavBar.dart';
-import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 
 Element output = querySelector('#output');
@@ -14,7 +13,6 @@ List<int> keycodes = new List<int>();
 Future<Null> main() async {
     querySelector("body").style.height = "2500px";
     await loadNavbar();
-    await OldRenderer.Loader.preloadManifest();
     ygdrassil = new World();
     ygdrassil.health = 26;
     ygdrassil.makeFundsElement(querySelector("#navbar"));

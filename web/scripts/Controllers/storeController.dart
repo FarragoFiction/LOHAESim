@@ -1,3 +1,5 @@
+import 'package:CommonLib/Random.dart';
+
 import '../Gameplay/Consort.dart';
 import '../Gameplay/Inventoryable/Ax.dart';
 import '../Gameplay/Inventoryable/Essence.dart';
@@ -13,11 +15,9 @@ import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
 import 'package:CommonLib/NavBar.dart';
-import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
-import 'package:RenderingLib/src/Misc/random.dart';
 
 Element output = querySelector('#output');
 World ygdrassil = new World();
@@ -31,7 +31,6 @@ DateTime finallyDoneLoading;
 Future<Null> main() async{
     firstLoad = new DateTime.now();
     await loadNavbar();
-    await OldRenderer.Loader.preloadManifest();
     ygdrassil.health = 26;
     ygdrassil.makeFundsElement(querySelector("#navbar"));
     //example store, TODO have actual inventory system loaded from cache

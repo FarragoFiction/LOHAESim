@@ -1,3 +1,6 @@
+import 'package:CommonLib/Random.dart';
+import 'package:LoaderLib/Loader.dart';
+
 import 'Inventoryable/Essence.dart';
 import 'Inventoryable/HelpingHand.dart';
 import 'Nidhogg.dart';
@@ -166,7 +169,7 @@ class UnderWorld {
             }
             dirt.context2D.arc(
                 player.topLeftX, player.topLeftY, flashlighRadius, 0,
-                2 * Math.PI);
+                2 * Math.pi);
             dirt.context2D.save();
             dirt.context2D.clip();
             Renderer.clearCanvas(dirt);

@@ -49,7 +49,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
     String toDataString() {
         try {
             String ret = toJSON().toString();
-            return "Inventory$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+            return "Inventory$labelPattern${base64Url.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
             print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
@@ -147,7 +147,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
         //print("loading inventory from $idontevenKnow");
         inventory.clear(); //i'm loading it so ignore whatever is already here
         if(idontevenKnow == null) return;
-        List<dynamic> what = JSON.decode(idontevenKnow);
+        List<dynamic> what = jsonDecode(idontevenKnow);
         //print("what json is $what");
         for(dynamic d in what) {
             //print("dynamic json thing is  $d");

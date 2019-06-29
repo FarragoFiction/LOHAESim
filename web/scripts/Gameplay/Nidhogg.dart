@@ -1,3 +1,5 @@
+import 'package:CommonLib/Random.dart';
+
 import 'CollectableSecret.dart';
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Bodypillow.dart';
@@ -73,7 +75,7 @@ class Nidhogg extends CollectableSecret {
   String toDataString() {
       try {
           String ret = toJSON().toString();
-          return "Nidhogg$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+          return "Nidhogg$labelPattern${base64Url.encode(ret.codeUnits)}";
       }catch(e) {
           print(e);
           print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
@@ -95,7 +97,7 @@ class Nidhogg extends CollectableSecret {
           dataString = parts[1];
       }
 
-      String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+      String rawJson = new String.fromCharCodes(base64Url.decode(dataString));
       JSONObject json = new JSONObject.fromJSONString(rawJson);
       copyFromJSON(json);
   }

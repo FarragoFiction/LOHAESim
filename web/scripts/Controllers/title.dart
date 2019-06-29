@@ -6,7 +6,6 @@ import 'dart:html';
 import "../Utility/TODOs.dart";
 import 'package:CommonLib/NavBar.dart';
 import 'package:LoaderLib/Loader.dart';
-import "package:RenderingLib/src/loader/loader.dart" as OldRenderer;
 
 
 Element output = querySelector('#output');

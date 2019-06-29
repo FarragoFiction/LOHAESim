@@ -32,7 +32,7 @@ Future<Null> main() async {
     ButtonElement answerButton = querySelector("#pwButton");
     answerButton.onClick.listen((Event e) {
         String guess = input.value.toLowerCase();
-        if(BASE64URL.encode(guess.codeUnits) == answer) {
+        if(base64Url.encode(guess.codeUnits) == answer) {
             ygdrassil.unlockAchievement("true_name");
             ygdrassil.playSoundEffect("340356__daehedon__medium-sized-indoor-crowd-clapping-intro");
             ygdrassil.updateFunds(9999);
@@ -43,8 +43,11 @@ Future<Null> main() async {
             ygdrassil.updateFunds(13);
             window.location.href = "index.html?yearnedFor=Node";
         }else if(guess == "egg dazzle") {
-            window.alert("!!! how did you know!??? But I can't give you the actual prize. Sorry... have this apology egg/13 caegers.");
-            ygdrassil.updateFunds(13);
+            window.alert("!!! how did you know!??? But I can't give you the actual prize. Sorry... have this apology egg/113 caegers.");
+            ygdrassil.updateFunds(113);
+        }else if(guess == "the pit") {
+            window.alert("Oh you watched that stream too? By MiscEris? 413 caegers for you!");
+            ygdrassil.updateFunds(413);
         }else if(guess == "treesim") {
             window.alert("I know I call it that and all but that's hardly a secret.");
     }else {

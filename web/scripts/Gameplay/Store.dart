@@ -1,3 +1,5 @@
+import 'package:CommonLib/Random.dart';
+
 import 'Inventoryable/Ax.dart';
 import 'Inventoryable/Essence.dart';
 import 'Inventoryable/Flashlight.dart';

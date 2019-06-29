@@ -1,3 +1,7 @@
+import 'package:CommonLib/Random.dart';
+import 'package:LoaderLib/Loader.dart';
+import 'package:RenderingLib/RendereringLib.dart';
+
 import 'CollectableSecret.dart';
 import 'Inventory.dart';
 import 'Inventoryable/Ax.dart';
@@ -267,7 +271,7 @@ class World {
             copyFromJSON(json);
         }catch(e, trace) {
             print("error loading data, assuming legacy uncompressed (oh hi there beta tester, thanks for your hard work :) :) :) ), error was $e $trace");
-            String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+            String rawJson = new String.fromCharCodes(base64Url.decode(dataString));
             JSONObject json = new JSONObject.fromJSONString(rawJson);
             copyFromJSON(json);
         }
@@ -312,7 +316,7 @@ class World {
             String ret = sharedToJSON().toString();
             //print("the json string for shared data was $ret");
             //NOT compressed, for ease of accessing shared data
-            return "${BASE64URL.encode(ret.codeUnits)}";
+            return "${base64Url.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
             print("Error Saving Data. Are there any special characters in there? ${sharedToJSON()} $e");
@@ -321,7 +325,7 @@ class World {
 
     void copySharedFromDataString(String dataString) {
         //print("dataString is $dataString");
-        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        String rawJson = new String.fromCharCodes(base64Url.decode(dataString));
         //print("rawJSON is $rawJson");
         JSONObject json = new JSONObject.fromJSONString(rawJson);
         //print("json is $json");
@@ -337,7 +341,7 @@ class World {
 
     void loadTreesFromJSON(String idontevenKnow) {
         if(idontevenKnow == null) return;
-        List<dynamic> what = JSON.decode(idontevenKnow);
+        List<dynamic> what = jsonDecode(idontevenKnow);
         //print("what json is $what");
         for(dynamic d in what) {
             //print("dynamic json thing is  $d");
@@ -350,7 +354,7 @@ class World {
 
     void loadPastFruitFromJSON(String idontevenKnow) {
         if(idontevenKnow == null) return;
-        List<dynamic> what = JSON.decode(idontevenKnow);
+        List<dynamic> what = jsonDecode(idontevenKnow);
         //print("what json is $what");
         for(dynamic d in what) {
             //print("dynamic json thing is  $d");

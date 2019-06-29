@@ -1,3 +1,5 @@
+import 'package:CommonLib/Colours.dart';
+
 import 'Inventoryable/Fruit.dart';
 import 'World.dart';
 import 'dart:async';
@@ -152,7 +154,7 @@ class Tree {
     String toDataString() {
         try {
             String ret = toJSON().toString();
-            return "$name$labelPattern${BASE64URL.encode(ret.codeUnits)}";
+            return "$name$labelPattern${base64Url.encode(ret.codeUnits)}";
         }catch(e) {
             print(e);
            print("Error Saving Data. Are there any special characters in there? ${toJSON()} $e");
@@ -178,7 +180,7 @@ class Tree {
             dataString = parts[1];
         }
 
-        String rawJson = new String.fromCharCodes(BASE64URL.decode(dataString));
+        String rawJson = new String.fromCharCodes(base64Url.decode(dataString));
         JSONObject json = new JSONObject.fromJSONString(rawJson);
         copyFromJSON(json);
     }
