@@ -108,7 +108,7 @@ class World {
 
     //dollstring, archived pairs, useful for record keeping and the like. doesn't have parents (since its meant to be the
     //archetypal fruit, not a specific one
-    Map<String,ArchivedFruit> pastFruit = new Map<String, Fruit>();
+    Map<String,ArchivedFruit> pastFruit = new Map<String, ArchivedFruit>();
     List<String> secretsForCalm = new List<String>();
 
 
