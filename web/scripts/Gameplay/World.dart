@@ -892,7 +892,7 @@ class World {
         treesToAdd.clear();
     }
 
-    void plantATreeAtPoint(Fruit fruit, Point point) {
+    void plantATreeAtPoint(Fruit fruit, Point<num> point) {
         fruit.debugParents();
         if(bossFight) {
             consortPrint("no the denizen is awake these trees are BAD!!");
@@ -907,13 +907,13 @@ class World {
         //ground level
         //bottom center
         int y = 550;
-        int x = point.x;
+        int x = point.x.round();
         int buffer = 100;
         if(x <buffer) x = buffer;
         if(x > width-buffer) x = width-buffer;
 
         if(getParameterByName("haxMode") == "on") {
-            y = point.y; //plant base where you click
+            y = point.y.round(); //plant base where you click
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
@@ -927,7 +927,7 @@ class World {
         }
     }
 
-    void plantAWigglerAtPoint(Essence essence, Point point) {
+    void plantAWigglerAtPoint(Essence essence, Point<num> point) {
         owoPrint("Oh! New Friend! I didn't know you were an AUXILIATRIX!!");
         unlockAchievement("myserty");
         //just a logical result of the trees this fruit came from
@@ -953,10 +953,10 @@ class World {
         //ground level
         //bottom center
         int y = 550;
-        int x = point.x;
+        int x = point.x.round();
 
         if(getParameterByName("haxMode") == "on") {
-            y = point.y; //plant base where you click
+            y = point.y.round(); //plant base where you click
         }
         if(treeDoll is TreeDoll) {
             Tree tree = new Tree(this,treeDoll, x, y);
