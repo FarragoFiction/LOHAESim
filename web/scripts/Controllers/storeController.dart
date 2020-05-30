@@ -1,4 +1,10 @@
+import 'dart:async';
+import 'dart:html';
+
 import 'package:CommonLib/Random.dart';
+import 'package:CommonLib/NavBar.dart';
+import 'package:DollLibCorrect/DollRenderer.dart';
+import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
 
 import '../Gameplay/Consort.dart';
 import '../Gameplay/Inventoryable/Ax.dart';
@@ -11,13 +17,9 @@ import '../Gameplay/Inventoryable/Record.dart';
 import '../Gameplay/Player.dart';
 import '../Gameplay/Store.dart';
 import '../Gameplay/World.dart';
-import 'dart:async';
-import 'dart:html';
-import "../Utility/TODOs.dart";
-import 'package:CommonLib/NavBar.dart';
 
-import 'package:DollLibCorrect/DollRenderer.dart';
-import 'package:DollLibCorrect/src/Dolls/PlantBased/FruitDoll.dart';
+import "../Utility/TODOs.dart";
+
 
 Element output = querySelector('#output');
 World ygdrassil = new World();
@@ -28,7 +30,8 @@ int refreshMinute = 60;
 DateTime firstLoad;
 DateTime finallyDoneLoading;
 
-Future<Null> main() async{
+Future<void> main() async{
+    await Doll.loadFileData();
     firstLoad = new DateTime.now();
     await loadNavbar();
     ygdrassil.health = 26;

@@ -70,14 +70,14 @@ class World {
     bool currentlyRendering = false;
     DateTime lastRender;
     //essentially the frame rate
-    static int fps = 30;
-    int get minTimeBetweenRenders => (1000/fps).round();
+    static double fps = 30;
+    static double get minTimeBetweenRenders => 1000 / fps;
     Inventoryable get activeItem => underWorld.player.inventory.activeItem;
 
     List<Tree> trees = new List<Tree>();
     //flower and fruit both , even if in reality what matters is when both are flowering
     //this is a shortcut because fruit parentage is decided when you pick it, at least for now
-    List<Tree> get floweringTrees =>trees.where((Tree t) => t.stage >= Tree.FLOWERS);
+    Iterable<Tree> get floweringTrees => trees.where((Tree t) => t.stage >= Tree.FLOWERS);
 
     int maxTrees = 8;
     List<OnScreenText> texts = new List<OnScreenText>();
@@ -131,12 +131,12 @@ class World {
         if(pleaseLoad) load();
         consortPrint("thwap!! thwap!! welcome to the Land of Horticulture and Essence!! or was it something else?? i guess it doesn't matter!!");
         owoPrint("New Friend! Let's explore these roots together!");
-        window.onClick.listen((Event e) {
+        window.onClick.first.then((Event e) {//)listen((Event e) {
             backgroundMusic.play();
         });
     }
 
-    void updateFunds(int amountToChange, [bool waitToSave]) {
+    void updateFunds(int amountToChange, [bool waitToSave = false]) {
         underWorld.player.funds += amountToChange;
         syncFunds();
         if(!waitToSave) save("funds updated");
@@ -209,7 +209,7 @@ class World {
         }
         //print("loading...${underWorld.player.funds}} caegers");
         syncMusicToSave();
-        fps = musicSave.fps;
+        fps = musicSave.fps.toDouble();
         //not just the first time in case something goes wrong
         unlockAchievement("LOHAE");
     }
@@ -490,7 +490,7 @@ class World {
 
     void changeMusic(String newMusicLocation, bool sync) {
         //print("changing music to $newMusicLocation");
-        int time = backgroundMusic.currentTime;
+        final double time = backgroundMusic.currentTime;
         //print("current music is ${backgroundMusic.src} time is $time");
         //backgroundMusic.src = "${newMusicLocation}.ogg";
         if(musicAlreadyPlaying(newMusicLocation)) return;
@@ -1032,8 +1032,8 @@ class World {
         }
     }
 
-    Future<Null> renderLoop()async {
-        //make sure it's the right time
+    Future<void> renderLoop() async {
+        /*//make sure it's the right time
         try {
             await window.animationFrame;
             await render(true);
@@ -1043,15 +1043,39 @@ class World {
             print("there was an error rendering and i don't know why. $e $trace");
         }
         new Timer(new Duration(milliseconds: minTimeBetweenRenders), () => renderLoop());
+        */
 
+        double previousFrame = 0.0;
+        double time = 0.0;
+        double dt;
+
+        Future<void> renderCallback(num frame) async {
+            dt = frame - previousFrame;
+            previousFrame = frame;
+            time += dt;
+
+            while (time >= minTimeBetweenRenders) {
+                time -= minTimeBetweenRenders;
+
+                try {
+                    await render(true);
+                } catch (e, trace) {
+                    print("there was an error rendering and i don't know why. $e $trace");
+                }
+            }
+
+            window.requestAnimationFrame(renderCallback);
+        }
+
+        window.requestAnimationFrame(renderCallback);
     }
 
 
-    Future<Null> render([bool force]) async {
+    Future<void> render([bool force = false]) async {
         removeTrees(); //even if you don't render, do this shit.
         addTrees();
         if(buffer == null) await initCanvasAndBuffer();
-        if(!force && (currentlyRendering || !canRender())) return;
+        //if(!force && (currentlyRendering || !canRender())) return;
         if(overWorldDirty || force) {
             currentlyRendering = true;
             //print("rendering at $fps fps or $minTimeBetweenRenders min time between renders");
@@ -1080,7 +1104,7 @@ class World {
         }
 
         onScreen.context2D.drawImage(buffer, 0,0);
-        lastRender = new DateTime.now();
+        //lastRender = new DateTime.now();
         currentlyRendering = false;
     }
 }

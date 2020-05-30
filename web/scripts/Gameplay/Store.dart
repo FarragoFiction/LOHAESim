@@ -32,11 +32,11 @@ class Store extends Inventory {
 
     List<String> cantAffordToBuyQuips = <String>["Don't touch if you can't buy!", "Get out of my shop you broke motherf*****.", "Oh come on, seriously?", "This isn't a charity.", "I only give discounts to people with good taste", "Better luck next time bozo!", "No cash, no goodies"];
 
-    List<Inventoryable> saleItems;
+    Iterable<Inventoryable> saleItems;
     Element buyTable;
     Element sellTable;
     bool buying = true;
-  Store(World world, List<Inventoryable> inventory, List<Inventoryable> this.saleItems) : super(world, inventory);
+  Store(World world, List<Inventoryable> inventory, Iterable<Inventoryable> this.saleItems) : super(world, inventory);
 
   @override
   Element makeRightElement() {

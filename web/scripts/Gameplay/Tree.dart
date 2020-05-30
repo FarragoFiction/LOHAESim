@@ -220,14 +220,14 @@ class Tree {
         }
     }
 
-    void produceFruit(PositionedDollLayer fruitLayer, List<Tree> parents) {
+    void produceFruit(PositionedDollLayer fruitLayer, Iterable<Tree> parents) {
         //print("producing fruit with parents $parents");
         Fruit fruitItem = new Fruit(world,fruitLayer.doll.clone());
         if(fruitItem.doll is FruitDoll) {
             (fruitItem.doll as FruitDoll).setName();
             //print("producing fruit with seed ${fruitItem.doll.seed} and name ${fruitItem.doll.dollName}");
         }
-        fruitItem.parents = new List.from(parents.map((Tree tree)=> tree.doll));
+        fruitItem.parents = new List<TreeDoll>.from(parents.map((Tree tree)=> tree.doll));
         world.underWorld.player.inventory.add(fruitItem);
         // print("before picking fruit the tree had ${tree.doll.renderingOrderLayers.length} layers");
         doll.dataOrderLayers.remove(fruitLayer);

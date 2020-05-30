@@ -1,16 +1,17 @@
-import '../Gameplay/OnScreenText.dart';
-import '../Gameplay/Player.dart';
-import '../Gameplay/World.dart';
 import 'dart:async';
 import 'dart:html';
-import "../Utility/TODOs.dart";
-import 'package:CommonLib/NavBar.dart';
 
+import 'package:CommonLib/NavBar.dart';
+import 'package:DollLibCorrect/DollRenderer.dart';
+
+import '../Gameplay/Player.dart';
+import '../Gameplay/World.dart';
 
 Element output = querySelector('#output');
 World ygdrassil;
-List<int> keycodes = new List<int>();
-Future<Null> main() async {
+Set<int> keycodes = <int>{};
+Future<void> main() async {
+    await Doll.loadFileData();
     querySelector("body").style.height = "2500px";
     await loadNavbar();
     ygdrassil = new World();

@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
 
+import "package:DollLibCorrect/DollRenderer.dart";
+
 import 'dart:math' as Math;
 import 'package:CommonLib/Collection.dart';
 import 'package:CommonLib/NavBar.dart';
@@ -17,6 +19,7 @@ World ygdrassil = new World();
 
 
 Future<Null> main() async {
+    await Doll.loadFileData();
     await loadNavbar();
     ygdrassil.makeFundsElement(querySelector("#navbar"));
     Consort.spawnConsorts(output);

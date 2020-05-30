@@ -6,9 +6,11 @@ import "../Utility/TODOs.dart";
 
 import 'package:CommonLib/NavBar.dart';
 import 'package:CommonLib/src/utility/JSONObject.dart';
+import "package:DollLibCorrect/DollRenderer.dart";
 
 Element output = querySelector('#output');
 Future<Null> main() async{
+    await Doll.loadFileData();
     await loadNavbar();
     SaveSlot.handleSaveSlots(output);
 

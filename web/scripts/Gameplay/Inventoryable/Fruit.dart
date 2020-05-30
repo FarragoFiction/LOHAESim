@@ -11,10 +11,10 @@ import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:TextEngine/TextEngine.dart';
 import "dart:math" as Math;
 
-class Fruit extends Object with Inventoryable {
+class Fruit extends Inventoryable {
     //not necessarily a fruit doll
     Doll doll;
-    List<Doll> parents = new List<Doll>();
+    List<Doll> parents = <Doll>[];
     @override
     bool canSell = true;
 
@@ -42,8 +42,8 @@ class Fruit extends Object with Inventoryable {
 
     void debugParents() {
        // print("debugging parents for $name");
-        for(TreeDoll parent in parents) {
-            List<PositionedDollLayer> hangables = parent.hangables;
+        for(final TreeDoll parent in parents) {
+            final Iterable<SpriteLayer> hangables = parent.hangables;
             //print("there are ${hangables.length} fruit in the parent");
             if(hangables.isNotEmpty) {
                // print("the first hangable is seed id ${hangables.first.doll.seed} ");
@@ -57,16 +57,18 @@ class Fruit extends Object with Inventoryable {
         if(world != null && !(this is ArchivedFruit)) {
             //using seed because otherwise offscreen colors will effect if it's 'unique'
             //and that's unintuitive
-            String key = "${doll.seed}";
+            final String key = "${doll.seed}";
             if(!world.pastFruit.containsKey(key)){
                 consortPrint("archiving $name!! now we will have this for generations!!");
-                ArchivedFruit archive = new ArchivedFruit(doll);
+                final ArchivedFruit archive = new ArchivedFruit(doll);
                 archive.description = description;
                 archive.cost = cost;
                 world.pastFruit[key]= archive;
                 world.save("made an archive");
+                return archive;
             }
         }
+        return null;
     }
 
     //only item type that has a doll
@@ -300,7 +302,7 @@ class ArchivedFruit extends Fruit {
         return fruit;
     }
 
-    void renderMyVault(DivElement parent) {
+    void renderMyVault(Element parent) {
         wrapper = new DivElement()..classes.add("wrapper");
         myInventoryDiv = new DivElement();
         myInventoryDiv.classes.add("innerInventoryTableRowVault");

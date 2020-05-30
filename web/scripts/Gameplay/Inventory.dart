@@ -1,16 +1,3 @@
-import 'Consort.dart';
-import 'Inventoryable/Ax.dart';
-import 'Inventoryable/Bodypillow.dart';
-import 'Inventoryable/Essence.dart';
-import 'Inventoryable/Flashlight.dart';
-import 'Inventoryable/Fruit.dart';
-import 'Inventory.dart';
-import 'Inventoryable/HelpingHand.dart';
-import 'Inventoryable/Inventoryable.dart';
-import 'Inventoryable/Record.dart';
-import 'Inventoryable/YellowYard.dart';
-import 'Store.dart';
-import 'World.dart';
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
@@ -19,6 +6,19 @@ import 'dart:html';
 import 'package:CommonLib/Utility.dart';
 import 'package:DollLibCorrect/src/Dolls/KidBased/HomestuckGrubDoll.dart';
 import 'package:RenderingLib/RendereringLib.dart';
+
+import 'Inventoryable/Ax.dart';
+import 'Inventoryable/Bodypillow.dart';
+import 'Inventoryable/Essence.dart';
+import 'Inventoryable/Flashlight.dart';
+import 'Inventoryable/Fruit.dart';
+import 'Inventoryable/HelpingHand.dart';
+import 'Inventoryable/Inventoryable.dart';
+import 'Inventoryable/Record.dart';
+import 'Inventoryable/YellowYard.dart';
+import 'Store.dart';
+import 'World.dart';
+
 class Inventory extends Object with IterableMixin<Inventoryable>{
     static String labelPattern = ":___ ";
 
@@ -39,7 +39,7 @@ class Inventory extends Object with IterableMixin<Inventoryable>{
 
     List<Inventoryable> inventory;
     World world;
-    List<Inventoryable> get saleItems =>inventory.where((Inventoryable t) => t.canSell);
+    Iterable<Inventoryable> get saleItems =>inventory.where((Inventoryable t) => t.canSell);
 
 
     Inventory(World this.world, List<Inventoryable> this.inventory) {

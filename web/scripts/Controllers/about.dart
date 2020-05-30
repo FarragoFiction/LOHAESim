@@ -5,6 +5,8 @@ import 'dart:async';
 import 'dart:html';
 import "../Utility/TODOs.dart";
 
+import "package:DollLibCorrect/DollRenderer.dart";
+
 import 'package:CommonLib/NavBar.dart';
 import 'package:CommonLib/Random.dart';
 /*
@@ -73,6 +75,7 @@ Element output = querySelector('#output');
 World ygdrassil = new World();
 
 Future<Null> main() async {
+    await Doll.loadFileData();
     await loadNavbar();
     start();
 }
