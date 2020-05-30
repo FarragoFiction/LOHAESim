@@ -1,14 +1,11 @@
 name: LOHAESim
 description: Land of H--and Essence
-version: 0.0.1
-#homepage: https://www.example.com
-#author: jadedResearcher <email@example.com>
+version: 2.2.0
+homepage: https://github.com/FarragoFiction/LOHAESim
+author: jadedResearcher
 
 environment:
-  sdk: '>=2.1.0 <3.0.0'
-
-#dependencies:
-#  path: ^1.4.1
+  sdk: '>=2.2.0 <3.0.0'
 
 dependencies:
   DollLibCorrect:
@@ -36,12 +33,3 @@ dev_dependencies:
   build_runner: ^1.1.2
   build_web_compilers: ^1.0.0
   pedantic: ^1.0.0
-
-transformers:
-  - dart_to_js_script_rewriter
-
-# Uncomment the following in sdk 1.24+ to make pub serve
-# use dartdevc (webdev.dartlang.org/tools/dartdevc).
-#web:
-#  compiler:
-#    debug: dartdevc
